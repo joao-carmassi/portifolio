@@ -6,8 +6,8 @@ const imgLinkedin = document.querySelector('#imgLinkedin');
 const imgAlura = document.querySelector('#imgAlura');
 const imgLocalizacao = document.querySelector('#imgLocalizacao');
 
-var temaBranco = true;
-var tema;
+var temaBranco = false;
+var tema = true;
 
 checaTema();
 
@@ -28,18 +28,18 @@ function checaTema() {
 
 function trocaTema() {
     if(tema === true) {
-        htmlPagina.setAttribute('data-contexto', 'tema-branco');
+        htmlPagina.setAttribute('data-contexto', 'tema-escuro');
 
-        btnTrocaTema.classList.remove('button-troca-tema-active');
+        btnTrocaTema.classList.add('button-troca-tema-active');
 
         imgGit.setAttribute('src', './assets/imgs/gitBranco.svg');
         imgLinkedin.setAttribute('src', './assets/imgs/linkedinBranco.svg');
         imgAlura.setAttribute('src', './assets/imgs/aluraBranco.svg');
         imgLocalizacao.setAttribute('src', './assets/imgs/localizacaoBranco.svg');
     } else {
-        htmlPagina.setAttribute('data-contexto', 'tema-escuro');
+        htmlPagina.setAttribute('data-contexto', 'tema-branco');
 
-        btnTrocaTema.classList.add('button-troca-tema-active');
+        btnTrocaTema.classList.remove('button-troca-tema-active');
 
         imgGit.setAttribute('src', './assets/imgs/gitBranco.svg');
         imgLinkedin.setAttribute('src', './assets/imgs/linkedinBranco.svg');
