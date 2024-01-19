@@ -22,7 +22,7 @@
     --font-aside: sans-serif;
     --font-conteudo: 'Merriweather';
 
-    --font-size-nav-a:1.2em;
+    --font-size-nav-a: 1.2em;
     --font-size-nav-h2: 1.8em;
     --font-size-aside-titulo: 1.2em;
     --font-size-article-titulo: 1.5em;
@@ -285,6 +285,10 @@ nav ul li a:hover {
 }
 
 @media only screen and (max-width: 480px) {
+    :root {
+        --font-size-nav-a: 1.2em;
+    }
+
     body {
         font-size: 12px;
     }
@@ -309,7 +313,7 @@ nav ul li a:hover {
     .container1__article__titulo h2 {
         font-size: 1.1em;
     }
-    
+
     .container1__aside {
         height: 90%;
         width: 100%;

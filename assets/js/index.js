@@ -7,7 +7,7 @@ const imgAlura = document.querySelector('#imgAlura');
 const imgLocalizacao = document.querySelector('#imgLocalizacao');
 
 var temaBranco = false;
-var tema = true;
+var tema;
 
 checaTema();
 
