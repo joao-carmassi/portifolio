@@ -171,10 +171,6 @@ nav ul li a:hover {
     height: 3%;
 }
 
-.div__localizacao img {
-    height: 80%;
-}
-
 .container1__aside__lista__itens {
     margin: 3% 0;
 }
@@ -278,6 +274,97 @@ nav ul li a:hover {
     background-color: #b0b0b0;
     border-radius: 10px;
     border: 0px solid #ffffff;
+}
+
+@media only screen and (max-width: 555px) {
+        :root {
+        --font-size-nav-a: 1.6em;
+        --container1-aside-titulo: 1.3em;
+        --container1-aside-lista-itens: 1.2em;
+        --container1-aside-localizacao: 1.1em;
+    }
+
+    body {
+        font-size: 12px;
+    }
+
+    header {
+        position: fixed;
+        z-index: 99;
+        width: 100%;
+    }
+
+    .logo {
+        display: none;
+    }
+
+    nav>ul {
+        min-width: 280px;
+        width: 90%;
+        margin-right: 0;
+        margin-left: auto;
+    }
+
+    .container1 {
+        padding-top: 10vh;
+        height: 180vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .container1__aside {
+        height: 100%;
+        width: 100%;
+        -webkit-box-shadow: 0px 0 0px 0px rgba(0, 0, 0, 0);
+        -moz-box-shadow: 0px 0 0px 0px rgba(0, 0, 0, 0);
+        box-shadow: 0px 0 0px 0px rgba(0, 0, 0, 0);
+    }
+
+    .container1__aside__titulo {
+        font-size: var(--container1-aside-titulo);
+    }
+    
+    .container1__aside__lista__itens {
+        font-size: var(--container1-aside-lista-itens);
+        text-align: center;
+    }
+
+    .container1__aside__localizacao {
+        font-size: var(--container1-aside-localizacao);
+    }
+    
+    .container1__aside__links{
+        gap: 40%;
+    }
+    
+    .container1__aside__links__link img {
+        width: 400%;
+    }
+    
+    .container1__article {
+        width: 100%;
+        height: 100%;
+    }
+
+    .container1__article__titulo h1,
+    .container1__article__titulo h2 {
+        font-size: 1.1em;
+    }
+    
+    .container1__article__titulo {
+        min-height: 100px;
+        height: 16%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: var(--bg-color-principal);
+        text-align: center;
+    }
+
+    .container1__article__titulo>span {
+        text-align: center;
+    }
 }
 
 @media only screen and (max-width: 555px) {
