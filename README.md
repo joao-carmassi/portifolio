@@ -11,4 +11,4 @@
 * Fetch API
 
 ## Link:
-https://joao-carmassi.github.io/Portifolio/
+https://joao-carmassi.github.io/portifolio/
