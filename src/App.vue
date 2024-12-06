@@ -25,6 +25,7 @@ import FundoColorido from "./components/FundoColorido.vue";
 import AboutMe from "./components/AboutMe.vue";
 import FormEmail from "./components/FormEmail.vue";
 import ModalResEmail from "./components/ModalResEmail.vue";
+import { aplicaAnimacoes } from "./app/util/aplicaAnimacoes";
 
 export default {
   components: {
@@ -38,12 +39,15 @@ export default {
     FormEmail,
     ModalResEmail,
   },
+  mounted() {
+    aplicaAnimacoes();
+  },
 };
 </script>
 
 <!-- TODO: Arrumar
   melhorarInputs,
-  validarForm
+  validarForm,
 -->
 
 <style>

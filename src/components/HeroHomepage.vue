@@ -1,5 +1,6 @@
 <template>
   <section
+    id="heroHomePage"
     class="hero text-white min-h-svh bg-center bg-no-repeat bg-cover md:bg-contain bg-black"
     style="background-image: url('./assets/imgs/ImgBg.jpg')"
   >
@@ -16,7 +17,7 @@
         <p class="text-3xl textShadow md:text-4xl">
           I'm a <span class="font-bold">web developer</span>
         </p>
-        <ul class="flex mt-5 justify-center gap-8 items-center">
+        <ul class="flex mt-6 justify-center gap-8 items-center">
           <li
             class="butaoRedesSociais duration-300 hover:border-blue-600 border-2 backdrop-blur-lg p-2 rounded-full border-white"
           >

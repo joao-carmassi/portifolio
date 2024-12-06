@@ -10,13 +10,28 @@
     <nav>
       <div class="grid grid-flow-col gap-4">
         <a target="_blank" href="https://github.com/joao-carmassi">
-          <img class="w-8" src="/assets/imgs/icons/github.svg" alt="" />
+          <img
+            loading="lazy"
+            class="w-8"
+            src="/assets/imgs/icons/github.svg"
+            alt=""
+          />
         </a>
         <a target="_blank" href="https://www.instagram.com/joao_carmassi/">
-          <img class="w-8" src="/assets/imgs/icons/instagram.svg" alt="" />
+          <img
+            loading="lazy"
+            class="w-8"
+            src="/assets/imgs/icons/instagram.svg"
+            alt=""
+          />
         </a>
         <a target="_blank" href="https://www.linkedin.com/in/joao-carmassi/">
-          <img class="w-8" src="/assets/imgs/icons/linkedin.svg" alt="" />
+          <img
+            loading="lazy"
+            class="w-8"
+            src="/assets/imgs/icons/linkedin.svg"
+            alt=""
+          />
         </a>
       </div>
     </nav>

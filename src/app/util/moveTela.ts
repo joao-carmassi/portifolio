@@ -1,4 +1,10 @@
 export class MoveTela {
+  heroHomepage() {
+    document
+      .getElementById("heroHomePage")
+      ?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+
   contactMe() {
     document
       .getElementById("containerFormEmail")

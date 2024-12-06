@@ -1,6 +1,7 @@
 <template>
   <section class="bg-base-200">
     <div
+      id="animacaoScrollForm"
       class="p-8 py-10 flex flex-col md:min-h-screen md:flex-row-reverse md:gap-20"
     >
       <div class="text-center w-full lg:text-left flex flex-col justify-center">
@@ -11,7 +12,10 @@
           to new opportunities and collaborations.
         </p>
       </div>
-      <div class="w-full flex items-center md:justify-end">
+      <div
+        id="animacaoScrollForm"
+        class="w-full flex items-center md:justify-end"
+      >
         <div class="card bg-base-100 h-fit w-full max-w-sm shrink-0 shadow-2xl">
           <form id="formEmail" class="card-body">
             <div class="form-control">

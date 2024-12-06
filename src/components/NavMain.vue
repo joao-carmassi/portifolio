@@ -34,11 +34,13 @@
           <li><button class="p-3 text-base">Exemple</button></li>
         </ul>
       </div>
-      <img
-        class="h-14 aspect-square rounded-full"
-        src="/assets/imgs/icons/icon-preto.png"
-        alt=""
-      />
+      <button @click="controleTela?.heroHomepage" class="hover:cursor-pointer">
+        <img
+          class="h-14 aspect-square rounded-full"
+          src="/assets/imgs/icons/icon-preto.png"
+          alt=""
+        />
+      </button>
     </div>
     <div class="navbar-center hidden lg:flex">
       <ul class="menu menu-horizontal px-1 text-base font-semibold">

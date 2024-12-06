@@ -5,7 +5,10 @@
         About Me:
       </h2>
     </div>
-    <div class="mx-4 shadow-xl mb-20 md:w-1/2 h-fit bg-base-100 rounded-xl">
+    <div
+      id="animacaoScrollAbout"
+      class="mx-4 shadow-xl mb-20 md:w-1/2 h-fit bg-base-100 rounded-xl"
+    >
       <div
         class="h-14 bg-white gap-4 px-5 rounded-t-xl flex justify-start items-center"
       >
@@ -96,10 +99,6 @@ export default {};
 
 <style scoped>
 .containerCodigo {
-  & div {
-    margin-left: 2rem;
-  }
-
   & .ponto {
     color: #d272c6;
   }
@@ -118,6 +117,16 @@ export default {};
 
   & span {
     color: #e7de79;
+  }
+
+  & div {
+    margin-left: 1.5rem;
+  }
+
+  @media (min-width: 728px) {
+    & div {
+      margin-left: 2rem;
+    }
   }
 }
 </style>
