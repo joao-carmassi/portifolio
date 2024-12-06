@@ -1,7 +1,7 @@
 <template>
   <nav
     :class="corNav"
-    class="fixed px-6 duration-700 delay-300 z-50 navbar bg-base-100 text-primary"
+    class="fixed md:px-6 duration-700 delay-300 z-50 navbar bg-base-100 text-primary"
   >
     <div class="navbar-start">
       <div class="dropdown">
