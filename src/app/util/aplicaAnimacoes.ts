@@ -6,7 +6,7 @@ export function aplicaAnimacoes() {
     distance: "20%",
     origin: "left",
     duration: 1000,
-    viewFactor: 0.5,
+    viewFactor: 0.25,
   };
   ScrollReveal().reveal("#animacaoScrollForm", animationsScrollForm);
 
