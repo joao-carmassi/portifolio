@@ -12,7 +12,6 @@
     "lint": "eslint . --fix"
   },
   "dependencies": {
-    "motion": "^11.13.1",
     "scrollreveal": "^4.0.9",
     "vue": "^3.5.12"
   },
