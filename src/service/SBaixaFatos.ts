@@ -1,14 +1,16 @@
-import type { IFatos } from "../interface/iFatos";
+import type { IFatos } from "../interface/IFatos";
 
 const API_KEY = "https://uselessfacts.jsph.pl/api/v2/facts/random";
 
+import axios from "axios";
 export default function baixaFatos(): Promise<IFatos> {
-  return fetch(API_KEY)
+  return axios
+    .get(API_KEY)
     .then((res) => {
-      if (!res.ok) {
+      if (res.status !== 200) {
         throw new Error(`${res.status} - ${res.statusText}`);
       }
-      return res.json();
+      return res.data;
     })
     .then((data) => {
       data.text = `"${data.text}"`;

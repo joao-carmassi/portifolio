@@ -26,7 +26,10 @@
           class="menu text-primary bg-base-100 menu-sm dropdown-content rounded-box z-[1] mt-6 w-52 p-2 shadow-md font-semibold"
         >
           <li>
-            <button @click="controleTela?.about" class="p-3 text-base">
+            <button
+              @click="controleTela?.move('containerAbout')"
+              class="p-3 text-base"
+            >
               About
             </button>
           </li>
@@ -34,7 +37,10 @@
           <li><button class="p-3 text-base">Exemple</button></li>
         </ul>
       </div>
-      <button @click="controleTela?.heroHomepage" class="hover:cursor-pointer">
+      <button
+        @click="controleTela?.move('heroHomePage')"
+        class="hover:cursor-pointer"
+      >
         <img
           class="h-14 aspect-square rounded-full"
           src="/assets/imgs/icons/icon-preto.png"
@@ -44,14 +50,16 @@
     </div>
     <div class="navbar-center hidden lg:flex">
       <ul class="menu menu-horizontal px-1 text-base font-semibold">
-        <li><button @click="controleTela?.about">About</button></li>
+        <li>
+          <button @click="controleTela?.move('containerAbout')">About</button>
+        </li>
         <li><button>Exemple</button></li>
         <li><button>Exemple</button></li>
       </ul>
     </div>
     <div class="navbar-end">
       <button
-        @click="controleTela?.contactMe"
+        @click="controleTela?.move('containerFormEmail')"
         class="btn border-2 min-h-11 h-11 px-8 rounded-none text-sm hover:border-primary hover:text-base-100 hover:bg-primary text-primary border-primary bg-base-100"
       >
         Contact
@@ -61,7 +69,7 @@
 </template>
 
 <script lang="ts">
-import { MoveTela } from "@/app/util/moveTela";
+import { MoveTela } from "@/util/moveTela";
 
 export default {
   data() {

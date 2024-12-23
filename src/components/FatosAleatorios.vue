@@ -17,8 +17,8 @@
 </template>
 
 <script lang="ts">
-import type { IFatos } from "@/app/interface/iFatos";
-import baixaFatos from "@/app/service/baixaFatos";
+import type { IFatos } from "@/interface/IFatos";
+import baixaFatos from "@/service/SBaixaFatos";
 
 export default {
   data() {

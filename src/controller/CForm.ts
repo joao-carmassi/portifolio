@@ -1,4 +1,4 @@
-import enviaDadosForm from "../service/enviaDadosForm";
+import enviaDadosForm from "@/service/SEnviaForm";
 
 export class formEmail {
   private form;
@@ -27,6 +27,7 @@ export class formEmail {
     this.form.addEventListener("submit", (e) => {
       e.preventDefault();
       const dados = {
+        access_key: "e25d109e-87c5-431e-9bd5-89f4b0792f09",
         nome: this.inputNome.value,
         email: this.inputEmail.value,
         phone: this.inputPhone.value,

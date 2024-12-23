@@ -6,6 +6,7 @@ export class ControlerModal {
 
   constructor() {
     this.modal = document.getElementById("modalRes") as HTMLDialogElement;
+    console.log(this.modal);
     this.titulo = this.modal.querySelector("#titulo") as HTMLElement;
     this.conteudo = this.modal.querySelector("#conteudo") as HTMLElement;
     this.btn = this.modal.querySelector("#btn") as HTMLElement;
@@ -40,9 +41,5 @@ export class ControlerModal {
     this.conteudo.textContent = "";
     this.btn.classList.remove("btn-error");
     this.btn.classList.remove("btn-success");
-  }
-
-  private adicionaEventoFechar() {
-    this.btn.addEventListener("click", this.fechaModal);
   }
 }

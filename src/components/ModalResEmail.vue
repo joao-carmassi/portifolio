@@ -22,7 +22,7 @@
 </template>
 
 <script lang="ts">
-import { ControlerModal } from "@/app/controller/cModalEmail";
+import { ControlerModal } from "@/controller/CModalEmail";
 
 export default {
   data() {

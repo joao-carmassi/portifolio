@@ -2,9 +2,11 @@
   <section class="bg-base-200">
     <div
       id="animacaoScrollForm"
-      class="p-8 py-10 flex flex-col md:min-h-screen md:flex-row-reverse md:gap-20"
+      class="p-8 py-10 flex flex-col lg:min-h-screen gap-5 lg:flex-row-reverse lg:gap-20"
     >
-      <div class="text-center w-full lg:text-left flex flex-col justify-center">
+      <div
+        class="text-center w-full lg:text-left items-center lg:items-start flex flex-col justify-center"
+      >
         <h2 class="text-4xl font-bold">Contact me!</h2>
         <p class="py-5 md:w-4/5">
           I’d love to hear from you! Whether you have a question, a project in
@@ -14,7 +16,7 @@
       </div>
       <div
         id="animacaoScrollForm"
-        class="w-full flex items-center md:justify-end"
+        class="w-full flex items-center justify-center lg:justify-end"
       >
         <div class="card bg-base-100 h-fit w-full max-w-sm shrink-0 shadow-2xl">
           <form id="formEmail" class="card-body">
@@ -83,7 +85,7 @@
 </template>
 
 <script lang="ts">
-import { formEmail } from "@/app/controller/cForm";
+import { formEmail } from "@/controller/CForm";
 
 export default {
   data() {

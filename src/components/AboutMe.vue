@@ -7,7 +7,7 @@
     </div>
     <div
       id="animacaoScrollAbout"
-      class="mx-4 shadow-xl mb-20 md:w-1/2 h-fit bg-base-100 rounded-xl"
+      class="mx-4 shadow-xl mb-20 lg:w-1/2 h-fit bg-base-100 rounded-xl"
     >
       <div
         class="h-14 bg-white gap-4 px-5 rounded-t-xl flex justify-start items-center"

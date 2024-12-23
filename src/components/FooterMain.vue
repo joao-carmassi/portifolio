@@ -1,7 +1,10 @@
 <template>
   <footer class="footer footer-center bg-primary text-base-100 rounded p-10">
     <nav class="grid grid-flow-col gap-4">
-      <button @click="controleTela?.about" class="link link-hover">
+      <button
+        @click="controleTela?.move('containerAbout')"
+        class="link link-hover"
+      >
         About
       </button>
       <button class="link link-hover">Exemple</button>
@@ -42,7 +45,7 @@
 </template>
 
 <script lang="ts">
-import { MoveTela } from "@/app/util/moveTela";
+import { MoveTela } from "@/util/moveTela";
 
 export default {
   data() {

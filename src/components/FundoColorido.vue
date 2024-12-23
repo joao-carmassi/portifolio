@@ -7,7 +7,7 @@
   </section>
 </template>
 <script lang="ts">
-import adicionaFundoColorido from "@/app/util/fundoColorido";
+import adicionaFundoColorido from "@/util/fundoColorido";
 import ShapeDivider from "./ShapeDivider.vue";
 
 export default {
