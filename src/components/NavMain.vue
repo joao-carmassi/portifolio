@@ -26,21 +26,19 @@
           class="menu text-primary bg-base-100 menu-sm dropdown-content rounded-box z-[1] mt-6 w-52 p-2 shadow-md font-semibold"
         >
           <li>
-            <button
-              @click="controleTela?.move('containerAbout')"
-              class="p-3 text-base"
-            >
+            <button @click="mecheATela('containerAbout')" class="p-3 text-base">
               About
             </button>
           </li>
-          <li><button class="p-3 text-base">Exemple</button></li>
+          <li>
+            <button @click="mecheATela('infoGithub')" class="p-3 text-base">
+              Github
+            </button>
+          </li>
           <li><button class="p-3 text-base">Exemple</button></li>
         </ul>
       </div>
-      <button
-        @click="controleTela?.move('heroHomePage')"
-        class="hover:cursor-pointer"
-      >
+      <button @click="mecheATela('heroHomePage')" class="hover:cursor-pointer">
         <img
           class="h-14 aspect-square rounded-full"
           src="/assets/imgs/icons/icon-preto.png"
@@ -51,15 +49,15 @@
     <div class="navbar-center hidden lg:flex">
       <ul class="menu menu-horizontal px-1 text-base font-semibold">
         <li>
-          <button @click="controleTela?.move('containerAbout')">About</button>
+          <button @click="mecheATela('containerAbout')">About</button>
         </li>
-        <li><button>Exemple</button></li>
+        <li><button @click="mecheATela('infoGithub')">Github</button></li>
         <li><button>Exemple</button></li>
       </ul>
     </div>
     <div class="navbar-end">
       <button
-        @click="controleTela?.move('containerFormEmail')"
+        @click="mecheATela('containerFormEmail')"
         class="btn border-2 min-h-11 h-11 px-8 rounded-none text-sm hover:border-primary hover:text-base-100 hover:bg-primary text-primary border-primary bg-base-100"
       >
         Contact
@@ -69,17 +67,15 @@
 </template>
 
 <script lang="ts">
-import { MoveTela } from "@/util/moveTela";
+import moveTela from "@/util/moveTela";
 
 export default {
   data() {
     return {
       corNav: "",
-      controleTela: null as MoveTela | null,
     };
   },
   created() {
-    this.controleTela = new MoveTela();
     this.escondeNav();
   },
   methods: {
@@ -90,6 +86,9 @@ export default {
         this.corNav = "top-[-5rem]";
       }
       window.addEventListener("scroll", this.escondeNav);
+    },
+    mecheATela(id: string) {
+      moveTela(id);
     },
   },
 };

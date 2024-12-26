@@ -2,7 +2,7 @@
   <header>
     <NavMain />
   </header>
-  <main class="overflow-hidden">
+  <main>
     <RouterView />
   </main>
   <FooterMain />

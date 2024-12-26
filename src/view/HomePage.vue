@@ -4,6 +4,7 @@
   <FundoColorido id="containerAbout">
     <AboutMe />
   </FundoColorido>
+  <RepsGraph />
   <FormEmail id="containerFormEmail" />
   <MapaHomepage />
 </template>
@@ -16,6 +17,7 @@ import FundoColorido from "../components/FundoColorido.vue";
 import AboutMe from "../components/AboutMe.vue";
 import FormEmail from "../components/FormEmail.vue";
 import { aplicaAnimacoes } from "../util/aplicaAnimacoes";
+import RepsGraph from "@/components/RepsGraph.vue";
 
 export default {
   components: {
@@ -25,7 +27,9 @@ export default {
     FundoColorido,
     AboutMe,
     FormEmail,
+    RepsGraph,
   },
+
   mounted() {
     aplicaAnimacoes();
   },

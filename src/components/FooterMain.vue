@@ -1,13 +1,12 @@
 <template>
   <footer class="footer footer-center bg-primary text-base-100 rounded p-10">
     <nav class="grid grid-flow-col gap-4">
-      <button
-        @click="controleTela?.move('containerAbout')"
-        class="link link-hover"
-      >
+      <button @click="mecheATela('containerAbout')" class="link link-hover">
         About
       </button>
-      <button class="link link-hover">Exemple</button>
+      <button @click="mecheATela('infoGithub')" class="link link-hover">
+        Github
+      </button>
       <button class="link link-hover">Exemple</button>
     </nav>
     <nav>
@@ -45,17 +44,18 @@
 </template>
 
 <script lang="ts">
-import { MoveTela } from "@/util/moveTela";
+import moveTela from "@/util/moveTela";
 
 export default {
   data() {
     return {
       corNav: "",
-      controleTela: null as MoveTela | null,
     };
   },
-  created() {
-    this.controleTela = new MoveTela();
+  methods: {
+    mecheATela(id: string) {
+      moveTela(id);
+    },
   },
 };
 </script>

@@ -1,7 +1,5 @@
-export class MoveTela {
-  move(seletor: string) {
-    document
-      .getElementById(seletor)
-      ?.scrollIntoView({ behavior: "smooth", block: "center" });
-  }
+export default function moveTela(seletor: string) {
+  document
+    .getElementById(seletor)
+    ?.scrollIntoView({ behavior: "smooth", block: "center" });
 }
