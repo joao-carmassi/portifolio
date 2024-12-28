@@ -55,7 +55,7 @@
         <li><button>Exemple</button></li>
       </ul>
     </div>
-    <div class="navbar-end">
+    <div class="navbar-end mr-2 md:mr-0">
       <button
         @click="mecheATela('containerFormEmail')"
         class="btn border-2 min-h-11 h-11 px-8 rounded-none text-sm hover:border-primary hover:text-base-100 hover:bg-primary text-primary border-primary bg-base-100"

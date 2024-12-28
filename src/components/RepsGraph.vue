@@ -1,48 +1,59 @@
 <template>
   <section class="bg-base-100 px-5">
-    <div class="py-10 md:py-14 grid place-items-center">
+    <div class="py-8 md:py-12 grid place-items-center">
       <h2 class="text-3xl md:text-4xl text-primary font-semibold">Github</h2>
     </div>
-    <div
-      class="pb-14 md:pb-20 grid place-items-center gap-16 justify-center h-full"
-    >
-      <div id="infoGithub" class="shadow-lg max-h grid place-items-center">
-        <header class="bg-primary w-full">
+    <div class="pb-14 max-w-full md:pb-20 grid place-items-center">
+      <div
+        id="infoGithub"
+        class="shadow-xl md:w-4/5 lg:w-1/2 grid place-items-center"
+      >
+        <header class="bg-primary w-full flex items-center h-fit p-4 gap-4">
           <a
-            class="flex items-center w-fit h-fit p-4 gap-4"
             :href="user.html_url"
             target="_blank"
+            class="hover:ring ring-white duration-300 rounded-full avatar online"
           >
-            <div class="avatar online">
-              <div class="w-16 rounded-full">
-                <img :src="user.avatar_url" />
-              </div>
+            <div class="w-16 rounded-full">
+              <img :src="user.avatar_url" />
             </div>
-            <h2 class="text-lg text-white font-semibold">{{ user.login }}</h2>
           </a>
+          <h2 class="text-lg text-white font-semibold">{{ user.login }}</h2>
         </header>
         <main>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
             <div class="bg-base-200 p-4 rounded-lg">
-              <h3 class="text-lg font-semibold text-primary">Repositórios:</h3>
-              <p class="text-2xl font-semibold">{{ user.public_repos }}</p>
+              <h3 class="text-md font-semibold text-gray-600">Reps:</h3>
+              <p class="text-lg md:text-xl text-primary">
+                {{ user.public_repos }}
+              </p>
             </div>
             <div class="bg-base-200 p-4 rounded-lg">
-              <h3 class="text-lg font-semibold text-primary">Seguidores:</h3>
-              <p class="text-2xl font-semibold">{{ user.followers }}</p>
+              <h3 class="text-md font-semibold text-gray-600">Followers:</h3>
+              <p class="text-lg md:text-xl text-primary">
+                {{ user.followers }}
+              </p>
             </div>
             <div class="bg-base-200 p-4 rounded-lg">
-              <h3 class="text-lg font-semibold text-primary">Seguindo:</h3>
-              <p class="text-2xl font-semibold">{{ user.following }}</p>
+              <h3 class="text-md font-semibold text-gray-600">Following:</h3>
+              <p class="text-lg md:text-xl text-primary">
+                {{ user.following }}
+              </p>
             </div>
             <div class="bg-base-200 p-4 rounded-lg">
-              <h3 class="text-lg font-semibold text-primary">Localização:</h3>
-              <p class="text-2xl break-all break-words font-semibold">
+              <h3 class="text-md font-semibold text-gray-600">Location:</h3>
+              <p class="text-lg md:text-xl text-primary break-all break-words">
                 {{ user.location }}
               </p>
             </div>
+            <div class="bg-base-200 col-span-full p-4 rounded-lg">
+              <h3 class="text-md font-semibold text-gray-600">Bio:</h3>
+              <p class="text-lg md:text-xl text-primary break-all break-words">
+                {{ user.bio }}
+              </p>
+            </div>
           </div>
-          <div class="px-8 pb-8 grid place-items-center">
+          <div class="px-4 md:w-10/12 mx-auto pb-8 grid place-items-center">
             <canvas id="myChart"></canvas>
           </div>
         </main>

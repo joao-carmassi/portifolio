@@ -1,12 +1,19 @@
 <template>
-  <HeroHomepage />
-  <FatosAleatorios />
-  <FundoColorido id="containerAbout">
-    <AboutMe />
-  </FundoColorido>
-  <RepsGraph />
-  <FormEmail id="containerFormEmail" />
-  <MapaHomepage />
+  <header>
+    <NavMain />
+  </header>
+  <main>
+    <HeroHomepage />
+    <FatosAleatorios />
+    <FundoColorido id="containerAbout">
+      <AboutMe />
+    </FundoColorido>
+    <RepsGraph />
+    <FormEmail id="containerFormEmail" />
+    <MapaHomepage />
+  </main>
+  <FooterMain />
+  <ModalResEmail />
 </template>
 
 <script lang="ts">
@@ -18,9 +25,13 @@ import AboutMe from "../components/AboutMe.vue";
 import FormEmail from "../components/FormEmail.vue";
 import { aplicaAnimacoes } from "../util/aplicaAnimacoes";
 import RepsGraph from "@/components/RepsGraph.vue";
+import ModalResEmail from "@/components/ModalResEmail.vue";
+import NavMain from "../components/NavMain.vue";
+import FooterMain from "../components/FooterMain.vue";
 
 export default {
   components: {
+    NavMain,
     HeroHomepage,
     FatosAleatorios,
     MapaHomepage,
@@ -28,6 +39,8 @@ export default {
     AboutMe,
     FormEmail,
     RepsGraph,
+    ModalResEmail,
+    FooterMain,
   },
 
   mounted() {

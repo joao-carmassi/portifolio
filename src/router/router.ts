@@ -1,11 +1,20 @@
 import HomePage from "@/view/HomePage.vue";
-import { createMemoryHistory, createRouter } from "vue-router";
+import {
+  createRouter,
+  createWebHashHistory,
+  type RouteRecordRaw,
+} from "vue-router";
 
-const routes = [{ path: "/", component: HomePage }];
+const rotas: RouteRecordRaw[] = [
+  {
+    path: "/",
+    component: HomePage,
+  },
+];
 
-const router = createRouter({
-  history: createMemoryHistory(),
-  routes,
+const roteador = createRouter({
+  history: createWebHashHistory(),
+  routes: rotas,
 });
 
-export default router;
+export default roteador;
