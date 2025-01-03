@@ -1,5 +1,5 @@
 <template>
-  <section class="bg-base-100 px-5">
+  <section class="bg-base-100 linhasContainer px-5">
     <div class="py-8 md:py-12 grid place-items-center">
       <h2 class="text-3xl md:text-4xl text-primary font-semibold">Github</h2>
     </div>
@@ -20,7 +20,7 @@
           </a>
           <h2 class="text-lg text-white font-semibold">{{ user.login }}</h2>
         </header>
-        <main>
+        <main class="bg-base-100">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
             <div class="bg-base-200 p-4 rounded-lg">
               <h3 class="text-md font-semibold text-gray-600">Reps:</h3>
@@ -79,3 +79,13 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.linhasContainer {
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(rgba(0, 0, 0, 0.171) 2px, transparent 0);
+  background-size: 30px 30px;
+  background-position: -5px -5px;
+}
+</style>
