@@ -11,4 +11,4 @@
 * Vue
 
 ## Link:
-https://joao-carmassi.github.io/portifolio/#/
+https://joao-carmassi.github.io/portifolio/
