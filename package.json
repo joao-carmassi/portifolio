@@ -16,8 +16,7 @@
     "chart.js": "^4.4.7",
     "pinia": "^2.3.0",
     "scrollreveal": "^4.0.9",
-    "vue": "^3.5.13",
-    "vue-router": "^4.5.0"
+    "vue": "^3.5.13"
   },
   "devDependencies": {
     "@tsconfig/node22": "^22.0.0",

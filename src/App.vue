@@ -1,9 +1,13 @@
 <template>
-  <RouterView />
+  <HomePage />
 </template>
 
-<!-- TODO: Baixar api e consumir -->
-
 <script lang="ts">
-export default {};
+import HomePage from "./view/HomePage.vue";
+
+export default {
+  components: {
+    HomePage,
+  },
+};
 </script>

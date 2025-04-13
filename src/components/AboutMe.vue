@@ -43,31 +43,44 @@
             <span class="lista">{</span>
           </p>
           <div>
-            <p>
-              "english"<span class="ponto">: </span><span>"B2"</span
+            <a href="../../public/certificados/ingles.pdf" download>
+              "english"<span class="ponto">: </span><span>"C1"</span
               ><span class="virgula">,</span>
-            </p>
-            <p>
-              "spanish"<span class="ponto">: </span><span>"B2"</span
-              ><span class="virgula">,</span>
-            </p>
+            </a>
+            <a href="../../public/certificados/espanhol.pdf" download>
+              <p>
+                "spanish"<span class="ponto">: </span><span>"B2"</span
+                ><span class="virgula">,</span>
+              </p>
+            </a>
           </div>
           <span class="lista">}</span><span class="virgula">,</span>
-          <p>
+          <a
+            href="https://cursos.alura.com.br/user/joaovitorcarmassi/fullCertificate/897f16e3faccf20ba9a1b019c6ba05b6"
+            target="_blank"
+          >
             "technologies"<span class="ponto">: </span>
             <span class="lista">[</span>
             <span>
+              "HTML"
+              <span class="virgula">,</span>
+              "CSS"
+              <span class="virgula">,</span>
               "Tailwind"
               <span class="virgula">,</span>
               "Boostrap"
               <span class="virgula">,</span>
               "Sass"
               <span class="virgula">,</span>
+              "React"
+              <span class="virgula">,</span>
               "Vue"
               <span class="virgula">,</span>
-              "Git" </span
+              "Git"
+              <span class="virgula">,</span>
+              "Github" </span
             ><span class="lista">]</span><span class="virgula">,</span>
-          </p>
+          </a>
           <p>
             "interests"<span class="ponto">: </span>
             <span class="lista">[</span>
@@ -109,6 +122,12 @@ export default {};
 
   & .virgula {
     color: white;
+  }
+
+  & a {
+    color: #988bc7;
+    text-decoration: underline;
+    display: block;
   }
 
   & p {
