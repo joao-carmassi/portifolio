@@ -35,7 +35,11 @@
               Github
             </button>
           </li>
-          <li><button class="p-3 text-base">Exemple</button></li>
+          <li>
+            <button @click="mecheATela('mapaHomepage')" class="p-3 text-base">
+              Mapa
+            </button>
+          </li>
         </ul>
       </div>
       <button @click="mecheATela('heroHomePage')" class="hover:cursor-pointer">
@@ -52,7 +56,7 @@
           <button @click="mecheATela('containerAbout')">About</button>
         </li>
         <li><button @click="mecheATela('infoGithub')">Github</button></li>
-        <li><button>Exemple</button></li>
+        <li><button @click="mecheATela('mapaHomepage')">Mapa</button></li>
       </ul>
     </div>
     <div class="navbar-end mr-2 md:mr-0">
