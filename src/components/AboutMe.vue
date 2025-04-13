@@ -43,11 +43,11 @@
             <span class="lista">{</span>
           </p>
           <div>
-            <a href="/certificados/ingles.pdf" download>
+            <a href="./certificados/ingles.pdf" download>
               "english"<span class="ponto">: </span><span>"C1"</span
               ><span class="virgula">,</span>
             </a>
-            <a href="/certificados/espanhol.pdf" download>
+            <a href="./certificados/espanhol.pdf" download>
               <p>
                 "spanish"<span class="ponto">: </span><span>"B2"</span
                 ><span class="virgula">,</span>
