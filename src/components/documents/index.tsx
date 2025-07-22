@@ -81,63 +81,65 @@ const Documents = () => {
   };
 
   return (
-    <div
-      id='containerResumes'
-      className='flex flex-col justify-center mx-auto gap-6 md:gap-12 p-6 md:p-12 max-w-7xl'
-    >
-      <div className='text-center max-w-2xl mx-auto'>
-        <H2>My Documents</H2>
-        <P className='mt-6 text-base sm:text-lg'>
-          Here are my resumes and official language proficiency certificates.
-        </P>
-      </div>
-
+    <section className='relative'>
+      <div className='absolute inset-0 -z-10 h-full w-full [background:radial-gradient(125%_125%_at_50%_10%,var(--background)_40%,var(--accent)_100%)]'></div>
       <div
-        className='w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-12'
-        ref={containerRef}
+        id='containerResumes'
+        className='relative flex flex-col justify-center mx-auto gap-6 md:gap-12 p-6 md:p-12 max-w-7xl md:min-h-screen'
       >
-        {documents.map((doc, i) => (
-          <motion.a
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.8 }}
-            key={doc.name}
-            download={doc.name}
-            href={doc.file}
-            initial='hidden'
-            animate={isInView ? 'visible' : 'hidden'}
-            custom={i}
-            variants={itemVariants}
-          >
-            <Card className='py-5'>
-              <CardHeader hidden>
-                <CardTitle>{doc.title}</CardTitle>
-                <CardDescription>
+        <div className='text-center max-w-2xl mx-auto'>
+          <H2>My Documents</H2>
+          <P className='mt-6 text-base sm:text-lg'>
+            Here are my resumes and official language proficiency certificates.
+          </P>
+        </div>
+        <div
+          className='w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12'
+          ref={containerRef}
+        >
+          {documents.map((doc, i) => (
+            <motion.a
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.8 }}
+              key={doc.name}
+              download={doc.name}
+              href={doc.file}
+              initial='hidden'
+              animate={isInView ? 'visible' : 'hidden'}
+              custom={i}
+              variants={itemVariants}
+            >
+              <Card className='py-5'>
+                <CardHeader hidden>
+                  <CardTitle>{doc.title}</CardTitle>
+                  <CardDescription>
+                    <img
+                      src={doc.imageUrl}
+                      alt={doc.name}
+                      className='w-full aspect-square rounded-lg object-cover bg-secondary object-top'
+                      width={600}
+                      height={600}
+                    />
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className='px-5'>
                   <img
                     src={doc.imageUrl}
                     alt={doc.name}
-                    className='w-full aspect-square rounded-lg object-cover bg-secondary object-top'
+                    className='w-full aspect-square object-cover bg-secondary object-top'
                     width={600}
                     height={600}
                   />
-                </CardDescription>
-              </CardHeader>
-              <CardContent className='px-5'>
-                <img
-                  src={doc.imageUrl}
-                  alt={doc.name}
-                  className='w-full aspect-square object-cover bg-secondary object-top'
-                  width={600}
-                  height={600}
-                />
-                <H3 className='mt-4 text-lg font-semibold'>{doc.name}</H3>
-                <p className='text-muted-foreground text-sm'>{doc.title}</p>
-                <p className='mt-3'>{doc.bio}</p>
-              </CardContent>
-            </Card>
-          </motion.a>
-        ))}
+                  <H3 className='mt-4 text-lg font-semibold'>{doc.name}</H3>
+                  <p className='text-muted-foreground text-sm'>{doc.title}</p>
+                  <p className='mt-3'>{doc.bio}</p>
+                </CardContent>
+              </Card>
+            </motion.a>
+          ))}
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 
