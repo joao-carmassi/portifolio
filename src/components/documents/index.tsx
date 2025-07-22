@@ -52,12 +52,31 @@ const Documents = () => {
     margin: '-250px 0px',
   });
 
+  const directions = [
+    { x: -100, y: 0 }, // left
+    { x: 0, y: -100 }, // top
+    { x: 0, y: 100 }, // bottom
+    { x: 100, y: 0 }, // right
+  ];
+
   const itemVariants: Variants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: (i = 0) => ({
+    hidden: (i: number) => ({
+      opacity: 0,
+      scale: 0.9,
+      x: directions[i % 4].x,
+      y: directions[i % 4].y,
+    }),
+    visible: (i: number) => ({
       opacity: 1,
+      scale: 1,
+      x: 0,
       y: 0,
-      transition: { delay: i * 0.15, duration: 0.7, ease: 'easeOut' },
+      transition: {
+        delay: i * 0.15,
+        type: 'spring',
+        stiffness: 100,
+        damping: 12,
+      },
     }),
   };
 

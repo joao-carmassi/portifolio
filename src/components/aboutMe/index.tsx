@@ -26,9 +26,15 @@ const AboutMe = () => {
         </H2>
         <motion.div
           ref={ref}
-          initial={{ opacity: 0, y: 150 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+          initial={{ opacity: 0, y: 150, scale: 0.95 }}
+          animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+          transition={{
+            type: 'spring',
+            stiffness: 120,
+            damping: 16,
+            delay: 0.1,
+          }}
+          viewport={{ once: true, amount: 0.3 }}
           className='shadow-xl rounded-xl font-mono'
         >
           <div className='h-14 bg-white gap-4 px-5 rounded-t-xl flex justify-start items-center'>

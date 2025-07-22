@@ -36,8 +36,11 @@ const ContainerContact = () => {
   const [enviado, setEnviado] = useState<null | boolean>(null);
   const [modalAberto, setModalAberto] = useState(false);
 
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
+  const formRef = useRef(null);
+  const textRef = useRef(null);
+
+  const isInViewForm = useInView(formRef, { once: true });
+  const isInViewText = useInView(textRef, { once: true });
 
   const handleType = (
     e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
@@ -93,10 +96,10 @@ const ContainerContact = () => {
       <motion.form
         onSubmit={enviaEmail}
         className='flex items-center justify-end flex-1 w-full'
-        ref={ref}
-        initial={{ opacity: 0, x: -150 }}
-        animate={isInView ? { opacity: 1, x: 0 } : {}}
-        transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+        ref={formRef}
+        initial={{ opacity: 0, x: 100, scale: 0.95 }}
+        animate={isInViewForm ? { opacity: 1, x: 0, scale: 1 } : {}}
+        transition={{ type: 'spring', stiffness: 120, damping: 16 }}
       >
         <Card className='max-w-full w-full md:w-md rounded-2xl'>
           <CardContent className='flex flex-col gap-5'>
@@ -172,10 +175,10 @@ const ContainerContact = () => {
       </motion.form>
       <motion.div
         className='flex flex-col flex-1 gap-5'
-        ref={ref}
-        initial={{ opacity: 0, x: -150 }}
-        animate={isInView ? { opacity: 1, x: 0 } : {}}
-        transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
+        ref={textRef}
+        initial={{ opacity: 0, y: 100, scale: 0.95 }}
+        animate={isInViewText ? { opacity: 1, y: 0, scale: 1 } : {}}
+        transition={{ type: 'spring', stiffness: 120, damping: 16, delay: 0.2 }}
       >
         <H2 className='text-center md:text-start'>Contact me!</H2>
         <P className='text-center md:text-start'>

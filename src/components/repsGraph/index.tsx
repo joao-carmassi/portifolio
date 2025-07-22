@@ -25,10 +25,17 @@ const RepsGraph = () => {
 
   const itemVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
-    visible: (i = 0) => ({
+    visible: (i: number) => ({
       opacity: 1,
+      scale: 1,
+      x: 0,
       y: 0,
-      transition: { delay: i * 0.15, duration: 0.7, ease: 'easeOut' },
+      transition: {
+        delay: i * 0.15,
+        type: 'spring',
+        stiffness: 100,
+        damping: 12,
+      },
     }),
   };
 
