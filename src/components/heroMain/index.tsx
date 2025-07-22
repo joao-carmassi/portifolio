@@ -16,9 +16,14 @@ const HeroMain = () => {
       }}
     >
       <motion.div
-        initial={{ opacity: 0, x: -150 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
+        initial={{ opacity: 0, x: -100, scale: 0.95 }}
+        animate={{ opacity: 1, x: 0, scale: 1 }}
+        transition={{
+          type: 'spring',
+          duration: 1.5,
+          stiffness: 100,
+          damping: 20,
+        }}
       >
         <H2 className='text-white drop-shadow-2xl drop-shadow-black'>
           Hello<span className='font-normal font-mono'>, my name is</span>
@@ -26,9 +31,15 @@ const HeroMain = () => {
       </motion.div>
 
       <motion.div
-        initial={{ opacity: 0, x: -150 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
+        initial={{ opacity: 0, x: -100, scale: 0.95 }}
+        animate={{ opacity: 1, x: 0, scale: 1 }}
+        transition={{
+          type: 'spring',
+          duration: 1.5,
+          stiffness: 100,
+          damping: 20,
+          delay: 0.15,
+        }}
       >
         <H1 className='text-white text-center drop-shadow-2xl drop-shadow-black font-mono'>
           João Vitor Carmassi
@@ -36,9 +47,15 @@ const HeroMain = () => {
       </motion.div>
 
       <motion.div
-        initial={{ opacity: 0, x: -150 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
+        initial={{ opacity: 0, x: -100, scale: 0.95 }}
+        animate={{ opacity: 1, x: 0, scale: 1 }}
+        transition={{
+          type: 'spring',
+          duration: 1.5,
+          stiffness: 100,
+          damping: 20,
+          delay: 0.3,
+        }}
       >
         <H2 className='text-white md:text-4xl drop-shadow-2xl drop-shadow-black'>
           <span className='font-normal font-mono'>I&apos;m</span>{' '}
@@ -70,9 +87,15 @@ const HeroMain = () => {
       <div className='flex gap-7'>
         <motion.a
           aria-label='Link para Github João Carmassi'
-          initial={{ opacity: 0, y: 100 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.5 }}
+          initial={{ opacity: 0, y: 100, scale: 0.95 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{
+            type: 'spring',
+            duration: 1,
+            stiffness: 120,
+            damping: 20,
+            delay: 0.5,
+          }}
           href='https://github.com/joao-carmassi'
           target='_blank'
           className='rounded-full grid place-items-center h-12 w-12 bg-black/25 backdrop-blur-sm border-2 border-white hover:bg-[#181717] text-white duration-200 hover:border-[#181717] hover:scale-110 cursor-pointer'
