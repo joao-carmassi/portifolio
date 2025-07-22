@@ -91,7 +91,7 @@ const ContainerContact = () => {
   return (
     <section
       id='containerContact'
-      className='min-h-screen p-6 md:p-12 mx-auto max-w-7xl flex justify-between items-center gap-6 md:gap-12 lg:gap-20 flex-col-reverse md:flex-row'
+      className='md:min-h-screen p-6 md:p-12 mx-auto max-w-7xl flex justify-between items-center gap-6 md:gap-12 lg:gap-20 flex-col-reverse md:flex-row'
     >
       <motion.form
         onSubmit={enviaEmail}

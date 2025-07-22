@@ -88,7 +88,7 @@ const Documents = () => {
           </P>
         </div>
         <div
-          className='w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12'
+          className='w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-6 md:gap-12'
           ref={containerRef}
         >
           {documents.map((doc, i) => (
