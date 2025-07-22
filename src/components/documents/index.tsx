@@ -1,13 +1,7 @@
 'use client';
 
 import * as motion from 'motion/react-client';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '../ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { H2 } from '../ui/h2';
 import { H3 } from '../ui/h3';
 import { P } from '../ui/p';
@@ -99,6 +93,7 @@ const Documents = () => {
         >
           {documents.map((doc, i) => (
             <motion.a
+              aria-label={`download ${doc.title}`}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.8 }}
               key={doc.name}
@@ -112,15 +107,6 @@ const Documents = () => {
               <Card className='py-5'>
                 <CardHeader hidden>
                   <CardTitle>{doc.title}</CardTitle>
-                  <CardDescription>
-                    <img
-                      src={doc.imageUrl}
-                      alt={doc.name}
-                      className='w-full aspect-square rounded-lg object-cover bg-secondary object-top'
-                      width={600}
-                      height={600}
-                    />
-                  </CardDescription>
                 </CardHeader>
                 <CardContent className='px-5'>
                   <img

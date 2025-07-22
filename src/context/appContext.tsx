@@ -24,7 +24,7 @@ const AppProvider = ({ children }: { children: ReactNode }) => {
       id: 'containerGithub',
     },
     {
-      nome: 'Resumes',
+      nome: 'Resume',
       id: 'containerResumes',
     },
     {
