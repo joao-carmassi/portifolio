@@ -2,24 +2,16 @@
 
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
-import adicionaFundoColorido from '@/utils/fundoColorido';
-import { useEffect } from 'react';
 import { H2 } from '../ui/h2';
 import './aboutMe.css';
+import FundoColorido from '../fundoColorido';
 
 const AboutMe = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
 
-  useEffect(() => {
-    adicionaFundoColorido();
-  }, []);
-
   return (
-    <section
-      id='containeAbout'
-      className='header finisher-header grid place-items-center relative'
-    >
+    <FundoColorido id='containeAbout' className='grid place-items-center'>
       <div className='mx-auto max-w-7xl px-6 md:px-12 pt-12 pb-6 md:pb-12 flex flex-col items-center justify-center gap-10'>
         <H2 className='text-white drop-shadow-sm drop-shadow-black/25 tracking-wider text-center'>
           About me
@@ -148,7 +140,7 @@ const AboutMe = () => {
           </div>
         </motion.div>
       </div>
-    </section>
+    </FundoColorido>
   );
 };
 
