@@ -1,0 +1,40 @@
+.containerCodigo {
+  word-break: break-word;
+  overflow-wrap: break-word;
+
+  & .ponto {
+    color: #d272c6;
+  }
+
+  & .lista {
+    color: #179fe1;
+  }
+
+  & .virgula {
+    color: white;
+  }
+
+  & a {
+    color: #988bc7;
+    text-decoration: underline;
+    display: block;
+  }
+
+  & p {
+    color: #988bc7;
+  }
+
+  & span {
+    color: #e7de79;
+  }
+
+  & div {
+    margin-left: 1rem;
+  }
+
+  @media (min-width: 728px) {
+    & div {
+      margin-left: 2rem;
+    }
+  }
+}

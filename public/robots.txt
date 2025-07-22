@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://joao-carmassi.github.io/portifolio/
+
+# Sitemaps
+Sitemap: https://joao-carmassi.github.io/portifolio/sitemap.xml
