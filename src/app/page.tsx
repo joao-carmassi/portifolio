@@ -4,6 +4,7 @@ import ContainerMap from '@/components/containerMap';
 import DidYouKnow from '@/components/didYouKnow';
 import HeroMain from '@/components/heroMain';
 import RepsGraph from '@/components/repsGraph';
+import Team05Page from '@/components/documents';
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
       <DidYouKnow />
       <AboutMe />
       <RepsGraph />
+      <Team05Page />
       <ContainerContact />
       <ContainerMap />
     </main>

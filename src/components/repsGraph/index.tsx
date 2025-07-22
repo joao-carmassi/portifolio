@@ -16,6 +16,7 @@ const baixaUserGithub = () => {
 
 const RepsGraph = () => {
   const [user, setUser] = useState<undefined | IUserGithub>(undefined);
+
   const containerRef = useRef(null);
   const isInView = useInView(containerRef, {
     once: true,

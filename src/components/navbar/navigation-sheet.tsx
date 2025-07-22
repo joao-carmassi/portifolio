@@ -2,7 +2,7 @@
 
 import { Menu } from 'lucide-react';
 import { NavMenu } from './nav-menu';
-import { Sheet, SheetContent, SheetTrigger } from '../../../sheet';
+import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet';
 import { Button } from '../ui/button';
 import { DialogTitle } from '../ui/dialog';
 import { useState } from 'react';

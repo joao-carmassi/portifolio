@@ -4,7 +4,7 @@ import {
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-} from '../../../navigation-menu';
+} from '../ui/navigation-menu';
 import { useAppContext } from '@/context/appContext';
 import scrowToContainer from '@/utils/scrowToContainer';
 
