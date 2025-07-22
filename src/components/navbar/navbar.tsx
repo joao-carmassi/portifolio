@@ -34,6 +34,7 @@ const Navbar = () => {
             }}
           >
             <img
+              alt='Iconi João Carmassi'
               className='rounded-full w-12 h-12'
               src='./icons/icon-preto.webp'
             />

@@ -13,13 +13,22 @@ export const NavigationSheet = () => {
   return (
     <Sheet onOpenChange={setAberto} open={aberto}>
       <SheetTrigger asChild>
-        <Button onClick={() => setAberto(true)} variant='outline' size='icon'>
+        <Button
+          aria-label='Botão abrir menu'
+          onClick={() => setAberto(true)}
+          variant='outline'
+          size='icon'
+        >
           <Menu />
         </Button>
       </SheetTrigger>
       <SheetContent className='p-3 w-3/5'>
         <DialogTitle hidden>Menu Celular</DialogTitle>
-        <img className='rounded-full w-12' src='./icons/icon-preto.webp' />
+        <img
+          alt='Iconi João Carmassi'
+          className='rounded-full w-12'
+          src='./icons/icon-preto.webp'
+        />
         <NavMenu
           orientation='vertical'
           className='mt-3 flex items-start gap-5'

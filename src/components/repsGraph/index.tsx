@@ -46,6 +46,7 @@ const RepsGraph = () => {
           <header className='bg-primary text-primary-foreground p-5'>
             <div>
               <a
+                aria-label='Link para github Joao Carmassi'
                 target='_blank'
                 href={user?.html_url}
                 className='flex items-center gap-3 group w-fit'
