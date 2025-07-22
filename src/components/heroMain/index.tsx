@@ -69,6 +69,7 @@ const HeroMain = () => {
       </motion.div>
       <div className='flex gap-7'>
         <motion.a
+          aria-label='Link para Github João Carmassi'
           initial={{ opacity: 0, y: 100 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.5 }}
@@ -79,6 +80,7 @@ const HeroMain = () => {
           <Github />
         </motion.a>
         <motion.a
+          aria-label='Link para Instagram João Carmassi'
           initial={{ opacity: 0, y: 100 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.65 }}
@@ -89,6 +91,7 @@ const HeroMain = () => {
           <Instagram />
         </motion.a>
         <motion.a
+          aria-label='Link para Linkedin João Carmassi'
           initial={{ opacity: 0, y: 100 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.8 }}

@@ -53,7 +53,10 @@ const RepsGraph = () => {
                 rel='noreferrer'
               >
                 <Avatar className='h-16 w-16 group-hover:ring-2 ring-primary-foreground duration-200'>
-                  <AvatarImage src={user?.avatar_url} />
+                  <AvatarImage
+                    alt='Iconi Github João Carmassi'
+                    src={user?.avatar_url}
+                  />
                   <AvatarFallback>{user?.name}</AvatarFallback>
                 </Avatar>
                 <H2 className='text-primary-foreground group-hover:underline text-lg md:text-xl'>
