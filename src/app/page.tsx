@@ -12,7 +12,7 @@ export default function Home() {
       <HeroMain />
       <DidYouKnow />
       <AboutMe />
-      <RepsGraph />
+      {/* <RepsGraph /> */}
       <Documents />
       <ContainerContact />
       <ContainerMap />

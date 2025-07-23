@@ -7,6 +7,13 @@ import { H3 } from '../ui/h3';
 import { P } from '../ui/p';
 import { useRef } from 'react';
 import { useInView, Variants } from 'motion/react';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '../ui/carousel';
 
 const documents = [
   {
@@ -88,7 +95,7 @@ const Documents = () => {
           </P>
         </div>
         <div
-          className='w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-6 md:gap-12'
+          className='w-full hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-6 md:gap-12'
           ref={containerRef}
         >
           {documents.map((doc, i) => (
@@ -124,6 +131,41 @@ const Documents = () => {
             </motion.a>
           ))}
         </div>
+        <Carousel className='md:hidden'>
+          <CarouselContent>
+            {documents.map((doc) => (
+              <CarouselItem key={doc.name}>
+                <a
+                  aria-label={`download ${doc.title}`}
+                  download={doc.name}
+                  href={doc.file}
+                >
+                  <Card className='py-5'>
+                    <CardHeader hidden>
+                      <CardTitle>{doc.title}</CardTitle>
+                    </CardHeader>
+                    <CardContent className='px-5'>
+                      <img
+                        src={doc.imageUrl}
+                        alt={doc.name}
+                        className='w-full aspect-square object-cover bg-secondary object-top'
+                        width={600}
+                        height={600}
+                      />
+                      <H3 className='mt-4 text-lg font-semibold'>{doc.name}</H3>
+                      <p className='text-muted-foreground text-sm'>
+                        {doc.title}
+                      </p>
+                      <p className='mt-3'>{doc.bio}</p>
+                    </CardContent>
+                  </Card>
+                </a>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious className='-left-4' />
+          <CarouselNext className='-right-4' />
+        </Carousel>
       </div>
     </section>
   );
