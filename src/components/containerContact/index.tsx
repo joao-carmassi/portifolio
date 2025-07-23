@@ -1,6 +1,7 @@
 'use client';
 
 import { ArrowRightIcon } from 'lucide-react';
+import confetti from 'canvas-confetti';
 import { motion, useInView } from 'framer-motion';
 import { Button } from '../ui/button';
 import { Card, CardContent, CardFooter } from '../ui/card';
@@ -67,6 +68,11 @@ const ContainerContact = () => {
         if (res.status === 200) {
           setModalAberto(false);
           setEnviado(true);
+          confetti({
+            particleCount: 100,
+            spread: 90,
+            origin: { y: 0.6 },
+          });
         } else {
           setEnviado(false);
           setModalAberto(false);
