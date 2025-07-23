@@ -71,7 +71,7 @@ const ContainerContact = () => {
           confetti({
             particleCount: 100,
             spread: 90,
-            origin: { y: 0.6 },
+            origin: { y: 0.7 },
           });
         } else {
           setEnviado(false);
