@@ -54,10 +54,10 @@ const Documents = () => {
   });
 
   const directions = [
-    { x: -100, y: 0 }, // left
-    { x: 0, y: -100 }, // top
-    { x: 0, y: 100 }, // bottom
-    { x: 100, y: 0 }, // right
+    { x: 0, y: 0 },
+    { x: 0, y: 0 },
+    { x: 0, y: 0 },
+    { x: 0, y: 0 },
   ];
 
   const itemVariants: Variants = {
@@ -86,7 +86,7 @@ const Documents = () => {
       <div className='absolute inset-0 -z-10 h-full w-full [background:radial-gradient(125%_125%_at_50%_10%,var(--background)_40%,var(--accent)_100%)]'></div>
       <div
         id='containerResumes'
-        className='relative flex flex-col justify-center mx-auto gap-6 md:gap-12 p-6 md:p-12 max-w-7xl md:min-h-screen'
+        className='relative flex flex-col justify-center mx-auto gap-6 md:gap-12 p-6 md:p-12 max-w-7xl '
       >
         <div className='text-center max-w-2xl mx-auto'>
           <H2>My Documents</H2>

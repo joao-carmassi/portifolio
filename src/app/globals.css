@@ -16,7 +16,6 @@ body {
   --sb-track-color: oklch(1 0 0);
   --sb-thumb-color: oklch(0.85 0 0);
   --sb-size: 8px;
-  overflow-x: hidden;
 }
 
 body::-webkit-scrollbar {
