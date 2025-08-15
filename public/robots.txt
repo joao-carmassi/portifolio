@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://joao-carmassi.github.io/portifolio/
+Host: https://joaocarmassi.com/
 
 # Sitemaps
-Sitemap: https://joao-carmassi.github.io/portifolio/sitemap.xml
+Sitemap: https://joaocarmassi.com/sitemap.xml
