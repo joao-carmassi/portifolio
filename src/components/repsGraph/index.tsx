@@ -2,11 +2,11 @@
 
 import IUserGithub from '@/types/IUser';
 import axios from 'axios';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { H2 } from '../ui/h2';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { ChartLanguages } from './graph';
-import { motion, useInView, Variants } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 
 const API_KEY = 'https://api.github.com/users/joao-carmassi';
 
@@ -14,30 +14,27 @@ const baixaUserGithub = () => {
   return axios.get(API_KEY).then((res) => res.data);
 };
 
+const container: Variants = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.075,
+      delayChildren: 0.15,
+    },
+  },
+};
+
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 40 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { type: 'spring', stiffness: 120, damping: 20 },
+  },
+};
+
 const RepsGraph = () => {
   const [user, setUser] = useState<undefined | IUserGithub>(undefined);
-
-  const containerRef = useRef(null);
-  const isInView = useInView(containerRef, {
-    once: true,
-    margin: '-250px 0px',
-  });
-
-  const itemVariants: Variants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: (i: number) => ({
-      opacity: 1,
-      scale: 1,
-      x: 0,
-      y: 0,
-      transition: {
-        delay: i * 0.15,
-        type: 'spring',
-        stiffness: 100,
-        damping: 12,
-      },
-    }),
-  };
 
   useEffect(() => {
     baixaUserGithub().then((res) => {
@@ -74,8 +71,11 @@ const RepsGraph = () => {
             </div>
           </header>
           <main className='bg-card'>
-            <div
-              ref={containerRef}
+            <motion.div
+              variants={container}
+              viewport={{ once: true, amount: 0.25 }}
+              initial='hidden'
+              whileInView='show'
               className='grid grid-cols-1 md:grid-cols-2 gap-4 p-4'
             >
               {[
@@ -83,14 +83,11 @@ const RepsGraph = () => {
                 { label: 'Followers:', value: user?.followers },
                 { label: 'Following:', value: user?.following },
                 { label: 'Location:', value: user?.location },
-              ].map((item, i) => (
+              ].map((item) => (
                 <motion.div
                   key={item.label}
+                  variants={fadeUp}
                   className='p-4 rounded-lg border border-accent shadow-sm bg-background'
-                  initial='hidden'
-                  animate={isInView ? 'visible' : 'hidden'}
-                  custom={i}
-                  variants={itemVariants}
                 >
                   <h2 className='text-md font-semibold text-foreground/75'>
                     {item.label}
@@ -102,10 +99,7 @@ const RepsGraph = () => {
               ))}
               <motion.div
                 className='col-span-full border border-accent p-4 rounded-lg shadow-sm bg-background'
-                initial='hidden'
-                animate={isInView ? 'visible' : 'hidden'}
-                custom={4}
-                variants={itemVariants}
+                variants={fadeUp}
               >
                 <h2 className='text-md font-semibold text-foreground/75'>
                   Bio:
@@ -114,7 +108,7 @@ const RepsGraph = () => {
                   {user?.bio}
                 </p>
               </motion.div>
-            </div>
+            </motion.div>
             <div className='mx-auto max-w-3xl pb-4 pr-14'>
               <ChartLanguages />
             </div>

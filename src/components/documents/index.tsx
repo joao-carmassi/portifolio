@@ -5,8 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { H2 } from '../ui/h2';
 import { H3 } from '../ui/h3';
 import { P } from '../ui/p';
-import { useRef } from 'react';
-import { useInView, Variants } from 'motion/react';
+import { Variants } from 'motion/react';
 import {
   Carousel,
   CarouselContent,
@@ -46,41 +45,26 @@ const documents = [
   },
 ];
 
+const container: Variants = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.075,
+      delayChildren: 0.15,
+    },
+  },
+};
+
+const fadeDown: Variants = {
+  hidden: { opacity: 0, y: -40 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { type: 'spring', stiffness: 120, damping: 20 },
+  },
+};
+
 const Documents = () => {
-  const containerRef = useRef(null);
-  const isInView = useInView(containerRef, {
-    once: true,
-    margin: '-250px 0px',
-  });
-
-  const directions = [
-    { x: 0, y: 0 },
-    { x: 0, y: 0 },
-    { x: 0, y: 0 },
-    { x: 0, y: 0 },
-  ];
-
-  const itemVariants: Variants = {
-    hidden: (i: number) => ({
-      opacity: 0,
-      scale: 0.9,
-      x: directions[i % 4].x,
-      y: directions[i % 4].y,
-    }),
-    visible: (i: number) => ({
-      opacity: 1,
-      scale: 1,
-      x: 0,
-      y: 0,
-      transition: {
-        delay: i * 0.15,
-        type: 'spring',
-        stiffness: 100,
-        damping: 12,
-      },
-    }),
-  };
-
   return (
     <section className='relative'>
       <div className='absolute inset-0 -z-10 h-full w-full [background:radial-gradient(125%_125%_at_50%_10%,var(--background)_40%,var(--accent)_100%)]'></div>
@@ -94,22 +78,20 @@ const Documents = () => {
             Here are my resumes and official language proficiency certificates.
           </P>
         </div>
-        <div
+        <motion.div
+          variants={container}
+          initial='hidden'
+          whileInView='show'
+          viewport={{ once: true, amount: 0.25 }}
           className='w-full hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-6 md:gap-12'
-          ref={containerRef}
         >
-          {documents.map((doc, i) => (
+          {documents.map((doc) => (
             <motion.a
+              className='hover:scale-105 duration-200'
+              variants={fadeDown}
               aria-label={`download ${doc.title}`}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.8 }}
               key={doc.name}
               download={doc.name}
-              href={doc.file}
-              initial='hidden'
-              animate={isInView ? 'visible' : 'hidden'}
-              custom={i}
-              variants={itemVariants}
             >
               <Card className='py-5'>
                 <CardHeader hidden>
@@ -130,7 +112,7 @@ const Documents = () => {
               </Card>
             </motion.a>
           ))}
-        </div>
+        </motion.div>
         <Carousel className='md:hidden'>
           <CarouselContent>
             {documents.map((doc) => (

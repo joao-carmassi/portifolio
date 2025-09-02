@@ -1,15 +1,26 @@
 'use client';
 
-import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { motion, Variants } from 'framer-motion';
 import { H2 } from '../ui/h2';
 import './aboutMe.css';
 import FundoColorido from '../fundoColorido';
 
-const AboutMe = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
+const animation: Variants = {
+  hidden: { opacity: 0, y: 150, scale: 0.95 },
+  show: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      type: 'spring',
+      stiffness: 120,
+      damping: 16,
+      delay: 0.1,
+    },
+  },
+};
 
+const AboutMe = () => {
   return (
     <FundoColorido id='containeAbout' className='grid place-items-center'>
       <div className='mx-auto max-w-7xl px-6 md:px-12 pt-12 pb-6 md:pb-12 flex flex-col items-center justify-center gap-10'>
@@ -17,16 +28,10 @@ const AboutMe = () => {
           About me
         </H2>
         <motion.div
-          ref={ref}
-          initial={{ opacity: 0, y: 150, scale: 0.95 }}
-          animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
-          transition={{
-            type: 'spring',
-            stiffness: 120,
-            damping: 16,
-            delay: 0.1,
-          }}
-          viewport={{ once: true, amount: 0.3 }}
+          initial='hidden'
+          whileInView='show'
+          variants={animation}
+          viewport={{ once: true, amount: 0.1 }}
           className='shadow-xl rounded-xl font-mono'
         >
           <div className='h-14 bg-white gap-4 px-5 rounded-t-xl flex justify-start items-center'>

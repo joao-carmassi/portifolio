@@ -2,7 +2,7 @@
 
 import { ArrowRightIcon } from 'lucide-react';
 import confetti from 'canvas-confetti';
-import { motion, useInView } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 import { Button } from '../ui/button';
 import { Card, CardContent, CardFooter } from '../ui/card';
 import { H2 } from '../ui/h2';
@@ -10,7 +10,7 @@ import { Input } from '../ui/input';
 import { Label } from '../ui/label';
 import { P } from '../ui/p';
 import { Textarea } from '../ui/textarea';
-import { ChangeEvent, FormEvent, useRef, useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import axios from 'axios';
 import {
   Dialog,
@@ -32,16 +32,28 @@ const valoresCampoInicial = {
   message: '',
 };
 
+const fadeDown: Variants = {
+  hidden: { opacity: 0, y: -80 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { type: 'spring', stiffness: 120, damping: 20 },
+  },
+};
+
+const fadeRight: Variants = {
+  hidden: { opacity: 0, x: 80 },
+  show: {
+    opacity: 1,
+    x: 0,
+    transition: { type: 'spring', stiffness: 120, damping: 20 },
+  },
+};
+
 const ContainerContact = () => {
   const [valoresCampo, setValoresCampo] = useState(valoresCampoInicial);
   const [enviado, setEnviado] = useState<null | boolean>(null);
   const [modalAberto, setModalAberto] = useState(false);
-
-  const formRef = useRef(null);
-  const textRef = useRef(null);
-
-  const isInViewForm = useInView(formRef, { once: true });
-  const isInViewText = useInView(textRef, { once: true });
 
   const handleType = (
     e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
@@ -102,10 +114,10 @@ const ContainerContact = () => {
       <motion.form
         onSubmit={enviaEmail}
         className='flex items-center justify-end flex-1 w-full'
-        ref={formRef}
-        initial={{ opacity: 0, x: 100, scale: 0.95 }}
-        animate={isInViewForm ? { opacity: 1, x: 0, scale: 1 } : {}}
-        transition={{ type: 'spring', stiffness: 120, damping: 16 }}
+        variants={fadeDown}
+        initial='hidden'
+        whileInView='show'
+        viewport={{ once: true, amount: 0.5 }}
       >
         <Card className='max-w-full w-full md:w-md rounded-2xl'>
           <CardContent className='flex flex-col gap-5'>
@@ -181,10 +193,10 @@ const ContainerContact = () => {
       </motion.form>
       <motion.div
         className='flex flex-col flex-1 gap-5'
-        ref={textRef}
-        initial={{ opacity: 0, y: 100, scale: 0.95 }}
-        animate={isInViewText ? { opacity: 1, y: 0, scale: 1 } : {}}
-        transition={{ type: 'spring', stiffness: 120, damping: 16, delay: 0.2 }}
+        variants={fadeRight}
+        initial='hidden'
+        whileInView='show'
+        viewport={{ once: true, amount: 1 }}
       >
         <H2 className='text-center md:text-start'>Contact me!</H2>
         <P className='text-center md:text-start'>
