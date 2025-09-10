@@ -1,0 +1,138 @@
+'use client';
+
+import RotatingText from '@/components/RotatingText';
+import { cn } from '@/lib/utils';
+import { Github, Instagram, Linkedin } from 'lucide-react';
+import { motion, Variants } from 'framer-motion';
+
+const container: Variants = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.125,
+      delayChildren: 0.15,
+    },
+  },
+};
+
+const animation: Variants = {
+  hidden: { y: 55 },
+  show: {
+    y: 0,
+    transition: {
+      type: 'spring',
+      stiffness: 120,
+      damping: 16,
+    },
+  },
+};
+
+const HeroHomepage = () => {
+  return (
+    <motion.section
+      variants={container}
+      initial='hidden'
+      animate='show'
+      id='heroHomepage'
+      className='relative min-h-svh bg-black flex flex-col items-center justify-center'
+    >
+      <div
+        className='absolute w-full h-full z-0 bg-no-repeat bg-center bg-cover lg:bg-contain animate-in fade-in duration-1000 delay-300 fill-mode-both'
+        style={{
+          backgroundImage: 'url("./ImgBg.webp")',
+        }}
+      />
+      <div className='text-center space-y-3 md:space-y-6 px-6 md:px-12 relative z-10'>
+        <span className='block overflow-hidden'>
+          <motion.h2
+            variants={animation}
+            className='scroll-m-20 md:text-3xl lg:text-4xl tracking-wide text-white drop-shadow-2xl text-3xl drop-shadow-black'
+          >
+            <span className='font-bold'>Hello</span>, my name is
+          </motion.h2>
+        </span>
+        <span className='block overflow-hidden'>
+          <motion.h1
+            variants={animation}
+            className={cn(
+              'scroll-m-20 font-extrabold tracking-wide text-white drop-shadow-2xl drop-shadow-black text-4xl md:text-5xl lg:text-5xl'
+            )}
+          >
+            João Vitor Carmassi
+          </motion.h1>
+        </span>
+        <span className='block overflow-hidden'>
+          <motion.h2
+            variants={animation}
+            className='scroll-m-20 md:text-3xl lg:text-4xl tracking-wide text-white drop-shadow-2xl text-3xl drop-shadow-black font-normal'
+          >
+            <span className='flex items-center justify-center gap-1.5 transition-all duration-150'>
+              <p>I&apos;m</p>
+              <RotatingText
+                texts={[
+                  'a Developer',
+                  'a React Enthusiast',
+                  'a Problem Solver',
+                  'a Fast Learner',
+                  'a Team Player',
+                  'a Tech Explorer',
+                  'a Dreamer',
+                  'a Creator',
+                  'a Builder of Ideas',
+                  'a Code Lover',
+                  'a Curious Mind',
+                ]}
+                mainClassName='px-2 sm:px-2 md:px-3 bg-secondary text-card overflow-hidden py-1 justify-center rounded-lg font-bold'
+                staggerFrom={'last'}
+                initial={{ y: '100%' }}
+                animate={{ y: 0 }}
+                exit={{ y: '-120%' }}
+                staggerDuration={0.025}
+                splitLevelClassName='overflow-hidden pb-0.5 sm:pb-1 md:pb-1'
+                transition={{ type: 'spring', damping: 30, stiffness: 400 }}
+                rotationInterval={3500}
+              />
+            </span>
+          </motion.h2>
+        </span>
+        <div className='flex gap-6 w-fit mx-auto'>
+          <span className='block overflow-hidden hover:scale-110 duration-200'>
+            <motion.a
+              variants={animation}
+              aria-label='Link para Github João Carmassi'
+              href='https://github.com/joao-carmassi'
+              target='_blank'
+              className='rounded-full grid place-items-center h-12 w-12 bg-black/25 backdrop-blur-sm border-2 border-white text-white duration-200 transition-colors hover:border-[#181717] hover:bg-[#181717] focus:border-[#181717] focus:bg-[#181717] focus:scale-110 cursor-pointer'
+            >
+              <Github />
+            </motion.a>
+          </span>
+          <span className='block overflow-hidden hover:scale-110 duration-200'>
+            <motion.a
+              variants={animation}
+              aria-label='Link para Instagram João Carmassi'
+              href='https://www.instagram.com/joao_carmassi/'
+              target='_blank'
+              className='rounded-full grid place-items-center h-12 w-12 bg-black/25 backdrop-blur-sm border-2 border-white text-white duration-200 transition-colors hover:border-[#FF0069] hover:bg-[#FF0069] focus:border-[#FF0069] focus:bg-[#FF0069] focus:scale-110 cursor-pointer'
+            >
+              <Instagram />
+            </motion.a>
+          </span>
+          <span className='block overflow-hidden hover:scale-110 duration-200'>
+            <motion.a
+              variants={animation}
+              aria-label='Link para Linkedin João Carmassi'
+              href='https://www.linkedin.com/in/joao-carmassi/'
+              target='_blank'
+              className='rounded-full grid place-items-center h-12 w-12 bg-black/25 backdrop-blur-sm border-2 border-white text-white duration-200 transition-colors hover:border-[#0a66c2] hover:bg-[#0a66c2] focus:border-[#0a66c2] focus:bg-[#0a66c2] focus:scale-110 cursor-pointer'
+            >
+              <Linkedin />
+            </motion.a>
+          </span>
+        </div>
+      </div>
+    </motion.section>
+  );
+};
+
+export default HeroHomepage;

@@ -1,0 +1,69 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "markdown-to-html-ui",
+  "type": "registry:style",
+  "dependencies": ["clsx", "react-markdown@^8.0.7", "remark-gfm@^3.0.1"],
+  "registryDependencies": ["separator"],
+  "files": [
+    {
+      "type": "registry:file",
+      "path": "src/components/ui/h1.tsx",
+      "target": "src/components/ui/h1.tsx",
+      "content": "import { ClassValue } from 'clsx';\r\n\r\nexport function H1({\r\n  children,\r\n  className,\r\n}: {\r\n  children: React.ReactNode;\r\n  className?: ClassValue;\r\n}) {\r\n  return (\r\n    <h1\r\n      className={`scroll-m-20 md:text-3xl lg:text-4xl font-extrabold tracking-wide ${className}`}\r\n    >\r\n      {children}\r\n    </h1>\r\n  );\r\n}\r\n"
+    },
+    {
+      "type": "registry:file",
+      "path": "src/components/ui/h2.tsx",
+      "target": "src/components/ui/h2.tsx",
+      "content": "import { ClassValue } from 'clsx';\r\n\r\nexport function H2({\r\n  children,\r\n  className,\r\n}: {\r\n  children: React.ReactNode;\r\n  className?: ClassValue;\r\n}) {\r\n  return (\r\n    <h2\r\n      className={`scroll-m-20 text-primary text-2xl md:text-3xl lg:text-4xl font-semibold tracking-wide ${className}`}\r\n    >\r\n      {children}\r\n    </h2>\r\n  );\r\n}\r\n"
+    },
+    {
+      "type": "registry:file",
+      "path": "src/components/ui/h3.tsx",
+      "target": "src/components/ui/h3.tsx",
+      "content": "import { ClassValue } from 'clsx';\r\n\r\nexport function H3({\r\n  children,\r\n  className,\r\n}: {\r\n  children: React.ReactNode;\r\n  className?: ClassValue;\r\n}) {\r\n  return (\r\n    <h3\r\n      className={`scroll-m-20 text-lg md:text-xl lg:text-2xl font-semibold tracking-tight ${className}`}\r\n    >\r\n      {children}\r\n    </h3>\r\n  );\r\n}\r\n"
+    },
+    {
+      "type": "registry:file",
+      "path": "src/components/ui/a.tsx",
+      "target": "src/components/ui/a.tsx",
+      "content": "import { ClassValue } from 'clsx';\r\n\r\nexport function A({\r\n  children,\r\n  className,\r\n  href,\r\n}: {\r\n  children: React.ReactNode;\r\n  className?: ClassValue;\r\n  href: string;\r\n}) {\r\n  return (\r\n    <a\r\n      target='_blank'\r\n      href={href}\r\n      className={`scroll-m-20 md:text-lg text-primary hover:underline ${className}`}\r\n    >\r\n      {children}\r\n    </a>\r\n  );\r\n}\r\n"
+    },
+    {
+      "type": "registry:file",
+      "path": "src/components/ui/p.tsx",
+      "target": "src/components/ui/p.tsx",
+      "content": "import { ClassValue } from 'clsx';\r\n\r\nexport function P({\r\n  children,\r\n  className,\r\n}: {\r\n  children: React.ReactNode;\r\n  className?: ClassValue;\r\n}) {\r\n  return <p className={`scroll-m-20 md:text-lg ${className}`}>{children}</p>;\r\n}\r\n"
+    },
+    {
+      "type": "registry:file",
+      "path": "src/components/ui/ol.tsx",
+      "target": "src/components/ui/ol.tsx",
+      "content": "import { ClassValue } from 'clsx';\n\nexport function Ol({\n  children,\n  className,\n}: {\n  children: React.ReactNode;\n  className?: ClassValue;\n}) {\n  return (\n    <ol className={`ml-6 list-decimal [&>li]:mt-2 ${className}`}>{children}</ol>\n  );\n}\n"
+    },
+    {
+      "type": "registry:file",
+      "path": "src/components/ui/ul.tsx",
+      "target": "src/components/ui/ul.tsx",
+      "content": "import { ClassValue } from 'clsx';\n\nexport function Ul({ children, className }: { children: React.ReactNode; className?: ClassValue }) {\n  return <ul className={`ml-6 list-disc [&>li]:mt-2 ${className}`}>{children}</ul>;\n}"
+    },
+    {
+      "type": "registry:file",
+      "path": "src/components/ui/markdownExemple.tsx",
+      "target": "src/components/ui/markdownExemple.tsx",
+      "content": "import MarkdownToHtml from './markdownToHtml';\r\n\r\nconst markdown = `\r\n# Rare Solar Eclipse Amazes Millions Worldwide\r\n\r\n## A Spectacular Celestial Event\r\n\r\nOn **September 8, 2025**, people across several continents witnessed a rare **annular solar eclipse**, where the Moon covered the center of the Sun, creating a striking \"ring of fire.\"\r\n\r\n### Key Highlights\r\n- Millions gathered in public spaces to watch.\r\n- Scientists used the opportunity to study solar activity.\r\n- Tourists traveled to regions with the best visibility.\r\n\r\n> \"Events like these remind us how small we are in the vast universe,\"  \r\n> said Dr. Emily Carter, an astrophysicist from NASA.\r\n\r\n---\r\n\r\n## What Is an Annular Eclipse?\r\n\r\nUnlike a total eclipse, during an annular eclipse the Moon is slightly farther from Earth and does not completely cover the Sun.\r\n\r\n### Steps of the Eclipse\r\n1. **Partial Eclipse** begins.\r\n2. The Moon moves to the center of the Sun.\r\n3. The **\"ring of fire\"** appears.\r\n4. The Moon slowly drifts away, ending the eclipse.\r\n\r\n---\r\n\r\n## How to Safely Watch an Eclipse\r\n\r\n- **Do not** look directly at the Sun.  \r\n- Use **special eclipse glasses** or **pinhole projectors**.  \r\n- NASA provides resources on [safe viewing](https://science.nasa.gov/eclipses/safety/).\r\n\r\n---\r\n\r\n## Upcoming Eclipses\r\n\r\n| Date       | Type      | Visibility Region       |\r\n|------------|-----------|-------------------------|\r\n| Oct 2, 2026 | Total     | South America           |\r\n| Aug 12, 2026 | Partial   | Europe, Asia            |\r\n| Aug 23, 2044 | Annular   | Africa, Middle East     |\r\n\r\n---\r\n`;\r\n\r\nexport const MarkdownExemple = () => {\r\n  return <MarkdownToHtml markdown={markdown} />;\r\n};\r\n"
+    },
+    {
+      "type": "registry:file",
+      "path": "src/components/ui/markdownToHtml.tsx",
+      "target": "src/components/ui/markdownToHtml.tsx",
+      "content": "import ReactMarkdown from 'react-markdown';\nimport { ReactMarkdownProps } from 'react-markdown/lib/complex-types';\nimport remarkGfm from 'remark-gfm';\nimport { H1 } from './h1';\nimport { H2 } from './h2';\nimport { H3 } from './h3';\nimport { P } from './p';\nimport { A } from './a';\nimport { Ul } from './ul';\nimport { Ol } from './ol';\nimport { Blockquote } from './blockquote';\nimport { Separator } from './separator';\n\ninterface Props {\n  markdown: string;\n}\n\nconst MarkdownToHtml = ({ markdown }: Props) => {\n  return (\n    <ReactMarkdown\n      remarkPlugins={[remarkGfm]}\n      components={{\n        h1: (props: ReactMarkdownProps) => <H1 {...props} />,\n        h2: (props: ReactMarkdownProps) => <H2 {...props} />,\n        h3: (props: ReactMarkdownProps) => <H3 {...props} />,\n        p: (props: ReactMarkdownProps) => <P {...props} />,\n        a: (props: ReactMarkdownProps) => (\n          <A\n            href={(props.node?.properties?.href as string) || '#'}\n            {...props}\n          />\n        ),\n        blockquote: (props: ReactMarkdownProps) => <Blockquote {...props} />,\n        ul: (props: ReactMarkdownProps) => <Ul {...props} />,\n        ol: (props: ReactMarkdownProps) => <Ol {...props} />,\n        hr: () => <Separator />,\n        table: (props: ReactMarkdownProps) => (\n          <div className='w-full overflow-x-auto'>\n            <table className='w-full border-collapse'>{props.children}</table>\n          </div>\n        ),\n        thead: (props: ReactMarkdownProps) => (\n          <thead className='bg-muted'>{props.children}</thead>\n        ),\n        tbody: (props: ReactMarkdownProps) => <tbody>{props.children}</tbody>,\n        tr: (props: ReactMarkdownProps) => (\n          <tr className='border-t even:bg-muted'>{props.children}</tr>\n        ),\n        th: (props: ReactMarkdownProps) => (\n          <th className='border px-4 py-2 text-left font-bold [&[align=center]]:text-center [&[align=right]]:text-right'>\n            {props.children}\n          </th>\n        ),\n        td: (props: ReactMarkdownProps) => (\n          <td className='border px-4 py-2 text-left [&[align=center]]:text-center [&[align=right]]:text-right'>\n            {props.children}\n          </td>\n        ),\n      }}\n      className='prose prose-lg max-w-none'\n    >\n      {markdown}\n    </ReactMarkdown>\n  );\n};\n\nexport default MarkdownToHtml;\n"
+    },
+    {
+      "type": "registry:file",
+      "path": "src/components/ui/blockquote.tsx",
+      "target": "src/components/ui/blockquote.tsx",
+      "content": "import { ClassValue } from 'clsx';\n\nexport function Blockquote({\n  children,\n  className,\n}: {\n  children: React.ReactNode;\n  className?: ClassValue;\n}) {\n  return (\n    <blockquote className={`border-l-2 border-border pl-6 italic ${className}`}>\n      {children}\n    </blockquote>\n  );\n}\n"
+    }
+  ]
+}
