@@ -21,7 +21,7 @@ import axios from 'axios';
 import confetti from 'canvas-confetti';
 import { ArrowRightIcon, Trash2 } from 'lucide-react';
 import { Variants } from 'motion/react';
-import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 
 const valoresCampoInicial = {
   name: '',
@@ -31,7 +31,7 @@ const valoresCampoInicial = {
 };
 
 const access_key = 'e25d109e-87c5-431e-9bd5-89f4b0792f09';
-const API_KEY = 'https://api.web3forms.com/submit';
+const API_URL = 'https://api.web3forms.com/submit';
 
 const animation: Variants[] = [
   {
@@ -89,7 +89,7 @@ const ContactMeHomepage = () => {
 
     setModalAberto(true);
     axios
-      .post(API_KEY, dados)
+      .post(API_URL, dados)
       .then((res) => {
         if (res.status === 200) {
           setModalAberto(false);
@@ -225,7 +225,7 @@ const ContactMeHomepage = () => {
           initial='hidden'
           whileInView='show'
           viewport={{ once: true, amount: 0.15 }}
-          className='hidden md:flex flex-col flex-1 gap-3'
+          className='hidden md:block space-y-3 flex-1'
         >
           <H2 className='text-center md:text-start'>Contact me!</H2>
           <P className='text-center md:text-start'>
@@ -239,7 +239,7 @@ const ContactMeHomepage = () => {
           initial='hidden'
           whileInView='show'
           viewport={{ once: true, amount: 0.15 }}
-          className='md:hidden flex flex-col flex-1 gap-3'
+          className='md:hidden space-y-1.5 flex-1'
         >
           <H2 className='text-center md:text-start'>Contact me!</H2>
           <P className='text-center md:text-start'>

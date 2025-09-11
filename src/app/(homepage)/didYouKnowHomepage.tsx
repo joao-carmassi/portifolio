@@ -32,7 +32,7 @@ const DidYouKnowHomepage = () => {
 
   return (
     <section>
-      <div className='p-6 md:p-12 text-center space-y-3 mx-auto max-w-7xl gap-5'>
+      <div className='p-6 md:p-12 text-center space-y-1.5 md:space-y-3 mx-auto max-w-7xl gap-5'>
         <H2>Did you know that:</H2>
         <P className='text-center md:text-lg'>{fatos?.text}</P>
       </div>

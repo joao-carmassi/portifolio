@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import { Raleway } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/header';
-import Footer from '@/components/footer';
 
 const raleway = Raleway({
   variable: '--font-main',
@@ -19,7 +18,7 @@ const navigationLinks = [
   { id: 'aboutMeHomepage', label: 'About' },
   { id: 'documentosHomepage', label: 'Resume', position: 'start' as const },
   { id: 'techStack', label: 'Stack' },
-  { id: 'mapaHomepage', label: 'Map' },
+  { id: 'githubHomepage', label: 'Github' },
 ];
 
 export default function RootLayout({
@@ -32,7 +31,6 @@ export default function RootLayout({
       <body className={`${raleway.variable} font-main antialiased`}>
         <Header navigationLinks={navigationLinks} />
         {children}
-        <Footer navigationLinks={navigationLinks} />
       </body>
     </html>
   );

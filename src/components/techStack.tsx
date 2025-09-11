@@ -12,10 +12,7 @@ const tecnologias = [
 
 const TechStack = () => {
   return (
-    <section
-      id='techStack'
-      className='bg-card shadow-md border-t border-border'
-    >
+    <section id='techStack' className='bg-card border-t border-b border-border'>
       <div className='p-6 md:p-12 max-w-7xl mx-auto space-y-3 md:space-y-6'>
         <ScrollFloat
           animationDuration={1}

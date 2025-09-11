@@ -50,7 +50,7 @@ export default function Header({ navigationLinks }: Props) {
             <PopoverTrigger asChild>
               <Button
                 aria-label='Abrir menu'
-                className='group size-8 md:hidden border border-accent'
+                className='group text-accent size-8 md:hidden border border-accent'
                 variant='ghost'
                 size='icon'
               >

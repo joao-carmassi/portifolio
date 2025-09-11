@@ -62,7 +62,7 @@ const DocumentosHomepage = () => {
       id='documentosHomepage'
       className='max-w-7xl w-full p-6 md:p-12 mx-auto space-y-6 md:space-y-12'
     >
-      <div className='space-y-3'>
+      <div className='space-y-1.5 md:space-y-3'>
         <H2 className='text-center'>My Portfolio & Achievements</H2>
         <P className='text-center'>
           Explore my resumes, certifications, and professional milestones in one
