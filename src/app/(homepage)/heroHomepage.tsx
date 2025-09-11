@@ -16,7 +16,7 @@ const container: Variants = {
 };
 
 const animation: Variants = {
-  hidden: { y: 55 },
+  hidden: { y: 90 },
   show: {
     y: 0,
     transition: {
@@ -71,16 +71,18 @@ const HeroHomepage = () => {
               <RotatingText
                 texts={[
                   'a Developer',
-                  'a React Enthusiast',
-                  'a Problem Solver',
-                  'a Fast Learner',
-                  'a Team Player',
-                  'a Tech Explorer',
+                  'an Explorer',
                   'a Dreamer',
                   'a Creator',
-                  'a Builder of Ideas',
-                  'a Code Lover',
-                  'a Curious Mind',
+                  'Curious',
+                  'a Thinker',
+                  'an Innovator',
+                  'a Builder',
+                  'a Learner',
+                  'Adventurous',
+                  'a Maker',
+                  'a Visionary',
+                  'a Coder',
                 ]}
                 mainClassName='px-2 sm:px-2 md:px-3 bg-secondary text-card overflow-hidden py-1 justify-center rounded-lg font-bold'
                 staggerFrom={'last'}

@@ -221,10 +221,10 @@ const ContactMeHomepage = () => {
           </Card>
         </motion.form>
         <motion.div
-          variants={animation[0]}
-          initial='hidden'
-          whileInView='show'
-          viewport={{ once: true }}
+          // variants={animation[0]}
+          // initial='hidden'
+          // whileInView='show'
+          // viewport={{ once: true }}
           className='flex flex-col flex-1 gap-3'
         >
           <H2 className='text-center md:text-start'>Contact me!</H2>
