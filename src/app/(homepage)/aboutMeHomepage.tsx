@@ -15,17 +15,17 @@ const json = {
     "spanish": "B2"
   },
   "technologies": [
-    "HTML", "CSS", "Tailwind", "Sass", "React", "Next.Js", "Git", "Github", "Eslint"
+    "HTML", "CSS", "Tailwind", "Sass", "React", "Next.Js", "Context-api", "Git", "Eslint"
+  ],
+  "methodologies": [
+    "Mobile first", "Scrum", "Kanban"
   ],
   "interests": [
     "Programming",
     "Games",
-    "Anime",
     "Music",
     "Movies",
-    "Hiking",
-    "Technology",
-    "Meeting new people and places"
+    "Hiking"
   ]
 }`,
   desktop: `{
@@ -38,7 +38,7 @@ const json = {
         "spanish": "B2"
     },
     "technologies": [
-        "HTML", "CSS", "Tailwind", "Sass", "Next.Js", "Context-api", "Git", "Eslint"
+        "HTML", "CSS", "Tailwind", "Sass", "React", "Next.Js", "Context-api", "Git", "Eslint"
     ],
     "methodologies": [
         "Mobile first", "Scrum", "Kanban"
