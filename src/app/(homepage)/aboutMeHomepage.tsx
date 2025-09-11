@@ -5,8 +5,7 @@ import AnimatedDiv from '@/components/ui/animatedDiv';
 import { Variants } from 'motion/react';
 
 const json = {
-  mobile: `{
-  "full-name": "João Vitor Carmassi",
+  mobile: `"full-name": "João Vitor Carmassi",
   "birthdate": "December 8, 2004",
   "place-of-birth": "São Paulo, SP",
   "where-I-live": "São Bento do Sapucai, SP",
@@ -14,20 +13,21 @@ const json = {
     "english": "C1",
     "spanish": "B2"
   },
-  "technologies": [
-    "HTML", "CSS", "Tailwind", "Sass", "React", "Next.Js", "Context-api", "Git", "Eslint"
+  "programming-languages": [
+    "HTML", "CSS", "JavaScript", "TypeScript"
+  ],
+  "frameworks": [
+    "React", "Next.Js", "Tailwind", "Sass"
+  ],
+  "tools": [
+    "Git", "Eslint", "Redux", "Context-api", "Shadcn/Ui", "Motion"
   ],
   "methodologies": [
     "Mobile first", "Scrum", "Kanban"
   ],
   "interests": [
-    "Programming",
-    "Games",
-    "Music",
-    "Movies",
-    "Hiking"
-  ]
-}`,
+    "Programming", "Games", "Music", "Movies", "Hiking"
+  ]`,
   desktop: `{
     "full-name": "João Vitor Carmassi",
     "birthdate": "December 8, 2004",
@@ -37,18 +37,20 @@ const json = {
         "english": "C1",
         "spanish": "B2"
     },
-    "technologies": [
-        "HTML", "CSS", "Tailwind", "Sass", "React", "Next.Js", "Context-api", "Git", "Eslint"
+    "programming-languages": [
+        "HTML", "CSS", "JavaScript", "TypeScript"
+    ],
+    "frameworks": [
+        "React", "Next.Js", "Tailwind", "Sass"
+    ],
+    "tools": [
+        "Git", "Eslint", "Redux", "Context-api", "Shadcn/Ui", "Motion"
     ],
     "methodologies": [
         "Mobile first", "Scrum", "Kanban"
     ],
     "interests": [
-        "Programming",
-        "Games",
-        "Music",
-        "Movies",
-        "Hiking"
+        "Programming", "Games", "Music", "Movies", "Hiking"
     ]
 }`,
 };
