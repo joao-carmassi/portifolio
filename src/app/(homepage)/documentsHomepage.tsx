@@ -41,36 +41,20 @@ const docs = [
   },
 ];
 
-const animation: Variants[] = [
-  {
-    hidden: { opacity: 0, x: 150, scale: 0.95 },
-    show: {
-      opacity: 1,
-      x: 0,
-      scale: 1,
-      transition: {
-        type: 'spring',
-        stiffness: 120,
-        damping: 16,
-        delay: 0.1,
-      },
+const animation: Variants = {
+  hidden: { opacity: 0, y: 150, scale: 0.95 },
+  show: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      type: 'spring',
+      stiffness: 120,
+      damping: 16,
+      delay: 0.1,
     },
   },
-  {
-    hidden: { opacity: 0, x: -150, scale: 0.95 },
-    show: {
-      opacity: 1,
-      x: 0,
-      scale: 1,
-      transition: {
-        type: 'spring',
-        stiffness: 120,
-        damping: 16,
-        delay: 0.1,
-      },
-    },
-  },
-];
+};
 
 const DocumentosHomepage = () => {
   return (
@@ -86,12 +70,12 @@ const DocumentosHomepage = () => {
         </P>
       </div>
       <div className='w-full mx-auto space-y-12 md:space-y-20'>
-        {docs.map((doc, index) => (
+        {docs.map((doc) => (
           <AnimatedDiv
-            variants={animation[index % 2 === 0 ? 0 : 1]}
+            variants={animation}
             initial='hidden'
             whileInView='show'
-            viewport={{ amount: 0.3, once: true }}
+            viewport={{ once: true }}
             key={doc.category}
             className='flex flex-col md:flex-row items-center gap-x-12 gap-y-6 md:even:flex-row-reverse'
           >

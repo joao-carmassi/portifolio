@@ -21,7 +21,7 @@ import axios from 'axios';
 import confetti from 'canvas-confetti';
 import { ArrowRightIcon, Trash2 } from 'lucide-react';
 import { Variants } from 'motion/react';
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 
 const valoresCampoInicial = {
   name: '',
@@ -221,11 +221,25 @@ const ContactMeHomepage = () => {
           </Card>
         </motion.form>
         <motion.div
-          // variants={animation[0]}
-          // initial='hidden'
-          // whileInView='show'
-          // viewport={{ once: true }}
-          className='flex flex-col flex-1 gap-3'
+          variants={animation[0]}
+          initial='hidden'
+          whileInView='show'
+          viewport={{ once: true, amount: 0.15 }}
+          className='hidden md:flex flex-col flex-1 gap-3'
+        >
+          <H2 className='text-center md:text-start'>Contact me!</H2>
+          <P className='text-center md:text-start'>
+            I’d love to hear from you! Whether you have a question, a project in
+            mind, or just want to connect, feel free to reach out. I’m always
+            open to new opportunities and collaborations.
+          </P>
+        </motion.div>
+        <motion.div
+          variants={animation[1]}
+          initial='hidden'
+          whileInView='show'
+          viewport={{ once: true, amount: 0.15 }}
+          className='md:hidden flex flex-col flex-1 gap-3'
         >
           <H2 className='text-center md:text-start'>Contact me!</H2>
           <P className='text-center md:text-start'>
