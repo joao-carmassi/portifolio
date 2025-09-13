@@ -172,7 +172,7 @@ const GithubHomepage = () => {
           </AnimatedDiv>
           {/* Card 2 */}
           <AnimatedDiv
-            viewport={{ amount: 0.15, once: true, margin: '-150px' }}
+            viewport={{ amount: 0.15, once: true }}
             variants={animationCell[1]}
             initial='hidden'
             whileInView='show'
