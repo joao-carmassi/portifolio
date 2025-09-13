@@ -173,7 +173,7 @@ const GithubHomepage = () => {
           {/* Card 2 */}
           <AnimatedDiv
             viewport={{ amount: 0.15, once: true, margin: '-150px' }}
-            variants={animationCell[0]}
+            variants={animationCell[1]}
             initial='hidden'
             whileInView='show'
             className='col-span-1 md:col-span-2 lg:col-span-1'
@@ -184,7 +184,7 @@ const GithubHomepage = () => {
                 <div className='md:hidden aspect-video w-full bg-background rounded-xl mb-3'>
                   <img
                     className='object-cover h-full w-full rounded-xl'
-                    src='./imgs/github-profile-img.png'
+                    src='./imgs/github-organization-img.png'
                     alt=''
                   />
                 </div>
