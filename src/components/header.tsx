@@ -14,6 +14,7 @@ import {
 import scrollToContainer from '@/utils/scrowToContainer';
 import { useEffect, useState } from 'react';
 import { ScrollProgress } from './magicui/scroll-progress';
+import { Settings } from 'lucide-react';
 
 interface Props {
   navigationLinks: {
@@ -123,7 +124,7 @@ export default function Header({ navigationLinks }: Props) {
                         scrollToContainer(link.id, link.position || 'center')
                       }
                       size={'sm'}
-                      variant={'link'}
+                      variant={'ghost'}
                       className='hover:cursor-pointer'
                     >
                       {link.label}
@@ -143,6 +144,30 @@ export default function Header({ navigationLinks }: Props) {
           >
             Contact
           </Button>
+          {/* <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                aria-label='Botão abrir campo pesquisa'
+                variant='outline'
+                size='icon'
+                className='rounded-full border-border shadow-md'
+              >
+                <Settings />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent
+              className='p-1.5 flex flex-col w-fit'
+              sideOffset={12}
+              align='end'
+            >
+              <Button size={'sm'} variant={'ghost'} className='w-fit'>
+                Lorem
+              </Button>
+              <Button size={'sm'} variant={'ghost'} className='w-fit'>
+                Lorem
+              </Button>
+            </PopoverContent>
+          </Popover> */}
         </div>
       </div>
     </header>

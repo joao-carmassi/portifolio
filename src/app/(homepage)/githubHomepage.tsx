@@ -210,8 +210,8 @@ const GithubHomepage = () => {
                   </li>
                   <li>
                     <div className='flex items-start gap-3'>
+                      <Code className='shrink-0' />
                       <p className='-mt-0.5'>
-                        <Code className='shrink-0' />
                         Build small, practical projects to sharpen your skills
                         and explore new technologies.
                       </p>
@@ -226,7 +226,7 @@ const GithubHomepage = () => {
                   asChild
                 >
                   <a target='_blank' href='https://github.com/joao-carmassi'>
-                    See account
+                    See organization
                   </a>
                 </Button>
               </div>
