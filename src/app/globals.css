@@ -13,8 +13,6 @@
 }
 
 body {
-  --sb-track-color: var(--color-card);
-  --sb-thumb-color: var(--color-gray-300);
   --sb-size: 8px;
   overflow-x: hidden;
 }
@@ -93,6 +91,9 @@ body::-webkit-scrollbar-thumb {
 
   --tracking-normal: 0em;
   --spacing: 0.25rem;
+
+  --sb-track-color: var(--card);
+  --sb-thumb-color: var(--color-gray-300);
 }
 
 @theme inline {
@@ -199,4 +200,7 @@ body::-webkit-scrollbar-thumb {
   --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.1),
     0 8px 10px -1px hsl(0 0% 0% / 0.1);
   --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
+
+  --sb-track-color: var(--card);
+  --sb-thumb-color: var(--color-gray-500);
 }

@@ -5,7 +5,7 @@ const Divider = () => {
     <div className='relative'>
       <div id='divider' className='custom-shape-divider-top-1733276584'>
         <svg
-          className='drop-shadow'
+          className='drop-shadow fill-background'
           data-name='Layer 1'
           xmlns='http://www.w3.org/2000/svg'
           viewBox='0 0 1200 120'

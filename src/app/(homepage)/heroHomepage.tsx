@@ -85,7 +85,7 @@ const HeroHomepage = () => {
                     'a Visionary',
                     'a Coder',
                   ]}
-                  mainClassName='px-2 sm:px-2 md:px-3 bg-secondary text-card overflow-hidden py-1 justify-center rounded-lg font-bold'
+                  mainClassName='px-2 sm:px-2 md:px-3 bg-secondary text-white overflow-hidden py-1 justify-center rounded-lg font-bold'
                   staggerFrom={'last'}
                   initial={{ y: '100%' }}
                   animate={{ y: 0 }}
