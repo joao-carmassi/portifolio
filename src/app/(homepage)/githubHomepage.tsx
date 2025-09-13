@@ -5,6 +5,7 @@ import { P } from '@/components/ui/p';
 import { H3 } from '@/components/ui/h3';
 import { Variants } from 'motion/react';
 import AnimatedDiv from '@/components/ui/animatedDiv';
+import { MagicCard } from '@/components/magicui/magic-card';
 
 const animationPc: Variants[] = [
   {
@@ -85,57 +86,61 @@ const GithubHomepage = () => {
             variants={animationCell[0]}
             initial='hidden'
             whileInView='show'
-            className='bg-muted rounded-xl p-3 md:p-6 col-span-1 md:col-span-2 lg:col-span-1 shadow-lg flex flex-col gap-3 md:gap-6'
+            className='col-span-1 md:col-span-2 lg:col-span-1'
           >
-            {/* Media 1 Mobile */}
-            <div className='md:hidden aspect-video w-full bg-background rounded-xl mb-3'>
-              <img
-                className='object-cover h-full w-full rounded-xl'
-                src='./imgs/github-profile-img.png'
-                alt=''
-              />
-            </div>
-            <H3>Work</H3>
-            <ul className='space-y-4'>
-              <li>
-                <div className='flex items-start gap-3'>
-                  <Laptop className='shrink-0' />
-                  <p className='-mt-0.5'>
-                    Build interactive UIs using React and Tailwind—efficient,
-                    reusable, and responsive.
-                  </p>
+            <MagicCard className='rounded-xl' gradientColor='bg-card'>
+              {/* Media 1 Mobile */}
+              <div className='rounded-xl p-3 md:p-6 shadow-lg flex flex-col gap-3 md:gap-6'>
+                <div className='md:hidden aspect-video w-full bg-background rounded-xl mb-3'>
+                  <img
+                    className='object-cover h-full w-full rounded-xl'
+                    src='./imgs/github-profile-img.png'
+                    alt=''
+                  />
                 </div>
-              </li>
-              <li>
-                <div className='flex items-start gap-3'>
-                  <Code className='shrink-0' />
-                  <p className='-mt-0.5'>
-                    Explore projects ranging from dashboards to dynamic web
-                    apps—practical examples of my work.
-                  </p>
-                </div>
-              </li>
-              <li>
-                <div className='flex items-start gap-3'>
-                  <Layers className='shrink-0' />
-                  <p className='-mt-0.5'>
-                    Organize components and layouts efficiently—showcasing
-                    structured and scalable designs.
-                  </p>
-                </div>
-              </li>
-            </ul>
-            <Button
-              effect={'expandIcon'}
-              icon={Github}
-              iconPlacement='right'
-              className='w-full mt-auto'
-              asChild
-            >
-              <a target='_blank' href='https://github.com/joao-carmassi'>
-                See account
-              </a>
-            </Button>
+                <H3>Work</H3>
+                <ul className='space-y-4'>
+                  <li>
+                    <div className='flex items-start gap-3'>
+                      <Laptop className='shrink-0' />
+                      <p className='-mt-0.5'>
+                        Build interactive UIs using React and
+                        Tailwind—efficient, reusable, and responsive.
+                      </p>
+                    </div>
+                  </li>
+                  <li>
+                    <div className='flex items-start gap-3'>
+                      <Code className='shrink-0' />
+                      <p className='-mt-0.5'>
+                        Explore projects ranging from dashboards to dynamic web
+                        apps—practical examples of my work.
+                      </p>
+                    </div>
+                  </li>
+                  <li>
+                    <div className='flex items-start gap-3'>
+                      <Layers className='shrink-0' />
+                      <p className='-mt-0.5'>
+                        Organize components and layouts efficiently—showcasing
+                        structured and scalable designs.
+                      </p>
+                    </div>
+                  </li>
+                </ul>
+                <Button
+                  effect={'expandIcon'}
+                  icon={Github}
+                  iconPlacement='right'
+                  className='w-full mt-auto'
+                  asChild
+                >
+                  <a target='_blank' href='https://github.com/joao-carmassi'>
+                    See account
+                  </a>
+                </Button>
+              </div>
+            </MagicCard>
           </AnimatedDiv>
           {/* Media 1 Desktop */}
           <AnimatedDiv
@@ -167,64 +172,65 @@ const GithubHomepage = () => {
           </AnimatedDiv>
           {/* Card 2 */}
           <AnimatedDiv
-            viewport={{ amount: 0.15, once: true }}
-            variants={animationCell[1]}
+            viewport={{ amount: 0.15, once: true, margin: '-150px' }}
+            variants={animationCell[0]}
             initial='hidden'
             whileInView='show'
-            className='bg-muted rounded-xl p-3 md:p-6 col-span-1 md:col-span-2 lg:col-span-1 shadow-lg flex flex-col gap-3 md:gap-6'
+            className='col-span-1 md:col-span-2 lg:col-span-1'
           >
-            {/* Media 2 Mobile */}
-            <div className='md:hidden aspect-video w-full bg-background rounded-xl mb-3'>
-              <img
-                className='object-cover h-full w-full rounded-xl'
-                src='./imgs/github-organization-img.png'
-                alt=''
-              />
-            </div>
-            <H3>Study</H3>
-            <ul className='space-y-4'>
-              <li>
-                <div className='flex items-start gap-3'>
-                  <BookOpen className='shrink-0' />
-                  <p className='-mt-0.5'>
-                    Explore a variety of projects—from HTML and CSS basics to
-                    Vue and React apps.
-                  </p>
+            <MagicCard className='rounded-xl' gradientColor='bg-card'>
+              {/* Media 1 Mobile */}
+              <div className='rounded-xl p-3 md:p-6 shadow-lg flex flex-col gap-3 md:gap-6'>
+                <div className='md:hidden aspect-video w-full bg-background rounded-xl mb-3'>
+                  <img
+                    className='object-cover h-full w-full rounded-xl'
+                    src='./imgs/github-profile-img.png'
+                    alt=''
+                  />
                 </div>
-              </li>
-              <li>
-                <div className='flex items-start gap-3'>
-                  <Layers className='shrink-0' />
-                  <p className='-mt-0.5'>
-                    Experiment with different frameworks and
-                    languages—TypeScript, Vue, React and more.
-                  </p>
-                </div>
-              </li>
-              <li>
-                <div className='flex items-start gap-3'>
-                  <Code className='shrink-0' />
-                  <p className='-mt-0.5'>
-                    Build small, practical projects to sharpen your skills and
-                    explore new technologies.
-                  </p>
-                </div>
-              </li>
-            </ul>
-            <Button
-              effect={'expandIcon'}
-              icon={Github}
-              iconPlacement='right'
-              className='w-full mt-auto'
-              asChild
-            >
-              <a
-                target='_blank'
-                href='https://github.com/joao-carmassi-studies'
-              >
-                See organization
-              </a>
-            </Button>
+                <H3>Study</H3>
+                <ul className='space-y-4'>
+                  <li>
+                    <div className='flex items-start gap-3'>
+                      <BookOpen className='shrink-0' />
+                      <p className='-mt-0.5'>
+                        Explore a variety of projects—from HTML and CSS basics
+                        to Vue and React apps.
+                      </p>
+                    </div>
+                  </li>
+                  <li>
+                    <div className='flex items-start gap-3'>
+                      <Layers className='shrink-0' />
+                      <p className='-mt-0.5'>
+                        Experiment with different frameworks and
+                        languages—TypeScript, Vue, React and more.
+                      </p>
+                    </div>
+                  </li>
+                  <li>
+                    <div className='flex items-start gap-3'>
+                      <p className='-mt-0.5'>
+                        <Code className='shrink-0' />
+                        Build small, practical projects to sharpen your skills
+                        and explore new technologies.
+                      </p>
+                    </div>
+                  </li>
+                </ul>
+                <Button
+                  effect={'expandIcon'}
+                  icon={Github}
+                  iconPlacement='right'
+                  className='w-full mt-auto'
+                  asChild
+                >
+                  <a target='_blank' href='https://github.com/joao-carmassi'>
+                    See account
+                  </a>
+                </Button>
+              </div>
+            </MagicCard>
           </AnimatedDiv>
         </div>
       </div>
