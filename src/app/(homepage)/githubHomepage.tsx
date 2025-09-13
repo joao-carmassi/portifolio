@@ -3,6 +3,70 @@ import { BookOpen, Code, Github, Laptop, Layers } from 'lucide-react';
 import { H2 } from '../../components/ui/h2';
 import { P } from '@/components/ui/p';
 import { H3 } from '@/components/ui/h3';
+import { Variants } from 'motion/react';
+import AnimatedDiv from '@/components/ui/animatedDiv';
+
+const animationPc: Variants[] = [
+  {
+    hidden: { opacity: 0, x: 150, scale: 0.95 },
+    show: {
+      opacity: 1,
+      x: 0,
+      scale: 1,
+      transition: {
+        type: 'spring',
+        stiffness: 120,
+        damping: 16,
+        delay: 0.1,
+      },
+    },
+  },
+  {
+    hidden: { opacity: 0, x: -150, scale: 0.95 },
+    show: {
+      opacity: 1,
+      x: 0,
+      scale: 1,
+      transition: {
+        type: 'spring',
+        stiffness: 120,
+        damping: 16,
+        delay: 0.1,
+      },
+    },
+  },
+];
+
+const animationCell: Variants[] = [
+  {
+    hidden: { opacity: 0, y: -150, scale: 0.95 },
+    show: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        type: 'spring',
+        stiffness: 120,
+        damping: 16,
+        delay: 0.1,
+      },
+    },
+  },
+  {
+    hidden: { opacity: 0, y: 150, scale: 0.95 },
+    show: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        type: 'spring',
+        stiffness: 120,
+        damping: 16,
+        delay: 0.1,
+      },
+    },
+  },
+];
 
 const GithubHomepage = () => {
   return (
@@ -16,7 +80,13 @@ const GithubHomepage = () => {
         </div>
         <div className='grid sm:grid-cols-2 md:grid-cols-5 lg:grid-cols-3 gap-6'>
           {/* Card 1 */}
-          <div className='bg-muted rounded-xl p-3 md:p-6 col-span-1 md:col-span-2 lg:col-span-1 md:shadow-lg flex flex-col gap-3 md:gap-6'>
+          <AnimatedDiv
+            viewport={{ amount: 0.15, once: true, margin: '-150px' }}
+            variants={animationCell[0]}
+            initial='hidden'
+            whileInView='show'
+            className='bg-muted rounded-xl p-3 md:p-6 col-span-1 md:col-span-2 lg:col-span-1 shadow-lg flex flex-col gap-3 md:gap-6'
+          >
             {/* Media 1 Mobile */}
             <div className='md:hidden aspect-video w-full bg-background rounded-xl mb-3'>
               <img
@@ -63,28 +133,46 @@ const GithubHomepage = () => {
               asChild
             >
               <a target='_blank' href='https://github.com/joao-carmassi'>
-                See more
+                See account
               </a>
             </Button>
-          </div>
+          </AnimatedDiv>
           {/* Media 1 Desktop */}
-          <div className='hidden md:block bg-muted rounded-xl col-span-1 md:col-span-3 lg:col-span-2'>
+          <AnimatedDiv
+            viewport={{ amount: 0.15, once: true }}
+            variants={animationPc[0]}
+            initial='hidden'
+            whileInView='show'
+            className='hidden md:block bg-muted rounded-xl col-span-1 md:col-span-3 lg:col-span-2'
+          >
             <img
               className='object-cover h-full w-full rounded-xl'
               src='./imgs/github-profile-img.png'
               alt=''
             />
-          </div>
+          </AnimatedDiv>
           {/* Media 2 Desktop */}
-          <div className='hidden md:block bg-muted rounded-xl col-span-1 md:col-span-3 lg:col-span-2 '>
+          <AnimatedDiv
+            viewport={{ amount: 0.15, once: true }}
+            variants={animationPc[1]}
+            initial='hidden'
+            whileInView='show'
+            className='hidden md:block bg-muted rounded-xl col-span-1 md:col-span-3 lg:col-span-2 '
+          >
             <img
               className='object-cover h-full w-full rounded-xl'
               src='./imgs/github-organization-img.png'
               alt=''
             />
-          </div>
+          </AnimatedDiv>
           {/* Card 2 */}
-          <div className='bg-muted rounded-xl p-3 md:p-6 col-span-1 md:col-span-2 lg:col-span-1 md:shadow-lg flex flex-col gap-3 md:gap-6'>
+          <AnimatedDiv
+            viewport={{ amount: 0.15, once: true }}
+            variants={animationCell[1]}
+            initial='hidden'
+            whileInView='show'
+            className='bg-muted rounded-xl p-3 md:p-6 col-span-1 md:col-span-2 lg:col-span-1 shadow-lg flex flex-col gap-3 md:gap-6'
+          >
             {/* Media 2 Mobile */}
             <div className='md:hidden aspect-video w-full bg-background rounded-xl mb-3'>
               <img
@@ -134,10 +222,10 @@ const GithubHomepage = () => {
                 target='_blank'
                 href='https://github.com/joao-carmassi-studies'
               >
-                See more
+                See organization
               </a>
             </Button>
-          </div>
+          </AnimatedDiv>
         </div>
       </div>
     </section>

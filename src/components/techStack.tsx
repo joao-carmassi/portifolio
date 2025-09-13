@@ -17,8 +17,8 @@ const TechStack = () => {
         <ScrollFloat
           animationDuration={1}
           ease='back.inOut(2)'
-          scrollStart='center bottom+=50%'
-          scrollEnd='bottom bottom-=50%'
+          scrollStart='center bottom+=40%'
+          scrollEnd='bottom bottom-=60%'
           stagger={0.03}
           textClassName='sm:text-5xl md:text-7xl lg:text-9xl font-semibold'
         >

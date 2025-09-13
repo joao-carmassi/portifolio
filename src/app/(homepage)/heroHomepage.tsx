@@ -42,63 +42,65 @@ const HeroHomepage = () => {
           backgroundImage: 'url("./ImgBg.webp")',
         }}
       />
-      <div className='text-center space-y-3 md:space-y-6 px-6 md:px-12 relative z-10'>
-        <span className='block overflow-hidden'>
-          <motion.h2
-            variants={animation}
-            className='scroll-m-20 md:text-3xl lg:text-4xl tracking-wide text-white drop-shadow-2xl text-3xl drop-shadow-black'
-          >
-            <span className='font-bold'>Hello</span>, my name is
-          </motion.h2>
-        </span>
-        <span className='block overflow-hidden'>
-          <motion.h1
-            variants={animation}
-            className={cn(
-              'scroll-m-20 font-extrabold tracking-wide text-white drop-shadow-2xl drop-shadow-black text-4xl md:text-5xl lg:text-5xl'
-            )}
-          >
-            João Vitor Carmassi
-          </motion.h1>
-        </span>
-        <span className='block overflow-hidden'>
-          <motion.h2
-            variants={animation}
-            className='scroll-m-20 md:text-3xl lg:text-4xl tracking-wide text-white drop-shadow-2xl text-3xl drop-shadow-black font-normal'
-          >
-            <span className='flex items-center justify-center gap-1.5 transition-all duration-150'>
-              <p>I&apos;m</p>
-              <RotatingText
-                texts={[
-                  'a Developer',
-                  'an Explorer',
-                  'a Dreamer',
-                  'a Creator',
-                  'Curious',
-                  'a Thinker',
-                  'an Innovator',
-                  'a Builder',
-                  'a Learner',
-                  'Adventurous',
-                  'a Maker',
-                  'a Visionary',
-                  'a Coder',
-                ]}
-                mainClassName='px-2 sm:px-2 md:px-3 bg-secondary text-card overflow-hidden py-1 justify-center rounded-lg font-bold'
-                staggerFrom={'last'}
-                initial={{ y: '100%' }}
-                animate={{ y: 0 }}
-                exit={{ y: '-120%' }}
-                staggerDuration={0.025}
-                splitLevelClassName='overflow-hidden pb-0.5 sm:pb-1 md:pb-1'
-                transition={{ type: 'spring', damping: 30, stiffness: 400 }}
-                rotationInterval={3500}
-              />
-            </span>
-          </motion.h2>
-        </span>
+      <div className='px-6 md:px-12 relative z-10'>
+        <div className='text-center space-y-3 md:space-y-6 '>
+          <span className='block overflow-hidden'>
+            <motion.h2
+              variants={animation}
+              className='scroll-m-20 md:text-3xl lg:text-4xl tracking-wide text-white drop-shadow-2xl text-3xl drop-shadow-black'
+            >
+              <span className='font-bold'>Hello</span>, my name is
+            </motion.h2>
+          </span>
+          <span className='block overflow-hidden'>
+            <motion.h1
+              variants={animation}
+              className={cn(
+                'scroll-m-20 font-extrabold tracking-wide text-white drop-shadow-2xl drop-shadow-black text-4xl md:text-5xl lg:text-5xl'
+              )}
+            >
+              João Vitor Carmassi
+            </motion.h1>
+          </span>
+          <span className='block overflow-hidden'>
+            <motion.h2
+              variants={animation}
+              className='scroll-m-20 md:text-3xl lg:text-4xl tracking-wide text-white drop-shadow-2xl text-3xl drop-shadow-black font-normal'
+            >
+              <span className='flex items-center justify-center gap-1.5 transition-all duration-150'>
+                <p>I&apos;m</p>
+                <RotatingText
+                  texts={[
+                    'a Developer',
+                    'an Explorer',
+                    'a Dreamer',
+                    'a Creator',
+                    'Curious',
+                    'a Thinker',
+                    'an Innovator',
+                    'a Builder',
+                    'a Learner',
+                    'Adventurous',
+                    'a Maker',
+                    'a Visionary',
+                    'a Coder',
+                  ]}
+                  mainClassName='px-2 sm:px-2 md:px-3 bg-secondary text-card overflow-hidden py-1 justify-center rounded-lg font-bold'
+                  staggerFrom={'last'}
+                  initial={{ y: '100%' }}
+                  animate={{ y: 0 }}
+                  exit={{ y: '-120%' }}
+                  staggerDuration={0.025}
+                  splitLevelClassName='overflow-hidden pb-0.5 sm:pb-1 md:pb-1'
+                  transition={{ type: 'spring', damping: 30, stiffness: 400 }}
+                  rotationInterval={3500}
+                />
+              </span>
+            </motion.h2>
+          </span>
+        </div>
         <div className='flex gap-6 w-fit mx-auto'>
-          <span className='block overflow-hidden hover:scale-110 duration-200'>
+          <span className='block overflow-hidden hover:scale-110 duration-200 pt-3 md:pt-6'>
             <motion.a
               variants={animation}
               aria-label='Link para Github João Carmassi'
@@ -109,7 +111,7 @@ const HeroHomepage = () => {
               <Github />
             </motion.a>
           </span>
-          <span className='block overflow-hidden hover:scale-110 duration-200'>
+          <span className='block overflow-hidden hover:scale-110 duration-200 pt-3 md:pt-6'>
             <motion.a
               variants={animation}
               aria-label='Link para Instagram João Carmassi'
@@ -120,7 +122,7 @@ const HeroHomepage = () => {
               <Instagram />
             </motion.a>
           </span>
-          <span className='block overflow-hidden hover:scale-110 duration-200'>
+          <span className='block overflow-hidden hover:scale-110 duration-200 pt-3 md:pt-6'>
             <motion.a
               variants={animation}
               aria-label='Link para Linkedin João Carmassi'

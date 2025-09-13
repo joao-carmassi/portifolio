@@ -6,28 +6,28 @@ import { Variants } from 'motion/react';
 
 const json = {
   mobile: `"full-name": "João Vitor Carmassi",
-  "birthdate": "December 8, 2004",
-  "place-of-birth": "São Paulo, SP",
-  "where-I-live": "São Bento do Sapucai, SP",
-  "languages": {
-    "english": "C1",
-    "spanish": "B2"
-  },
-  "programming-languages": [
-    "HTML", "CSS", "JavaScript", "TypeScript"
-  ],
-  "frameworks": [
-    "React", "Next.Js", "Tailwind", "Sass"
-  ],
-  "tools": [
-    "Git", "Eslint", "Redux", "Context-api", "Shadcn/Ui", "Motion"
-  ],
-  "methodologies": [
-    "Mobile first", "Scrum", "Kanban"
-  ],
-  "interests": [
-    "Programming", "Games", "Music", "Movies", "Hiking"
-  ]`,
+"birthdate": "December 8, 2004",
+"place-of-birth": "São Paulo, SP",
+"where-I-live": "São Bento do Sapucai, SP",
+"languages": {
+  "english": "C1",
+  "spanish": "B2"
+},
+"programming-languages": [
+  "HTML", "CSS", "JavaScript", "TypeScript"
+],
+"frameworks": [
+  "React", "Next.Js", "Tailwind", "Sass"
+],
+"tools": [
+  "Git", "Eslint", "Redux", "Context-api", "Shadcn/Ui", "Motion"
+],
+"methodologies": [
+  "Mobile first", "Scrum", "Kanban"
+],
+"interests": [
+  "Programming", "Games", "Music", "Movies", "Hiking"
+]`,
   desktop: `{
     "full-name": "João Vitor Carmassi",
     "birthdate": "December 8, 2004",
