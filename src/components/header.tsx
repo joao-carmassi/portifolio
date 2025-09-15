@@ -15,6 +15,16 @@ import scrollToContainer from '@/utils/scrowToContainer';
 import { useEffect, useState } from 'react';
 import { ScrollProgress } from './magicui/scroll-progress';
 import { Settings } from 'lucide-react';
+import { useTheme } from 'next-themes';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from './ui/dropdown-menu';
 
 interface Props {
   navigationLinks: {
@@ -26,6 +36,7 @@ interface Props {
 
 export default function Header({ navigationLinks }: Props) {
   const [isVisible, setIsVisible] = useState(false);
+  const { setTheme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -109,8 +120,13 @@ export default function Header({ navigationLinks }: Props) {
               className='hover:cursor-pointer'
             >
               <img
-                className='h-12 rounded-full'
+                className='h-12 rounded-full dark:hidden'
                 src='./icons/icon-preto.webp'
+                alt='iconi JC'
+              />
+              <img
+                className='h-12 rounded-full hidden dark:block'
+                src='./icons/icon-branco.webp'
                 alt='iconi JC'
               />
             </button>
@@ -144,8 +160,8 @@ export default function Header({ navigationLinks }: Props) {
           >
             Contact
           </Button>
-          {/* <Popover>
-            <PopoverTrigger asChild>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
               <Button
                 aria-label='Botão abrir campo pesquisa'
                 variant='outline'
@@ -154,20 +170,34 @@ export default function Header({ navigationLinks }: Props) {
               >
                 <Settings />
               </Button>
-            </PopoverTrigger>
-            <PopoverContent
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
               className='p-1.5 flex flex-col w-fit'
               sideOffset={12}
               align='end'
             >
-              <Button size={'sm'} variant={'ghost'} className='w-fit'>
-                Lorem
-              </Button>
-              <Button size={'sm'} variant={'ghost'} className='w-fit'>
-                Lorem
-              </Button>
-            </PopoverContent>
-          </Popover> */}
+              <DropdownMenuSub>
+                <DropdownMenuSubTrigger>Language</DropdownMenuSubTrigger>
+                <DropdownMenuSubContent sideOffset={6}>
+                  <DropdownMenuItem>Lorem</DropdownMenuItem>
+                </DropdownMenuSubContent>
+              </DropdownMenuSub>
+              <DropdownMenuSub>
+                <DropdownMenuSubTrigger>Theme</DropdownMenuSubTrigger>
+                <DropdownMenuSubContent sideOffset={6}>
+                  <DropdownMenuItem onClick={() => setTheme('light')}>
+                    Light
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => setTheme('dark')}>
+                    Dark
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => setTheme('system')}>
+                    System
+                  </DropdownMenuItem>
+                </DropdownMenuSubContent>
+              </DropdownMenuSub>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </div>
     </header>

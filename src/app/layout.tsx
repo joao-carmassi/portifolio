@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Raleway } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/header';
+import { ThemeProvider } from '@/components/theme-provider';
 
 const raleway = Raleway({
   variable: '--font-main',
@@ -27,10 +28,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en'>
+    <html lang='en' suppressHydrationWarning>
       <body className={`${raleway.variable} font-main antialiased`}>
-        <Header navigationLinks={navigationLinks} />
-        {children}
+        <ThemeProvider attribute='class' defaultTheme='white' enableSystem>
+          <Header navigationLinks={navigationLinks} />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
