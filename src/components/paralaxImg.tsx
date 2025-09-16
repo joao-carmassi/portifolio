@@ -15,7 +15,7 @@ export const ParalaxImg = ({ className, src, alt }: Props) => {
 
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ['start end', 'end start'],
+    offset: ['end start', 'start end'],
   });
 
   const objectPosition = useTransform(

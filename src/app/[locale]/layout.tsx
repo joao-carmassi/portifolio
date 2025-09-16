@@ -5,6 +5,7 @@ import { Metadata } from 'next';
 import { Raleway } from 'next/font/google';
 import '../globals.css';
 import { getMessages } from '@/utils/getMessages';
+import { ReactLenis } from 'lenis/react';
 
 const raleway = Raleway({
   variable: '--font-main',
@@ -40,12 +41,19 @@ const RootLayout = async ({ children, params }: Props) => {
   return (
     <html lang={locale} suppressHydrationWarning>
       <body className={`${raleway.variable} font-main antialiased`}>
-        <MessagesProvider locale={locale} locales={locales}>
-          <ThemeProvider attribute='class' defaultTheme='white' enableSystem>
-            <Header navigationLinks={links} />
-          </ThemeProvider>
-          {children}
-        </MessagesProvider>
+        <ReactLenis
+          options={{
+            lerp: 0.1,
+          }}
+          root
+        >
+          <MessagesProvider locale={locale} locales={locales}>
+            <ThemeProvider attribute='class' defaultTheme='white' enableSystem>
+              <Header navigationLinks={links} />
+              {children}
+            </ThemeProvider>
+          </MessagesProvider>
+        </ReactLenis>
       </body>
     </html>
   );
