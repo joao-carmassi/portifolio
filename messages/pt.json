@@ -26,7 +26,7 @@
       "title": "João Vitor Carmassi",
       "text1": { "bold": "Ola", "text": ", meu nome é" },
       "text2": {
-        "static": "Eu sou",
+        "static": "Sou",
         "list": [
           "um Desenvolvedor",
           "um Explorador",
@@ -38,7 +38,6 @@
           "um Construtor",
           "um Aprendiz",
           "Aventureiro",
-          "um Fazedor",
           "um Visionário",
           "um Programador"
         ]
