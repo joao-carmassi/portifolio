@@ -26,6 +26,7 @@ import {
   DropdownMenuTrigger,
 } from './ui/dropdown-menu';
 import Link from 'next/link';
+import { useMessages } from '@/context/messages';
 
 interface Props {
   navigationLinks: {
@@ -38,6 +39,9 @@ interface Props {
 export default function Header({ navigationLinks }: Props) {
   const [isVisible, setIsVisible] = useState(false);
   const { setTheme } = useTheme();
+  const t = useMessages('navbar');
+  const { language, theme } = t('options');
+  const { contact } = t('actions');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -159,7 +163,7 @@ export default function Header({ navigationLinks }: Props) {
             className='rounded-none font-bold px-8 py-5.5'
             effect={'ringHover'}
           >
-            Contact
+            {contact}
           </Button>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -178,7 +182,7 @@ export default function Header({ navigationLinks }: Props) {
               align='end'
             >
               <DropdownMenuSub>
-                <DropdownMenuSubTrigger>Language</DropdownMenuSubTrigger>
+                <DropdownMenuSubTrigger>{language}</DropdownMenuSubTrigger>
                 <DropdownMenuSubContent sideOffset={6}>
                   <DropdownMenuItem asChild>
                     <Link href={'/en'}>English</Link>
@@ -189,16 +193,16 @@ export default function Header({ navigationLinks }: Props) {
                 </DropdownMenuSubContent>
               </DropdownMenuSub>
               <DropdownMenuSub>
-                <DropdownMenuSubTrigger>Theme</DropdownMenuSubTrigger>
+                <DropdownMenuSubTrigger>{theme?.label}</DropdownMenuSubTrigger>
                 <DropdownMenuSubContent sideOffset={6}>
                   <DropdownMenuItem onClick={() => setTheme('light')}>
-                    Light
+                    {theme?.options.light}
                   </DropdownMenuItem>
                   <DropdownMenuItem onClick={() => setTheme('dark')}>
-                    Dark
+                    {theme?.options.dark}
                   </DropdownMenuItem>
                   <DropdownMenuItem onClick={() => setTheme('system')}>
-                    System
+                    {theme?.options.system}
                   </DropdownMenuItem>
                 </DropdownMenuSubContent>
               </DropdownMenuSub>

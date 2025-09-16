@@ -1,4 +1,26 @@
 {
+  "metadata": {
+    "title": "Portfólio | João Carmassi",
+    "description": "Portfólio profissional de João Vitor Carmassi, desenvolvedor front-end especializado em Next e Tailwind CSS."
+  },
+  "navbar": {
+    "links": [
+      { "id": "aboutMeHomepage", "label": "Sobre" },
+      { "id": "documentosHomepage", "label": "Currículo", "position": "start" },
+      { "id": "techStack", "label": "Tecnologias" },
+      { "id": "githubHomepage", "label": "Github" }
+    ],
+    "options": {
+      "language": "Idioma",
+      "theme": {
+        "label": "Tema",
+        "options": { "light": "Claro", "dark": "Escuro", "system": "Sistema" }
+      }
+    },
+    "actions": {
+      "contact": "Contato"
+    }
+  },
   "homepage": {
     "hero": {
       "title": "João Vitor Carmassi",

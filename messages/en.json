@@ -1,10 +1,26 @@
 {
-  "navbar": [
-    { "id": "aboutMeHomepage", "label": "About" },
-    { "id": "documentosHomepage", "label": "Resume", "position": "start" },
-    { "id": "techStack", "label": "Stack" },
-    { "id": "githubHomepage", "label": "Github" }
-  ],
+  "metadata": {
+    "title": "Portfolio | João Carmassi",
+    "description": "Professional portfolio of João Vitor Carmassi, front-end developer specialized in Next and Tailwind CSS."
+  },
+  "navbar": {
+    "links": [
+      { "id": "aboutMeHomepage", "label": "About" },
+      { "id": "documentosHomepage", "label": "Resume", "position": "start" },
+      { "id": "techStack", "label": "Stack" },
+      { "id": "githubHomepage", "label": "Github" }
+    ],
+    "options": {
+      "language": "Language",
+      "theme": {
+        "label": "Theme",
+        "options": { "light": "Light", "dark": "Dark", "system": "System" }
+      }
+    },
+    "actions": {
+      "contact": "Contact"
+    }
+  },
   "homepage": {
     "hero": {
       "title": "João Vitor Carmassi",

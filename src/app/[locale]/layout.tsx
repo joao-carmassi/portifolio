@@ -2,42 +2,53 @@ import Header from '@/components/header';
 import { ThemeProvider } from '@/components/theme-provider';
 import MessagesProvider from '@/context/messages';
 import { Metadata } from 'next';
+import { Raleway } from 'next/font/google';
+import '../globals.css';
+import { getMessages } from '@/utils/getMessages';
+
+const raleway = Raleway({
+  variable: '--font-main',
+  subsets: ['latin'],
+});
 
 interface Props {
   children: React.ReactNode;
   params: Promise<{ locale: string }>;
 }
 
-export const metadata: Metadata = {
-  title: 'Portfolio | João Carmassi',
-  description:
-    'Professional portfolio of João Vitor Carmassi, front-end developer specialized in Next and Tailwind CSS.',
-};
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getMessages(locale, 'metadata');
 
-const navigationLinks = [
-  { id: 'aboutMeHomepage', label: 'About' },
-  { id: 'documentosHomepage', label: 'Resume', position: 'start' as const },
-  { id: 'techStack', label: 'Stack' },
-  { id: 'githubHomepage', label: 'Github' },
-];
+  return {
+    title: t('title'),
+    description: t('description'),
+  };
+}
 
 const locales = ['en', 'pt'];
+
+const RootLayout = async ({ children, params }: Props) => {
+  const { locale } = await params;
+  const t = await getMessages(locale, 'navbar');
+  const links = t('links');
+
+  return (
+    <html lang={locale} suppressHydrationWarning>
+      <body className={`${raleway.variable} font-main antialiased`}>
+        <MessagesProvider locale={locale}>
+          <ThemeProvider attribute='class' defaultTheme='white' enableSystem>
+            <Header navigationLinks={links} />
+          </ThemeProvider>
+          {children}
+        </MessagesProvider>
+      </body>
+    </html>
+  );
+};
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
-
-const RootLayout = async ({ children, params }: Props) => {
-  const { locale } = await params;
-
-  return (
-    <MessagesProvider locale={locale}>
-      <ThemeProvider attribute='class' defaultTheme='white' enableSystem>
-        <Header navigationLinks={navigationLinks} />
-      </ThemeProvider>
-      {children}
-    </MessagesProvider>
-  );
-};
 
 export default RootLayout;
