@@ -22,9 +22,37 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const t = await getMessages(locale, 'metadata');
 
+  const baseUrl = `${process.env.NEXT_PUBLIC_SITE_URL || ''}${locale}`;
+
+  const languages = Object.fromEntries(
+    locales.map((item) => [
+      item.locale,
+      `${process.env.NEXT_PUBLIC_SITE_URL || ''}${item.locale}`,
+    ])
+  );
+
   return {
     title: t('title'),
     description: t('description'),
+    keywords: t('keywords'),
+    robots: 'index, follow',
+    alternates: {
+      canonical: `${baseUrl}/${locale}`,
+      languages,
+    },
+    openGraph: {
+      title: t('title'),
+      description: t('description'),
+      url: `${process.env.NEXT_PUBLIC_SITE_URL}${locale}`,
+      siteName: t('title'),
+      locale: locale,
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: t('title'),
+      description: t('description'),
+    },
   };
 }
 

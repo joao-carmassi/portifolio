@@ -1,7 +1,8 @@
 {
   "metadata": {
     "title": "Portafolio | João Carmassi",
-    "description": "Portafolio profesional de João Vitor Carmassi, desarrollador front-end especializado en Next y Tailwind CSS."
+    "description": "Portafolio profesional de João Vitor Carmassi, desarrollador front-end especializado en Next y Tailwind CSS.",
+    "keywords": "João Vitor Carmassi, desarrollo web, desarrollo frontend, programación, HTML, CSS, JavaScript, TypeScript, React, Next.js, Tailwind, Sass, Git, Eslint, Redux, Context API, Shadcn/UI, Motion, Mobile first, Scrum, Kanban, juegos, música, películas, senderismo, idiomas Inglés C1, Español B2"
   },
   "navbar": {
     "links": [
