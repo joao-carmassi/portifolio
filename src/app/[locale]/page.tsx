@@ -2,21 +2,27 @@ import AboutMeHomepage from './aboutMeHomepage';
 import DidYouKnowHomepage from './didYouKnowHomepage';
 import HeroHomepage from './heroHomepage';
 import ContactMeHomepage from './contactMeHomepage';
-import DocumentosHomepage from '@/app/(homepage)/documentsHomepage';
+import DocumentosHomepage from '@/app/[locale]/documentsHomepage';
 import TechStack from '@/components/techStack';
-import GithubHomepage from '@/app/(homepage)/githubHomepage';
+import GithubHomepage from '@/app/[locale]/githubHomepage';
 
-export default function Home() {
+export default async function Home({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+
   return (
     <main>
       <HeroHomepage />
       <DidYouKnowHomepage />
-      <AboutMeHomepage />
+      <AboutMeHomepage locale={locale} />
       <section className='bg-background'>
-        <DocumentosHomepage />
+        <DocumentosHomepage locale={locale} />
       </section>
-      <TechStack />
-      <GithubHomepage />
+      <TechStack locale={locale} />
+      <GithubHomepage locale={locale} />
       <ContactMeHomepage />
     </main>
   );

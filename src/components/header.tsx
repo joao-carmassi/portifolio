@@ -25,6 +25,7 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from './ui/dropdown-menu';
+import Link from 'next/link';
 
 interface Props {
   navigationLinks: {
@@ -121,12 +122,12 @@ export default function Header({ navigationLinks }: Props) {
             >
               <img
                 className='h-12 rounded-full dark:hidden'
-                src='./icons/icon-preto.webp'
+                src='/icons/icon-preto.webp'
                 alt='iconi JC'
               />
               <img
                 className='h-12 rounded-full hidden dark:block'
-                src='./icons/icon-branco.webp'
+                src='/icons/icon-branco.webp'
                 alt='iconi JC'
               />
             </button>
@@ -179,7 +180,12 @@ export default function Header({ navigationLinks }: Props) {
               <DropdownMenuSub>
                 <DropdownMenuSubTrigger>Language</DropdownMenuSubTrigger>
                 <DropdownMenuSubContent sideOffset={6}>
-                  <DropdownMenuItem>Lorem</DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href={'/en'}>English</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href={'/pt'}>Portugues</Link>
+                  </DropdownMenuItem>
                 </DropdownMenuSubContent>
               </DropdownMenuSub>
               <DropdownMenuSub>

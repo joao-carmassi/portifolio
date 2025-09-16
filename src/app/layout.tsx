@@ -1,26 +1,10 @@
-import type { Metadata } from 'next';
 import { Raleway } from 'next/font/google';
 import './globals.css';
-import Header from '@/components/header';
-import { ThemeProvider } from '@/components/theme-provider';
 
 const raleway = Raleway({
   variable: '--font-main',
   subsets: ['latin'],
 });
-
-export const metadata: Metadata = {
-  title: 'Portfolio | João Carmassi',
-  description:
-    'Professional portfolio of João Vitor Carmassi, front-end developer specialized in Next and Tailwind CSS.',
-};
-
-const navigationLinks = [
-  { id: 'aboutMeHomepage', label: 'About' },
-  { id: 'documentosHomepage', label: 'Resume', position: 'start' as const },
-  { id: 'techStack', label: 'Stack' },
-  { id: 'githubHomepage', label: 'Github' },
-];
 
 export default function RootLayout({
   children,
@@ -30,10 +14,7 @@ export default function RootLayout({
   return (
     <html lang='en' suppressHydrationWarning>
       <body className={`${raleway.variable} font-main antialiased`}>
-        <ThemeProvider attribute='class' defaultTheme='white' enableSystem>
-          <Header navigationLinks={navigationLinks} />
-          {children}
-        </ThemeProvider>
+        {children}
       </body>
     </html>
   );

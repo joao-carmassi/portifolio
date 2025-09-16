@@ -6,6 +6,7 @@ import { H3 } from '@/components/ui/h3';
 import { Variants } from 'motion/react';
 import AnimatedDiv from '@/components/ui/animatedDiv';
 import { MagicCard } from '@/components/magicui/magic-card';
+import { getMessages } from '@/utils/getMessages';
 
 const animationPc: Variants[] = [
   {
@@ -69,15 +70,16 @@ const animationCell: Variants[] = [
   },
 ];
 
-const GithubHomepage = () => {
+const GithubHomepage = async ({ locale }: { locale: string }) => {
+  const t = await getMessages(locale, 'homepage');
+  const { title, text, cards } = t('github');
+
   return (
     <section id='githubHomepage' className='shadow-md'>
       <div className='mx-auto max-w-7xl p-6 md:p-12 space-y-6 md:space-y-12'>
         <div className='space-y-1.5 md:space-y-3'>
-          <H2 className='text-center md:text-start'>Github</H2>
-          <P className='text-center md:text-start'>
-            Explore my study and professional projects on GitHub.
-          </P>
+          <H2 className='text-center md:text-start'>{title}</H2>
+          <P className='text-center md:text-start'>{text}</P>
         </div>
         <div className='grid sm:grid-cols-2 md:grid-cols-5 lg:grid-cols-3 gap-6'>
           {/* Card 1 */}
@@ -94,37 +96,28 @@ const GithubHomepage = () => {
                 <div className='md:hidden aspect-video w-full bg-background rounded-xl mb-3'>
                   <img
                     className='object-cover h-full w-full rounded-xl'
-                    src='./imgs/github-profile-img.png'
+                    src='/imgs/github-profile-img.png'
                     alt=''
                   />
                 </div>
-                <H3>Work</H3>
+                <H3>{cards[0].title}</H3>
                 <ul className='space-y-4'>
                   <li>
                     <div className='flex items-start gap-3'>
                       <Laptop className='shrink-0' />
-                      <p className='-mt-0.5'>
-                        Build interactive UIs using React and
-                        Tailwind—efficient, reusable, and responsive.
-                      </p>
+                      <p className='-mt-0.5'>{cards[0].text1}</p>
                     </div>
                   </li>
                   <li>
                     <div className='flex items-start gap-3'>
                       <Code className='shrink-0' />
-                      <p className='-mt-0.5'>
-                        Explore projects ranging from dashboards to dynamic web
-                        apps—practical examples of my work.
-                      </p>
+                      <p className='-mt-0.5'>{cards[0].text2}</p>
                     </div>
                   </li>
                   <li>
                     <div className='flex items-start gap-3'>
                       <Layers className='shrink-0' />
-                      <p className='-mt-0.5'>
-                        Organize components and layouts efficiently—showcasing
-                        structured and scalable designs.
-                      </p>
+                      <p className='-mt-0.5'>{cards[0].text3}</p>
                     </div>
                   </li>
                 </ul>
@@ -136,7 +129,7 @@ const GithubHomepage = () => {
                   asChild
                 >
                   <a target='_blank' href='https://github.com/joao-carmassi'>
-                    See account
+                    {cards[0].button}
                   </a>
                 </Button>
               </div>
@@ -152,7 +145,7 @@ const GithubHomepage = () => {
           >
             <img
               className='object-cover h-full w-full rounded-xl'
-              src='./imgs/github-profile-img.png'
+              src='/imgs/github-profile-img.png'
               alt=''
             />
           </AnimatedDiv>
@@ -166,7 +159,7 @@ const GithubHomepage = () => {
           >
             <img
               className='object-cover h-full w-full rounded-xl'
-              src='./imgs/github-organization-img.png'
+              src='/imgs/github-organization-img.png'
               alt=''
             />
           </AnimatedDiv>
@@ -184,37 +177,28 @@ const GithubHomepage = () => {
                 <div className='md:hidden aspect-video w-full bg-background rounded-xl mb-3'>
                   <img
                     className='object-cover h-full w-full rounded-xl'
-                    src='./imgs/github-organization-img.png'
+                    src='/imgs/github-organization-img.png'
                     alt=''
                   />
                 </div>
-                <H3>Study</H3>
+                <H3>{cards[1].title}</H3>
                 <ul className='space-y-4'>
                   <li>
                     <div className='flex items-start gap-3'>
                       <BookOpen className='shrink-0' />
-                      <p className='-mt-0.5'>
-                        Explore a variety of projects—from HTML and CSS basics
-                        to Vue and React apps.
-                      </p>
+                      <p className='-mt-0.5'>{cards[1].text1}</p>
                     </div>
                   </li>
                   <li>
                     <div className='flex items-start gap-3'>
                       <Layers className='shrink-0' />
-                      <p className='-mt-0.5'>
-                        Experiment with different frameworks and
-                        languages—TypeScript, Vue, React and more.
-                      </p>
+                      <p className='-mt-0.5'>{cards[1].text2}</p>
                     </div>
                   </li>
                   <li>
                     <div className='flex items-start gap-3'>
                       <Code className='shrink-0' />
-                      <p className='-mt-0.5'>
-                        Build small, practical projects to sharpen your skills
-                        and explore new technologies.
-                      </p>
+                      <p className='-mt-0.5'>{cards[1].text3}</p>
                     </div>
                   </li>
                 </ul>
@@ -226,7 +210,7 @@ const GithubHomepage = () => {
                   asChild
                 >
                   <a target='_blank' href='https://github.com/joao-carmassi'>
-                    See organization
+                    {cards[1].button}
                   </a>
                 </Button>
               </div>

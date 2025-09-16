@@ -5,41 +5,15 @@ import { P } from '../../components/ui/p';
 import { H3 } from '../../components/ui/h3';
 import { Variants } from 'motion/react';
 import AnimatedDiv from '@/components/ui/animatedDiv';
+import { getMessages } from '@/utils/getMessages';
 
-const docs = [
-  {
-    category: 'English Certificate',
-    title: 'Cambridge Michigan Language Assessments – MET C1',
-    details:
-      'Certified at the C1 Advanced level in English through the Michigan English Test (MET), demonstrating advanced proficiency in reading, writing, listening, and speaking.',
-    img: './docs/img-certificado-ingles.webp',
-    link: './docs/certificado-ingles.pdf',
-  },
-  {
-    category: 'Spanish Certificate',
-    title: 'SIELE – Spanish Proficiency B2',
-    details:
-      'Achieved a B2 level in Spanish with the SIELE certification, validating solid communication skills and advanced comprehension in the Spanish language.',
-    img: './docs/img-certificado-espanhol.webp',
-    link: './docs/certificado-espanhol.pdf',
-  },
-  {
-    category: 'English Resume',
-    title: 'Professional Resume in English',
-    details:
-      'Access my full resume in English, showcasing my skills, projects, and career journey with a global perspective in the tech industry.',
-    img: './docs/img-curriculo-ingles.webp',
-    link: './docs/resume-joao-carmassi.pdf',
-  },
-  {
-    category: 'Portuguese Resume',
-    title: 'Professional Resume in Portuguese',
-    details:
-      'Explore my complete resume in Portuguese, highlighting my background, technical expertise, and professional experiences in web development and beyond.',
-    img: './docs/img-curriculo-portugues.webp',
-    link: './docs/curriculo-joao-carmassi.pdf',
-  },
-];
+interface DocumentItem {
+  category: string;
+  title: string;
+  details: string;
+  img: string;
+  link: string;
+}
 
 const animation: Variants = {
   hidden: { opacity: 0, y: 150, scale: 0.95 },
@@ -56,21 +30,21 @@ const animation: Variants = {
   },
 };
 
-const DocumentosHomepage = () => {
+const DocumentosHomepage = async ({ locale }: { locale: string }) => {
+  const t = await getMessages(locale, 'homepage');
+  const { title, text, docs } = t('documentos');
+
   return (
     <section
       id='documentosHomepage'
       className='max-w-7xl w-full p-6 md:p-12 mx-auto space-y-6 md:space-y-12'
     >
       <div className='space-y-1.5 md:space-y-3'>
-        <H2 className='text-center'>My Portfolio & Achievements</H2>
-        <P className='text-center'>
-          Explore my resumes, certifications, and professional milestones in one
-          place.
-        </P>
+        <H2 className='text-center'>{title}</H2>
+        <P className='text-center'>{text}</P>
       </div>
       <div className='w-full mx-auto space-y-12 md:space-y-20'>
-        {docs.map((doc) => (
+        {docs.map((doc: DocumentItem) => (
           <AnimatedDiv
             variants={animation}
             initial='hidden'

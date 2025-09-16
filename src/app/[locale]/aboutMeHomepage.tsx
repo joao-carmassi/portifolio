@@ -3,57 +3,7 @@ import { H2 } from '@/components/ui/h2';
 import ContainerCodigo from './containerCodigo';
 import AnimatedDiv from '@/components/ui/animatedDiv';
 import { Variants } from 'motion/react';
-
-const json = {
-  mobile: `"full-name": "João Vitor Carmassi",
-"birthdate": "December 8, 2004",
-"place-of-birth": "São Paulo, SP",
-"where-I-live": "São Bento do Sapucai, SP",
-"languages": {
-  "english": "C1",
-  "spanish": "B2"
-},
-"programming-languages": [
-  "HTML", "CSS", "JavaScript", "TypeScript"
-],
-"frameworks": [
-  "React", "Next.Js", "Tailwind", "Sass"
-],
-"tools": [
-  "Git", "Eslint", "Redux", "Context-api", "Shadcn/Ui", "Motion"
-],
-"methodologies": [
-  "Mobile first", "Scrum", "Kanban"
-],
-"interests": [
-  "Programming", "Games", "Music", "Movies", "Hiking"
-]`,
-  desktop: `{
-    "full-name": "João Vitor Carmassi",
-    "birthdate": "December 8, 2004",
-    "place-of-birth": "São Paulo, SP",
-    "where-I-live": "São Bento do Sapucai, SP",
-    "languages": {
-        "english": "C1",
-        "spanish": "B2"
-    },
-    "programming-languages": [
-        "HTML", "CSS", "JavaScript", "TypeScript"
-    ],
-    "frameworks": [
-        "React", "Next.Js", "Tailwind", "Sass"
-    ],
-    "tools": [
-        "Git", "Eslint", "Redux", "Context-api", "Shadcn/Ui", "Motion"
-    ],
-    "methodologies": [
-        "Mobile first", "Scrum", "Kanban"
-    ],
-    "interests": [
-        "Programming", "Games", "Music", "Movies", "Hiking"
-    ]
-}`,
-};
+import { getMessages } from '@/utils/getMessages';
 
 const animation: Variants = {
   hidden: { opacity: 0, y: 150, scale: 0.95 },
@@ -70,12 +20,15 @@ const animation: Variants = {
   },
 };
 
-const AboutMeHomepage = () => {
+const AboutMeHomepage = async ({ locale }: { locale: string }) => {
+  const t = await getMessages(locale, 'homepage');
+  const { title, textMobile, textDesktop } = t('aboutMe');
+
   return (
     <FundoColorido id='aboutMeHomepage'>
       <div className='p-6 md:p-12 space-y-6 md:space-y-12 mx-auto max-w-7xl'>
         <H2 className='text-white drop-shadow-sm drop-shadow-black/25 text-center'>
-          About me
+          {title}
         </H2>
         <AnimatedDiv
           variants={animation}
@@ -88,7 +41,9 @@ const AboutMeHomepage = () => {
             <span className='inline-block w-4 aspect-square rounded-full duration-300 hover:scale-110 hover:shadow-md bg-[#fdc700]' />
             <span className='inline-block w-4 aspect-square rounded-full duration-300 hover:scale-110 hover:shadow-md bg-[#05df72]' />
           </div>
-          <ContainerCodigo json={json} />
+          <ContainerCodigo
+            json={{ mobile: textMobile, desktop: textDesktop }}
+          />
         </AnimatedDiv>
       </div>
     </FundoColorido>

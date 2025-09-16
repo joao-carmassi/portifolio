@@ -1,3 +1,4 @@
+import { getMessages } from '@/utils/getMessages';
 import ScrollFloat from './ScrollFloat';
 import { HoverEffect } from './ui/card-hover-effect';
 
@@ -10,7 +11,10 @@ const tecnologias = [
   'Shadcn/UI',
 ];
 
-const TechStack = () => {
+const TechStack = async ({ locale }: { locale: string }) => {
+  const t = await getMessages(locale, 'homepage');
+  const { title } = t('techStack');
+
   return (
     <section id='techStack' className='bg-card border-t border-b border-border'>
       <div className='p-6 md:p-12 max-w-7xl mx-auto space-y-3 md:space-y-6'>
@@ -22,7 +26,7 @@ const TechStack = () => {
           stagger={0.03}
           textClassName='sm:text-5xl md:text-7xl lg:text-9xl font-semibold'
         >
-          My Tech stack
+          {title}
         </ScrollFloat>
         <HoverEffect items={tecnologias} />
       </div>

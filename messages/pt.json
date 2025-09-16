@@ -1,0 +1,126 @@
+{
+  "homepage": {
+    "hero": {
+      "title": "João Vitor Carmassi",
+      "text1": { "bold": "Ola", "text": ", meu nome é" },
+      "text2": {
+        "static": "Eu sou",
+        "list": [
+          "um Desenvolvedor",
+          "um Explorador",
+          "um Sonhador",
+          "um Criador",
+          "Curioso",
+          "um Pensador",
+          "um Inovador",
+          "um Construtor",
+          "um Aprendiz",
+          "Aventureiro",
+          "um Fazedor",
+          "um Visionário",
+          "um Programador"
+        ]
+      }
+    },
+    "didYouKnow": {
+      "title": "Você sabia que:"
+    },
+    "aboutMe": {
+      "title": "Sobre mim",
+      "textMobile": "\"nome-completo\": \"João Vitor Carmassi\",\r\n\"data-de-nascimento\": \"8 de dezembro de 2004\",\r\n\"local-de-nascimento\": \"São Paulo, SP\",\r\n\"onde-moro\": \"São Bento do Sapucaí, SP\",\r\n\"idiomas\": {\r\n  \"ingles\": \"C1\",\r\n  \"espanhol\": \"B2\"\r\n},\r\n\"linguagens-de-programacao\": [\r\n  \"HTML\", \"CSS\", \"JavaScript\", \"TypeScript\"\r\n],\r\n\"frameworks\": [\r\n  \"React\", \"Next.Js\", \"Tailwind\", \"Sass\"\r\n],\r\n\"ferramentas\": [\r\n  \"Git\", \"Eslint\", \"Redux\", \"Context-api\", \"Shadcn/Ui\", \"Motion\"\r\n],\r\n\"metodologias\": [\r\n  \"Mobile first\", \"Scrum\", \"Kanban\"\r\n],\r\n\"interesses\": [\r\n  \"Programação\", \"Jogos\", \"Música\", \"Filmes\", \"Trilhas\"\r\n]",
+      "textDesktop": "{\r\n    \"nome-completo\": \"João Vitor Carmassi\",\r\n    \"data-de-nascimento\": \"8 de dezembro de 2004\",\r\n    \"local-de-nascimento\": \"São Paulo, SP\",\r\n    \"onde-moro\": \"São Bento do Sapucaí, SP\",\r\n    \"idiomas\": {\r\n        \"ingles\": \"C1\",\r\n        \"espanhol\": \"B2\"\r\n    },\r\n    \"linguagens-de-programacao\": [\r\n        \"HTML\", \"CSS\", \"JavaScript\", \"TypeScript\"\r\n    ],\r\n    \"frameworks\": [\r\n        \"React\", \"Next.Js\", \"Tailwind\", \"Sass\"\r\n    ],\r\n    \"ferramentas\": [\r\n        \"Git\", \"Eslint\", \"Redux\", \"Context-api\", \"Shadcn/Ui\", \"Motion\"\r\n    ],\r\n    \"metodologias\": [\r\n        \"Mobile first\", \"Scrum\", \"Kanban\"\r\n    ],\r\n    \"interesses\": [\r\n        \"Programação\", \"Jogos\", \"Música\", \"Filmes\", \"Trilhas\"\r\n    ]\r\n}"
+    },
+    "documentos": {
+      "title": "Meu Portfólio & Conquistas",
+      "text": "Explore meus currículos, certificações e marcos profissionais em um só lugar.",
+      "docs": [
+        {
+          "category": "Certificado de Inglês",
+          "title": "Avaliações de idiomas de Cambridge Michigan – MET C1",
+          "details": "Certificado no nível avançado C1 em inglês pelo Michigan English Test (MET), demonstrando proficiência avançada em leitura, escrita, compreensão auditiva e fala.",
+          "img": "/docs/img-certificado-ingles.webp",
+          "link": "/docs/certificado-ingles.pdf"
+        },
+        {
+          "category": "Certificado de Espanhol",
+          "title": "SIELE – Proficiência em Espanhol B2",
+          "details": "Alcançou o nível B2 em espanhol com a certificação SIELE, validando habilidades sólidas de comunicação e compreensão avançada da língua espanhola.",
+          "img": "/docs/img-certificado-espanhol.webp",
+          "link": "/docs/certificado-espanhol.pdf"
+        },
+        {
+          "category": "Currículo em Inglês",
+          "title": "Currículo Profissional em Inglês",
+          "details": "Acesse meu currículo completo em inglês, destacando minhas habilidades, projetos e trajetória profissional com uma perspectiva global na indústria de tecnologia.",
+          "img": "/docs/img-curriculo-ingles.webp",
+          "link": "/docs/resume-joao-carmassi.pdf"
+        },
+        {
+          "category": "Currículo em Português",
+          "title": "Currículo Profissional em Português",
+          "details": "Explore meu currículo completo em português, destacando minha formação, expertise técnica e experiências profissionais em desenvolvimento web e além.",
+          "img": "/docs/img-curriculo-portugues.webp",
+          "link": "/docs/curriculo-joao-carmassi.pdf"
+        }
+      ]
+    },
+    "techStack": {
+      "title": "Minha Stack"
+    },
+    "github": {
+      "title": "Github",
+      "text": "Confira meus projetos de estudo e profissionais no GitHub.",
+      "cards": [
+        {
+          "title": "Trabalho",
+          "text1": "Veja UIs interativas que construí usando React e Tailwind—eficientes, reutilizáveis e responsivas.",
+          "text2": "Navegue por projetos, de dashboards a apps web dinâmicos—exemplos do meu trabalho profissional.",
+          "text3": "Confira componentes e layouts estruturados e escaláveis que criei.",
+          "button": "Ver projetos"
+        },
+        {
+          "title": "Estudo",
+          "text1": "Veja diversos projetos—desde HTML/CSS básicos até apps em Vue e React.",
+          "text2": "Confira experimentos com diferentes frameworks e linguagens—TypeScript, Vue, React e mais.",
+          "text3": "Veja pequenos projetos práticos que construí para aprimorar minhas habilidades e explorar novas tecnologias.",
+          "button": "Ver organização"
+        }
+      ]
+    },
+    "contactMe": {
+      "title": "Entre em contato!",
+      "text": "Adoraria ouvir de você! Seja uma dúvida, um projeto em mente ou apenas para se conectar, sinta-se à vontade para me chamar. Estou sempre aberto a novas oportunidades e colaborações.",
+      "form": {
+        "name": {
+          "label": "Nome",
+          "placeholder": "nome"
+        },
+        "email": {
+          "label": "Email",
+          "placeholder": "email"
+        },
+        "phone": {
+          "label": "Telefone",
+          "placeholder": "telefone"
+        },
+        "message": {
+          "label": "Sua mensagem",
+          "placeholder": "digite sua mensagem aqui."
+        }
+      },
+      "button1": "Enviar",
+      "button2": "Limpar",
+      "modal": {
+        "sent": {
+          "title": "Mensagem enviada com sucesso",
+          "text": "Obrigado por entrar em contato! Responderei o mais rápido possível."
+        },
+        "error": {
+          "title": "Oops! Algo deu errado",
+          "text": "Desculpe, houve um problema ao enviar sua mensagem. Tente novamente mais tarde ou entre em contato diretamente pelo email joaovitorcarmassi@email.com"
+        },
+        "sending": "Enviando"
+      }
+    }
+  }
+}

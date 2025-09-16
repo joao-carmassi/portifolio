@@ -22,6 +22,7 @@ import confetti from 'canvas-confetti';
 import { ArrowRightIcon, Trash2 } from 'lucide-react';
 import { Variants } from 'motion/react';
 import { ChangeEvent, FormEvent, useState } from 'react';
+import { useMessages } from '@/context/messages';
 
 const valoresCampoInicial = {
   name: '',
@@ -68,6 +69,9 @@ const ContactMeHomepage = () => {
   const [valoresCampo, setValoresCampo] = useState(valoresCampoInicial);
   const [enviado, setEnviado] = useState<null | boolean>(null);
   const [modalAberto, setModalAberto] = useState(false);
+
+  const t = useMessages('homepage');
+  const { title, text, form, button1, button2, modal } = t('contactMe');
 
   const handleType = (
     e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
@@ -148,46 +152,45 @@ const ContactMeHomepage = () => {
           <Card className='max-w-full w-full md:w-md rounded-2xl py-7 shadow-2xl'>
             <CardContent className='flex flex-col gap-5 px-7'>
               <div className='grid w-full items-center gap-3'>
-                <Label htmlFor='name'>Name</Label>
+                <Label htmlFor='name'>{form?.name.label}</Label>
                 <Input
                   required
                   className='!py-5 rounded-lg shadow-none border-primary/25'
-                  type='name'
                   id='name'
-                  placeholder='name'
+                  placeholder={form?.name.placeholder}
                   value={valoresCampo.name}
                   onChange={handleType}
                 />
               </div>
               <div className='grid w-full items-center gap-3'>
-                <Label htmlFor='email'>Email</Label>
+                <Label htmlFor='email'>{form?.email.label}</Label>
                 <Input
                   required
                   className='!py-5 rounded-lg shadow-none border-primary/25'
                   type='email'
                   id='email'
-                  placeholder='email'
+                  placeholder={form?.email.placeholder}
                   value={valoresCampo.email}
                   onChange={handleType}
                 />
               </div>
               <div className='grid w-full items-center gap-3'>
-                <Label htmlFor='phone'>Phone</Label>
+                <Label htmlFor='phone'>{form?.phone.label}</Label>
                 <Input
                   required
                   className='!py-5 rounded-lg shadow-none border-primary/25'
                   type='phone'
                   id='phone'
-                  placeholder='phone'
+                  placeholder={form?.phone.placeholder}
                   value={valoresCampo.phone}
                   onChange={handleType}
                 />
               </div>
               <div className='grid w-full gap-3'>
-                <Label htmlFor='message'>Your message</Label>
+                <Label htmlFor='message'>{form?.message.label}</Label>
                 <Textarea
                   className='rounded-lg min-h-32 border-primary/25'
-                  placeholder='type your message here.'
+                  placeholder={form?.message.placeholder}
                   id='message'
                   value={valoresCampo.message}
                   onChange={handleType}
@@ -202,7 +205,7 @@ const ContactMeHomepage = () => {
                 iconPlacement='right'
                 type='submit'
               >
-                Submit
+                {button1}
               </Button>
               <Button
                 effect='expandIcon'
@@ -215,7 +218,7 @@ const ContactMeHomepage = () => {
                 }}
                 type='button'
               >
-                Clear
+                {button2}
               </Button>
             </CardFooter>
           </Card>
@@ -227,12 +230,8 @@ const ContactMeHomepage = () => {
           viewport={{ once: true, amount: 0.15 }}
           className='hidden md:block space-y-3 flex-1'
         >
-          <H2 className='text-center md:text-start'>Contact me!</H2>
-          <P className='text-center md:text-start'>
-            I’d love to hear from you! Whether you have a question, a project in
-            mind, or just want to connect, feel free to reach out. I’m always
-            open to new opportunities and collaborations.
-          </P>
+          <H2 className='text-center md:text-start'>{title}</H2>
+          <P className='text-center md:text-start'>{text}</P>
         </motion.div>
         <motion.div
           variants={animation[1]}
@@ -241,22 +240,15 @@ const ContactMeHomepage = () => {
           viewport={{ once: true, amount: 0.15 }}
           className='md:hidden space-y-1.5 flex-1'
         >
-          <H2 className='text-center md:text-start'>Contact me!</H2>
-          <P className='text-center md:text-start'>
-            I’d love to hear from you! Whether you have a question, a project in
-            mind, or just want to connect, feel free to reach out. I’m always
-            open to new opportunities and collaborations.
-          </P>
+          <H2 className='text-center md:text-start'>{title}</H2>
+          <P className='text-center md:text-start'>{text}</P>
         </motion.div>
       </div>
       <Dialog open={enviado === true} onOpenChange={handleModal}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Message Sent Successfully</DialogTitle>
-            <DialogDescription>
-              Thank you for reaching out! I’ll get back to you as soon as
-              possible.
-            </DialogDescription>
+            <DialogTitle>{modal?.sent.title}</DialogTitle>
+            <DialogDescription>{modal?.sent.text}</DialogDescription>
           </DialogHeader>
           <DialogFooter>
             <Button onClick={handleModal}>Close</Button>
@@ -266,11 +258,8 @@ const ContactMeHomepage = () => {
       <Dialog open={enviado === false} onOpenChange={handleModal}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Oops! Something Went Wrong</DialogTitle>
-            <DialogDescription>
-              Sorry, there was a problem sending your message. Please try again
-              later or contact me directly at joaovitorcarmassi@email.com
-            </DialogDescription>
+            <DialogTitle>mod?.error.title</DialogTitle>
+            <DialogDescription>{modal?.error.text}</DialogDescription>
           </DialogHeader>
           <DialogFooter>
             <Button onClick={handleModal} variant={'destructive'}>
@@ -282,7 +271,7 @@ const ContactMeHomepage = () => {
       <Dialog open={modalAberto} onOpenChange={handleModal}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle hidden={true}>Sending</DialogTitle>
+            <DialogTitle hidden={true}>{modal?.sending}</DialogTitle>
             <DialogDescription className='h-28 grid place-items-center'>
               <Spinner variant='ellipsis' />
             </DialogDescription>

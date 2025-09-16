@@ -1,0 +1,132 @@
+{
+  "navbar": [
+    { "id": "aboutMeHomepage", "label": "About" },
+    { "id": "documentosHomepage", "label": "Resume", "position": "start" },
+    { "id": "techStack", "label": "Stack" },
+    { "id": "githubHomepage", "label": "Github" }
+  ],
+  "homepage": {
+    "hero": {
+      "title": "João Vitor Carmassi",
+      "text1": { "bold": "Hello", "text": ", my name is" },
+      "text2": {
+        "static": "I'm",
+        "list": [
+          "a Developer",
+          "an Explorer",
+          "a Dreamer",
+          "a Creator",
+          "Curious",
+          "a Thinker",
+          "an Innovator",
+          "a Builder",
+          "a Learner",
+          "Adventurous",
+          "a Maker",
+          "a Visionary",
+          "a Coder"
+        ]
+      }
+    },
+    "didYouKnow": {
+      "title": "Did you know that:"
+    },
+    "aboutMe": {
+      "title": "About me",
+      "textMobile": "\"full-name\": \"João Vitor Carmassi\",\r\n\"birthdate\": \"December 8, 2004\",\r\n\"place-of-birth\": \"São Paulo, SP\",\r\n\"where-I-live\": \"São Bento do Sapucai, SP\",\r\n\"languages\": {\r\n  \"english\": \"C1\",\r\n  \"spanish\": \"B2\"\r\n},\r\n\"programming-languages\": [\r\n  \"HTML\", \"CSS\", \"JavaScript\", \"TypeScript\"\r\n],\r\n\"frameworks\": [\r\n  \"React\", \"Next.Js\", \"Tailwind\", \"Sass\"\r\n],\r\n\"tools\": [\r\n  \"Git\", \"Eslint\", \"Redux\", \"Context-api\", \"Shadcn/Ui\", \"Motion\"\r\n],\r\n\"methodologies\": [\r\n  \"Mobile first\", \"Scrum\", \"Kanban\"\r\n],\r\n\"interests\": [\r\n  \"Programming\", \"Games\", \"Music\", \"Movies\", \"Hiking\"\r\n]",
+      "textDesktop": "{\r\n    \"full-name\": \"João Vitor Carmassi\",\r\n    \"birthdate\": \"December 8, 2004\",\r\n    \"place-of-birth\": \"São Paulo, SP\",\r\n    \"where-I-live\": \"São Bento do Sapucai, SP\",\r\n    \"languages\": {\r\n        \"english\": \"C1\",\r\n        \"spanish\": \"B2\"\r\n    },\r\n    \"programming-languages\": [\r\n        \"HTML\", \"CSS\", \"JavaScript\", \"TypeScript\"\r\n    ],\r\n    \"frameworks\": [\r\n        \"React\", \"Next.Js\", \"Tailwind\", \"Sass\"\r\n    ],\r\n    \"tools\": [\r\n        \"Git\", \"Eslint\", \"Redux\", \"Context-api\", \"Shadcn/Ui\", \"Motion\"\r\n    ],\r\n    \"methodologies\": [\r\n        \"Mobile first\", \"Scrum\", \"Kanban\"\r\n    ],\r\n    \"interests\": [\r\n        \"Programming\", \"Games\", \"Music\", \"Movies\", \"Hiking\"\r\n    ]\r\n}"
+    },
+    "documentos": {
+      "title": "My Portfolio & Achievements",
+      "text": "Explore my resumes, certifications, and professional milestones in one place.",
+      "docs": [
+        {
+          "category": "English Certificate",
+          "title": "Cambridge Michigan Language Assessments – MET C1",
+          "details": "Certified at the C1 Advanced level in English through the Michigan English Test (MET), demonstrating advanced proficiency in reading, writing, listening, and speaking.",
+          "img": "/docs/img-certificado-ingles.webp",
+          "link": "/docs/certificado-ingles.pdf"
+        },
+        {
+          "category": "Spanish Certificate",
+          "title": "SIELE – Spanish Proficiency B2",
+          "details": "Achieved a B2 level in Spanish with the SIELE certification, validating solid communication skills and advanced comprehension in the Spanish language.",
+          "img": "/docs/img-certificado-espanhol.webp",
+          "link": "/docs/certificado-espanhol.pdf"
+        },
+        {
+          "category": "English Resume",
+          "title": "Professional Resume in English",
+          "details": "Access my full resume in English, showcasing my skills, projects, and career journey with a global perspective in the tech industry.",
+          "img": "/docs/img-curriculo-ingles.webp",
+          "link": "/docs/resume-joao-carmassi.pdf"
+        },
+        {
+          "category": "Portuguese Resume",
+          "title": "Professional Resume in Portuguese",
+          "details": "Explore my complete resume in Portuguese, highlighting my background, technical expertise, and professional experiences in web development and beyond.",
+          "img": "/docs/img-curriculo-portugues.webp",
+          "link": "/docs/curriculo-joao-carmassi.pdf"
+        }
+      ]
+    },
+    "techStack": {
+      "title": "My Tech stack"
+    },
+    "github": {
+      "title": "Github",
+      "text": "Check out my study and professional projects on GitHub.",
+      "cards": [
+        {
+          "title": "Work",
+          "text1": "View interactive UIs I built using React and Tailwind—efficient, reusable, and responsive.",
+          "text2": "Browse projects from dashboards to dynamic web apps—examples of my professional work.",
+          "text3": "See structured and scalable components and layouts I created.",
+          "button": "See account"
+        },
+        {
+          "title": "Study",
+          "text1": "Check out various projects—from HTML/CSS basics to Vue and React apps.",
+          "text2": "See experiments with different frameworks and languages—TypeScript, Vue, React, and more.",
+          "text3": "View small, practical projects I built to sharpen my skills and explore new technologies.",
+          "button": "See organization"
+        }
+      ]
+    },
+    "contactMe": {
+      "title": "Contact me!",
+      "text": "I’d love to hear from you! Whether you have a question, a project in mind, or just want to connect, feel free to reach out. I’m always open to new opportunities and collaborations.",
+      "form": {
+        "name": {
+          "label": "Name",
+          "placeholder": "name"
+        },
+        "email": {
+          "label": "Email",
+          "placeholder": "email"
+        },
+        "phone": {
+          "label": "Phone",
+          "placeholder": "phone"
+        },
+        "message": {
+          "label": "Your message",
+          "placeholder": "type your message here."
+        }
+      },
+      "button1": "Submit",
+      "button2": "Clear",
+      "modal": {
+        "sent": {
+          "title": "Message Sent Successfully",
+          "text": "Thank you for reaching out! I’ll get back to you as soon as possible."
+        },
+        "error": {
+          "title": "Oops! Something Went Wrong",
+          "text": "Sorry, there was a problem sending your message. Please try again later or contact me directly at joaovitorcarmassi@email.com"
+        },
+        "sending": "Sending"
+      }
+    }
+  }
+}
