@@ -27,6 +27,7 @@ import {
 } from './ui/dropdown-menu';
 import Link from 'next/link';
 import { useMessages } from '@/context/messages';
+import Img from './Image';
 
 interface Props {
   navigationLinks: {
@@ -124,12 +125,12 @@ export default function Header({ navigationLinks }: Props) {
               onClick={() => scrollToContainer('heroHomepage', 'start')}
               className='hover:cursor-pointer'
             >
-              <img
+              <Img
                 className='h-12 rounded-full dark:hidden'
                 src='/icons/icon-preto.webp'
                 alt='iconi JC'
               />
-              <img
+              <Img
                 className='h-12 rounded-full hidden dark:block'
                 src='/icons/icon-branco.webp'
                 alt='iconi JC'

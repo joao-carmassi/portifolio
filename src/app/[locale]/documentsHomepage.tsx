@@ -6,6 +6,7 @@ import { H3 } from '../../components/ui/h3';
 import { Variants } from 'motion/react';
 import AnimatedDiv from '@/components/ui/animatedDiv';
 import { getMessages } from '@/utils/getMessages';
+import Img from '@/components/Image';
 
 interface DocumentItem {
   category: string;
@@ -54,7 +55,7 @@ const DocumentosHomepage = async ({ locale }: { locale: string }) => {
             className='flex flex-col md:flex-row items-center gap-x-12 gap-y-6 md:even:flex-row-reverse'
           >
             <div className='w-full max-h-96 aspect-[4/3] bg-muted rounded-xl border border-border/50 basis-1/2 shadow-lg'>
-              <img
+              <Img
                 className='w-full h-full object-cover object-top hover:object-bottom duration-1000 delay-150'
                 src={doc.img}
                 alt={doc.title}

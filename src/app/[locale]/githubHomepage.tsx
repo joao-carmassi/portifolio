@@ -7,6 +7,7 @@ import { Variants } from 'motion/react';
 import AnimatedDiv from '@/components/ui/animatedDiv';
 import { MagicCard } from '@/components/magicui/magic-card';
 import { getMessages } from '@/utils/getMessages';
+import Img from '@/components/Image';
 
 const animationPc: Variants[] = [
   {
@@ -94,7 +95,7 @@ const GithubHomepage = async ({ locale }: { locale: string }) => {
               {/* Media 1 Mobile */}
               <div className='rounded-xl p-3 md:p-6 shadow-lg flex flex-col gap-3 md:gap-6'>
                 <div className='md:hidden aspect-video w-full bg-background rounded-xl mb-3'>
-                  <img
+                  <Img
                     className='object-cover h-full w-full rounded-xl'
                     src='/imgs/github-profile-img.png'
                     alt=''
@@ -143,7 +144,7 @@ const GithubHomepage = async ({ locale }: { locale: string }) => {
             whileInView='show'
             className='hidden md:block bg-muted rounded-xl col-span-1 md:col-span-3 lg:col-span-2'
           >
-            <img
+            <Img
               className='object-cover h-full w-full rounded-xl'
               src='/imgs/github-profile-img.png'
               alt=''
@@ -157,7 +158,7 @@ const GithubHomepage = async ({ locale }: { locale: string }) => {
             whileInView='show'
             className='hidden md:block bg-muted rounded-xl col-span-1 md:col-span-3 lg:col-span-2 '
           >
-            <img
+            <Img
               className='object-cover h-full w-full rounded-xl'
               src='/imgs/github-organization-img.png'
               alt=''
@@ -175,7 +176,7 @@ const GithubHomepage = async ({ locale }: { locale: string }) => {
               {/* Media 1 Mobile */}
               <div className='rounded-xl p-3 md:p-6 shadow-lg flex flex-col gap-3 md:gap-6'>
                 <div className='md:hidden aspect-video w-full bg-background rounded-xl mb-3'>
-                  <img
+                  <Img
                     className='object-cover h-full w-full rounded-xl'
                     src='/imgs/github-organization-img.png'
                     alt=''

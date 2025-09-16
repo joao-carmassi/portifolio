@@ -43,7 +43,9 @@ const HeroHomepage = () => {
       <div
         className='absolute w-full h-full z-0 bg-no-repeat bg-center bg-cover lg:bg-contain animate-in fade-in duration-1000 delay-300 fill-mode-both'
         style={{
-          backgroundImage: 'url("/ImgBg.webp")',
+          backgroundImage: `url('${
+            process.env.NEXT_PUBLIC_BASE_PATH || ''
+          }/ImgBg.webp')`,
         }}
       />
       <div className='px-6 md:px-12 relative z-10'>
