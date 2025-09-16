@@ -10,7 +10,7 @@ const Img = ({ className, src, alt }: Props) => {
   return (
     <img
       className={className as string}
-      src={process.env.NEXT_PUBLIC_BASE_PATH || '' + src}
+      src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}${src}`}
       alt={alt}
     />
   );
