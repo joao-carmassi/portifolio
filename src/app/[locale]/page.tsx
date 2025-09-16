@@ -6,12 +6,6 @@ import DocumentosHomepage from '@/app/[locale]/documentsHomepage';
 import TechStack from '@/components/techStack';
 import GithubHomepage from '@/app/[locale]/githubHomepage';
 
-export const locales = [
-  { locale: 'en', name: 'English' },
-  { locale: 'pt', name: 'Portugues' },
-  { locale: 'es', name: 'Español' },
-];
-
 export default async function Home({
   params,
 }: {

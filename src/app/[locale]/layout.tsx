@@ -6,7 +6,7 @@ import { Raleway } from 'next/font/google';
 import '../globals.css';
 import { getMessages } from '@/utils/getMessages';
 import { ReactLenis } from 'lenis/react';
-import { locales } from './page';
+import { locales } from '../../../messages';
 
 const raleway = Raleway({
   variable: '--font-main',
