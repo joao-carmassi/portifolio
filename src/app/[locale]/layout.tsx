@@ -6,6 +6,7 @@ import { Raleway } from 'next/font/google';
 import '../globals.css';
 import { getMessages } from '@/utils/getMessages';
 import { ReactLenis } from 'lenis/react';
+import { locales } from './page';
 
 const raleway = Raleway({
   variable: '--font-main',
@@ -26,12 +27,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: t('description'),
   };
 }
-
-export const locales = [
-  { locale: 'en', name: 'English' },
-  { locale: 'pt', name: 'Portugues' },
-  { locale: 'es', name: 'Español' },
-];
 
 const RootLayout = async ({ children, params }: Props) => {
   const { locale } = await params;
