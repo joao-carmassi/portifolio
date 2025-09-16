@@ -12,16 +12,18 @@ import {
 interface Props {
   children: ReactNode;
   locale: string;
+  locales: { locale: string; name: string }[];
 }
 
 interface ContextType {
   locale: string;
+  locales: { locale: string; name: string }[];
   getMessage: (component: string, key: string) => string;
 }
 
 const MessagesContext = createContext<ContextType | null>(null);
 
-const MessagesProvider = ({ children, locale }: Props) => {
+const MessagesProvider = ({ children, locale, locales }: Props) => {
   const [messages, setMessages] = useState<any>({});
 
   useEffect(() => {
@@ -35,7 +37,7 @@ const MessagesProvider = ({ children, locale }: Props) => {
   };
 
   return (
-    <MessagesContext.Provider value={{ locale, getMessage }}>
+    <MessagesContext.Provider value={{ locale, locales, getMessage }}>
       {children}
     </MessagesContext.Provider>
   );
@@ -50,6 +52,15 @@ export const useMessages = (component: string): MessageFunc => {
 
   const { getMessage } = context;
   return (key: string) => getMessage(component, key);
+};
+
+export const useLocales = () => {
+  const context = useContext(MessagesContext);
+  if (!context)
+    throw new Error('useMessages must be used within MessagesProvider');
+
+  const { locales } = context;
+  return locales;
 };
 
 export default MessagesProvider;

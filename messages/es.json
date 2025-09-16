@@ -1,0 +1,152 @@
+{
+  "metadata": {
+    "title": "Portafolio | João Carmassi",
+    "description": "Portafolio profesional de João Vitor Carmassi, desarrollador front-end especializado en Next y Tailwind CSS."
+  },
+  "navbar": {
+    "links": [
+      { "id": "aboutMeHomepage", "label": "Sobre mí" },
+      {
+        "id": "documentosHomepage",
+        "label": "Currículum",
+        "position": "start"
+      },
+      { "id": "techStack", "label": "Stack" },
+      { "id": "githubHomepage", "label": "Github" }
+    ],
+    "options": {
+      "language": "Idioma",
+      "theme": {
+        "label": "Tema",
+        "options": { "light": "Claro", "dark": "Oscuro", "system": "Sistema" }
+      }
+    },
+    "actions": {
+      "contact": "Contacto"
+    }
+  },
+  "homepage": {
+    "hero": {
+      "title": "João Vitor Carmassi",
+      "text1": { "bold": "Hola", "text": ", mi nombre es" },
+      "text2": {
+        "static": "Soy",
+        "list": [
+          "Desarrollador",
+          "Explorador",
+          "Soñador",
+          "Creador",
+          "Curioso",
+          "Pensador",
+          "Innovador",
+          "Constructor",
+          "Aprendiz",
+          "Aventurero",
+          "Hacedor",
+          "Visionario",
+          "Programador"
+        ]
+      }
+    },
+    "didYouKnow": {
+      "title": "¿Sabías que:"
+    },
+    "aboutMe": {
+      "title": "Sobre mí",
+      "textMobile": "\"nombre-completo\": \"João Vitor Carmassi\",\r\n\"fecha-de-nacimiento\": \"8 de diciembre de 2004\",\r\n\"lugar-de-nacimiento\": \"São Paulo, SP\",\r\n\"donde-vivo\": \"São Bento do Sapucai, SP\",\r\n\"idiomas\": {\r\n  \"inglés\": \"C1\",\r\n  \"español\": \"B2\"\r\n},\r\n\"lenguajes-de-programación\": [\r\n  \"HTML\", \"CSS\", \"JavaScript\", \"TypeScript\"\r\n],\r\n\"frameworks\": [\r\n  \"React\", \"Next.Js\", \"Tailwind\", \"Sass\"\r\n],\r\n\"herramientas\": [\r\n  \"Git\", \"Eslint\", \"Redux\", \"Context-api\", \"Shadcn/Ui\", \"Motion\"\r\n],\r\n\"metodologías\": [\r\n  \"Mobile first\", \"Scrum\", \"Kanban\"\r\n],\r\n\"intereses\": [\r\n  \"Programación\", \"Juegos\", \"Música\", \"Películas\", \"Senderismo\"\r\n]",
+      "textDesktop": "{\r\n    \"nombre-completo\": \"João Vitor Carmassi\",\r\n    \"fecha-de-nacimiento\": \"8 de diciembre de 2004\",\r\n    \"lugar-de-nacimiento\": \"São Paulo, SP\",\r\n    \"donde-vivo\": \"São Bento do Sapucai, SP\",\r\n    \"idiomas\": {\r\n        \"inglés\": \"C1\",\r\n        \"español\": \"B2\"\r\n    },\r\n    \"lenguajes-de-programación\": [\r\n        \"HTML\", \"CSS\", \"JavaScript\", \"TypeScript\"\r\n    ],\r\n    \"frameworks\": [\r\n        \"React\", \"Next.Js\", \"Tailwind\", \"Sass\"\r\n    ],\r\n    \"herramientas\": [\r\n        \"Git\", \"Eslint\", \"Redux\", \"Context-api\", \"Shadcn/Ui\", \"Motion\"\r\n    ],\r\n    \"metodologías\": [\r\n        \"Mobile first\", \"Scrum\", \"Kanban\"\r\n    ],\r\n    \"intereses\": [\r\n        \"Programación\", \"Juegos\", \"Música\", \"Películas\", \"Senderismo\"\r\n    ]\r\n}"
+    },
+    "documentos": {
+      "title": "Mi Portafolio y Logros",
+      "text": "Explora mis currículums, certificaciones y logros profesionales en un solo lugar.",
+      "docs": [
+        {
+          "category": "Certificado de Inglés",
+          "title": "Evaluaciones de idiomas de Cambridge Michigan – MET C1",
+          "details": "Certificado en el nivel C1 Avanzado en inglés a través del Michigan English Test (MET), demostrando alta competencia en lectura, escritura, escucha y expresión oral.",
+          "img": "/docs/img-certificado-ingles.webp",
+          "link": "/docs/certificado-ingles.pdf"
+        },
+        {
+          "category": "Certificado de Español",
+          "title": "SIELE – Competencia en Español B2",
+          "details": "Alcancé el nivel B2 en español con la certificación SIELE, validando sólidas habilidades de comunicación y comprensión avanzada en el idioma español.",
+          "img": "/docs/img-certificado-espanhol.webp",
+          "link": "/docs/certificado-espanhol.pdf"
+        },
+        {
+          "category": "Currículum en Inglés",
+          "title": "Currículum Profesional en Inglés",
+          "details": "Accede a mi currículum completo en inglés, mostrando mis habilidades, proyectos y trayectoria profesional con una perspectiva global en la industria tecnológica.",
+          "img": "/docs/img-curriculo-ingles.webp",
+          "link": "/docs/resume-joao-carmassi.pdf"
+        },
+        {
+          "category": "Currículum en Portugués",
+          "title": "Currículum Profesional en Portugués",
+          "details": "Explora mi currículum completo en portugués, destacando mi experiencia, conocimientos técnicos y trayectoria profesional en desarrollo web y más.",
+          "img": "/docs/img-curriculo-portugues.webp",
+          "link": "/docs/curriculo-joao-carmassi.pdf"
+        }
+      ]
+    },
+    "techStack": {
+      "title": "Mi Stack"
+    },
+    "github": {
+      "title": "Github",
+      "text": "Descubre mis proyectos de estudio y profesionales en GitHub.",
+      "cards": [
+        {
+          "title": "Trabajo",
+          "text1": "Mira interfaces interactivas que construí con React y Tailwind—eficientes, reutilizables y responsivas.",
+          "text2": "Explora proyectos desde paneles de control hasta aplicaciones web dinámicas—ejemplos de mi trabajo profesional.",
+          "text3": "Observa componentes y layouts estructurados y escalables que creé.",
+          "button": "Ver cuenta"
+        },
+        {
+          "title": "Estudio",
+          "text1": "Revisa varios proyectos—desde lo básico de HTML/CSS hasta apps en Vue y React.",
+          "text2": "Mira experimentos con diferentes frameworks y lenguajes—TypeScript, Vue, React y más.",
+          "text3": "Explora pequeños proyectos prácticos que desarrollé para mejorar mis habilidades y explorar nuevas tecnologías.",
+          "button": "Ver organización"
+        }
+      ]
+    },
+    "contactMe": {
+      "title": "¡Contáctame!",
+      "text": "¡Me encantaría saber de ti! Ya sea que tengas una pregunta, un proyecto en mente o simplemente quieras conectar, no dudes en comunicarte. Siempre estoy abierto a nuevas oportunidades y colaboraciones.",
+      "form": {
+        "name": {
+          "label": "Nombre",
+          "placeholder": "nombre"
+        },
+        "email": {
+          "label": "Correo",
+          "placeholder": "correo"
+        },
+        "phone": {
+          "label": "Teléfono",
+          "placeholder": "teléfono"
+        },
+        "message": {
+          "label": "Tu mensaje",
+          "placeholder": "escribe tu mensaje aquí."
+        }
+      },
+      "button1": "Enviar",
+      "button2": "Borrar",
+      "modal": {
+        "sent": {
+          "title": "Mensaje Enviado con Éxito",
+          "text": "¡Gracias por comunicarte! Te responderé lo antes posible."
+        },
+        "error": {
+          "title": "¡Ups! Algo salió mal",
+          "text": "Lo siento, hubo un problema al enviar tu mensaje. Por favor, inténtalo más tarde o contáctame directamente en joaovitorcarmassi@email.com"
+        },
+        "sending": "Enviando"
+      }
+    }
+  }
+}

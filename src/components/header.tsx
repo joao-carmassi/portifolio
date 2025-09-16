@@ -26,7 +26,7 @@ import {
   DropdownMenuTrigger,
 } from './ui/dropdown-menu';
 import Link from 'next/link';
-import { useMessages } from '@/context/messages';
+import { useLocales, useMessages } from '@/context/messages';
 import Img from './Image';
 
 interface Props {
@@ -43,6 +43,7 @@ export default function Header({ navigationLinks }: Props) {
   const t = useMessages('navbar');
   const { language, theme } = t('options');
   const { contact } = t('actions');
+  const locales = useLocales();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -99,7 +100,11 @@ export default function Header({ navigationLinks }: Props) {
                 </svg>
               </Button>
             </PopoverTrigger>
-            <PopoverContent align='start' className='w-36 p-1 md:hidden'>
+            <PopoverContent
+              sideOffset={16}
+              align='start'
+              className='w-36 p-1 md:hidden'
+            >
               <NavigationMenu className='max-w-none *:w-full'>
                 <NavigationMenuList className='flex-col items-start gap-0 md:gap-2'>
                   {navigationLinks.map((link, index) => (
@@ -185,12 +190,11 @@ export default function Header({ navigationLinks }: Props) {
               <DropdownMenuSub>
                 <DropdownMenuSubTrigger>{language}</DropdownMenuSubTrigger>
                 <DropdownMenuSubContent sideOffset={6}>
-                  <DropdownMenuItem asChild>
-                    <Link href={'/en'}>English</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link href={'/pt'}>Portugues</Link>
-                  </DropdownMenuItem>
+                  {locales.map((item) => (
+                    <DropdownMenuItem key={item.locale} asChild>
+                      <Link href={`/${item.locale}`}>{item.name}</Link>
+                    </DropdownMenuItem>
+                  ))}
                 </DropdownMenuSubContent>
               </DropdownMenuSub>
               <DropdownMenuSub>

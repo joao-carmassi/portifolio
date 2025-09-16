@@ -79,7 +79,7 @@ const HeroHomepage = () => {
                 {text2?.list && (
                   <RotatingText
                     texts={text2.list}
-                    mainClassName='px-2 sm:px-2 md:px-3 bg-secondary text-white overflow-hidden py-1 justify-center rounded-lg font-bold'
+                    mainClassName='px-2 sm:px-2 md:px-3 bg-secondary dark:bg-primary text-white overflow-hidden py-1 justify-center rounded-lg font-bold'
                     staggerFrom={'last'}
                     initial={{ y: '100%' }}
                     animate={{ y: 0 }}

@@ -26,7 +26,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-const locales = ['en', 'pt'];
+export const locales = [
+  { locale: 'en', name: 'English' },
+  { locale: 'pt', name: 'Portugues' },
+  { locale: 'es', name: 'Español' },
+];
 
 const RootLayout = async ({ children, params }: Props) => {
   const { locale } = await params;
@@ -36,7 +40,7 @@ const RootLayout = async ({ children, params }: Props) => {
   return (
     <html lang={locale} suppressHydrationWarning>
       <body className={`${raleway.variable} font-main antialiased`}>
-        <MessagesProvider locale={locale}>
+        <MessagesProvider locale={locale} locales={locales}>
           <ThemeProvider attribute='class' defaultTheme='white' enableSystem>
             <Header navigationLinks={links} />
           </ThemeProvider>
@@ -48,7 +52,9 @@ const RootLayout = async ({ children, params }: Props) => {
 };
 
 export function generateStaticParams() {
-  return locales.map((locale) => ({ locale }));
+  return locales.map((item) => ({
+    locale: item.locale,
+  }));
 }
 
 export default RootLayout;
