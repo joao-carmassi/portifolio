@@ -2,50 +2,44 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "markdown-to-html-ui",
   "type": "registry:style",
-  "dependencies": ["clsx", "react-markdown@^8.0.7", "remark-gfm@^3.0.1"],
-  "registryDependencies": ["separator"],
+  "dependencies": [
+    "clsx",
+    "react-markdown@^8.0.7",
+    "remark-gfm@^3.0.1"
+  ],
+  "registryDependencies": [
+    "separator"
+  ],
   "files": [
+    {
+      "type": "registry:file",
+      "path": "src/components/ui/a.tsx",
+      "target": "src/components/ui/a.tsx",
+      "content": "import { ClassValue } from 'clsx';\r\n\r\nexport function A({\r\n  children,\r\n  className,\r\n  href,\r\n}: {\r\n  children?: React.ReactNode;\r\n  className?: ClassValue;\r\n  href: string;\r\n}) {\r\n  return (\r\n    <a\r\n      target='_blank'\r\n      href={href}\r\n      className={`scroll-m-20 md:text-lg text-primary hover:underline ${className}`}\r\n    >\r\n      {children}\r\n    </a>\r\n  );\r\n}\r\n"
+    },
+    {
+      "type": "registry:file",
+      "path": "src/components/ui/blockquote.tsx",
+      "target": "src/components/ui/blockquote.tsx",
+      "content": "import { ClassValue } from 'clsx';\n\nexport function Blockquote({\n  children,\n  className,\n}: {\n  children?: React.ReactNode;\n  className?: ClassValue;\n}) {\n  return (\n    <blockquote className={`border-l-2 border-border pl-6 italic ${className}`}>\n      {children}\n    </blockquote>\n  );\n}\n"
+    },
     {
       "type": "registry:file",
       "path": "src/components/ui/h1.tsx",
       "target": "src/components/ui/h1.tsx",
-      "content": "import { ClassValue } from 'clsx';\r\n\r\nexport function H1({\r\n  children,\r\n  className,\r\n}: {\r\n  children: React.ReactNode;\r\n  className?: ClassValue;\r\n}) {\r\n  return (\r\n    <h1\r\n      className={`scroll-m-20 md:text-3xl lg:text-4xl font-extrabold tracking-wide ${className}`}\r\n    >\r\n      {children}\r\n    </h1>\r\n  );\r\n}\r\n"
+      "content": "import { ClassValue } from 'clsx';\r\n\r\nexport function H1({\r\n  children,\r\n  className,\r\n}: {\r\n  children?: React.ReactNode;\r\n  className?: ClassValue;\r\n}) {\r\n  return (\r\n    <h1\r\n      className={`scroll-m-20 text-2xl md:text-3xl lg:text-4xl font-extrabold tracking-wide ${className}`}\r\n    >\r\n      {children}\r\n    </h1>\r\n  );\r\n}\r\n"
     },
     {
       "type": "registry:file",
       "path": "src/components/ui/h2.tsx",
       "target": "src/components/ui/h2.tsx",
-      "content": "import { ClassValue } from 'clsx';\r\n\r\nexport function H2({\r\n  children,\r\n  className,\r\n}: {\r\n  children: React.ReactNode;\r\n  className?: ClassValue;\r\n}) {\r\n  return (\r\n    <h2\r\n      className={`scroll-m-20 text-primary text-2xl md:text-3xl lg:text-4xl font-semibold tracking-wide ${className}`}\r\n    >\r\n      {children}\r\n    </h2>\r\n  );\r\n}\r\n"
+      "content": "import { ClassValue } from 'clsx';\r\n\r\nexport function H2({\r\n  children,\r\n  className,\r\n}: {\r\n  children?: React.ReactNode;\r\n  className?: ClassValue;\r\n}) {\r\n  return (\r\n    <h2\r\n      className={`scroll-m-20 text-primary text-2xl md:text-3xl lg:text-4xl font-semibold tracking-wide ${className}`}\r\n    >\r\n      {children}\r\n    </h2>\r\n  );\r\n}\r\n"
     },
     {
       "type": "registry:file",
       "path": "src/components/ui/h3.tsx",
       "target": "src/components/ui/h3.tsx",
-      "content": "import { ClassValue } from 'clsx';\r\n\r\nexport function H3({\r\n  children,\r\n  className,\r\n}: {\r\n  children: React.ReactNode;\r\n  className?: ClassValue;\r\n}) {\r\n  return (\r\n    <h3\r\n      className={`scroll-m-20 text-lg md:text-xl lg:text-2xl font-semibold tracking-tight ${className}`}\r\n    >\r\n      {children}\r\n    </h3>\r\n  );\r\n}\r\n"
-    },
-    {
-      "type": "registry:file",
-      "path": "src/components/ui/a.tsx",
-      "target": "src/components/ui/a.tsx",
-      "content": "import { ClassValue } from 'clsx';\r\n\r\nexport function A({\r\n  children,\r\n  className,\r\n  href,\r\n}: {\r\n  children: React.ReactNode;\r\n  className?: ClassValue;\r\n  href: string;\r\n}) {\r\n  return (\r\n    <a\r\n      target='_blank'\r\n      href={href}\r\n      className={`scroll-m-20 md:text-lg text-primary hover:underline ${className}`}\r\n    >\r\n      {children}\r\n    </a>\r\n  );\r\n}\r\n"
-    },
-    {
-      "type": "registry:file",
-      "path": "src/components/ui/p.tsx",
-      "target": "src/components/ui/p.tsx",
-      "content": "import { ClassValue } from 'clsx';\r\n\r\nexport function P({\r\n  children,\r\n  className,\r\n}: {\r\n  children: React.ReactNode;\r\n  className?: ClassValue;\r\n}) {\r\n  return <p className={`scroll-m-20 md:text-lg ${className}`}>{children}</p>;\r\n}\r\n"
-    },
-    {
-      "type": "registry:file",
-      "path": "src/components/ui/ol.tsx",
-      "target": "src/components/ui/ol.tsx",
-      "content": "import { ClassValue } from 'clsx';\n\nexport function Ol({\n  children,\n  className,\n}: {\n  children: React.ReactNode;\n  className?: ClassValue;\n}) {\n  return (\n    <ol className={`ml-6 list-decimal [&>li]:mt-2 ${className}`}>{children}</ol>\n  );\n}\n"
-    },
-    {
-      "type": "registry:file",
-      "path": "src/components/ui/ul.tsx",
-      "target": "src/components/ui/ul.tsx",
-      "content": "import { ClassValue } from 'clsx';\n\nexport function Ul({ children, className }: { children: React.ReactNode; className?: ClassValue }) {\n  return <ul className={`ml-6 list-disc [&>li]:mt-2 ${className}`}>{children}</ul>;\n}"
+      "content": "import { ClassValue } from 'clsx';\r\n\r\nexport function H3({\r\n  children,\r\n  className,\r\n}: {\r\n  children?: React.ReactNode;\r\n  className?: ClassValue;\r\n}) {\r\n  return (\r\n    <h3\r\n      className={`scroll-m-20 text-lg md:text-xl lg:text-2xl font-semibold tracking-tight ${className}`}\r\n    >\r\n      {children}\r\n    </h3>\r\n  );\r\n}\r\n"
     },
     {
       "type": "registry:file",
@@ -61,9 +55,21 @@
     },
     {
       "type": "registry:file",
-      "path": "src/components/ui/blockquote.tsx",
-      "target": "src/components/ui/blockquote.tsx",
-      "content": "import { ClassValue } from 'clsx';\n\nexport function Blockquote({\n  children,\n  className,\n}: {\n  children: React.ReactNode;\n  className?: ClassValue;\n}) {\n  return (\n    <blockquote className={`border-l-2 border-border pl-6 italic ${className}`}>\n      {children}\n    </blockquote>\n  );\n}\n"
+      "path": "src/components/ui/ol.tsx",
+      "target": "src/components/ui/ol.tsx",
+      "content": "import { ClassValue } from 'clsx';\n\nexport function Ol({\n  children,\n  className,\n}: {\n  children?: React.ReactNode;\n  className?: ClassValue;\n}) {\n  return (\n    <ol className={`ml-6 list-decimal [&>li]:mt-2 ${className}`}>{children}</ol>\n  );\n}\n"
+    },
+    {
+      "type": "registry:file",
+      "path": "src/components/ui/p.tsx",
+      "target": "src/components/ui/p.tsx",
+      "content": "import { ClassValue } from 'clsx';\r\n\r\nexport function P({\r\n  children,\r\n  className,\r\n}: {\r\n  children?: React.ReactNode;\r\n  className?: ClassValue;\r\n}) {\r\n  return <p className={`scroll-m-20 md:text-lg ${className}`}>{children}</p>;\r\n}\r\n"
+    },
+    {
+      "type": "registry:file",
+      "path": "src/components/ui/ul.tsx",
+      "target": "src/components/ui/ul.tsx",
+      "content": "import { ClassValue } from 'clsx';\n\nexport function Ul({\n  children,\n  className,\n}: {\n  children?: React.ReactNode;\n  className?: ClassValue;\n}) {\n  return (\n    <ul className={`ml-6 list-disc [&>li]:mt-2 ${className}`}>{children}</ul>\n  );\n}\n"
     }
   ]
 }
