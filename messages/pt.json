@@ -115,15 +115,18 @@
       "form": {
         "name": {
           "label": "Nome",
-          "placeholder": "nome"
+          "placeholder": "nome",
+          "error": "O nome deve ter pelo menos 3 caracteres"
         },
         "email": {
           "label": "Email",
-          "placeholder": "email"
+          "placeholder": "email",
+          "error": "E-mail inválido"
         },
         "phone": {
           "label": "Telefone",
-          "placeholder": "telefone"
+          "placeholder": "telefone",
+          "error": "Telefone inválido"
         },
         "message": {
           "label": "Sua mensagem",

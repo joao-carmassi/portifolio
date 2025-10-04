@@ -120,15 +120,18 @@
       "form": {
         "name": {
           "label": "Nombre",
-          "placeholder": "nombre"
+          "placeholder": "nombre",
+          "error": "El nombre debe tener al menos 3 caracteres"
         },
         "email": {
-          "label": "Correo",
-          "placeholder": "correo"
+          "label": "Correo electrónico",
+          "placeholder": "correo electrónico",
+          "error": "Correo electrónico inválido"
         },
         "phone": {
           "label": "Teléfono",
-          "placeholder": "teléfono"
+          "placeholder": "teléfono",
+          "error": "Número de teléfono inválido"
         },
         "message": {
           "label": "Tu mensaje",

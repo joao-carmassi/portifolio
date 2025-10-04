@@ -116,15 +116,18 @@
       "form": {
         "name": {
           "label": "Name",
-          "placeholder": "name"
+          "placeholder": "name",
+          "error": "The name must be at least 3 characters long"
         },
         "email": {
           "label": "Email",
-          "placeholder": "email"
+          "placeholder": "email",
+          "error": "Invalid email"
         },
         "phone": {
           "label": "Phone",
-          "placeholder": "phone"
+          "placeholder": "phone",
+          "error": "Invalid phone number"
         },
         "message": {
           "label": "Your message",

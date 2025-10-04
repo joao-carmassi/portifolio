@@ -21,15 +21,11 @@ import axios from 'axios';
 import confetti from 'canvas-confetti';
 import { ArrowRightIcon, Trash2 } from 'lucide-react';
 import { Variants } from 'motion/react';
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useMessages } from '@/context/messages';
-
-const valoresCampoInicial = {
-  name: '',
-  email: '',
-  phone: '',
-  message: '',
-};
+import { useForm } from 'react-hook-form';
+import z from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 const access_key = 'e25d109e-87c5-431e-9bd5-89f4b0792f09';
 const API_URL = 'https://api.web3forms.com/submit';
@@ -66,29 +62,46 @@ const animation: Variants[] = [
 ];
 
 const ContactMeHomepage = () => {
-  const [valoresCampo, setValoresCampo] = useState(valoresCampoInicial);
   const [enviado, setEnviado] = useState<null | boolean>(null);
   const [modalAberto, setModalAberto] = useState(false);
 
   const t = useMessages('homepage');
   const { title, text, form, button1, button2, modal } = t('contactMe');
 
-  const handleType = (
-    e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
-  ) => {
-    const { id, value } = e.target;
+  const schema = useMemo(() => {
+    if (!form) return null;
+    return z.object({
+      name: z.string().min(3, form.name?.error || 'Name is required'),
+      email: z.string().email(form.email?.error || 'Invalid email'),
+      phone: z
+        .string()
+        .regex(/^\+?[0-9\s()-]{7,20}$/, form.phone?.error || 'Invalid phone'),
+      message: z.string(),
+    });
+  }, [form]);
 
-    setValoresCampo((atual) => ({
-      ...atual,
-      [id]: value,
-    }));
+  type tSchema = {
+    name: string;
+    email: string;
+    phone: string;
+    message: string;
   };
 
-  const enviaEmail = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
+    resolver: schema ? zodResolver(schema) : undefined,
+  });
+
+  const enviaEmail = (data: tSchema) => {
+    if (!schema) return;
+
     const dados = {
       access_key,
-      ...valoresCampo,
+      ...data,
     };
 
     setModalAberto(true);
@@ -117,7 +130,7 @@ const ContactMeHomepage = () => {
 
   const handleModal = () => {
     setModalAberto(false);
-    setValoresCampo(valoresCampoInicial);
+    reset();
 
     setTimeout(() => {
       setEnviado(null);
@@ -146,23 +159,27 @@ const ContactMeHomepage = () => {
           initial='hidden'
           whileInView='show'
           viewport={{ once: true, amount: 0.15 }}
-          onSubmit={enviaEmail}
+          onSubmit={handleSubmit(enviaEmail)}
           className='flex items-center justify-end flex-1 w-full'
         >
           <Card className='max-w-full w-full md:w-md rounded-2xl py-7 shadow-2xl'>
             <CardContent className='flex flex-col gap-5 px-7'>
-              <div className='grid w-full items-center gap-3'>
+              <div className='grid w-full items-center gap-2'>
                 <Label htmlFor='name'>{form?.name.label}</Label>
                 <Input
                   required
                   className='!py-5 rounded-lg shadow-none border-primary/25'
                   id='name'
                   placeholder={form?.name.placeholder}
-                  value={valoresCampo.name}
-                  onChange={handleType}
+                  {...register('name')}
                 />
+                {errors.name && (
+                  <span className='text-red-500 text-sm'>
+                    {errors.name.message}
+                  </span>
+                )}
               </div>
-              <div className='grid w-full items-center gap-3'>
+              <div className='grid w-full items-center gap-2'>
                 <Label htmlFor='email'>{form?.email.label}</Label>
                 <Input
                   required
@@ -170,34 +187,46 @@ const ContactMeHomepage = () => {
                   type='email'
                   id='email'
                   placeholder={form?.email.placeholder}
-                  value={valoresCampo.email}
-                  onChange={handleType}
+                  {...register('email')}
                 />
+                {errors.email && (
+                  <span className='text-red-500 text-sm'>
+                    {errors.email.message}
+                  </span>
+                )}
               </div>
-              <div className='grid w-full items-center gap-3'>
+              <div className='grid w-full items-center gap-2'>
                 <Label htmlFor='phone'>{form?.phone.label}</Label>
                 <Input
                   required
                   className='!py-5 rounded-lg shadow-none border-primary/25'
-                  type='phone'
+                  type='tel'
                   id='phone'
                   placeholder={form?.phone.placeholder}
-                  value={valoresCampo.phone}
-                  onChange={handleType}
+                  {...register('phone')}
                 />
+                {errors.phone && (
+                  <span className='text-red-500 text-sm'>
+                    {errors.phone.message}
+                  </span>
+                )}
               </div>
-              <div className='grid w-full gap-3'>
+              <div className='grid w-full gap-2'>
                 <Label htmlFor='message'>{form?.message.label}</Label>
                 <Textarea
                   className='rounded-lg min-h-32 border-primary/25'
                   placeholder={form?.message.placeholder}
                   id='message'
-                  value={valoresCampo.message}
-                  onChange={handleType}
+                  {...register('message')}
                 />
+                {errors.message && (
+                  <span className='text-red-500 text-sm'>
+                    {errors.message.message}
+                  </span>
+                )}
               </div>
             </CardContent>
-            <CardFooter className='flex gap-3 px-7'>
+            <CardFooter className='flex gap-2 px-7'>
               <Button
                 className='rounded-lg flex-1 py-6 font-bold border border-primary'
                 effect='expandIcon'
@@ -214,7 +243,7 @@ const ContactMeHomepage = () => {
                 variant={'outline'}
                 className='rounded-lg flex-1 py-6 font-bold'
                 onClick={() => {
-                  setValoresCampo(valoresCampoInicial);
+                  reset();
                 }}
                 type='button'
               >
