@@ -1,15 +1,15 @@
 'use client';
-
 import { cn } from '@/lib/utils';
 import { AnimatePresence, motion } from 'motion/react';
 import { useRef, useState } from 'react';
 import { P } from './p';
+import { H3 } from './h3';
 
 export const HoverEffect = ({
   items,
   className,
 }: {
-  items: string[];
+  items: { name: string; img: React.ReactNode }[];
   className?: string;
 }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -20,7 +20,7 @@ export const HoverEffect = ({
     <div
       ref={containerRef}
       className={cn(
-        'relative grid grid-cols-2 md:grid-cols-3 divide-x divide-y',
+        'relative grid grid-cols-4 md:grid-cols-6 divide-x divide-y',
         className
       )}
     >
@@ -46,18 +46,18 @@ export const HoverEffect = ({
           />
         )}
       </AnimatePresence>
-
       {items.map((item, i) => (
         <div
           key={i}
           className={cn(
-            'relative group block h-full w-full border-foreground/25',
+            'relative group block h-full w-full border-foreground/25 col-span-2',
+            i <= 1 && 'md:col-span-3',
             (i + 1) % 2 === 0 && 'border-r-0',
             items.length - 2 === i && 'border-b-0',
-            i === 1 && 'md:border-r',
             i === 3 && 'md:border-r',
-            i === 2 && 'md:border-r-0',
-            i === 3 && 'md:border-b-0'
+            i === 5 && 'md:border-r',
+            i === 4 && 'md:border-r-0',
+            i === 5 && 'md:border-b-0'
           )}
           onMouseEnter={(e) => {
             setHoveredIndex(i);
@@ -75,8 +75,13 @@ export const HoverEffect = ({
             setHoverRect(null);
           }}
         >
-          <Card>
-            <CardDescription>{item}</CardDescription>
+          <Card className='relative'>
+            <div className='absolute top-3 left-3 hidden md:block'>
+              <H3 className='group-hover:text-background duration-200'>
+                {item.name}
+              </H3>
+            </div>
+            <CardDescription>{item.img}</CardDescription>
           </Card>
         </div>
       ))}

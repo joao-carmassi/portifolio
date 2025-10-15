@@ -3,8 +3,7 @@ import DidYouKnowHomepage from './didYouKnowHomepage';
 import HeroHomepage from './heroHomepage';
 import ContactMeHomepage from './contactMeHomepage';
 import DocumentosHomepage from '@/app/[locale]/documentsHomepage';
-import TechStack from '@/components/techStack';
-import GithubHomepage from '@/app/[locale]/githubHomepage';
+import TechStack from '@/app/[locale]/techStack';
 
 export default async function Home({
   params,
@@ -22,7 +21,7 @@ export default async function Home({
         <DocumentosHomepage locale={locale} />
       </section>
       <TechStack locale={locale} />
-      <GithubHomepage locale={locale} />
+      {/* <GithubHomepage locale={locale} /> */}
       <ContactMeHomepage />
     </main>
   );
