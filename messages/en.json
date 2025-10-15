@@ -7,7 +7,11 @@
   "navbar": {
     "links": [
       { "id": "aboutMeHomepage", "label": "About" },
-      { "id": "documentosHomepage", "label": "Resume", "position": "start" },
+      {
+        "id": "documentosHomepage",
+        "label": "Certificates",
+        "position": "start"
+      },
       { "id": "techStack", "label": "Stack" },
       { "id": "githubHomepage", "label": "Github" }
     ],
