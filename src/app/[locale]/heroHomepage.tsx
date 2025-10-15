@@ -1,10 +1,9 @@
-'use client';
-
 import RotatingText from '@/components/RotatingText';
 import { cn } from '@/lib/utils';
 import { Github, Instagram, Linkedin } from 'lucide-react';
-import { motion, Variants } from 'framer-motion';
-import { useMessages } from '@/context/messages';
+import { Variants } from 'framer-motion';
+import * as motion from 'motion/react-client';
+import { getMessages } from '@/utils/getMessages';
 
 const container: Variants = {
   hidden: {},
@@ -28,8 +27,8 @@ const animation: Variants = {
   },
 };
 
-const HeroHomepage = () => {
-  const t = useMessages('homepage');
+const HeroHomepage = async ({ locale }: { locale: string }) => {
+  const t = await getMessages(locale, 'homepage');
   const { title, text1, text2 } = t('hero');
 
   return (

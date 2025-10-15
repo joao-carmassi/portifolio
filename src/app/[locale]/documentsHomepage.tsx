@@ -4,9 +4,9 @@ import { H2 } from '../../components/ui/h2';
 import { P } from '../../components/ui/p';
 import { H3 } from '../../components/ui/h3';
 import { Variants } from 'motion/react';
-import AnimatedDiv from '@/components/ui/animatedDiv';
 import { getMessages } from '@/utils/getMessages';
 import Img from '@/components/Image';
+import * as motion from 'motion/react-client';
 
 interface DocumentItem {
   category: string;
@@ -46,7 +46,7 @@ const DocumentosHomepage = async ({ locale }: { locale: string }) => {
       </div>
       <div className='w-full mx-auto space-y-12 md:space-y-20'>
         {docs.map((doc: DocumentItem) => (
-          <AnimatedDiv
+          <motion.div
             variants={animation}
             initial='hidden'
             whileInView='show'
@@ -79,7 +79,7 @@ const DocumentosHomepage = async ({ locale }: { locale: string }) => {
                 </a>
               </Button>
             </div>
-          </AnimatedDiv>
+          </motion.div>
         ))}
       </div>
     </section>

@@ -4,10 +4,10 @@ import { H2 } from '../../components/ui/h2';
 import { P } from '@/components/ui/p';
 import { H3 } from '@/components/ui/h3';
 import { Variants } from 'motion/react';
-import AnimatedDiv from '@/components/ui/animatedDiv';
 import { MagicCard } from '@/components/magicui/magic-card';
 import { getMessages } from '@/utils/getMessages';
 import Img from '@/components/Image';
+import * as motion from 'motion/react-client';
 
 const animationPc: Variants[] = [
   {
@@ -84,7 +84,7 @@ const GithubHomepage = async ({ locale }: { locale: string }) => {
         </div>
         <div className='grid sm:grid-cols-2 md:grid-cols-5 lg:grid-cols-3 gap-6'>
           {/* Card 1 */}
-          <AnimatedDiv
+          <motion.div
             viewport={{ amount: 0.15, once: true, margin: '-150px' }}
             variants={animationCell[0]}
             initial='hidden'
@@ -135,9 +135,9 @@ const GithubHomepage = async ({ locale }: { locale: string }) => {
                 </Button>
               </div>
             </MagicCard>
-          </AnimatedDiv>
+          </motion.div>
           {/* Media 1 Desktop */}
-          <AnimatedDiv
+          <motion.div
             viewport={{ amount: 0.15, once: true }}
             variants={animationPc[0]}
             initial='hidden'
@@ -149,9 +149,9 @@ const GithubHomepage = async ({ locale }: { locale: string }) => {
               src='/imgs/github-profile-img.png'
               alt=''
             />
-          </AnimatedDiv>
+          </motion.div>
           {/* Media 2 Desktop */}
-          <AnimatedDiv
+          <motion.div
             viewport={{ amount: 0.15, once: true }}
             variants={animationPc[1]}
             initial='hidden'
@@ -163,9 +163,9 @@ const GithubHomepage = async ({ locale }: { locale: string }) => {
               src='/imgs/github-organization-img.png'
               alt=''
             />
-          </AnimatedDiv>
+          </motion.div>
           {/* Card 2 */}
-          <AnimatedDiv
+          <motion.div
             viewport={{ amount: 0.15, once: true }}
             variants={animationCell[1]}
             initial='hidden'
@@ -216,7 +216,7 @@ const GithubHomepage = async ({ locale }: { locale: string }) => {
                 </Button>
               </div>
             </MagicCard>
-          </AnimatedDiv>
+          </motion.div>
         </div>
       </div>
     </section>

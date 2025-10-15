@@ -33,6 +33,8 @@ const DidYouKnowHomepage = () => {
       });
   }, []);
 
+  if (!fatos) return null;
+
   return (
     <section>
       <div className='p-6 md:p-12 text-center space-y-1.5 md:space-y-3 mx-auto max-w-7xl gap-5'>

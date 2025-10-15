@@ -1,9 +1,9 @@
 import FundoColorido from '@/components/fundoColorido';
 import { H2 } from '@/components/ui/h2';
 import ContainerCodigo from './containerCodigo';
-import AnimatedDiv from '@/components/ui/animatedDiv';
 import { Variants } from 'motion/react';
 import { getMessages } from '@/utils/getMessages';
+import * as motion from 'motion/react-client';
 
 const animation: Variants = {
   hidden: { opacity: 0, y: 150, scale: 0.95 },
@@ -30,7 +30,7 @@ const AboutMeHomepage = async ({ locale }: { locale: string }) => {
         <H2 className='text-white drop-shadow-sm drop-shadow-black/25 text-center'>
           {title}
         </H2>
-        <AnimatedDiv
+        <motion.div
           variants={animation}
           initial='hidden'
           whileInView='show'
@@ -44,7 +44,7 @@ const AboutMeHomepage = async ({ locale }: { locale: string }) => {
           <ContainerCodigo
             json={{ mobile: textMobile, desktop: textDesktop }}
           />
-        </AnimatedDiv>
+        </motion.div>
       </div>
     </FundoColorido>
   );

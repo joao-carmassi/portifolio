@@ -15,7 +15,7 @@ export default async function Home({
 
   return (
     <main>
-      <HeroHomepage />
+      <HeroHomepage locale={locale} />
       <DidYouKnowHomepage />
       <AboutMeHomepage locale={locale} />
       <section className='bg-background'>
