@@ -22,7 +22,7 @@ export default async function Home({
         <DocumentosHomepage locale={locale} />
       </section>
       <TechStack locale={locale} />
-      <GithubHomepage locale={locale} />
+      {/* <GithubHomepage locale={locale} /> */}
       <ContactMeHomepage />
     </main>
   );

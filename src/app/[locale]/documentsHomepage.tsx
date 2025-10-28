@@ -62,7 +62,7 @@ const DocumentosHomepage = async ({ locale }: { locale: string }) => {
               />
             </div>
             <div className='basis-1/2 shrink-0 space-y-3'>
-              <span className='uppercase font-medium text-sm text-accent'>
+              <span className='uppercase font-semibold text-sm text-accent'>
                 {doc.category}
               </span>
               <H3>{doc.title}</H3>

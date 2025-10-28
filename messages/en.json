@@ -54,8 +54,8 @@
     },
     "aboutMe": {
       "title": "About me",
-      "textMobile": "\"full-name\": \"João Vitor Carmassi\",\r\n\"birthdate\": \"December 8, 2004\",\r\n\"place-of-birth\": \"São Paulo, SP\",\r\n\"where-I-live\": \"São Bento do Sapucai, SP\",\r\n\"languages\": {\r\n  \"english\": \"C1\",\r\n  \"spanish\": \"B2\"\r\n},\r\n\"programming-languages\": [\r\n  \"HTML\", \"CSS\", \"JavaScript\", \"TypeScript\"\r\n],\r\n\"frameworks\": [\r\n  \"React\", \"Next.Js\", \"Tailwind\", \"Sass\"\r\n],\r\n\"tools\": [\r\n  \"Git\", \"Eslint\", \"Redux\", \"Context-api\", \"Shadcn/Ui\", \"Motion\"\r\n],\r\n\"methodologies\": [\r\n  \"Mobile first\", \"Scrum\", \"Kanban\"\r\n],\r\n\"interests\": [\r\n  \"Programming\", \"Games\", \"Music\", \"Movies\", \"Hiking\"\r\n]",
-      "textDesktop": "{\r\n    \"full-name\": \"João Vitor Carmassi\",\r\n    \"birthdate\": \"December 8, 2004\",\r\n    \"place-of-birth\": \"São Paulo, SP\",\r\n    \"where-I-live\": \"São Bento do Sapucai, SP\",\r\n    \"languages\": {\r\n        \"english\": \"C1\",\r\n        \"spanish\": \"B2\"\r\n    },\r\n    \"programming-languages\": [\r\n        \"HTML\", \"CSS\", \"JavaScript\", \"TypeScript\"\r\n    ],\r\n    \"frameworks\": [\r\n        \"React\", \"Next.Js\", \"Tailwind\", \"Sass\"\r\n    ],\r\n    \"tools\": [\r\n        \"Git\", \"Eslint\", \"React-query\", \"Zustand\", \"Redux\", \"Context-api\", \"Shadcn/Ui\", \"Motion\"\r\n    ],\r\n    \"methodologies\": [\r\n        \"Mobile first\", \"Scrum\", \"Kanban\"\r\n    ],\r\n    \"interests\": [\r\n        \"Programming\", \"Games\", \"Music\", \"Movies\", \"Hiking\"\r\n    ]\r\n}"
+      "textMobile": "\"full-name\": \"João Vitor Carmassi\",\r\n\"birthdate\": \"December 8, 2004\",\r\n\"place-of-birth\": \"São Paulo, SP\",\r\n\"where-I-live\": \"São Bento do Sapucai, SP\",\r\n\"languages\": {\r\n  \"english\": \"C1\",\r\n  \"spanish\": \"B2\"\r\n},\r\n\"programming-languages\": [\r\n  \"HTML\", \"CSS\", \"JavaScript\", \"TypeScript\"\r\n],\r\n\"frameworks\": [\r\n  \"React\", \"Next.Js\", \"Tailwind\", \"Sass\"\r\n],\r\n\"tools\": [\r\n  \"Git\", \"Eslint\", \"Redux\", \"Context-api\", \"Shadcn/Ui\", \"Motion\"\r\n],\r\n\"tests\": [\r\n  \"Jest\", \"Cypress\", \"Postman\"\r\n],\r\n\"methodologies\": [\r\n  \"Mobile first\", \"Scrum\", \"Kanban\"\r\n],\r\n\"interests\": [\r\n  \"Programming\", \"Games\", \"Music\", \"Movies\", \"Hiking\"\r\n]",
+      "textDesktop": "{\r\n    \"full-name\": \"João Vitor Carmassi\",\r\n    \"birthdate\": \"December 8, 2004\",\r\n    \"place-of-birth\": \"São Paulo, SP\",\r\n    \"where-I-live\": \"São Bento do Sapucai, SP\",\r\n    \"languages\": {\r\n        \"english\": \"C1\",\r\n        \"spanish\": \"B2\"\r\n    },\r\n    \"programming-languages\": [\r\n        \"HTML\", \"CSS\", \"JavaScript\", \"TypeScript\"\r\n    ],\r\n    \"frameworks\": [\r\n        \"React\", \"Next.Js\", \"Tailwind\", \"Sass\"\r\n    ],\r\n    \"tools\": [\r\n        \"Git\", \"Eslint\", \"React-query\", \"Zustand\", \"Redux\", \"Context-api\", \"Shadcn/Ui\", \"Motion\"\r\n    ],\r\n    \"tests\": [\r\n        \"Jest\", \"Cypress\", \"Postman\"\r\n    ],\r\n    \"methodologies\": [\r\n        \"Mobile first\", \"Scrum\", \"Kanban\"\r\n    ],\r\n    \"interests\": [\r\n        \"Programming\", \"Games\", \"Music\", \"Movies\", \"Hiking\"\r\n    ]\r\n}"
     },
     "documentos": {
       "title": "My Portfolio & Achievements",
@@ -121,21 +121,25 @@
         "name": {
           "label": "Name",
           "placeholder": "name",
-          "error": "The name must be at least 3 characters long"
+          "error": "The name must be at least 3 characters long",
+          "description": "Please enter your full name."
         },
         "email": {
           "label": "Email",
           "placeholder": "email",
-          "error": "Invalid email"
+          "error": "Invalid email",
+          "description": "Please enter a valid email address."
         },
         "phone": {
           "label": "Phone",
           "placeholder": "phone",
-          "error": "Invalid phone number"
+          "error": "Invalid phone number",
+          "description": "Please enter a valid phone number."
         },
         "message": {
           "label": "Your message",
-          "placeholder": "type your message here."
+          "placeholder": "type your message here.",
+          "description": "Please enter your message."
         }
       },
       "button1": "Submit",

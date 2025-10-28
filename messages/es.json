@@ -54,8 +54,8 @@
     },
     "aboutMe": {
       "title": "Sobre mí",
-      "textMobile": "\"nombre-completo\": \"João Vitor Carmassi\",\r\n\"fecha-de-nacimiento\": \"8 de diciembre de 2004\",\r\n\"lugar-de-nacimiento\": \"São Paulo, SP\",\r\n\"donde-vivo\": \"São Bento do Sapucai, SP\",\r\n\"idiomas\": {\r\n  \"inglés\": \"C1\",\r\n  \"español\": \"B2\"\r\n},\r\n\"lenguajes-de-programación\": [\r\n  \"HTML\", \"CSS\", \"JavaScript\", \"TypeScript\"\r\n],\r\n\"frameworks\": [\r\n  \"React\", \"Next.Js\", \"Tailwind\", \"Sass\"\r\n],\r\n\"herramientas\": [\r\n  \"Git\", \"Eslint\", \"Redux\", \"Context-api\", \"Shadcn/Ui\", \"Motion\"\r\n],\r\n\"metodologías\": [\r\n  \"Mobile first\", \"Scrum\", \"Kanban\"\r\n],\r\n\"intereses\": [\r\n  \"Programación\", \"Juegos\", \"Música\", \"Películas\", \"Senderismo\"\r\n]",
-      "textDesktop": "{\r\n    \"nombre-completo\": \"João Vitor Carmassi\",\r\n    \"fecha-de-nacimiento\": \"8 de diciembre de 2004\",\r\n    \"lugar-de-nacimiento\": \"São Paulo, SP\",\r\n    \"donde-vivo\": \"São Bento do Sapucai, SP\",\r\n    \"idiomas\": {\r\n        \"inglés\": \"C1\",\r\n        \"español\": \"B2\"\r\n    },\r\n    \"lenguajes-de-programación\": [\r\n        \"HTML\", \"CSS\", \"JavaScript\", \"TypeScript\"\r\n    ],\r\n    \"frameworks\": [\r\n        \"React\", \"Next.Js\", \"Tailwind\", \"Sass\"\r\n    ],\r\n    \"herramientas\": [\r\n        \"Git\", \"Eslint\", \"React-query\", \"Zustand\", \"Redux\", \"Context-api\", \"Shadcn/Ui\", \"Motion\"\r\n    ],\r\n    \"metodologías\": [\r\n        \"Mobile first\", \"Scrum\", \"Kanban\"\r\n    ],\r\n    \"intereses\": [\r\n        \"Programación\", \"Juegos\", \"Música\", \"Películas\", \"Senderismo\"\r\n    ]\r\n}"
+      "textMobile": "\"nombre-completo\": \"João Vitor Carmassi\",\r\n\"fecha-de-nacimiento\": \"8 de diciembre de 2004\",\r\n\"lugar-de-nacimiento\": \"São Paulo, SP\",\r\n\"donde-vivo\": \"São Bento do Sapucai, SP\",\r\n\"idiomas\": {\r\n  \"inglés\": \"C1\",\r\n  \"español\": \"B2\"\r\n},\r\n\"lenguajes-de-programación\": [\r\n  \"HTML\", \"CSS\", \"JavaScript\", \"TypeScript\"\r\n],\r\n\"frameworks\": [\r\n  \"React\", \"Next.Js\", \"Tailwind\", \"Sass\"\r\n],\r\n\"herramientas\": [\r\n  \"Git\", \"Eslint\", \"Redux\", \"Context-api\", \"Shadcn/Ui\", \"Motion\"\r\n],\r\n\"prueba\": [\r\n  \"Jest\", \"Cypress\", \"Postman\"\r\n],\r\n\"metodologías\": [\r\n  \"Mobile first\", \"Scrum\", \"Kanban\"\r\n],\r\n\"intereses\": [\r\n  \"Programación\", \"Juegos\", \"Música\", \"Películas\", \"Senderismo\"\r\n]",
+      "textDesktop": "{\r\n    \"nombre-completo\": \"João Vitor Carmassi\",\r\n    \"fecha-de-nacimiento\": \"8 de diciembre de 2004\",\r\n    \"lugar-de-nacimiento\": \"São Paulo, SP\",\r\n    \"donde-vivo\": \"São Bento do Sapucai, SP\",\r\n    \"idiomas\": {\r\n        \"inglés\": \"C1\",\r\n        \"español\": \"B2\"\r\n    },\r\n    \"lenguajes-de-programación\": [\r\n        \"HTML\", \"CSS\", \"JavaScript\", \"TypeScript\"\r\n    ],\r\n    \"frameworks\": [\r\n        \"React\", \"Next.Js\", \"Tailwind\", \"Sass\"\r\n    ],\r\n    \"herramientas\": [\r\n        \"Git\", \"Eslint\", \"React-query\", \"Zustand\", \"Redux\", \"Context-api\", \"Shadcn/Ui\", \"Motion\"\r\n    ],\r\n    \"prueba\": [\r\n        \"Jest\", \"Cypress\", \"Postman\"\r\n    ],\r\n    \"metodologías\": [\r\n        \"Mobile first\", \"Scrum\", \"Kanban\"\r\n    ],\r\n    \"intereses\": [\r\n        \"Programación\", \"Juegos\", \"Música\", \"Películas\", \"Senderismo\"\r\n    ]\r\n}"
     },
     "documentos": {
       "title": "Mi Portafolio y Logros",
@@ -121,21 +121,25 @@
         "name": {
           "label": "Nombre",
           "placeholder": "nombre",
-          "error": "El nombre debe tener al menos 3 caracteres"
+          "error": "El nombre debe tener al menos 3 caracteres",
+          "description": "Por favor, ingresa tu nombre completo."
         },
         "email": {
           "label": "Correo electrónico",
           "placeholder": "correo electrónico",
-          "error": "Correo electrónico inválido"
+          "error": "Correo electrónico inválido",
+          "description": "Por favor, ingresa una dirección de correo electrónico válida."
         },
         "phone": {
           "label": "Teléfono",
           "placeholder": "teléfono",
-          "error": "Número de teléfono inválido"
+          "error": "Número de teléfono inválido",
+          "description": "Por favor, ingresa un número de teléfono válido."
         },
         "message": {
           "label": "Tu mensaje",
-          "placeholder": "escribe tu mensaje aquí."
+          "placeholder": "escribe tu mensaje aquí.",
+          "description": "Por favor, ingresa tu mensaje."
         }
       },
       "button1": "Enviar",

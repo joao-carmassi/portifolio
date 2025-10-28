@@ -177,7 +177,7 @@ export default function Header({ navigationLinks }: Props) {
                 aria-label='Botão abrir campo pesquisa'
                 variant='outline'
                 size='icon'
-                className='rounded-full border-border shadow-md'
+                className='rounded-full border-border bg-muted'
               >
                 <Settings />
               </Button>

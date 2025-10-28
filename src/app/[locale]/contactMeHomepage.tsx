@@ -26,6 +26,16 @@ import { useMessages } from '@/context/messages';
 import { useForm } from 'react-hook-form';
 import z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import {
+  FieldSet,
+  FieldLegend,
+  FieldDescription,
+  FieldGroup,
+  Field,
+  FieldLabel,
+  FieldError,
+} from '@/components/ui/field';
+import { Switch } from 'radix-ui';
 
 const access_key = 'e25d109e-87c5-431e-9bd5-89f4b0792f09';
 const API_URL = 'https://api.web3forms.com/submit';
@@ -162,71 +172,77 @@ const ContactMeHomepage = () => {
           onSubmit={handleSubmit(enviaEmail)}
           className='flex items-center justify-end flex-1 w-full'
         >
-          <Card className='max-w-full w-full md:w-md rounded-2xl py-7 shadow-2xl'>
-            <CardContent className='flex flex-col gap-5 px-7'>
-              <div className='grid w-full items-center gap-2'>
-                <Label htmlFor='name'>{form?.name.label}</Label>
+          <FieldSet className='bg-card max-w-full w-full md:w-md rounded-2xl p-7 shadow-2xl border border-border'>
+            <FieldGroup>
+              <Field>
+                <FieldLabel htmlFor='name'>{form?.name.label}</FieldLabel>
                 <Input
                   required
                   className='!py-5 rounded-lg shadow-none border-primary/25'
                   id='name'
                   placeholder={form?.name.placeholder}
                   {...register('name')}
+                  aria-invalid={errors.name ? 'true' : 'false'}
                 />
-                {errors.name && (
-                  <span className='text-red-500 text-sm'>
-                    {errors.name.message}
-                  </span>
+                {errors.name ? (
+                  <FieldError>{errors.name.message}</FieldError>
+                ) : (
+                  <FieldDescription>{form?.name.description}</FieldDescription>
                 )}
-              </div>
-              <div className='grid w-full items-center gap-2'>
-                <Label htmlFor='email'>{form?.email.label}</Label>
+              </Field>
+              <Field>
+                <FieldLabel htmlFor='email'>{form?.email.label}</FieldLabel>
                 <Input
                   required
                   className='!py-5 rounded-lg shadow-none border-primary/25'
-                  type='email'
                   id='email'
+                  type='email'
                   placeholder={form?.email.placeholder}
                   {...register('email')}
+                  aria-invalid={errors.email ? 'true' : 'false'}
                 />
-                {errors.email && (
-                  <span className='text-red-500 text-sm'>
-                    {errors.email.message}
-                  </span>
+                {errors.email ? (
+                  <FieldError>{errors.email.message}</FieldError>
+                ) : (
+                  <FieldDescription>{form?.email.description}</FieldDescription>
                 )}
-              </div>
-              <div className='grid w-full items-center gap-2'>
-                <Label htmlFor='phone'>{form?.phone.label}</Label>
+              </Field>
+              <Field>
+                <FieldLabel htmlFor='phone'>{form?.phone.label}</FieldLabel>
                 <Input
                   required
                   className='!py-5 rounded-lg shadow-none border-primary/25'
-                  type='tel'
                   id='phone'
+                  type='tel'
                   placeholder={form?.phone.placeholder}
                   {...register('phone')}
+                  aria-invalid={errors.phone ? 'true' : 'false'}
                 />
-                {errors.phone && (
-                  <span className='text-red-500 text-sm'>
-                    {errors.phone.message}
-                  </span>
+                {errors.phone ? (
+                  <FieldError>{errors.phone.message}</FieldError>
+                ) : (
+                  <FieldDescription>{form?.phone.description}</FieldDescription>
                 )}
-              </div>
-              <div className='grid w-full gap-2'>
-                <Label htmlFor='message'>{form?.message.label}</Label>
+              </Field>
+              <Field>
+                <FieldLabel htmlFor='message'>{form?.message.label}</FieldLabel>
                 <Textarea
                   className='rounded-lg min-h-32 border-primary/25'
                   placeholder={form?.message.placeholder}
                   id='message'
                   {...register('message')}
+                  aria-invalid={errors.message ? 'true' : 'false'}
                 />
-                {errors.message && (
-                  <span className='text-red-500 text-sm'>
-                    {errors.message.message}
-                  </span>
+                {errors.message ? (
+                  <FieldError>{errors.message.message}</FieldError>
+                ) : (
+                  <FieldDescription>
+                    {form?.message.description}
+                  </FieldDescription>
                 )}
-              </div>
-            </CardContent>
-            <CardFooter className='flex gap-2 px-7'>
+              </Field>
+            </FieldGroup>
+            <FieldGroup className='flex flex-row'>
               <Button
                 className='rounded-lg flex-1 py-6 font-bold border border-primary'
                 effect='expandIcon'
@@ -249,8 +265,8 @@ const ContactMeHomepage = () => {
               >
                 {button2}
               </Button>
-            </CardFooter>
-          </Card>
+            </FieldGroup>
+          </FieldSet>
         </motion.form>
         <motion.div
           variants={animation[0]}
