@@ -210,7 +210,10 @@ const GithubHomepage = async ({ locale }: { locale: string }) => {
                   className='w-full mt-auto'
                   asChild
                 >
-                  <a target='_blank' href='https://github.com/joao-carmassi'>
+                  <a
+                    target='_blank'
+                    href='https://github.com/joao-carmassi-studies'
+                  >
                     {cards[1].button}
                   </a>
                 </Button>
