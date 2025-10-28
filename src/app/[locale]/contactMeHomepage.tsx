@@ -1,8 +1,6 @@
 'use client';
-
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import {
   Dialog,
   DialogContent,
@@ -14,7 +12,6 @@ import {
 import { H2 } from '@/components/ui/h2';
 import { Input } from '@/components/ui/input';
 import { Spinner } from '@/components/ui/kibo-ui/spinner';
-import { Label } from '@/components/ui/label';
 import { P } from '@/components/ui/p';
 import { Textarea } from '@/components/ui/textarea';
 import axios from 'axios';
@@ -28,14 +25,12 @@ import z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
   FieldSet,
-  FieldLegend,
   FieldDescription,
   FieldGroup,
   Field,
   FieldLabel,
   FieldError,
 } from '@/components/ui/field';
-import { Switch } from 'radix-ui';
 
 const access_key = 'e25d109e-87c5-431e-9bd5-89f4b0792f09';
 const API_URL = 'https://api.web3forms.com/submit';
