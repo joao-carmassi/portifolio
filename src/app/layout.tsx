@@ -30,15 +30,6 @@ export default function RootLayout({
             })(window,document,'script','dataLayer','GTM-N2GFFDFJ');
           `}
       </Script>
-      {/* Google Tag Manager (noscript) */}
-      <noscript>
-        <iframe
-          src='https://www.googletagmanager.com/ns.html?id=GTM-N2GFFDFJ'
-          height='0'
-          width='0'
-          style={{ display: 'none', visibility: 'hidden' }}
-        />
-      </noscript>
       {children}
     </html>
   );
