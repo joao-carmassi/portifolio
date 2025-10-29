@@ -7,18 +7,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en' suppressHydrationWarning>
-      <head>
-        <meta
-          name='google-site-verification'
-          content='fROZF15LJteQ084SiUI76J86k51o7lG2n3bzHfCh69Y'
-        />
-      </head>
       {/* Google Analytics */}
       <Script
+        async
         src='https://www.googletagmanager.com/gtag/js?id=G-ZPXTYH8YVL'
-        strategy='afterInteractive'
       />
-      <Script id='google-analytics' strategy='afterInteractive'>
+      <Script id='google-analytics'>
         {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
@@ -26,9 +20,8 @@ export default function RootLayout({
             gtag('config', 'G-ZPXTYH8YVL');
           `}
       </Script>
-
       {/* Google Tag Manager */}
-      <Script id='google-tag-manager' strategy='afterInteractive'>
+      <Script id='google-tag-manager'>
         {`
             (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
             new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -37,7 +30,6 @@ export default function RootLayout({
             })(window,document,'script','dataLayer','GTM-N2GFFDFJ');
           `}
       </Script>
-
       {/* Google Tag Manager (noscript) */}
       <noscript>
         <iframe
