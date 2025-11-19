@@ -1,10 +1,10 @@
 import AboutMeHomepage from './aboutMeHomepage';
 import DidYouKnowHomepage from './didYouKnowHomepage';
-import HeroHomepage from './heroHomepage';
 import ContactMeHomepage from './contactMeHomepage';
 import DocumentosHomepage from '@/app/[locale]/documentsHomepage';
 import TechStack from '@/app/[locale]/techStack';
 import GithubHomepage from './githubHomepage';
+import HeroHomepage from './heroHomepage';
 
 export default async function Home({
   params,
@@ -15,7 +15,7 @@ export default async function Home({
 
   return (
     <main>
-      <HeroHomepage locale={locale} />
+      <HeroHomepage />
       <DidYouKnowHomepage />
       <AboutMeHomepage locale={locale} />
       <section className='bg-background'>

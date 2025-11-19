@@ -1,135 +1,177 @@
-import RotatingText from '@/components/RotatingText';
-import { cn } from '@/lib/utils';
-import { Github, Instagram, Linkedin } from 'lucide-react';
-import { Variants } from 'framer-motion';
-import * as motion from 'motion/react-client';
-import { getMessages } from '@/utils/getMessages';
+'use client';
+import { ArrowRight } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Autoplay, EffectCoverflow, Pagination } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css/effect-coverflow';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+import 'swiper/css';
+import 'swiper/css/effect-cards';
 
-const container: Variants = {
-  hidden: {},
-  show: {
-    transition: {
-      staggerChildren: 0.125,
-      delayChildren: 0.15,
+import { Button } from '@/components/ui/button';
+
+const HeroHomepage = () => {
+  const [domLoaded, setDomLoaded] = useState(false);
+
+  useEffect(() => {
+    setDomLoaded(true);
+  }, []);
+
+  const images = [
+    {
+      src: 'https://deifkwefumgah.cloudfront.net/shadcnblocks/block/lummi/random11.jpeg',
+      alt: 'Portrait of Joanna Doe in urban setting',
+      name: 'Joanna Doe',
     },
-  },
-};
-
-const animation: Variants = {
-  hidden: { y: 90 },
-  show: {
-    y: 0,
-    transition: {
-      type: 'spring',
-      stiffness: 120,
-      damping: 16,
+    {
+      src: 'https://deifkwefumgah.cloudfront.net/shadcnblocks/block/lummi/random1.jpeg',
+      alt: 'Portrait of Joan Doe in natural lighting',
+      name: 'Joan Doe',
     },
-  },
-};
+    {
+      src: 'https://deifkwefumgah.cloudfront.net/shadcnblocks/block/lummi/random2.jpeg',
+      alt: 'Portrait of Sarah Chen in studio setting',
+      name: 'Sarah Chen',
+    },
+    {
+      src: 'https://deifkwefumgah.cloudfront.net/shadcnblocks/block/lummi/random11.jpeg',
+      alt: 'Portrait of Joanna Doe in urban setting',
+      name: 'Joanna Doe',
+    },
+    {
+      src: 'https://deifkwefumgah.cloudfront.net/shadcnblocks/block/lummi/random1.jpeg',
+      alt: 'Portrait of Joan Doe in natural lighting',
+      name: 'Joan Doe',
+    },
+    {
+      src: 'https://deifkwefumgah.cloudfront.net/shadcnblocks/block/lummi/random2.jpeg',
+      alt: 'Portrait of Sarah Chen in studio setting',
+      name: 'Sarah Chen',
+    },
+  ];
 
-const HeroHomepage = async ({ locale }: { locale: string }) => {
-  const t = await getMessages(locale, 'homepage');
-  const { title, text1, text2 } = t('hero');
+  const css = `
+  .mySwiperHero231 {
+    width: 100%;
+    min-width: 750px;
+    height: 100%;
+    padding-bottom: 50px;
+  } 
+
+  .mySwiperHero231 .swiper-slide {
+    background-position: center;
+    background-size: cover;
+    width: 300px;
+    margin-top: 60px;
+    height: 420px;
+  }
+  
+  .mySwiperHero231 .swiper-slide img {
+    display: block;
+    width: 100%;
+  }
+  
+  .swiper-3d .swiper-slide-shadow-left {
+    background-image: none;
+  }
+  .swiper-3d .swiper-slide-shadow-right{
+    background: none;
+  }
+  .swiper-pagination {
+    bottom: 10px !important;
+    width: 100% !important;
+    left: 0% !important;
+  }
+  .swiper-pagination-bullet {
+    background-color: var(--primary);
+  }
+
+  @media (min-width: 768px) {
+    .swiper-pagination {
+      width: fit-content !important;
+      left: 80% !important;
+    }
+  }
+
+  `;
 
   return (
-    <motion.section
-      variants={container}
-      initial='hidden'
-      animate='show'
-      id='heroHomepage'
-      className='relative min-h-svh bg-black flex flex-col items-center justify-center'
-    >
-      <div
-        className='absolute w-full h-full z-0 bg-no-repeat bg-center bg-cover lg:bg-contain animate-in fade-in duration-1000 delay-300 fill-mode-both'
-        style={{
-          backgroundImage: `url('${
-            process.env.NEXT_PUBLIC_BASE_PATH || ''
-          }/ImgBg.webp')`,
-        }}
-      />
-      <div className='px-6 md:px-12 relative z-10'>
-        <div className='text-center space-y-3 md:space-y-6 '>
-          <span className='block overflow-hidden'>
-            <motion.h2
-              variants={animation}
-              className='scroll-m-20 md:text-3xl lg:text-4xl tracking-wide text-white drop-shadow-2xl text-3xl drop-shadow-black'
+    <section className='min-h-screen py-6 md:py-12 dark bg-black grid place-items-center'>
+      <style>{css}</style>
+      <div className='container mt-4 flex flex-col items-center justify-center gap-4 overflow-hidden text-left xl:mt-14 xl:flex-row xl:overflow-visible'>
+        <div className='w-full space-y-10 xl:w-1/2'>
+          <Button
+            variant='secondary'
+            className='items-left bg-muted/70 group flex w-fit justify-center gap-3 rounded-full px-5 py-1'
+          >
+            <span className='bg-foreground size-2.5 rounded-full' />
+            Focused on nextjs and tailwindcss
+          </Button>
+          <h1 className='font-calSans text-foreground mt-12 text-5xl font-medium tracking-tight md:text-7xl'>
+            João Vitor <br /> Carmassi <br /> web developer.
+          </h1>
+          <p className='text-muted-foreground/80 mt-3 max-w-lg'>
+            Crafting seamless web experiences with modern technologies and a
+            passion for innovation.
+          </p>
+          <div className='flex gap-4 xl:mt-32'>
+            <Button
+              variant='secondary'
+              className='group flex w-fit items-center justify-center gap-2 rounded-full px-4 py-1 tracking-tight'
             >
-              <span className='font-bold'>{text1?.bold}</span>
-              {text1?.text}
-            </motion.h2>
-          </span>
-          <span className='block overflow-hidden'>
-            <motion.h1
-              variants={animation}
-              className={cn(
-                'scroll-m-20 font-extrabold tracking-wide text-white drop-shadow-2xl drop-shadow-black text-4xl md:text-5xl lg:text-5xl'
-              )}
+              <span>About me</span>
+              <ArrowRight className='size-4 -rotate-45 transition-all ease-out group-hover:ml-3 group-hover:rotate-0' />
+            </Button>
+            <Button
+              variant='default'
+              className='group flex w-fit items-center justify-center gap-2 rounded-full px-4 py-1 tracking-tight'
             >
-              {title}
-            </motion.h1>
-          </span>
-          <span className='block overflow-hidden'>
-            <motion.h2
-              variants={animation}
-              className='scroll-m-20 md:text-3xl lg:text-4xl tracking-wide text-white drop-shadow-2xl text-3xl drop-shadow-black font-normal'
-            >
-              <span className='flex items-center justify-center gap-1.5 transition-all duration-150'>
-                <p>{text2?.static}</p>
-                {text2?.list && (
-                  <RotatingText
-                    texts={text2.list}
-                    mainClassName='px-2 sm:px-2 md:px-3 bg-secondary dark:bg-primary text-white overflow-hidden py-1 justify-center rounded-lg font-bold'
-                    staggerFrom={'last'}
-                    initial={{ y: '100%' }}
-                    animate={{ y: 0 }}
-                    exit={{ y: '-120%' }}
-                    staggerDuration={0.025}
-                    splitLevelClassName='overflow-hidden pb-0.5 sm:pb-1 md:pb-1'
-                    transition={{ type: 'spring', damping: 30, stiffness: 400 }}
-                    rotationInterval={3500}
-                  />
-                )}
-              </span>
-            </motion.h2>
-          </span>
+              <span>Contact</span>
+              <ArrowRight className='size-4 -rotate-45 transition-all ease-out group-hover:ml-3 group-hover:rotate-0' />
+            </Button>
+          </div>
         </div>
-        <div className='flex gap-6 w-fit mx-auto'>
-          <span className='block overflow-hidden hover:scale-110 duration-200 pt-3 md:pt-6'>
-            <motion.a
-              variants={animation}
-              aria-label='Link para Github João Carmassi'
-              href='https://github.com/joao-carmassi'
-              target='_blank'
-              className='rounded-full grid place-items-center h-12 w-12 bg-black/25 backdrop-blur-sm border-2 border-white text-white duration-200 transition-colors hover:border-[#181717] hover:bg-[#181717] focus:border-[#181717] focus:bg-[#181717] focus:scale-110 cursor-pointer'
-            >
-              <Github />
-            </motion.a>
-          </span>
-          <span className='block overflow-hidden hover:scale-110 duration-200 pt-3 md:pt-6'>
-            <motion.a
-              variants={animation}
-              aria-label='Link para Instagram João Carmassi'
-              href='https://www.instagram.com/joao_carmassi/'
-              target='_blank'
-              className='rounded-full grid place-items-center h-12 w-12 bg-black/25 backdrop-blur-sm border-2 border-white text-white duration-200 transition-colors hover:border-[#FF0069] hover:bg-[#FF0069] focus:border-[#FF0069] focus:bg-[#FF0069] focus:scale-110 cursor-pointer'
-            >
-              <Instagram />
-            </motion.a>
-          </span>
-          <span className='block overflow-hidden hover:scale-110 duration-200 pt-3 md:pt-6'>
-            <motion.a
-              variants={animation}
-              aria-label='Link para Linkedin João Carmassi'
-              href='https://www.linkedin.com/in/joao-carmassi/'
-              target='_blank'
-              className='rounded-full grid place-items-center h-12 w-12 bg-black/25 backdrop-blur-sm border-2 border-white text-white duration-200 transition-colors hover:border-[#0a66c2] hover:bg-[#0a66c2] focus:border-[#0a66c2] focus:bg-[#0a66c2] focus:scale-110 cursor-pointer'
-            >
-              <Linkedin />
-            </motion.a>
-          </span>
+        <div className='h-145 mt-10 relative w-full xl:mt-0 xl:w-3/5'>
+          <div className='mx-auto flex h-full items-center justify-center'>
+            {domLoaded && (
+              <Swiper
+                spaceBetween={50}
+                autoplay={{
+                  delay: 1500,
+                  disableOnInteraction: false,
+                }}
+                effect='coverflow'
+                grabCursor={true}
+                centeredSlides={true}
+                loop={true}
+                slidesPerView={2.438}
+                coverflowEffect={{
+                  rotate: 0,
+                  stretch: 0,
+                  depth: 100,
+                  modifier: 2.5,
+                }}
+                className='mySwiperHero231'
+                modules={[EffectCoverflow, Autoplay, Pagination]}
+                pagination={{ clickable: true }}
+              >
+                {images.map((image, index) => (
+                  <SwiperSlide key={index}>
+                    <img
+                      className='h-full w-full overflow-hidden rounded-3xl object-cover shadow-lg'
+                      src={image.src}
+                      alt={image.alt}
+                    />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            )}
+          </div>
+          <div className='z-0 bg-muted/50 xl:h-155 xl:w-9/10 absolute right-0 top-0 h-full w-full rounded-3xl xl:top-1/2 xl:mt-4 xl:-translate-y-1/2' />
         </div>
       </div>
-    </motion.section>
+    </section>
   );
 };
 
