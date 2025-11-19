@@ -46,7 +46,7 @@ const HeroHomepage = ({ title, text1, text2, button1, button2 }: Props) => {
 
     gsap.from(split.chars, {
       opacity: 0,
-      y: 50,
+      yPercent: 100,
       duration: 1,
       delay: 0.5,
       stagger: 0.06,
@@ -76,6 +76,7 @@ const HeroHomepage = ({ title, text1, text2, button1, button2 }: Props) => {
         delay: 1,
         duration: 1.25,
         ease: 'expo.inOut',
+        scale: 1.5,
       },
       1
     );
