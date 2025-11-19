@@ -8,6 +8,9 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import 'swiper/css';
 import 'swiper/css/effect-cards';
+import { gsap } from 'gsap';
+import { useGSAP } from '@gsap/react';
+import { SplitText } from 'gsap/SplitText';
 
 import { Button } from '@/components/ui/button';
 import scrollToContainer from '@/utils/scrowToContainer';
@@ -18,6 +21,60 @@ const HeroHomepage = () => {
   useEffect(() => {
     setDomLoaded(true);
   }, []);
+
+  useGSAP(() => {
+    gsap.registerPlugin(SplitText);
+
+    if (!domLoaded) return;
+
+    const split = new SplitText('#animetatedTitle', {
+      type: 'chars',
+    });
+
+    gsap.from(split.chars, {
+      opacity: 0,
+      y: 50,
+      duration: 1,
+      delay: 0.5,
+      stagger: 0.06,
+      ease: 'power3.out',
+    });
+
+    const el = document.getElementById('animetatedTitle');
+    const rect = el!.getBoundingClientRect();
+    const centerX = window.innerWidth / 2;
+    const centerY = window.innerHeight / 2;
+
+    const deltaX = centerX - (rect.left + rect.width / 2);
+    const deltaY = centerY - (rect.top + rect.height / 2);
+
+    const tl = gsap.timeline();
+
+    tl.from(
+      el,
+      {
+        x: deltaX,
+        y: deltaY,
+        delay: 1.5,
+        duration: 1.25,
+        ease: 'expo.inOut',
+      },
+      1
+    );
+
+    tl.from(
+      '.hiddenEntry',
+      {
+        opacity: 0,
+        yPercent: 100,
+        delay: 2,
+        duration: 1,
+        ease: 'expo.out',
+        stagger: 0.05,
+      },
+      1
+    );
+  }, [domLoaded]);
 
   const images = [
     {
@@ -107,22 +164,26 @@ const HeroHomepage = () => {
         <div className='w-full space-y-10 xl:w-1/2'>
           <Button
             variant='secondary'
-            className='items-left bg-muted/70 group flex w-fit justify-center gap-3 rounded-full px-5 py-1'
+            className='items-left bg-muted/70 group flex w-fit justify-center gap-3 rounded-full px-5 py-1 hiddenEntry'
           >
             <span className='bg-foreground size-2.5 rounded-full' />
             Focused on nextjs and tailwindcss
           </Button>
-          <h1 className='font-calSans text-foreground mt-12 text-5xl font-medium tracking-tight md:text-7xl'>
-            João Vitor <br /> Carmassi <br /> web developer.
+          <h1 className='font-calSans text-foreground mt-12 text-5xl font-medium tracking-tight md:text-7xl z-10 relative'>
+            <span className='block hiddenEntry'>João Vitor</span>
+            <span id='animetatedTitle' className='block w-fit'>
+              Carmassi
+            </span>
+            <span className='block hiddenEntry'>web developer.</span>
           </h1>
-          <p className='text-muted-foreground/80 mt-3 max-w-lg'>
+          <p className='text-muted-foreground/80 mt-3 max-w-lg hiddenEntry'>
             Crafting seamless web experiences with modern technologies and a
             passion for innovation.
           </p>
           <div className='flex gap-4 xl:mt-32'>
             <Button
               variant='secondary'
-              className='group flex w-fit items-center justify-center gap-2 rounded-full px-4 py-1 tracking-tight'
+              className='group flex w-fit items-center justify-center gap-2 rounded-full px-4 py-1 tracking-tight hiddenEntry'
               onClick={() => scrollToContainer('aboutMeHomepage', 'center')}
             >
               <span>About me</span>
@@ -130,7 +191,7 @@ const HeroHomepage = () => {
             </Button>
             <Button
               variant='default'
-              className='group flex w-fit items-center justify-center gap-2 rounded-full px-4 py-1 tracking-tight'
+              className='group flex w-fit items-center justify-center gap-2 rounded-full px-4 py-1 tracking-tight hiddenEntry'
               onClick={() => scrollToContainer('contactMeHomepage', 'center')}
             >
               <span>Contact</span>
@@ -158,7 +219,7 @@ const HeroHomepage = () => {
                   depth: 100,
                   modifier: 2.5,
                 }}
-                className='mySwiperHero231'
+                className='mySwiperHero231 hiddenEntry'
                 modules={[EffectCoverflow, Autoplay, Pagination]}
                 pagination={{ clickable: true }}
               >
@@ -174,7 +235,7 @@ const HeroHomepage = () => {
               </Swiper>
             )}
           </div>
-          <div className='z-0 bg-muted/50 xl:h-155 xl:w-9/10 absolute right-0 top-0 h-full w-full rounded-3xl xl:top-1/2 xl:mt-4 xl:-translate-y-1/2' />
+          <div className='z-0 bg-muted/50 xl:h-155 xl:w-9/10 absolute right-0 top-0 h-full w-full rounded-3xl xl:top-1/2 xl:mt-4 xl:-translate-y-1/2 hiddenEntry' />
         </div>
       </div>
     </section>
