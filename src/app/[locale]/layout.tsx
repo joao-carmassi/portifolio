@@ -7,6 +7,7 @@ import '../globals.css';
 import { getMessages } from '@/utils/getMessages';
 import { ReactLenis } from 'lenis/react';
 import { locales } from '../../../messages';
+import QueryProvider from '@/components/queryProvider';
 
 const raleway = Raleway({
   variable: '--font-main',
@@ -74,12 +75,14 @@ const RootLayout = async ({ children, params }: Props) => {
         >
           <MessagesProvider locale={locale} locales={locales}>
             <ThemeProvider attribute='class' defaultTheme='white' enableSystem>
-              <Header
-                navigationLinks={links}
-                options={options}
-                actions={actions}
-              />
-              {children}
+              <QueryProvider>
+                <Header
+                  navigationLinks={links}
+                  options={options}
+                  actions={actions}
+                />
+                {children}
+              </QueryProvider>
             </ThemeProvider>
           </MessagesProvider>
         </ReactLenis>

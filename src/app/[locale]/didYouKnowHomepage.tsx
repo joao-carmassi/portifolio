@@ -5,35 +5,32 @@ import { H2 } from '@/components/ui/h2';
 import { P } from '@/components/ui/p';
 import { useMessages } from '@/context/messages';
 import { IFatos } from '@/types/IFatos';
+import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
 
-const API_KEY = 'https://uselessfacts.jsph.pl/api/v2/facts/random';
+const API_URL = 'https://uselessfacts.jsph.pl/api/v2/facts/random';
 
 const DidYouKnowHomepage = () => {
-  const [fatos, setFatos] = useState<undefined | IFatos>(undefined);
   const t = useMessages('homepage');
   const { title } = t('didYouKnow');
 
-  useEffect(() => {
-    axios
-      .get(API_KEY)
-      .then((res) => {
-        if (res.status !== 200) {
-          throw new Error(`${res.status} - ${res.statusText}`);
-        }
-        return res.data;
-      })
-      .then((data) => {
-        data.text = `"${data.text}"`;
-        setFatos(data);
-      })
-      .catch((error) => {
-        console.error(`Erro ao baixar dados da api. ${error}`);
-      });
-  }, []);
+  const { data: fatos, isFetched } = useQuery<IFatos>({
+    queryKey: ['fato-aleatorio'],
+    queryFn: async () =>
+      await axios
+        .get(API_URL)
+        .then((res) => {
+          if (res.status !== 200) {
+            throw new Error(`${res.status} - ${res.statusText}`);
+          }
+          return res.data;
+        })
+        .catch((error) => {
+          console.error(`Erro ao baixar dados da api. ${error}`);
+        }),
+  });
 
-  if (!fatos) return null;
+  if (!fatos && isFetched) return null;
 
   return (
     <section>
