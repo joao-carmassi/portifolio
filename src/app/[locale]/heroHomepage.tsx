@@ -60,12 +60,20 @@ const HeroHomepage = ({ title, text1, text2, button1, button2 }: Props) => {
     });
 
     const el = document.getElementById('animetatedTitle');
-    const rect = el!.getBoundingClientRect();
-    const centerX = window.innerWidth / 2;
-    const centerY = window.innerHeight / 2;
+    const parent = el?.parentElement;
 
-    const deltaX = centerX - (rect.left + rect.width / 2);
-    const deltaY = centerY - (rect.top + rect.height / 2);
+    if (!el || !parent) return;
+
+    const rect = el.getBoundingClientRect();
+
+    const viewportCenterX = window.innerWidth / 2;
+    const viewportCenterY = window.innerHeight / 2;
+
+    const elCenterX = rect.left + window.scrollX + rect.width / 2;
+    const elCenterY = rect.top + window.scrollY + rect.height / 2;
+
+    const deltaX = viewportCenterX - elCenterX;
+    const deltaY = viewportCenterY - elCenterY;
 
     const tl = gsap.timeline();
 
@@ -200,7 +208,7 @@ const HeroHomepage = ({ title, text1, text2, button1, button2 }: Props) => {
             </span>
             <span className='block hiddenEntry'>{title.line3}</span>
           </h1>
-          <p className='text-muted-foreground/80 mt-3 max-w-lg hiddenEntry'>
+          <p className='text-muted-foreground font-semibold mt-3 max-w-lg hiddenEntry'>
             {text1}
           </p>
           <div className='flex gap-4 xl:mt-32'>
