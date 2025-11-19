@@ -180,8 +180,7 @@ const HeroHomepage = ({ title, text1, text2, button1, button2 }: Props) => {
   return (
     <section
       id='heroHomepage'
-      className='min-h-screen py-16 dark bg-black grid place-items-center '
-      style={{ width: '100%', height: '600px', position: 'relative' }}
+      className='py-16 dark bg-black grid min-h-screen place-items-center relative'
     >
       <DarkVeil />
       <style>{css}</style>
