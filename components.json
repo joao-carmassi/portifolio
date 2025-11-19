@@ -24,6 +24,7 @@
       "headers": {
         "Authorization": "Bearer ${SHADCNBLOCKS_API_KEY}"
       }
-    }
+    },
+    "@react-bits": "https://reactbits.dev/r/{name}.json"
   }
 }

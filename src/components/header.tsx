@@ -193,7 +193,7 @@ export default function Header({
                 aria-label='Botão abrir campo pesquisa'
                 variant='outline'
                 size='icon'
-                className='rounded-full border-border bg-muted hover:border-primary dark:bg-white dark:hover:bg-primary dark:hover:text-foreground dark:focus:ring-foreground'
+                className='rounded-full border-border bg-muted hover:border-primary dark:bg-white dark:border-white dark:hover:bg-primary dark:hover:text-foreground dark:focus:ring-foreground'
               >
                 <Settings />
               </Button>

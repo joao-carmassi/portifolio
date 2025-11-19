@@ -15,6 +15,7 @@ import { SplitText } from 'gsap/SplitText';
 
 import { Button } from '@/components/ui/button';
 import scrollToContainer from '@/utils/scrowToContainer';
+import DarkVeil from '@/components/DarkVeil';
 
 interface Props {
   title: {
@@ -180,7 +181,9 @@ const HeroHomepage = ({ title, text1, text2, button1, button2 }: Props) => {
     <section
       id='heroHomepage'
       className='min-h-screen py-16 dark bg-black grid place-items-center '
+      style={{ width: '100%', height: '600px', position: 'relative' }}
     >
+      <DarkVeil />
       <style>{css}</style>
       <div className='container mt-4 flex flex-col items-center justify-center gap-4 overflow-hidden text-left xl:mt-14 xl:flex-row xl:overflow-visible invisibleOnLoad'>
         <div className='w-full space-y-10 xl:w-1/2'>
