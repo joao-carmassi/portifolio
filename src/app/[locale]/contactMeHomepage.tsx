@@ -76,12 +76,19 @@ const ContactMeHomepage = () => {
   const schema = useMemo(() => {
     if (!form) return null;
     return z.object({
-      name: z.string().min(3, form.name?.error || ''),
-      email: z.string().email(form.email?.error || 'Invalid email'),
+      name: z
+        .string()
+        .min(3, form.name?.errors.toShort)
+        .max(100, form.name?.errors.toLong),
+      email: z
+        .string()
+        .email(form.email?.errors.invalid)
+        .max(100, form.email?.errors.toLong),
       phone: z
         .string()
-        .regex(/^\+?[0-9\s()-]{7,20}$/, form.phone?.error || 'Invalid phone'),
-      message: z.string(),
+        .regex(/^\+?[0-9\s()-]{7,20}$/, form.phone?.errors.invalid)
+        .max(20, form.phone?.errors.toLong),
+      message: z.string().max(500, form.message?.errors.toLong),
     });
   }, [form]);
 

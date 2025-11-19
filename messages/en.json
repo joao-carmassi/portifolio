@@ -110,24 +110,36 @@
         "name": {
           "label": "Name",
           "placeholder": "name",
-          "error": "The name must be at least 3 characters long",
+          "errors": {
+            "toLong": "Name is too long",
+            "toShort": "Name is too short"
+          },
           "description": "Please enter your full name."
         },
         "email": {
           "label": "Email",
           "placeholder": "email",
-          "error": "Invalid email",
+          "errors": {
+            "invalid": "Invalid email",
+            "toLong": "Email is too long"
+          },
           "description": "Please enter a valid email address."
         },
         "phone": {
           "label": "Phone",
           "placeholder": "phone",
-          "error": "Invalid phone number",
+          "errors": {
+            "invalid": "Invalid phone number",
+            "toLong": "Phone number is too long"
+          },
           "description": "Please enter a valid phone number."
         },
         "message": {
           "label": "Your message",
           "placeholder": "type your message here.",
+          "errors": {
+            "toLong": "Message is too long"
+          },
           "description": "Please enter your message."
         }
       },

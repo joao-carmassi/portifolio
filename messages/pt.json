@@ -106,24 +106,36 @@
         "name": {
           "label": "Nome",
           "placeholder": "nome",
-          "error": "O nome deve ter pelo menos 3 caracteres",
+          "errors": {
+            "toLong": "Nome muito longo",
+            "toShort": "Nome muito curto"
+          },
           "description": "Por favor, insira seu nome completo."
         },
         "email": {
           "label": "Email",
           "placeholder": "email",
-          "error": "E-mail inválido",
-          "description": "Por favor, insira um endereço de e-mail válido."
+          "errors": {
+            "invalid": "Email inválido",
+            "toLong": "Email muito longo"
+          },
+          "description": "Por favor, insira um endereço de email válido."
         },
         "phone": {
           "label": "Telefone",
           "placeholder": "telefone",
-          "error": "Telefone inválido",
-          "description": "Por favor, insira um número de telefone válido."
+          "errors": {
+            "invalid": "Telefone inválido",
+            "toLong": "Telefone muito longo"
+          },
+          "description": "Por favor, insira um telefone válido."
         },
         "message": {
           "label": "Sua mensagem",
           "placeholder": "digite sua mensagem aqui.",
+          "errors": {
+            "toLong": "Mensagem muito longa"
+          },
           "description": "Por favor, insira sua mensagem."
         }
       },
