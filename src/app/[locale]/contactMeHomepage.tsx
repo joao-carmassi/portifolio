@@ -76,7 +76,7 @@ const ContactMeHomepage = () => {
   const schema = useMemo(() => {
     if (!form) return null;
     return z.object({
-      name: z.string().min(3, form.name?.error || 'Name is required'),
+      name: z.string().min(3, form.name?.error || ''),
       email: z.string().email(form.email?.error || 'Invalid email'),
       phone: z
         .string()
@@ -172,7 +172,6 @@ const ContactMeHomepage = () => {
               <Field>
                 <FieldLabel htmlFor='name'>{form?.name.label}</FieldLabel>
                 <Input
-                  required
                   className='!py-5 rounded-lg shadow-none border-primary/25'
                   id='name'
                   placeholder={form?.name.placeholder}
@@ -188,7 +187,6 @@ const ContactMeHomepage = () => {
               <Field>
                 <FieldLabel htmlFor='email'>{form?.email.label}</FieldLabel>
                 <Input
-                  required
                   className='!py-5 rounded-lg shadow-none border-primary/25'
                   id='email'
                   type='email'
@@ -205,7 +203,6 @@ const ContactMeHomepage = () => {
               <Field>
                 <FieldLabel htmlFor='phone'>{form?.phone.label}</FieldLabel>
                 <Input
-                  required
                   className='!py-5 rounded-lg shadow-none border-primary/25'
                   id='phone'
                   type='tel'
