@@ -10,6 +10,7 @@ import 'swiper/css';
 import 'swiper/css/effect-cards';
 
 import { Button } from '@/components/ui/button';
+import scrollToContainer from '@/utils/scrowToContainer';
 
 const HeroHomepage = () => {
   const [domLoaded, setDomLoaded] = useState(false);
@@ -97,7 +98,10 @@ const HeroHomepage = () => {
   `;
 
   return (
-    <section className='min-h-screen py-6 md:py-12 dark bg-black grid place-items-center'>
+    <section
+      id='heroHomepage'
+      className='min-h-screen py-16 dark bg-black grid place-items-center'
+    >
       <style>{css}</style>
       <div className='container mt-4 flex flex-col items-center justify-center gap-4 overflow-hidden text-left xl:mt-14 xl:flex-row xl:overflow-visible'>
         <div className='w-full space-y-10 xl:w-1/2'>
@@ -119,6 +123,7 @@ const HeroHomepage = () => {
             <Button
               variant='secondary'
               className='group flex w-fit items-center justify-center gap-2 rounded-full px-4 py-1 tracking-tight'
+              onClick={() => scrollToContainer('aboutMeHomepage', 'center')}
             >
               <span>About me</span>
               <ArrowRight className='size-4 -rotate-45 transition-all ease-out group-hover:ml-3 group-hover:rotate-0' />
@@ -126,6 +131,7 @@ const HeroHomepage = () => {
             <Button
               variant='default'
               className='group flex w-fit items-center justify-center gap-2 rounded-full px-4 py-1 tracking-tight'
+              onClick={() => scrollToContainer('contactMeHomepage', 'center')}
             >
               <span>Contact</span>
               <ArrowRight className='size-4 -rotate-45 transition-all ease-out group-hover:ml-3 group-hover:rotate-0' />

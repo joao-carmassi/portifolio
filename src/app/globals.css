@@ -15,6 +15,7 @@
 body {
   --sb-size: 8px;
   overflow-x: hidden;
+  margin-top: 0 !important;
 }
 
 body::-webkit-scrollbar {
@@ -826,7 +827,6 @@ html body[data-scroll-locked] {
   overflow-y: scroll !important;
   --removed-body-scroll-bar-size: 0 !important;
   margin-right: 0 !important;
-  margin-top: 60px !important;
   &#explorer {
     margin-top: 0px !important;
   }

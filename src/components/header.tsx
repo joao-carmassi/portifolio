@@ -47,7 +47,7 @@ export default function Header({ navigationLinks }: Props) {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsVisible(window.scrollY > 0);
+      setIsVisible(window.scrollY > window.innerHeight - 64);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -56,12 +56,16 @@ export default function Header({ navigationLinks }: Props) {
 
   return (
     <header
-      className={`w-full fixed bg-card transition-all duration-500 delay-200 ease-in-out z-40 ${
-        isVisible ? 'top-0' : '-top-16'
+      className={`w-full fixed backdrop-blur-xs border-b-white transition-all duration-500 delay-200 ease-in-out z-40 ${
+        isVisible ? 'bg-card' : 'dark'
       }`}
     >
       <ScrollProgress className='bottom-0 bg-primary' />
-      <div className='flex h-16 items-center justify-between gap-4 px-6 md:px-12 max-w-7xl mx-auto'>
+      <div
+        className={`flex h-16 items-center justify-between gap-4 px-6 md:px-12 mx-auto ${
+          isVisible ? 'max-w-7xl' : 'max-w-[97rem]'
+        } transition-all duration-500 delay-200`}
+      >
         {/* Left side */}
         <div className='flex items-center gap-2'>
           {/* Mobile menu trigger */}
@@ -108,13 +112,14 @@ export default function Header({ navigationLinks }: Props) {
               <NavigationMenu className='max-w-none *:w-full'>
                 <NavigationMenuList className='flex-col items-start gap-0 md:gap-2'>
                   {navigationLinks.map((link, index) => (
-                    <NavigationMenuItem key={index}>
+                    <NavigationMenuItem asChild key={index}>
                       <Button
                         onClick={() =>
                           scrollToContainer(link.id, link.position || 'center')
                         }
                         size={'sm'}
                         variant={'link'}
+                        className='w-full flex justify-start'
                       >
                         {link.label}
                       </Button>
@@ -145,14 +150,14 @@ export default function Header({ navigationLinks }: Props) {
             <NavigationMenu className='max-md:hidden'>
               <NavigationMenuList>
                 {navigationLinks.map((link, index) => (
-                  <NavigationMenuItem key={index}>
+                  <NavigationMenuItem asChild key={index}>
                     <Button
                       onClick={() =>
                         scrollToContainer(link.id, link.position || 'center')
                       }
                       size={'sm'}
                       variant={'ghost'}
-                      className='hover:cursor-pointer'
+                      className='hover:cursor-pointer dark:text-white'
                     >
                       {link.label}
                     </Button>
@@ -177,7 +182,7 @@ export default function Header({ navigationLinks }: Props) {
                 aria-label='Botão abrir campo pesquisa'
                 variant='outline'
                 size='icon'
-                className='rounded-full border-border bg-muted'
+                className='rounded-full border-border bg-muted hover:border-primary dark:bg-white dark:hover:bg-primary dark:hover:text-foreground dark:focus:ring-foreground'
               >
                 <Settings />
               </Button>
