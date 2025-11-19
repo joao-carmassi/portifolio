@@ -60,6 +60,8 @@ const RootLayout = async ({ children, params }: Props) => {
   const { locale } = await params;
   const t = await getMessages(locale, 'navbar');
   const links = t('links');
+  const options = t('options');
+  const actions = t('actions');
 
   return (
     <>
@@ -72,7 +74,11 @@ const RootLayout = async ({ children, params }: Props) => {
         >
           <MessagesProvider locale={locale} locales={locales}>
             <ThemeProvider attribute='class' defaultTheme='white' enableSystem>
-              <Header navigationLinks={links} />
+              <Header
+                navigationLinks={links}
+                options={options}
+                actions={actions}
+              />
               {children}
             </ThemeProvider>
           </MessagesProvider>

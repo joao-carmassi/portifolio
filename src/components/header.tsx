@@ -26,7 +26,7 @@ import {
   DropdownMenuTrigger,
 } from './ui/dropdown-menu';
 import Link from 'next/link';
-import { useLocales, useMessages } from '@/context/messages';
+import { useLocales } from '@/context/messages';
 import Img from './Image';
 
 interface Props {
@@ -35,14 +35,25 @@ interface Props {
     label: string;
     position?: 'start' | 'center' | 'end' | undefined;
   }[];
+  options: {
+    language: string;
+    theme: {
+      label: string;
+      options: { light: string; dark: string; system: string };
+    };
+  };
+  actions: {
+    contact: string;
+  };
 }
 
-export default function Header({ navigationLinks }: Props) {
+export default function Header({
+  navigationLinks,
+  options: { language, theme },
+  actions: { contact },
+}: Props) {
   const [isVisible, setIsVisible] = useState(false);
   const { setTheme } = useTheme();
-  const t = useMessages('navbar');
-  const { language, theme } = t('options');
-  const { contact } = t('actions');
   const locales = useLocales();
 
   useEffect(() => {
