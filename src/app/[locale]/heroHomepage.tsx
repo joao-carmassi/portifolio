@@ -204,7 +204,7 @@ const HeroHomepage = ({ title, text1, text2, button1, button2 }: Props) => {
           <h1 className='font-calSans text-foreground mt-12 text-5xl font-medium tracking-tight md:text-7xl z-10 relative'>
             <span className='block hiddenEntry'>{title.line1}</span>
             <span id='animetatedTitle' className='block w-fit'>
-              {title.line2}
+              {title.line2},
             </span>
             <span className='block hiddenEntry'>{title.line3}</span>
           </h1>
