@@ -1,4 +1,5 @@
 'use client';
+
 import { ArrowRight } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Autoplay, EffectCoverflow, Pagination } from 'swiper/modules';
@@ -15,7 +16,19 @@ import { SplitText } from 'gsap/SplitText';
 import { Button } from '@/components/ui/button';
 import scrollToContainer from '@/utils/scrowToContainer';
 
-const HeroHomepage = () => {
+interface Props {
+  title: {
+    line1: string;
+    line2: string;
+    line3: string;
+  };
+  text1: string;
+  text2: string;
+  button1: string;
+  button2: string;
+}
+
+const HeroHomepage = ({ title, text1, text2, button1, button2 }: Props) => {
   const [domLoaded, setDomLoaded] = useState(false);
 
   useEffect(() => {
@@ -38,6 +51,11 @@ const HeroHomepage = () => {
       delay: 0.5,
       stagger: 0.06,
       ease: 'power3.out',
+      onStart: () => {
+        document
+          .querySelector('.invisibleOnLoad')!
+          .classList.remove('invisibleOnLoad');
+      },
     });
 
     const el = document.getElementById('animetatedTitle');
@@ -55,7 +73,7 @@ const HeroHomepage = () => {
       {
         x: deltaX,
         y: deltaY,
-        delay: 1.5,
+        delay: 1,
         duration: 1.25,
         ease: 'expo.inOut',
       },
@@ -67,7 +85,7 @@ const HeroHomepage = () => {
       {
         opacity: 0,
         yPercent: 100,
-        delay: 2,
+        delay: 1.5,
         duration: 1,
         ease: 'expo.out',
         stagger: 0.05,
@@ -152,33 +170,35 @@ const HeroHomepage = () => {
     }
   }
 
-  `;
+  .invisibleOnLoad {
+    visibility: hidden;
+  }
 
+  `;
   return (
     <section
       id='heroHomepage'
-      className='min-h-screen py-16 dark bg-black grid place-items-center'
+      className='min-h-screen py-16 dark bg-black grid place-items-center '
     >
       <style>{css}</style>
-      <div className='container mt-4 flex flex-col items-center justify-center gap-4 overflow-hidden text-left xl:mt-14 xl:flex-row xl:overflow-visible'>
+      <div className='container mt-4 flex flex-col items-center justify-center gap-4 overflow-hidden text-left xl:mt-14 xl:flex-row xl:overflow-visible invisibleOnLoad'>
         <div className='w-full space-y-10 xl:w-1/2'>
           <Button
             variant='secondary'
             className='items-left bg-muted/70 group flex w-fit justify-center gap-3 rounded-full px-5 py-1 hiddenEntry'
           >
             <span className='bg-foreground size-2.5 rounded-full' />
-            Focused on nextjs and tailwindcss
+            {text2}
           </Button>
           <h1 className='font-calSans text-foreground mt-12 text-5xl font-medium tracking-tight md:text-7xl z-10 relative'>
-            <span className='block hiddenEntry'>João Vitor</span>
+            <span className='block hiddenEntry'>{title.line1}</span>
             <span id='animetatedTitle' className='block w-fit'>
-              Carmassi
+              {title.line2}
             </span>
-            <span className='block hiddenEntry'>web developer.</span>
+            <span className='block hiddenEntry'>{title.line3}</span>
           </h1>
           <p className='text-muted-foreground/80 mt-3 max-w-lg hiddenEntry'>
-            Crafting seamless web experiences with modern technologies and a
-            passion for innovation.
+            {text1}
           </p>
           <div className='flex gap-4 xl:mt-32'>
             <Button
@@ -186,7 +206,7 @@ const HeroHomepage = () => {
               className='group flex w-fit items-center justify-center gap-2 rounded-full px-4 py-1 tracking-tight hiddenEntry'
               onClick={() => scrollToContainer('aboutMeHomepage', 'center')}
             >
-              <span>About me</span>
+              <span>{button1}</span>
               <ArrowRight className='size-4 -rotate-45 transition-all ease-out group-hover:ml-3 group-hover:rotate-0' />
             </Button>
             <Button
@@ -194,12 +214,12 @@ const HeroHomepage = () => {
               className='group flex w-fit items-center justify-center gap-2 rounded-full px-4 py-1 tracking-tight hiddenEntry'
               onClick={() => scrollToContainer('contactMeHomepage', 'center')}
             >
-              <span>Contact</span>
+              <span>{button2}</span>
               <ArrowRight className='size-4 -rotate-45 transition-all ease-out group-hover:ml-3 group-hover:rotate-0' />
             </Button>
           </div>
         </div>
-        <div className='h-145 mt-10 relative w-full xl:mt-0 xl:w-3/5'>
+        <div className='mt-10 relative w-full xl:mt-0 xl:w-3/5'>
           <div className='mx-auto flex h-full items-center justify-center'>
             {domLoaded && (
               <Swiper

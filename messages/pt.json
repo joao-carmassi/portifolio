@@ -24,25 +24,15 @@
   },
   "homepage": {
     "hero": {
-      "title": "João Vitor Carmassi",
-      "text1": { "bold": "Ola", "text": ", meu nome é" },
-      "text2": {
-        "static": "Sou",
-        "list": [
-          "Desenvolvedor",
-          "um Explorador",
-          "um Sonhador",
-          "um Criador",
-          "Curioso",
-          "um Pensador",
-          "um Inovador",
-          "um Construtor",
-          "um Aprendiz",
-          "Aventureiro",
-          "um Visionário",
-          "um Programador"
-        ]
-      }
+      "title": {
+        "line1": "João Vitor",
+        "line2": "Carmassi",
+        "line3": "desenvolvedor"
+      },
+      "text1": "Criando experiências web perfeitas com tecnologias modernas e paixão por inovação.",
+      "text2": "Focado em Next.js e Tailwind CSS",
+      "button1": "Sobre mim",
+      "button2": "Contato"
     },
     "didYouKnow": {
       "title": "Você sabia que:"

@@ -28,26 +28,15 @@
   },
   "homepage": {
     "hero": {
-      "title": "João Vitor Carmassi",
-      "text1": { "bold": "Hello", "text": ", my name is" },
-      "text2": {
-        "static": "I'm",
-        "list": [
-          "a Developer",
-          "an Explorer",
-          "a Dreamer",
-          "a Creator",
-          "Curious",
-          "a Thinker",
-          "an Innovator",
-          "a Builder",
-          "a Learner",
-          "Adventurous",
-          "a Maker",
-          "a Visionary",
-          "a Coder"
-        ]
-      }
+      "title": {
+        "line1": "João Vitor",
+        "line2": "Carmassi",
+        "line3": "developer"
+      },
+      "text1": "Crafting seamless web experiences with modern technologies and a passion for innovation.",
+      "text2": "Focused on nextjs and tailwindcss",
+      "button1": "About me",
+      "button2": "Contact me"
     },
     "didYouKnow": {
       "title": "Did you know that:"
