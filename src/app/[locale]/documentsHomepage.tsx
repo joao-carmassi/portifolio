@@ -1,4 +1,5 @@
 'use client';
+
 import { Button } from '@/components/ui/button';
 import { ArrowDown } from 'lucide-react';
 import { H2 } from '../../components/ui/h2';
@@ -10,7 +11,6 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { useRef } from 'react';
 import { useWindowWidth } from '@react-hook/window-size';
-
 interface DocumentItem {
   category: string;
   title: string;
@@ -26,6 +26,8 @@ const DocumentosHomepage = () => {
   const width = useWindowWidth();
 
   useGSAP(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
     if (!docs || docs.length === 0 || width <= 768) return;
 
     const paiCertificados = document.getElementById('animatedCertificates');
