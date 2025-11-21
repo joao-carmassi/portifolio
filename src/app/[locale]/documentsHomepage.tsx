@@ -183,7 +183,7 @@ const DocumentosHomepage = () => {
                               }
                             }}
                           >
-                            download
+                            Download
                           </Button>
                         </DialogClose>
                       </DialogFooter>
