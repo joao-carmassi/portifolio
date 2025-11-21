@@ -28,7 +28,7 @@ export default async function Home({
       <DidYouKnowHomepage />
       <AboutMeHomepage locale={locale} />
       <section className='bg-background'>
-        <DocumentosHomepage locale={locale} />
+        <DocumentosHomepage />
       </section>
       <TechStack locale={locale} />
       <GithubHomepage locale={locale} />
