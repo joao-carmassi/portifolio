@@ -11,6 +11,8 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { useRef } from 'react';
 import { useWindowWidth } from '@react-hook/window-size';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
 interface DocumentItem {
   category: string;
   title: string;
