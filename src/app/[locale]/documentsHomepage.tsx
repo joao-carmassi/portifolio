@@ -9,9 +9,26 @@ import Img from '@/components/Image';
 import { useMessages } from '@/context/messages';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useWindowWidth } from '@react-hook/window-size';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 
 interface DocumentItem {
   category: string;
@@ -24,13 +41,14 @@ interface DocumentItem {
 const DocumentosHomepage = () => {
   const sectionContainer = useRef<HTMLElement>(null);
   const t = useMessages('homepage');
-  const { title, text, docs } = t('documentos');
+  const { title, text, docs, resume } = t('documentos');
   const width = useWindowWidth();
+  const [resumeLang, setResumeLang] = useState('');
 
   useGSAP(() => {
     gsap.registerPlugin(ScrollTrigger);
 
-    if (!docs || docs.length === 0 || width <= 768) return;
+    if (!docs || !resume || width <= 768) return;
 
     const paiCertificados = document.getElementById('animatedCertificates');
     const items = gsap.utils.toArray(paiCertificados?.children || []);
@@ -48,7 +66,7 @@ const DocumentosHomepage = () => {
       xPercent: -100 * (items.length - 1),
       ease: 'none',
     });
-  }, [docs, width]);
+  }, [docs, width, resume]);
 
   return (
     <section
@@ -96,6 +114,86 @@ const DocumentosHomepage = () => {
               </div>
             </div>
           ))}
+        {resume && (
+          <div className='min-w-[100vw]'>
+            <div className='max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center gap-x-12 gap-y-6'>
+              <div className='w-full max-h-96 aspect-[4/3] bg-muted rounded-xl border border-border/50 basis-1/2 shadow-lg'>
+                <Img
+                  className='w-full h-full object-cover object-top hover:object-bottom duration-1000 delay-150'
+                  src={resume.img}
+                  alt={resume.title}
+                />
+              </div>
+              <div className='basis-1/2 shrink-0 space-y-3 '>
+                <span className='uppercase font-semibold text-sm text-accent'>
+                  {resume.category}
+                </span>
+                <H3>{resume.title}</H3>
+                <P>{resume.details}</P>
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button
+                      effect={'expandIcon'}
+                      iconPlacement='right'
+                      icon={ArrowDown}
+                      className='rounded-none'
+                    >
+                      Download
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent>
+                    <DialogHeader className='gap-3'>
+                      <DialogTitle>{resume.dialog.title}</DialogTitle>
+                      <DialogDescription>
+                        {resume.dialog.button}
+                      </DialogDescription>
+                      <Select onValueChange={(value) => setResumeLang(value)}>
+                        <SelectTrigger className='w-[180px] border-border shadow-sm'>
+                          <SelectValue
+                            placeholder={resume.dialog.placeholder}
+                          />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {resume.dialog.options.map((option: any) => (
+                            <SelectItem value={option.lang} key={option.lang}>
+                              {option.label}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <DialogFooter>
+                        <DialogClose asChild>
+                          <Button
+                            effect={'expandIcon'}
+                            iconPlacement='right'
+                            icon={ArrowDown}
+                            className='rounded-none'
+                            disabled={resumeLang === ''}
+                            onClick={() => {
+                              const selectedOption = resume.dialog.options.find(
+                                (option: any) => option.lang === resumeLang
+                              );
+                              if (selectedOption) {
+                                const link = document.createElement('a');
+                                link.href = selectedOption.link;
+                                link.download = '';
+                                document.body.appendChild(link);
+                                link.click();
+                                document.body.removeChild(link);
+                              }
+                            }}
+                          >
+                            download
+                          </Button>
+                        </DialogClose>
+                      </DialogFooter>
+                    </DialogHeader>
+                  </DialogContent>
+                </Dialog>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );

@@ -63,22 +63,31 @@
           "details": "Achieved a B2 level in Spanish with the SIELE certification, validating solid communication skills and advanced comprehension in the Spanish language.",
           "img": "/docs/img-certificado-espanhol.webp",
           "link": "/docs/certificado-espanhol.pdf"
-        },
-        {
-          "category": "English Resume",
-          "title": "Professional Resume in English",
-          "details": "Access my full resume in English, showcasing my skills, projects, and career journey with a global perspective in the tech industry.",
-          "img": "/docs/img-curriculo-ingles.webp",
-          "link": "/docs/resume-joao-carmassi.pdf"
-        },
-        {
-          "category": "Portuguese Resume",
-          "title": "Professional Resume in Portuguese",
-          "details": "Explore my complete resume in Portuguese, highlighting my background, technical expertise, and professional experiences in web development and beyond.",
-          "img": "/docs/img-curriculo-portugues.webp",
-          "link": "/docs/curriculo-joao-carmassi.pdf"
         }
-      ]
+      ],
+      "resume": {
+        "category": "Resume",
+        "title": "Professional Resume in English",
+        "img": "/docs/img-curriculo-ingles.webp",
+        "details": "Access my full resume in English, showcasing my skills, projects, and career journey with a global perspective in the tech industry.",
+        "dialog": {
+          "title": "My resumes",
+          "button": "Select the language to download my resume:",
+          "placeholder": "Select language",
+          "options": [
+            {
+              "lang": "en",
+              "label": "English",
+              "link": "/docs/resume-joao-carmassi.pdf"
+            },
+            {
+              "lang": "pt",
+              "label": "Portuguese",
+              "link": "/docs/curriculo-joao-carmassi.pdf"
+            }
+          ]
+        }
+      }
     },
     "techStack": {
       "title": "My Tech stack"

@@ -63,22 +63,31 @@
           "details": "Alcancé el nivel B2 en español con la certificación SIELE, validando sólidas habilidades de comunicación y comprensión avanzada en el idioma español.",
           "img": "/docs/img-certificado-espanhol.webp",
           "link": "/docs/certificado-espanhol.pdf"
-        },
-        {
-          "category": "Currículum en Inglés",
-          "title": "Currículum Profesional en Inglés",
-          "details": "Accede a mi currículum completo en inglés, mostrando mis habilidades, proyectos y trayectoria profesional con una perspectiva global en la industria tecnológica.",
-          "img": "/docs/img-curriculo-ingles.webp",
-          "link": "/docs/resume-joao-carmassi.pdf"
-        },
-        {
-          "category": "Currículum en Portugués",
-          "title": "Currículum Profesional en Portugués",
-          "details": "Explora mi currículum completo en portugués, destacando mi experiencia, conocimientos técnicos y trayectoria profesional en desarrollo web y más.",
-          "img": "/docs/img-curriculo-portugues.webp",
-          "link": "/docs/curriculo-joao-carmassi.pdf"
         }
-      ]
+      ],
+      "resume": {
+        "category": "Currículum",
+        "title": "Currículum Profesional en Inglés",
+        "img": "/docs/img-curriculo-ingles.webp",
+        "details": "Accede a mi currículum completo en inglés, destacando mis habilidades, proyectos y trayectoria profesional con una perspectiva global en la industria tecnológica.",
+        "dialog": {
+          "title": "Mis currículums",
+          "button": "Selecciona el idioma para descargar mi currículum:",
+          "placeholder": "Seleccionar idioma",
+          "options": [
+            {
+              "lang": "en",
+              "label": "Inglés",
+              "link": "/docs/resume-joao-carmassi.pdf"
+            },
+            {
+              "lang": "pt",
+              "label": "Portugués",
+              "link": "/docs/curriculo-joao-carmassi.pdf"
+            }
+          ]
+        }
+      }
     },
     "techStack": {
       "title": "Mi Stack"
