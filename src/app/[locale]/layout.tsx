@@ -8,6 +8,7 @@ import { getMessages } from '@/utils/getMessages';
 import { ReactLenis } from 'lenis/react';
 import { locales } from '../../../messages';
 import QueryProvider from '@/components/queryProvider';
+import { Footer24 } from '@/components/footer';
 
 const raleway = Raleway({
   variable: '--font-main',
@@ -82,6 +83,7 @@ const RootLayout = async ({ children, params }: Props) => {
                   actions={actions}
                 />
                 {children}
+                <Footer24 navigationLinks={links} actions={actions} />
               </QueryProvider>
             </ThemeProvider>
           </MessagesProvider>

@@ -26,6 +26,12 @@
       "contact": "Contacto"
     }
   },
+  "footer": {
+    "texts": {
+      "labels": ["Síguenos", "Teléfono"],
+      "text": "Diseñado por"
+    }
+  },
   "homepage": {
     "hero": {
       "title": {

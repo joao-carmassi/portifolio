@@ -22,6 +22,12 @@
       "contact": "Contato"
     }
   },
+  "footer": {
+    "texts": {
+      "labels": ["Siga-nos", "Telefone"],
+      "text": "Desenvolvido por"
+    }
+  },
   "homepage": {
     "hero": {
       "title": {

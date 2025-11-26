@@ -26,6 +26,12 @@
       "contact": "Contact"
     }
   },
+  "footer": {
+    "texts": {
+      "labels": ["Follow Us", "Phone"],
+      "text": "Designed by"
+    }
+  },
   "homepage": {
     "hero": {
       "title": {
