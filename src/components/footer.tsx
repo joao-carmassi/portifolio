@@ -155,7 +155,7 @@ const Footer = ({ navigationLinks, actions }: Props) => {
             </button>
           </nav>
 
-          <div className='text-muted-foreground text-sm md:text-right md:text-xs footer-animation'>
+          <div className='text-muted-foreground text-center text-sm md:text-right md:text-xs footer-animation'>
             {text} <strong>João Carmassi</strong>
           </div>
         </div>
