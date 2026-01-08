@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const t = await getMessages(locale, 'metadata');
 
-  const baseUrl = `${process.env.NEXT_PUBLIC_SITE_URL || ''}${locale}`;
+  const pageUrl = `${process.env.NEXT_PUBLIC_SITE_URL || ''}${locale}`;
 
   const languages = Object.fromEntries(
     locales.map((item) => [
@@ -39,13 +39,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     keywords: t('keywords'),
     robots: 'index, follow',
     alternates: {
-      canonical: `${baseUrl}/${locale}`,
+      canonical: pageUrl,
       languages,
     },
     openGraph: {
       title: t('title'),
       description: t('description'),
-      url: `${process.env.NEXT_PUBLIC_SITE_URL}${locale}`,
+      url: pageUrl,
       siteName: t('title'),
       locale: locale,
       type: 'website',

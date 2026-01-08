@@ -7,6 +7,9 @@ export const metadata = {
   keywords:
     'João Vitor Carmassi, web development, frontend development, programming, HTML, CSS, JavaScript, TypeScript, React, Next.js, Tailwind, Sass, Git, Eslint, Redux, Context API, Shadcn/UI, Motion, Mobile first, Scrum, Kanban, games, music, movies, hiking, languages C1 English, B2 Spanish',
   robots: 'index, follow',
+  alternates: {
+    canonical: `${process.env.NEXT_PUBLIC_SITE_URL}`,
+  },
   openGraph: {
     title: 'Portfolio | João Carmassi',
     description:
