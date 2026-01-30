@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils';
 import { ClassValue } from 'clsx';
 
 export function H1({
@@ -9,7 +10,10 @@ export function H1({
 }) {
   return (
     <h1
-      className={`scroll-m-20 md:text-3xl lg:text-4xl font-extrabold tracking-wide ${className}`}
+      className={cn(
+        'scroll-m-20 md:text-3xl lg:text-4xl font-extrabold tracking-wide',
+        className,
+      )}
     >
       {children}
     </h1>

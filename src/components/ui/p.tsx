@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils';
 import { ClassValue } from 'clsx';
 
 export function P({
@@ -8,7 +9,7 @@ export function P({
   className?: ClassValue;
 }) {
   return (
-    <p className={`scroll-m-20 md:text-lg text-foreground ${className}`}>
+    <p className={cn('scroll-m-20 md:text-lg text-foreground', className)}>
       {children}
     </p>
   );

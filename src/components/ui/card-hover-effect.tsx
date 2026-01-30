@@ -120,7 +120,7 @@ export const CardDescription = ({
   return (
     <P
       className={cn(
-        'text-foreground group-hover:text-background duration-200 text-center text-xl! md:text-3xl! font-semibold!',
+        'text-foreground group-hover:text-background duration-200 text-center text-xl md:text-3xl font-semibold',
         className,
       )}
     >
