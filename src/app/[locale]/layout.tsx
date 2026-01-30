@@ -9,6 +9,9 @@ import { ReactLenis } from 'lenis/react';
 import { locales } from '../../../messages';
 import QueryProvider from '@/components/queryProvider';
 import Footer from '@/components/footer';
+import { hasLocale, NextIntlClientProvider } from 'next-intl';
+import { notFound } from 'next/navigation';
+import { routing } from '../../../i18n/routing';
 
 const raleway = Raleway({
   variable: '--font-main',
@@ -30,7 +33,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     locales.map((item) => [
       item.locale,
       `${process.env.NEXT_PUBLIC_SITE_URL || ''}${item.locale}`,
-    ])
+    ]),
   );
 
   return {
@@ -60,6 +63,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 const RootLayout = async ({ children, params }: Props) => {
   const { locale } = await params;
+
+  if (!hasLocale(routing.locales, locale)) {
+    notFound();
+  }
+
   const t = await getMessages(locale, 'navbar');
   const links = t('links');
   const options = t('options');
@@ -74,24 +82,32 @@ const RootLayout = async ({ children, params }: Props) => {
           }}
           root
         >
-          <MessagesProvider locale={locale} locales={locales}>
-            <ThemeProvider attribute='class' defaultTheme='white' enableSystem>
-              <QueryProvider>
-                <Header
-                  navigationLinks={links}
-                  options={options}
-                  actions={actions}
-                />
-                {children}
-                <Footer navigationLinks={links} actions={actions} />
-              </QueryProvider>
-            </ThemeProvider>
-          </MessagesProvider>
+          <NextIntlClientProvider>
+            <MessagesProvider locale={locale} locales={locales}>
+              <ThemeProvider
+                attribute='class'
+                defaultTheme='white'
+                enableSystem
+              >
+                <QueryProvider>
+                  <Header
+                    navigationLinks={links}
+                    options={options}
+                    actions={actions}
+                  />
+                  {children}
+                  <Footer navigationLinks={links} actions={actions} />
+                </QueryProvider>
+              </ThemeProvider>
+            </MessagesProvider>
+          </NextIntlClientProvider>
         </ReactLenis>
       </body>
     </>
   );
 };
+
+export const dynamic = 'force-static';
 
 export function generateStaticParams() {
   return locales.map((item) => ({
