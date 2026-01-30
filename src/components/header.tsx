@@ -14,7 +14,8 @@ import {
 import scrollToContainer from '@/utils/scrowToContainer';
 import { useEffect, useState } from 'react';
 import { ScrollProgress } from './magicui/scroll-progress';
-import { Settings } from 'lucide-react';
+import { Globe, Settings } from 'lucide-react';
+import { Languages, Sun, Moon, Monitor } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import {
   DropdownMenu,
@@ -203,26 +204,50 @@ export default function Header({
               align='end'
             >
               <DropdownMenuSub>
-                <DropdownMenuSubTrigger>{language}</DropdownMenuSubTrigger>
+                <DropdownMenuSubTrigger>
+                  <span className='flex items-center gap-2'>
+                    <Globe className='w-4 h-4' />
+                    {language}
+                  </span>
+                </DropdownMenuSubTrigger>
                 <DropdownMenuSubContent sideOffset={6}>
                   {locales.map((item) => (
                     <DropdownMenuItem key={item} asChild>
-                      <Link href={`/${item}`}>{item}</Link>
+                      <Link
+                        href={`/${item}`}
+                        className='flex items-center gap-2 uppercase'
+                      >
+                        {item}
+                      </Link>
                     </DropdownMenuItem>
                   ))}
                 </DropdownMenuSubContent>
               </DropdownMenuSub>
               <DropdownMenuSub>
-                <DropdownMenuSubTrigger>{theme?.label}</DropdownMenuSubTrigger>
+                <DropdownMenuSubTrigger>
+                  <span className='flex items-center gap-2'>
+                    <Sun className='w-4 h-4' />
+                    {theme?.label}
+                  </span>
+                </DropdownMenuSubTrigger>
                 <DropdownMenuSubContent sideOffset={6}>
                   <DropdownMenuItem onClick={() => setTheme('light')}>
-                    {theme?.options.light}
+                    <span className='flex items-center gap-2'>
+                      <Sun className='w-4 h-4 opacity-60' />
+                      {theme?.options.light}
+                    </span>
                   </DropdownMenuItem>
                   <DropdownMenuItem onClick={() => setTheme('dark')}>
-                    {theme?.options.dark}
+                    <span className='flex items-center gap-2'>
+                      <Moon className='w-4 h-4 opacity-60' />
+                      {theme?.options.dark}
+                    </span>
                   </DropdownMenuItem>
                   <DropdownMenuItem onClick={() => setTheme('system')}>
-                    {theme?.options.system}
+                    <span className='flex items-center gap-2'>
+                      <Monitor className='w-4 h-4 opacity-60' />
+                      {theme?.options.system}
+                    </span>
                   </DropdownMenuItem>
                 </DropdownMenuSubContent>
               </DropdownMenuSub>
