@@ -25,43 +25,44 @@ interface Props {
   params: Promise<{ locale: string }>;
 }
 
-// export async function generateMetadata({ params }: Props): Promise<Metadata> {
-//   const { locale } = await params;
-//   const t = await getMessages(locale, 'metadata');
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const messages = (await getMessagesIntl()) as IMessage;
+  const metadata = messages.metadata;
 
-//   const pageUrl = `${process.env.NEXT_PUBLIC_SITE_URL || ''}${locale}`;
+  const pageUrl = `${process.env.NEXT_PUBLIC_SITE_URL || ''}${locale}`;
 
-//   const languages = Object.fromEntries(
-//     locales.map((item) => [
-//       item.locale,
-//       `${process.env.NEXT_PUBLIC_SITE_URL || ''}${item.locale}`,
-//     ]),
-//   );
+  const languages = Object.fromEntries(
+    routing.locales.map((item) => [
+      item,
+      `${process.env.NEXT_PUBLIC_SITE_URL || ''}${item}`,
+    ]),
+  );
 
-//   return {
-//     title: t('title'),
-//     description: t('description'),
-//     keywords: t('keywords'),
-//     robots: 'index, follow',
-//     alternates: {
-//       canonical: pageUrl,
-//       languages,
-//     },
-//     openGraph: {
-//       title: t('title'),
-//       description: t('description'),
-//       url: pageUrl,
-//       siteName: t('title'),
-//       locale: locale,
-//       type: 'website',
-//     },
-//     twitter: {
-//       card: 'summary_large_image',
-//       title: t('title'),
-//       description: t('description'),
-//     },
-//   };
-// }
+  return {
+    title: metadata.title,
+    description: metadata.description,
+    keywords: metadata.keywords,
+    robots: 'index, follow',
+    alternates: {
+      canonical: pageUrl,
+      languages,
+    },
+    openGraph: {
+      title: metadata.title,
+      description: metadata.description,
+      url: pageUrl,
+      siteName: metadata.title,
+      locale: locale,
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: metadata.title,
+      description: metadata.description,
+    },
+  };
+}
 
 const RootLayout = async ({ children, params }: Props) => {
   const { locale } = await params;
