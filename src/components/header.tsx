@@ -26,35 +26,20 @@ import {
   DropdownMenuTrigger,
 } from './ui/dropdown-menu';
 import Link from 'next/link';
-import { useLocales } from '@/context/messages';
 import Img from './Image';
+import { IMessage } from '@/types/message';
+import { routing } from '../../i18n/routing';
 
-interface Props {
-  navigationLinks: {
-    id: string;
-    label: string;
-    position?: 'start' | 'center' | 'end' | undefined;
-  }[];
-  options: {
-    language: string;
-    theme: {
-      label: string;
-      options: { light: string; dark: string; system: string };
-    };
-  };
-  actions: {
-    contact: string;
-  };
-}
+type Props = IMessage['navbar'];
 
 export default function Header({
-  navigationLinks,
+  links,
   options: { language, theme },
   actions: { contact },
 }: Props) {
   const [isVisible, setIsVisible] = useState(false);
   const { setTheme } = useTheme();
-  const locales = useLocales();
+  const locales = routing.locales;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -74,7 +59,7 @@ export default function Header({
       <ScrollProgress className='bottom-0 bg-primary' />
       <div
         className={`flex h-16 items-center justify-between gap-4 px-6 md:px-12 mx-auto ${
-          isVisible ? 'max-w-7xl' : 'max-w-[97rem]'
+          isVisible ? 'max-w-7xl' : 'max-w-388'
         } transition-all duration-500 delay-200`}
       >
         {/* Left side */}
@@ -102,7 +87,7 @@ export default function Header({
                 >
                   <path
                     d='M4 12L20 12'
-                    className='origin-center -translate-y-[7px] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] group-aria-expanded:translate-x-0 group-aria-expanded:translate-y-0 group-aria-expanded:rotate-[315deg]'
+                    className='origin-center -translate-y-1.75 transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] group-aria-expanded:translate-x-0 group-aria-expanded:translate-y-0 group-aria-expanded:rotate-315'
                   />
                   <path
                     d='M4 12H20'
@@ -110,7 +95,7 @@ export default function Header({
                   />
                   <path
                     d='M4 12H20'
-                    className='origin-center translate-y-[7px] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] group-aria-expanded:translate-y-0 group-aria-expanded:rotate-[135deg]'
+                    className='origin-center translate-y-1.75 transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] group-aria-expanded:translate-y-0 group-aria-expanded:rotate-135'
                   />
                 </svg>
               </Button>
@@ -122,11 +107,18 @@ export default function Header({
             >
               <NavigationMenu className='max-w-none *:w-full'>
                 <NavigationMenuList className='flex-col items-start gap-0 md:gap-2'>
-                  {navigationLinks.map((link, index) => (
+                  {links.map((link, index) => (
                     <NavigationMenuItem asChild key={index}>
                       <Button
                         onClick={() =>
-                          scrollToContainer(link.id, link.position || 'center')
+                          scrollToContainer(
+                            link.id,
+                            ['center', 'start', 'end'].includes(
+                              link.position as string,
+                            )
+                              ? (link.position as 'center' | 'start' | 'end')
+                              : 'center',
+                          )
                         }
                         size={'sm'}
                         variant={'link'}
@@ -160,11 +152,18 @@ export default function Header({
             {/* Navigation menu */}
             <NavigationMenu className='max-md:hidden'>
               <NavigationMenuList>
-                {navigationLinks.map((link, index) => (
+                {links.map((link, index) => (
                   <NavigationMenuItem asChild key={index}>
                     <Button
                       onClick={() =>
-                        scrollToContainer(link.id, link.position || 'center')
+                        scrollToContainer(
+                          link.id,
+                          ['center', 'start', 'end'].includes(
+                            link.position as string,
+                          )
+                            ? (link.position as 'center' | 'start' | 'end')
+                            : 'center',
+                        )
                       }
                       size={'sm'}
                       variant={'ghost'}
@@ -207,8 +206,8 @@ export default function Header({
                 <DropdownMenuSubTrigger>{language}</DropdownMenuSubTrigger>
                 <DropdownMenuSubContent sideOffset={6}>
                   {locales.map((item) => (
-                    <DropdownMenuItem key={item.locale} asChild>
-                      <Link href={`/${item.locale}`}>{item.name}</Link>
+                    <DropdownMenuItem key={item} asChild>
+                      <Link href={`/${item}`}>{item}</Link>
                     </DropdownMenuItem>
                   ))}
                 </DropdownMenuSubContent>

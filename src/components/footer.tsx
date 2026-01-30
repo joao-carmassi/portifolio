@@ -1,21 +1,24 @@
 'use client';
 
-import { useMessages } from '@/context/messages';
 import scrollToContainer from '@/utils/scrowToContainer';
 import { ArrowUpRight } from 'lucide-react';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText } from 'gsap/SplitText';
+import { IMessage } from '@/types/message';
 
-interface Props {
+type Props = {
+  texts: {
+    labels: string[];
+    text: string;
+  };
   navigationLinks: {
     id: string;
     label: string;
-    position: 'start' | 'center' | 'end';
+    position?: string;
   }[];
-  actions: { contact: string };
-}
+};
 
 const footerData = {
   heading: 'João Carmassi',
@@ -34,10 +37,7 @@ const footerData = {
   ],
 };
 
-const Footer = ({ navigationLinks, actions }: Props) => {
-  const t = useMessages('footer');
-  const { labels, text } = t('texts');
-
+const Footer = ({ texts: { labels, text }, navigationLinks }: Props) => {
   useGSAP(() => {
     if (!labels || !text) return;
     gsap.registerPlugin(ScrollTrigger, SplitText);
@@ -59,7 +59,7 @@ const Footer = ({ navigationLinks, actions }: Props) => {
         ease: 'power3.out',
         stagger: 0.06,
       },
-      0
+      0,
     );
 
     tl.from(
@@ -70,7 +70,7 @@ const Footer = ({ navigationLinks, actions }: Props) => {
         ease: 'power3.out',
         stagger: 0.06,
       },
-      0
+      0,
     );
   }, [text, labels]);
 
@@ -140,7 +140,12 @@ const Footer = ({ navigationLinks, actions }: Props) => {
               <button
                 key={link.label}
                 onClick={() =>
-                  scrollToContainer(link.id, link.position || 'center')
+                  scrollToContainer(
+                    link.id,
+                    ['center', 'start', 'end'].includes(link.position as string)
+                      ? (link.position as 'center' | 'start' | 'end')
+                      : 'center',
+                  )
                 }
                 className='text-muted-foreground hover:text-primary text-sm transition-colors footer-animation'
               >
@@ -151,7 +156,7 @@ const Footer = ({ navigationLinks, actions }: Props) => {
               onClick={() => scrollToContainer('contactMeHomepage', 'center')}
               className='text-muted-foreground hover:text-primary text-sm transition-colors footer-animation'
             >
-              {actions.contact || ''}
+              {labels && labels[2] ? labels[2] : ''}
             </button>
           </nav>
 

@@ -1,24 +1,7 @@
-import AboutMeHomepage from './aboutMeHomepage';
-import DidYouKnowHomepage from './didYouKnowHomepage';
-import ContactMeHomepage from './contactMeHomepage';
-import DocumentosHomepage from '@/app/[locale]/documentsHomepage';
-import TechStack from '@/app/[locale]/techStack';
-import GithubHomepage from './githubHomepage';
-import HeroHomepage from './heroHomepage';
-import { getMessages } from '@/utils/getMessages';
-
-export default async function Home({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
-  const { locale } = await params;
-  const t = await getMessages(locale, 'homepage');
-  const { title, text1, text2, button1, button2 } = t('hero');
-
+export default async function Home() {
   return (
     <main>
-      <HeroHomepage
+      {/* <HeroHomepage
         title={title}
         text1={text1}
         text2={text2}
@@ -32,7 +15,7 @@ export default async function Home({
       </section>
       <TechStack locale={locale} />
       <GithubHomepage locale={locale} />
-      <ContactMeHomepage />
+      <ContactMeHomepage /> */}
     </main>
   );
 }
