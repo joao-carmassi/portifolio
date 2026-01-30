@@ -1,4 +1,3 @@
-/* eslint-disable */
 // @ts-nocheck
 
 export default function adicionaFundoColorido() {
@@ -7,14 +6,14 @@ export default function adicionaFundoColorido() {
     function t(t, i) {
       for (let s = 0; s < i.length; s++) {
         const e = i[s];
-        (e.enumerable = e.enumerable || !1),
+        ((e.enumerable = e.enumerable || !1),
           (e.configurable = !0),
           'value' in e && (e.writable = !0),
-          Object.defineProperty(t, e.key, e);
+          Object.defineProperty(t, e.key, e));
       }
     }
     return function (i, s, e) {
-      return s && t(i.prototype, s), e && t(i, e), i;
+      return (s && t(i.prototype, s), e && t(i, e), i);
     };
   })();
   function _ccc(t, i) {
@@ -40,7 +39,7 @@ export default function adicionaFundoColorido() {
     }
     const e = (function () {
         function t(i, e, h) {
-          _ccc(this, t),
+          (_ccc(this, t),
             (this.o = h),
             (this.r = s(i)),
             (this.d = this.grd()),
@@ -48,7 +47,7 @@ export default function adicionaFundoColorido() {
             (this.s = Math.abs(this.gnfr(this.o.size))),
             this.srpgq(e),
             (this.vx = this.gnfr(this.o.speed.x) * this.grd()),
-            (this.vy = this.gnfr(this.o.speed.y) * this.grd());
+            (this.vy = this.gnfr(this.o.speed.y) * this.grd()));
         }
         return (
           _cc(t, [
@@ -59,11 +58,11 @@ export default function adicionaFundoColorido() {
                 return 3 === t
                   ? ((this.x = i.x + i.halfWidth), void (this.y = i.y))
                   : 2 === t
-                  ? ((this.x = i.x), void (this.y = i.y + i.halfHeight))
-                  : 1 === t
-                  ? ((this.x = i.x + i.halfWidth),
-                    void (this.y = i.y + i.halfHeight))
-                  : ((this.x = i.x), void (this.y = i.y));
+                    ? ((this.x = i.x), void (this.y = i.y + i.halfHeight))
+                    : 1 === t
+                      ? ((this.x = i.x + i.halfWidth),
+                        void (this.y = i.y + i.halfHeight))
+                      : ((this.x = i.x), void (this.y = i.y));
               },
             },
             {
@@ -110,7 +109,7 @@ export default function adicionaFundoColorido() {
             {
               key: 'an',
               value: function (t, s, e) {
-                this.o.size.pulse &&
+                (this.o.size.pulse &&
                   ((this.s += this.o.size.pulse * this.d),
                   (this.s > this.o.size.max || this.s < this.o.size.min) &&
                     (this.d *= -1),
@@ -126,26 +125,26 @@ export default function adicionaFundoColorido() {
                   t.beginPath(),
                   this.o.blending &&
                     'none' !== this.o.blending &&
-                    (t.globalCompositeOperation = this.o.blending);
+                    (t.globalCompositeOperation = this.o.blending));
                 const h = this.gr(this.r, this.o.opacity.center),
                   a = this.gr(this.r, this.o.opacity.edge),
                   n =
                     'c' === this.h
                       ? this.s / 2
                       : 't' === this.h
-                      ? 0.577 * this.s
-                      : 's' === this.h
-                      ? 0.707 * this.s
-                      : this.s,
+                        ? 0.577 * this.s
+                        : 's' === this.h
+                          ? 0.707 * this.s
+                          : this.s,
                   o = t.createRadialGradient(
                     this.x,
                     this.y,
                     0.01,
                     this.x,
                     this.y,
-                    n
+                    n,
                   );
-                o.addColorStop(0, h), o.addColorStop(1, a), (t.fillStyle = o);
+                (o.addColorStop(0, h), o.addColorStop(1, a), (t.fillStyle = o));
                 const r = Math.abs(this.s / 2);
                 if (
                   ('c' === this.h && t.arc(this.x, this.y, r, 0, 6.283185, !1),
@@ -155,19 +154,19 @@ export default function adicionaFundoColorido() {
                     l = this.x + r,
                     u = this.y - r,
                     d = this.y + r;
-                  t.moveTo(c, d),
+                  (t.moveTo(c, d),
                     t.lineTo(l, d),
                     t.lineTo(l, u),
-                    t.lineTo(c, u);
+                    t.lineTo(c, u));
                 }
                 if ('t' === this.h) {
                   const v = i(30, r),
                     g = this.y + v;
-                  t.moveTo(this.x - r, g),
+                  (t.moveTo(this.x - r, g),
                     t.lineTo(this.x + r, g),
-                    t.lineTo(this.x, this.y - 2 * v);
+                    t.lineTo(this.x, this.y - 2 * v));
                 }
-                t.closePath(), t.fill();
+                (t.closePath(), t.fill());
               },
             },
           ]),
@@ -177,21 +176,21 @@ export default function adicionaFundoColorido() {
       h = (function () {
         function h(i) {
           const s = this;
-          _ccc(this, h),
+          (_ccc(this, h),
             (this.c = document.createElement('canvas')),
             (this.x = this.c.getContext('2d')),
             this.c.setAttribute('id', 'finisher-canvas'),
-            this.gr(i.className).appendChild(this.c);
+            this.gr(i.className).appendChild(this.c));
           let e = void 0;
-          t.addEventListener(
+          (t.addEventListener(
             'resize',
             function () {
-              clearTimeout(e), (e = setTimeout(s.resize.bind(s), 150));
+              (clearTimeout(e), (e = setTimeout(s.resize.bind(s), 150)));
             },
-            !1
+            !1,
           ),
             this.init(i),
-            t.requestAnimationFrame(this.an.bind(this));
+            t.requestAnimationFrame(this.an.bind(this)));
         }
         return (
           _cc(h, [
@@ -199,7 +198,7 @@ export default function adicionaFundoColorido() {
               key: 'gr',
               value: function (t) {
                 const i = document.getElementsByClassName(
-                  t || 'finisher-header'
+                  t || 'finisher-header',
                 );
                 if (!i.length)
                   throw new Error('No .finisher-header element found');
@@ -210,9 +209,9 @@ export default function adicionaFundoColorido() {
               key: 'resize',
               value: function () {
                 const t = this.gr(this.o.className);
-                (this.o.c = { w: t.clientWidth, h: t.clientHeight }),
+                ((this.o.c = { w: t.clientWidth, h: t.clientHeight }),
                   (this.c.width = this.o.c.w),
-                  (this.c.height = this.o.c.h);
+                  (this.c.height = this.o.c.h));
                 const s = i(this.o.skew, this.o.c.w / 2),
                   e = 'skewY(' + this.o.skew + 'deg) translateY(-' + s + 'px)';
                 this.c.setAttribute(
@@ -227,42 +226,42 @@ export default function adicionaFundoColorido() {
                     this.bc.g +
                     ',' +
                     this.bc.b +
-                    ',1);'
+                    ',1);',
                 );
               },
             },
             {
               key: 'init',
               value: function (t) {
-                (this.o = t),
+                ((this.o = t),
                   (this.bc = s(this.o.colors.background)),
                   (this.ps = []),
                   this.resize(),
-                  this.cp();
+                  this.cp());
               },
             },
             {
               key: 'cp',
               value: function () {
                 let i = 0;
-                (this.ps = []),
+                ((this.ps = []),
                   (this.o.ac =
                     t.innerWidth < 600 && this.o.count > 5
                       ? Math.round(this.o.count / 2)
-                      : this.o.count);
+                      : this.o.count));
                 for (let s = 0; s < this.o.ac; s++) {
                   const h = s % 4,
                     a = new e(this.o.colors.particles[i], h, this.o);
-                  ++i >= this.o.colors.particles.length && (i = 0),
-                    (this.ps[s] = a);
+                  (++i >= this.o.colors.particles.length && (i = 0),
+                    (this.ps[s] = a));
                 }
               },
             },
             {
               key: 'an',
               value: function () {
-                t.requestAnimationFrame(this.an.bind(this)),
-                  this.x.clearRect(0, 0, this.o.c.w, this.o.c.h);
+                (t.requestAnimationFrame(this.an.bind(this)),
+                  this.x.clearRect(0, 0, this.o.c.w, this.o.c.h));
                 for (let i = 0; i < this.o.ac; i++) {
                   this.ps[i].an(this.x, this.o.c.w, this.o.c.h);
                 }

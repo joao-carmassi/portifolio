@@ -1,4 +1,6 @@
+/* eslint-disable react-hooks/refs */
 'use client';
+
 import { cn } from '@/lib/utils';
 import { AnimatePresence, motion } from 'motion/react';
 import { useRef, useState } from 'react';
@@ -21,7 +23,7 @@ export const HoverEffect = ({
       ref={containerRef}
       className={cn(
         'relative grid grid-cols-4 md:grid-cols-6 divide-x divide-y',
-        className
+        className,
       )}
     >
       <AnimatePresence>
@@ -57,13 +59,13 @@ export const HoverEffect = ({
             i === 3 && 'md:border-r',
             i === 5 && 'md:border-r',
             i === 4 && 'md:border-r-0',
-            i === 5 && 'md:border-b-0'
+            i === 5 && 'md:border-b-0',
           )}
           onMouseEnter={(e) => {
             setHoveredIndex(i);
 
             const card = e.currentTarget.querySelector(
-              '.card-inner'
+              '.card-inner',
             ) as HTMLElement;
             if (card) {
               const rect = card.getBoundingClientRect();
@@ -100,7 +102,7 @@ export const Card = ({
     <div
       className={cn(
         'card-inner h-full w-full relative z-20 py-12 md:py-20',
-        className
+        className,
       )}
     >
       {children}
@@ -118,8 +120,8 @@ export const CardDescription = ({
   return (
     <P
       className={cn(
-        'text-foreground group-hover:text-background duration-200 text-center !text-xl md:!text-3xl !font-semibold',
-        className
+        'text-foreground group-hover:text-background duration-200 text-center text-xl! md:text-3xl! font-semibold!',
+        className,
       )}
     >
       {children}

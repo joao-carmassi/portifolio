@@ -17,6 +17,7 @@ import { Button } from '@/components/ui/button';
 import scrollToContainer from '@/utils/scrowToContainer';
 import DarkVeil from '@/components/DarkVeil';
 import { IMessage } from '@/types/message';
+import Img from '@/components/Image';
 
 type Props = IMessage['homepage']['hero'];
 
@@ -24,6 +25,7 @@ const HeroHomepage = ({ title, text1, text2, button1, button2 }: Props) => {
   const [domLoaded, setDomLoaded] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setDomLoaded(true);
   }, []);
 
@@ -247,7 +249,7 @@ const HeroHomepage = ({ title, text1, text2, button1, button2 }: Props) => {
               >
                 {images.map((image, index) => (
                   <SwiperSlide key={index}>
-                    <img
+                    <Img
                       className='h-full w-full overflow-hidden rounded-3xl object-cover shadow-lg'
                       src={image.src}
                       alt={image.alt}
