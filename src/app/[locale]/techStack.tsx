@@ -1,6 +1,7 @@
 import ScrollFloat from '../../components/ScrollFloat';
 import { HoverEffect } from '../../components/ui/card-hover-effect';
 import 'devicon/devicon.min.css';
+import { IMessage } from '@/types/message';
 
 const tecnologias = [
   {
@@ -79,9 +80,7 @@ const tecnologias = [
   },
 ];
 
-interface Props {
-  title: string;
-}
+type Props = IMessage['homepage']['techStack'];
 
 const TechStack = ({ title }: Props) => {
   return (

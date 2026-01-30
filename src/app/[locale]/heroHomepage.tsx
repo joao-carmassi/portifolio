@@ -16,18 +16,9 @@ import { SplitText } from 'gsap/SplitText';
 import { Button } from '@/components/ui/button';
 import scrollToContainer from '@/utils/scrowToContainer';
 import DarkVeil from '@/components/DarkVeil';
+import { IMessage } from '@/types/message';
 
-interface Props {
-  title: {
-    line1: string;
-    line2: string;
-    line3: string;
-  };
-  text1: string;
-  text2: string;
-  button1: string;
-  button2: string;
-}
+type Props = IMessage['homepage']['hero'];
 
 const HeroHomepage = ({ title, text1, text2, button1, button2 }: Props) => {
   const [domLoaded, setDomLoaded] = useState(false);
@@ -87,7 +78,7 @@ const HeroHomepage = ({ title, text1, text2, button1, button2 }: Props) => {
         ease: 'expo.inOut',
         scale: 1.5,
       },
-      1
+      1,
     );
 
     tl.from(
@@ -100,7 +91,7 @@ const HeroHomepage = ({ title, text1, text2, button1, button2 }: Props) => {
         ease: 'expo.out',
         stagger: 0.05,
       },
-      1
+      1,
     );
   }, [domLoaded]);
 

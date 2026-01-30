@@ -3,12 +3,9 @@ import { H2 } from '@/components/ui/h2';
 import ContainerCodigo from './containerCodigo';
 import { Variants } from 'motion/react';
 import * as motion from 'motion/react-client';
+import { IMessage } from '@/types/message';
 
-interface Props {
-  title: string;
-  textMobile: string;
-  textDesktop: string;
-}
+type Props = IMessage['homepage']['aboutMe'];
 
 const animation: Variants = {
   hidden: { opacity: 0, y: 150, scale: 0.95 },

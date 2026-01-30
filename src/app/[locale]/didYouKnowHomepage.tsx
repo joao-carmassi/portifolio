@@ -4,12 +4,11 @@ import Divider from '@/components/divider';
 import { H2 } from '@/components/ui/h2';
 import { P } from '@/components/ui/p';
 import { IFatos } from '@/types/IFatos';
+import { IMessage } from '@/types/message';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
-interface Props {
-  title: string;
-}
+type Props = IMessage['homepage']['didYouKnow'];
 
 const API_URL = 'https://uselessfacts.jsph.pl/api/v2/facts/random';
 

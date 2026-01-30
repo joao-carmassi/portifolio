@@ -7,6 +7,7 @@ import { Variants } from 'motion/react';
 import { MagicCard } from '@/components/magicui/magic-card';
 import Img from '@/components/Image';
 import * as motion from 'motion/react-client';
+import { IMessage } from '@/types/message';
 
 const animationPc: Variants[] = [
   {
@@ -70,17 +71,7 @@ const animationCell: Variants[] = [
   },
 ];
 
-interface Props {
-  title: string;
-  text: string;
-  cards: {
-    title: string;
-    text1: string;
-    text2: string;
-    text3: string;
-    button: string;
-  }[];
-}
+type Props = IMessage['homepage']['github'];
 
 const GithubHomepage = ({ title, text, cards }: Props) => {
   return (

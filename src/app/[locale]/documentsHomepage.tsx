@@ -28,36 +28,17 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { IMessage } from '@/types/message';
 
-interface DocumentItem {
+type Props = IMessage['homepage']['documentos'];
+
+type DocItem = {
   category: string;
   title: string;
   details: string;
   img: string;
   link: string;
-}
-
-interface Props {
-  title: string;
-  text: string;
-  docs: DocumentItem[];
-  resume: {
-    category: string;
-    title: string;
-    img: string;
-    details: string;
-    dialog: {
-      title: string;
-      button: string;
-      placeholder: string;
-      options: {
-        lang: string;
-        label: string;
-        link: string;
-      }[];
-    };
-  };
-}
+};
 
 const DocumentosHomepage = ({ title, text, docs, resume }: Props) => {
   const sectionContainer = useRef<HTMLElement>(null);
@@ -102,7 +83,7 @@ const DocumentosHomepage = ({ title, text, docs, resume }: Props) => {
         className='w-full flex flex-col md:flex-row mx-auto gap-12 md:gap-0'
       >
         {docs &&
-          docs.map((doc: DocumentItem) => (
+          docs.map((doc: DocItem) => (
             <div key={doc.category} className='min-w-screen'>
               <div className='max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center gap-x-12 gap-y-6'>
                 <div className='w-full max-h-96 aspect-4/3 bg-muted rounded-xl border border-border/50 basis-1/2 shadow-lg'>

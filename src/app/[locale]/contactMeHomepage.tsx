@@ -30,44 +30,9 @@ import {
   FieldLabel,
   FieldError,
 } from '@/components/ui/field';
+import { IMessage } from '@/types/message';
 
-interface Props {
-  title: string;
-  text: string;
-  form: {
-    name: {
-      label: string;
-      placeholder: string;
-      errors: { toLong: string; toShort: string };
-      description: string;
-    };
-    email: {
-      label: string;
-      placeholder: string;
-      errors: { invalid: string; toLong: string };
-      description: string;
-    };
-    phone: {
-      label: string;
-      placeholder: string;
-      errors: { invalid: string; toLong: string };
-      description: string;
-    };
-    message: {
-      label: string;
-      placeholder: string;
-      errors: { toLong: string };
-      description: string;
-    };
-  };
-  button1: string;
-  button2: string;
-  modal: {
-    sent: { title: string; text: string };
-    error: { title: string; text: string };
-    sending: string;
-  };
-}
+type Props = IMessage['homepage']['contactMe'];
 
 const access_key = 'e25d109e-87c5-431e-9bd5-89f4b0792f09';
 const API_URL = 'https://api.web3forms.com/submit';
