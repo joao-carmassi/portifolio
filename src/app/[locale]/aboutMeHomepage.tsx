@@ -2,8 +2,13 @@ import FundoColorido from '@/components/fundoColorido';
 import { H2 } from '@/components/ui/h2';
 import ContainerCodigo from './containerCodigo';
 import { Variants } from 'motion/react';
-import { getMessages } from '@/utils/getMessages';
 import * as motion from 'motion/react-client';
+
+interface Props {
+  title: string;
+  textMobile: string;
+  textDesktop: string;
+}
 
 const animation: Variants = {
   hidden: { opacity: 0, y: 150, scale: 0.95 },
@@ -20,10 +25,7 @@ const animation: Variants = {
   },
 };
 
-const AboutMeHomepage = async ({ locale }: { locale: string }) => {
-  const t = await getMessages(locale, 'homepage');
-  const { title, textMobile, textDesktop } = t('aboutMe');
-
+const AboutMeHomepage = ({ title, textMobile, textDesktop }: Props) => {
   return (
     <FundoColorido id='aboutMeHomepage'>
       <div className='p-6 md:p-12 space-y-6 md:space-y-12 mx-auto max-w-7xl'>

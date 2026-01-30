@@ -3,17 +3,17 @@
 import Divider from '@/components/divider';
 import { H2 } from '@/components/ui/h2';
 import { P } from '@/components/ui/p';
-import { useMessages } from '@/context/messages';
 import { IFatos } from '@/types/IFatos';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
+interface Props {
+  title: string;
+}
+
 const API_URL = 'https://uselessfacts.jsph.pl/api/v2/facts/random';
 
-const DidYouKnowHomepage = () => {
-  const t = useMessages('homepage');
-  const { title } = t('didYouKnow');
-
+const DidYouKnowHomepage = ({ title }: Props) => {
   const { data: fatos, isFetched } = useQuery<IFatos>({
     queryKey: ['fato-aleatorio'],
     queryFn: async () =>

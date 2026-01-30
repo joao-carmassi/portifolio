@@ -5,7 +5,6 @@ import { P } from '@/components/ui/p';
 import { H3 } from '@/components/ui/h3';
 import { Variants } from 'motion/react';
 import { MagicCard } from '@/components/magicui/magic-card';
-import { getMessages } from '@/utils/getMessages';
 import Img from '@/components/Image';
 import * as motion from 'motion/react-client';
 
@@ -71,10 +70,19 @@ const animationCell: Variants[] = [
   },
 ];
 
-const GithubHomepage = async ({ locale }: { locale: string }) => {
-  const t = await getMessages(locale, 'homepage');
-  const { title, text, cards } = t('github');
+interface Props {
+  title: string;
+  text: string;
+  cards: {
+    title: string;
+    text1: string;
+    text2: string;
+    text3: string;
+    button: string;
+  }[];
+}
 
+const GithubHomepage = ({ title, text, cards }: Props) => {
   return (
     <section id='githubHomepage' className='shadow-md'>
       <div className='mx-auto max-w-7xl p-6 md:p-12 space-y-6 md:space-y-12'>

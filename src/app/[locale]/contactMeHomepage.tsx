@@ -19,7 +19,6 @@ import confetti from 'canvas-confetti';
 import { ArrowRightIcon, Trash2 } from 'lucide-react';
 import { Variants } from 'motion/react';
 import { useState, useMemo } from 'react';
-import { useMessages } from '@/context/messages';
 import { useForm } from 'react-hook-form';
 import z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -31,6 +30,44 @@ import {
   FieldLabel,
   FieldError,
 } from '@/components/ui/field';
+
+interface Props {
+  title: string;
+  text: string;
+  form: {
+    name: {
+      label: string;
+      placeholder: string;
+      errors: { toLong: string; toShort: string };
+      description: string;
+    };
+    email: {
+      label: string;
+      placeholder: string;
+      errors: { invalid: string; toLong: string };
+      description: string;
+    };
+    phone: {
+      label: string;
+      placeholder: string;
+      errors: { invalid: string; toLong: string };
+      description: string;
+    };
+    message: {
+      label: string;
+      placeholder: string;
+      errors: { toLong: string };
+      description: string;
+    };
+  };
+  button1: string;
+  button2: string;
+  modal: {
+    sent: { title: string; text: string };
+    error: { title: string; text: string };
+    sending: string;
+  };
+}
 
 const access_key = 'e25d109e-87c5-431e-9bd5-89f4b0792f09';
 const API_URL = 'https://api.web3forms.com/submit';
@@ -66,12 +103,16 @@ const animation: Variants[] = [
   },
 ];
 
-const ContactMeHomepage = () => {
+const ContactMeHomepage = ({
+  title,
+  text,
+  form,
+  button1,
+  button2,
+  modal,
+}: Props) => {
   const [enviado, setEnviado] = useState<null | boolean>(null);
   const [modalAberto, setModalAberto] = useState(false);
-
-  const t = useMessages('homepage');
-  const { title, text, form, button1, button2, modal } = t('contactMe');
 
   const schema = useMemo(() => {
     if (!form) return null;
@@ -179,7 +220,7 @@ const ContactMeHomepage = () => {
               <Field>
                 <FieldLabel htmlFor='name'>{form?.name.label}</FieldLabel>
                 <Input
-                  className='!py-5 rounded-lg shadow-none border-primary/25'
+                  className='py-5! rounded-lg shadow-none border-primary/25'
                   id='name'
                   placeholder={form?.name.placeholder}
                   {...register('name')}
@@ -194,7 +235,7 @@ const ContactMeHomepage = () => {
               <Field>
                 <FieldLabel htmlFor='email'>{form?.email.label}</FieldLabel>
                 <Input
-                  className='!py-5 rounded-lg shadow-none border-primary/25'
+                  className='py-5! rounded-lg shadow-none border-primary/25'
                   id='email'
                   type='email'
                   placeholder={form?.email.placeholder}
@@ -210,7 +251,7 @@ const ContactMeHomepage = () => {
               <Field>
                 <FieldLabel htmlFor='phone'>{form?.phone.label}</FieldLabel>
                 <Input
-                  className='!py-5 rounded-lg shadow-none border-primary/25'
+                  className='py-5! rounded-lg shadow-none border-primary/25'
                   id='phone'
                   type='tel'
                   placeholder={form?.phone.placeholder}

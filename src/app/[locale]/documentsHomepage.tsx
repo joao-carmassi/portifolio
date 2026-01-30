@@ -6,7 +6,6 @@ import { H2 } from '../../components/ui/h2';
 import { P } from '../../components/ui/p';
 import { H3 } from '../../components/ui/h3';
 import Img from '@/components/Image';
-import { useMessages } from '@/context/messages';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { useRef, useState } from 'react';
@@ -38,10 +37,30 @@ interface DocumentItem {
   link: string;
 }
 
-const DocumentosHomepage = () => {
+interface Props {
+  title: string;
+  text: string;
+  docs: DocumentItem[];
+  resume: {
+    category: string;
+    title: string;
+    img: string;
+    details: string;
+    dialog: {
+      title: string;
+      button: string;
+      placeholder: string;
+      options: {
+        lang: string;
+        label: string;
+        link: string;
+      }[];
+    };
+  };
+}
+
+const DocumentosHomepage = ({ title, text, docs, resume }: Props) => {
   const sectionContainer = useRef<HTMLElement>(null);
-  const t = useMessages('homepage');
-  const { title, text, docs, resume } = t('documentos');
   const width = useWindowWidth();
   const [resumeLang, setResumeLang] = useState('');
 
@@ -84,9 +103,9 @@ const DocumentosHomepage = () => {
       >
         {docs &&
           docs.map((doc: DocumentItem) => (
-            <div key={doc.category} className='min-w-[100vw]'>
+            <div key={doc.category} className='min-w-screen'>
               <div className='max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center gap-x-12 gap-y-6'>
-                <div className='w-full max-h-96 aspect-[4/3] bg-muted rounded-xl border border-border/50 basis-1/2 shadow-lg'>
+                <div className='w-full max-h-96 aspect-4/3 bg-muted rounded-xl border border-border/50 basis-1/2 shadow-lg'>
                   <Img
                     className='w-full h-full object-cover object-top hover:object-bottom duration-1000 delay-150'
                     src={doc.img}
@@ -115,9 +134,9 @@ const DocumentosHomepage = () => {
             </div>
           ))}
         {resume && (
-          <div className='min-w-[100vw]'>
+          <div className='min-w-screen'>
             <div className='max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center gap-x-12 gap-y-6'>
-              <div className='w-full max-h-96 aspect-[4/3] bg-muted rounded-xl border border-border/50 basis-1/2 shadow-lg'>
+              <div className='w-full max-h-96 aspect-4/3 bg-muted rounded-xl border border-border/50 basis-1/2 shadow-lg'>
                 <Img
                   className='w-full h-full object-cover object-top hover:object-bottom duration-1000 delay-150'
                   src={resume.img}
@@ -148,7 +167,7 @@ const DocumentosHomepage = () => {
                         {resume.dialog.button}
                       </DialogDescription>
                       <Select onValueChange={(value) => setResumeLang(value)}>
-                        <SelectTrigger className='w-[180px] border-border shadow-sm'>
+                        <SelectTrigger className='w-45 border-border shadow-sm'>
                           <SelectValue
                             placeholder={resume.dialog.placeholder}
                           />
@@ -171,7 +190,7 @@ const DocumentosHomepage = () => {
                             disabled={resumeLang === ''}
                             onClick={() => {
                               const selectedOption = resume.dialog.options.find(
-                                (option: any) => option.lang === resumeLang
+                                (option: any) => option.lang === resumeLang,
                               );
                               if (selectedOption) {
                                 const link = document.createElement('a');

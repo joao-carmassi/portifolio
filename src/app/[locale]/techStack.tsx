@@ -1,4 +1,3 @@
-import { getMessages } from '@/utils/getMessages';
 import ScrollFloat from '../../components/ScrollFloat';
 import { HoverEffect } from '../../components/ui/card-hover-effect';
 import 'devicon/devicon.min.css';
@@ -80,10 +79,11 @@ const tecnologias = [
   },
 ];
 
-const TechStack = async ({ locale }: { locale: string }) => {
-  const t = await getMessages(locale, 'homepage');
-  const { title } = t('techStack');
+interface Props {
+  title: string;
+}
 
+const TechStack = ({ title }: Props) => {
   return (
     <section id='techStack' className='bg-card border-t border-b border-border'>
       <div className='p-6 md:p-12 max-w-7xl mx-auto space-y-3 md:space-y-6'>
