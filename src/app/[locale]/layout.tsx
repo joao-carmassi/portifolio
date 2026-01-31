@@ -4,7 +4,7 @@ import { Raleway } from 'next/font/google';
 import '../globals.css';
 import { ReactLenis } from 'lenis/react';
 import QueryProvider from '@/components/queryProvider';
-import { hasLocale, NextIntlClientProvider, useTranslations } from 'next-intl';
+import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { notFound } from 'next/navigation';
 import { routing } from '../../../i18n/routing';
 import {
@@ -14,7 +14,6 @@ import {
 import { IMessage } from '@/types/message';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
-import Script from 'next/script';
 
 const raleway = Raleway({
   variable: '--font-main',
@@ -78,30 +77,6 @@ const RootLayout = async ({ children, params }: Props) => {
 
   return (
     <html lang={locale} suppressHydrationWarning>
-      <head>
-        <Script
-          async
-          src='https://www.googletagmanager.com/gtag/js?id=G-ZPXTYH8YVL'
-        />
-        <Script id='google-analytics'>
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-ZPXTYH8YVL');
-          `}
-        </Script>
-        {/* Google Tag Manager */}
-        <Script id='google-tag-manager'>
-          {`
-            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-            })(window,document,'script','dataLayer','GTM-N2GFFDFJ');
-          `}
-        </Script>
-      </head>
       <body className={`${raleway.variable} font-main antialiased`}>
         <ReactLenis
           options={{
