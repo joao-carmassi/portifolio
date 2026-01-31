@@ -17,7 +17,7 @@ import { Button } from '@/components/ui/button';
 import scrollToContainer from '@/utils/scrowToContainer';
 import DarkVeil from '@/components/DarkVeil';
 import { IMessage } from '@/types/message';
-import Img from '@/components/Image';
+import Image from 'next/image';
 
 type Props = IMessage['homepage']['hero'];
 
@@ -249,10 +249,12 @@ const HeroHomepage = ({ title, text1, text2, button1, button2 }: Props) => {
               >
                 {images.map((image, index) => (
                   <SwiperSlide key={index}>
-                    <Img
+                    <Image
                       className='h-full w-full overflow-hidden rounded-3xl object-cover shadow-lg'
                       src={image.src}
                       alt={image.alt}
+                      width={332}
+                      height={419}
                     />
                   </SwiperSlide>
                 ))}

@@ -5,7 +5,6 @@ import { ArrowDown } from 'lucide-react';
 import { H2 } from '../../components/ui/h2';
 import { P } from '../../components/ui/p';
 import { H3 } from '../../components/ui/h3';
-import Img from '@/components/Image';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { useRef, useState } from 'react';
@@ -29,6 +28,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { IMessage } from '@/types/message';
+import Image from 'next/image';
 
 type Props = IMessage['homepage']['documentos'];
 
@@ -87,10 +87,12 @@ const DocumentosHomepage = ({ title, text, docs, resume }: Props) => {
             <div key={doc.category} className='min-w-screen'>
               <div className='max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center gap-x-12 gap-y-6'>
                 <div className='w-full max-h-96 aspect-4/3 bg-muted rounded-xl border border-border/50 basis-1/2 shadow-lg'>
-                  <Img
+                  <Image
                     className='w-full h-full object-cover object-top hover:object-bottom duration-1000 delay-150'
                     src={doc.img}
                     alt={doc.title}
+                    width={1280}
+                    height={960}
                   />
                 </div>
                 <div className='basis-1/2 shrink-0 space-y-3 '>
@@ -118,10 +120,12 @@ const DocumentosHomepage = ({ title, text, docs, resume }: Props) => {
           <div className='min-w-screen'>
             <div className='max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center gap-x-12 gap-y-6'>
               <div className='w-full max-h-96 aspect-4/3 bg-muted rounded-xl border border-border/50 basis-1/2 shadow-lg'>
-                <Img
+                <Image
                   className='w-full h-full object-cover object-top hover:object-bottom duration-1000 delay-150'
                   src={resume.img}
                   alt={resume.title}
+                  width={542}
+                  height={382}
                 />
               </div>
               <div className='basis-1/2 shrink-0 space-y-3 '>

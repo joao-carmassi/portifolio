@@ -5,9 +5,9 @@ import { P } from '@/components/ui/p';
 import { H3 } from '@/components/ui/h3';
 import { Variants } from 'motion/react';
 import { MagicCard } from '@/components/magicui/magic-card';
-import Img from '@/components/Image';
 import * as motion from 'motion/react-client';
 import { IMessage } from '@/types/message';
+import Image from 'next/image';
 
 const animationPc: Variants[] = [
   {
@@ -94,10 +94,12 @@ const GithubHomepage = ({ title, text, cards }: Props) => {
               {/* Media 1 Mobile */}
               <div className='rounded-xl p-3 md:p-6 shadow-lg flex flex-col gap-3 md:gap-6'>
                 <div className='md:hidden aspect-video w-full bg-background rounded-xl mb-3'>
-                  <Img
+                  <Image
                     className='object-cover h-full w-full rounded-xl'
                     src='/imgs/github-profile-img.png'
                     alt=''
+                    width={314}
+                    height={176}
                   />
                 </div>
                 <H3>{cards[0].title}</H3>
@@ -143,10 +145,12 @@ const GithubHomepage = ({ title, text, cards }: Props) => {
             whileInView='show'
             className='hidden md:block bg-muted rounded-xl col-span-1 md:col-span-3 lg:col-span-2'
           >
-            <Img
+            <Image
               className='object-cover h-full w-full rounded-xl'
               src='/imgs/github-profile-img.png'
               alt=''
+              width={781}
+              height={410}
             />
           </motion.div>
           {/* Media 2 Desktop */}
@@ -157,10 +161,12 @@ const GithubHomepage = ({ title, text, cards }: Props) => {
             whileInView='show'
             className='hidden md:block bg-muted rounded-xl col-span-1 md:col-span-3 lg:col-span-2 '
           >
-            <Img
+            <Image
               className='object-cover h-full w-full rounded-xl'
               src='/imgs/github-organization-img.png'
               alt=''
+              width={314}
+              height={176}
             />
           </motion.div>
           {/* Card 2 */}
@@ -175,10 +181,12 @@ const GithubHomepage = ({ title, text, cards }: Props) => {
               {/* Media 1 Mobile */}
               <div className='rounded-xl p-3 md:p-6 shadow-lg flex flex-col gap-3 md:gap-6'>
                 <div className='md:hidden aspect-video w-full bg-background rounded-xl mb-3'>
-                  <Img
+                  <Image
                     className='object-cover h-full w-full rounded-xl'
                     src='/imgs/github-organization-img.png'
                     alt=''
+                    width={781}
+                    height={410}
                   />
                 </div>
                 <H3>{cards[1].title}</H3>

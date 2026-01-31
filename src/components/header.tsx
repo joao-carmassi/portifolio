@@ -27,9 +27,9 @@ import {
   DropdownMenuTrigger,
 } from './ui/dropdown-menu';
 import Link from 'next/link';
-import Img from './Image';
 import { IMessage } from '@/types/message';
 import { routing } from '../../i18n/routing';
+import Image from 'next/image';
 
 type Props = IMessage['navbar'];
 
@@ -139,15 +139,19 @@ export default function Header({
               onClick={() => scrollToContainer('heroHomepage', 'start')}
               className='hover:cursor-pointer'
             >
-              <Img
+              <Image
                 className='h-12 rounded-full dark:hidden'
-                src='/icons/icon-preto.webp'
+                src='/icons/icon-preto.png'
                 alt='iconi JC'
+                width={48}
+                height={48}
               />
-              <Img
+              <Image
                 className='h-12 rounded-full hidden dark:block'
-                src='/icons/icon-branco.webp'
+                src='/icons/icon-branco.png'
                 alt='iconi JC'
+                width={48}
+                height={48}
               />
             </button>
             {/* Navigation menu */}

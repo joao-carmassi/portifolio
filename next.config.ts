@@ -9,6 +9,14 @@ const nextConfig: NextConfig = {
   experimental: {
     typedEnv: true,
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'deifkwefumgah.cloudfront.net',
+      },
+    ],
+  },
 };
 
 const withNextIntl = createNextIntlPlugin();
