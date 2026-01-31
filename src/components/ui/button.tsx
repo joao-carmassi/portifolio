@@ -48,7 +48,7 @@ const buttonVariants = cva(
       variant: 'default',
       size: 'default',
     },
-  }
+  },
 );
 
 interface IconProps {
@@ -62,7 +62,8 @@ interface IconRefProps {
 }
 
 export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+  extends
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean;
 }
@@ -84,7 +85,7 @@ const Button = React.forwardRef<
       asChild = false,
       ...props
     },
-    ref
+    ref,
   ) => {
     const Comp = asChild ? Slot : 'button';
     return (
@@ -106,7 +107,7 @@ const Button = React.forwardRef<
         {Icon &&
           iconPlacement === 'right' &&
           (effect === 'expandIcon' ? (
-            <div className='w-0 translate-x-[100%] pl-0 opacity-0 transition-all duration-200 group-hover:w-5 group-hover:translate-x-0 group-hover:pl-2 group-hover:opacity-100'>
+            <div className='w-0 translate-x-full pl-0 opacity-0 transition-all duration-200 group-hover:w-5 group-hover:translate-x-0 group-hover:pl-2 group-hover:opacity-100'>
               <Icon />
             </div>
           ) : (
@@ -114,7 +115,7 @@ const Button = React.forwardRef<
           ))}
       </Comp>
     );
-  }
+  },
 );
 Button.displayName = 'Button';
 
