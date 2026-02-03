@@ -26,10 +26,11 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from './ui/dropdown-menu';
-import Link from 'next/link';
 import { IMessage } from '@/types/message';
 import { routing } from '../../i18n/routing';
 import Image from 'next/image';
+import { useLocale } from 'next-intl';
+import { Link, usePathname } from '../../i18n/navigation';
 
 type Props = IMessage['navbar'];
 
@@ -39,8 +40,10 @@ export default function Header({
   actions: { contact },
 }: Props) {
   const [isVisible, setIsVisible] = useState(false);
-  const { setTheme } = useTheme();
+  const { setTheme, theme: currentTheme } = useTheme();
   const locales = routing.locales;
+  const locale = useLocale();
+  const pathName = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -216,9 +219,14 @@ export default function Header({
                 </DropdownMenuSubTrigger>
                 <DropdownMenuSubContent sideOffset={6}>
                   {locales.map((item) => (
-                    <DropdownMenuItem key={item} asChild>
+                    <DropdownMenuItem
+                      disabled={locale === item}
+                      key={item}
+                      asChild
+                    >
                       <Link
-                        href={`/${item}`}
+                        href={pathName}
+                        locale={item}
                         className='flex items-center gap-2 uppercase'
                       >
                         {item}
@@ -235,19 +243,28 @@ export default function Header({
                   </span>
                 </DropdownMenuSubTrigger>
                 <DropdownMenuSubContent sideOffset={6}>
-                  <DropdownMenuItem onClick={() => setTheme('light')}>
+                  <DropdownMenuItem
+                    disabled={currentTheme === 'light'}
+                    onClick={() => setTheme('light')}
+                  >
                     <span className='flex items-center gap-2'>
                       <Sun className='w-4 h-4 opacity-60' />
                       {theme?.options.light}
                     </span>
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => setTheme('dark')}>
+                  <DropdownMenuItem
+                    disabled={currentTheme === 'dark'}
+                    onClick={() => setTheme('dark')}
+                  >
                     <span className='flex items-center gap-2'>
                       <Moon className='w-4 h-4 opacity-60' />
                       {theme?.options.dark}
                     </span>
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => setTheme('system')}>
+                  <DropdownMenuItem
+                    disabled={currentTheme === 'system'}
+                    onClick={() => setTheme('system')}
+                  >
                     <span className='flex items-center gap-2'>
                       <Monitor className='w-4 h-4 opacity-60' />
                       {theme?.options.system}
