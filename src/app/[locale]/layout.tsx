@@ -30,12 +30,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const messages = (await getMessagesIntl()) as IMessage;
   const metadata = messages.metadata;
 
-  const pageUrl = `${process.env.NEXT_PUBLIC_SITE_URL || ''}${locale}`;
+  const pageUrl = `${process.env.NEXT_PUBLIC_SITE_URL || ''}/${locale}`;
 
   const languages = Object.fromEntries(
     routing.locales.map((item) => [
       item,
-      `${process.env.NEXT_PUBLIC_SITE_URL || ''}${item}`,
+      `${process.env.NEXT_PUBLIC_SITE_URL || ''}/${item}`,
     ]),
   );
 
