@@ -1,5 +1,5 @@
-import ScrollFloat from '../../components/ScrollFloat';
-import { HoverEffect } from '../../components/ui/card-hover-effect';
+import ScrollFloat from '../../../components/scroll-float';
+import { HoverEffect } from '../../../components/ui/card-hover-effect';
 import 'devicon/devicon.min.css';
 import { IMessage } from '@/types/message';
 

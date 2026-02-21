@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { BookOpen, Code, Github, Laptop, Layers } from 'lucide-react';
-import { H2 } from '../../components/ui/h2';
+import { H2 } from '../../../components/ui/h2';
 import { P } from '@/components/ui/p';
 import { H3 } from '@/components/ui/h3';
 import { Variants } from 'motion/react';

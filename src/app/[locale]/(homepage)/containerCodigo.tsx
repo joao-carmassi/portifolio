@@ -38,7 +38,7 @@ const ContainerCodigo = ({ json }: Props) => {
     <CodeBlock
       data={code}
       defaultValue={code[0].language}
-      className='[&_*]:!leading-relaxed [&_*]:text-[0.75rem] md:[&_*]:text-[1rem] [&_*]:!tracking-wide md:[&_*]:!tracking-wider [&_*]:!font-bold [&_pre]:!whitespace-pre-wrap [&_code]:!whitespace-pre-wrap rounded-t-none rounded-b-xl dark'
+      className='**:leading-relaxed! **:text-[0.75rem] md:**:text-[1rem] **:tracking-wide! md:**:tracking-wider! **:font-bold! [&_pre]:whitespace-pre-wrap! [&_code]:whitespace-pre-wrap! rounded-t-none rounded-b-xl dark'
     >
       <CodeBlockBody>
         {(item) => (

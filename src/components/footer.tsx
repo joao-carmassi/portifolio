@@ -1,12 +1,10 @@
 'use client';
-
 import scrollToContainer from '@/utils/scrowToContainer';
 import { ArrowUpRight } from 'lucide-react';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText } from 'gsap/SplitText';
-import { IMessage } from '@/types/message';
 
 type Props = {
   texts: {
@@ -42,7 +40,9 @@ const Footer = ({ texts: { labels, text }, navigationLinks }: Props) => {
     if (!labels || !text) return;
     gsap.registerPlugin(ScrollTrigger, SplitText);
 
-    let split = SplitText.create('.splitTextFooter', { type: 'words, chars' });
+    const split = SplitText.create('.splitTextFooter', {
+      type: 'words, chars',
+    });
 
     const tl = gsap.timeline({
       scrollTrigger: {

@@ -15,7 +15,7 @@ import scrollToContainer from '@/utils/scrowToContainer';
 import { useEffect, useState } from 'react';
 import { ScrollProgress } from './magicui/scroll-progress';
 import { Globe, Settings } from 'lucide-react';
-import { Languages, Sun, Moon, Monitor } from 'lucide-react';
+import { Sun, Moon, Monitor } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import {
   DropdownMenu,

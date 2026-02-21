@@ -2,9 +2,9 @@
 
 import { Button } from '@/components/ui/button';
 import { ArrowDown } from 'lucide-react';
-import { H2 } from '../../components/ui/h2';
-import { P } from '../../components/ui/p';
-import { H3 } from '../../components/ui/h3';
+import { H2 } from '../../../components/ui/h2';
+import { P } from '../../../components/ui/p';
+import { H3 } from '../../../components/ui/h3';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { useRef, useState } from 'react';
@@ -158,11 +158,17 @@ const DocumentosHomepage = ({ title, text, docs, resume }: Props) => {
                           />
                         </SelectTrigger>
                         <SelectContent>
-                          {resume.dialog.options.map((option: any) => (
-                            <SelectItem value={option.lang} key={option.lang}>
-                              {option.label}
-                            </SelectItem>
-                          ))}
+                          {resume.dialog.options.map(
+                            (option: {
+                              lang: string;
+                              label: string;
+                              link: string;
+                            }) => (
+                              <SelectItem value={option.lang} key={option.lang}>
+                                {option.label}
+                              </SelectItem>
+                            ),
+                          )}
                         </SelectContent>
                       </Select>
                       <DialogFooter>
@@ -175,7 +181,11 @@ const DocumentosHomepage = ({ title, text, docs, resume }: Props) => {
                             disabled={resumeLang === ''}
                             onClick={() => {
                               const selectedOption = resume.dialog.options.find(
-                                (option: any) => option.lang === resumeLang,
+                                (option: {
+                                  lang: string;
+                                  label: string;
+                                  link: string;
+                                }) => option.lang === resumeLang,
                               );
                               if (selectedOption) {
                                 const link = document.createElement('a');

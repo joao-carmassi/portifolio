@@ -15,7 +15,7 @@ import { SplitText } from 'gsap/SplitText';
 
 import { Button } from '@/components/ui/button';
 import scrollToContainer from '@/utils/scrowToContainer';
-import DarkVeil from '@/components/DarkVeil';
+import DarkVeil from '@/components/dark-veil';
 import { IMessage } from '@/types/message';
 import Image from 'next/image';
 

@@ -3,7 +3,7 @@ import { Metadata } from 'next';
 import { Raleway } from 'next/font/google';
 import '../globals.css';
 import { ReactLenis } from 'lenis/react';
-import QueryProvider from '@/components/queryProvider';
+import QueryProvider from '@/components/query-provider';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { notFound } from 'next/navigation';
 import { routing } from '../../../i18n/routing';
