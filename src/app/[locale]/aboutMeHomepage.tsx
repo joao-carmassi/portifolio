@@ -1,9 +1,9 @@
-import FundoColorido from '@/components/fundoColorido';
+import { Variants } from 'motion/react';
+import { IMessage } from '@/types/message';
+import Grainient from '@/components/grainient/grainient';
 import { H2 } from '@/components/ui/h2';
 import ContainerCodigo from './containerCodigo';
-import { Variants } from 'motion/react';
 import * as motion from 'motion/react-client';
-import { IMessage } from '@/types/message';
 
 type Props = IMessage['homepage']['aboutMe'];
 
@@ -24,8 +24,36 @@ const animation: Variants = {
 
 const AboutMeHomepage = ({ title, textMobile, textDesktop }: Props) => {
   return (
-    <FundoColorido id='aboutMeHomepage'>
-      <div className='p-6 md:p-12 space-y-6 md:space-y-12 mx-auto max-w-7xl'>
+    <section className='w-full min-h-screen relative'>
+      <Grainient
+        color1='#FF9FFC'
+        color2='#5227FF'
+        color3='#B19EEF'
+        timeSpeed={0.25}
+        colorBalance={0}
+        warpStrength={1}
+        warpFrequency={5}
+        warpSpeed={2}
+        warpAmplitude={50}
+        blendAngle={0}
+        blendSoftness={0.05}
+        rotationAmount={500}
+        noiseScale={2}
+        grainAmount={0.1}
+        grainScale={2}
+        grainAnimated={false}
+        contrast={1.5}
+        gamma={1}
+        saturation={1}
+        centerX={0}
+        centerY={0}
+        zoom={0.9}
+        className='absolute! z-0!'
+      />
+      <div
+        id='aboutMeHomepage'
+        className='p-6 md:p-12 space-y-6 md:space-y-12 mx-auto max-w-7xl z-10 relative'
+      >
         <H2 className='text-white drop-shadow-sm drop-shadow-black/25 text-center'>
           {title}
         </H2>
@@ -45,7 +73,7 @@ const AboutMeHomepage = ({ title, textMobile, textDesktop }: Props) => {
           />
         </motion.div>
       </div>
-    </FundoColorido>
+    </section>
   );
 };
 

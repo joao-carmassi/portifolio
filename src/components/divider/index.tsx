@@ -2,7 +2,7 @@ import './divider.css';
 
 const Divider = () => {
   return (
-    <div className='relative'>
+    <div className='relative z-10'>
       <div id='divider' className='custom-shape-divider-top-1733276584'>
         <svg
           className='drop-shadow fill-background'

@@ -27,9 +27,7 @@ export default async function Home({ params }: Props) {
       <HeroHomepage {...messages.homepage.hero} />
       <DidYouKnowHomepage {...messages.homepage.didYouKnow} />
       <AboutMeHomepage {...messages.homepage.aboutMe} />
-      <section className='bg-background'>
-        <DocumentosHomepage {...messages.homepage.documentos} />
-      </section>
+      <DocumentosHomepage {...messages.homepage.documentos} />
       <TechStack {...messages.homepage.techStack} />
       <GithubHomepage {...messages.homepage.github} />
       <ContactMeHomepage {...messages.homepage.contactMe} />
