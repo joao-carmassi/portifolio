@@ -92,6 +92,11 @@ const HeroHomepage = ({ title, text1, text2, button1, button2 }: Props) => {
         duration: 1,
         ease: 'expo.out',
         stagger: 0.05,
+        onComplete: () => {
+          document.querySelectorAll('.hiddenEntry').forEach((el) => {
+            el.classList.remove('hiddenEntry');
+          });
+        },
       },
       1,
     );
@@ -175,6 +180,10 @@ const HeroHomepage = ({ title, text1, text2, button1, button2 }: Props) => {
 
   .invisibleOnLoad {
     visibility: hidden;
+  }
+
+  .hiddenEntry {
+    transition: none !important;
   }
 
   `;
