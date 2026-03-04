@@ -30,7 +30,7 @@ export const HoverEffect = ({
         {hoveredIndex !== null && hoverRect && containerRef.current && (
           <motion.span
             layoutId='hoverBackground'
-            className='absolute bg-foreground'
+            className='absolute bg-linear-to-br from-foreground to-foreground/90 shadow inset-shadow-2xs'
             style={{
               top:
                 hoverRect.top -
