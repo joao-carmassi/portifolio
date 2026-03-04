@@ -106,6 +106,7 @@ const DocumentosHomepage = ({ title, text, docs, resume }: Props) => {
                     iconPlacement='right'
                     icon={ArrowDown}
                     className='rounded-none'
+                    size={'lg'}
                     asChild
                   >
                     <a aria-label={doc.category} href={doc.link} download>

@@ -14,7 +14,7 @@ import {
 import scrollToContainer from '@/utils/scrowToContainer';
 import { useEffect, useState } from 'react';
 import { ScrollProgress } from './magicui/scroll-progress';
-import { Globe, Settings } from 'lucide-react';
+import { Check, Globe, Settings } from 'lucide-react';
 import { Sun, Moon, Monitor } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import {
@@ -189,7 +189,8 @@ export default function Header({
         <div className='flex items-center gap-2'>
           <Button
             onClick={() => scrollToContainer('contactMeHomepage', 'center')}
-            className='rounded-none font-bold px-8 py-5.5'
+            className='rounded-none'
+            size={'lg'}
             effect={'ringHover'}
           >
             {contact}
@@ -227,9 +228,10 @@ export default function Header({
                       <Link
                         href={pathName}
                         locale={item}
-                        className='flex items-center gap-2 uppercase'
+                        className='flex items-center uppercase'
                       >
                         {item}
+                        {locale === item && <Check />}
                       </Link>
                     </DropdownMenuItem>
                   ))}
@@ -250,6 +252,7 @@ export default function Header({
                     <span className='flex items-center gap-2'>
                       <Sun className='w-4 h-4 opacity-60' />
                       {theme?.options.light}
+                      {currentTheme === 'light' && <Check />}
                     </span>
                   </DropdownMenuItem>
                   <DropdownMenuItem
@@ -259,6 +262,7 @@ export default function Header({
                     <span className='flex items-center gap-2'>
                       <Moon className='w-4 h-4 opacity-60' />
                       {theme?.options.dark}
+                      {currentTheme === 'dark' && <Check />}
                     </span>
                   </DropdownMenuItem>
                   <DropdownMenuItem
@@ -268,6 +272,7 @@ export default function Header({
                     <span className='flex items-center gap-2'>
                       <Monitor className='w-4 h-4 opacity-60' />
                       {theme?.options.system}
+                      {currentTheme === 'system' && <Check />}
                     </span>
                   </DropdownMenuItem>
                 </DropdownMenuSubContent>

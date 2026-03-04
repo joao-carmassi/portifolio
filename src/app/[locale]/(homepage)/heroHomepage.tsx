@@ -199,6 +199,7 @@ const HeroHomepage = ({ title, text1, text2, button1, button2 }: Props) => {
           <Button
             variant='secondary'
             className='items-left bg-muted/70 group flex w-fit justify-center gap-3 rounded-full px-5 py-1 hiddenEntry'
+            size={'lg'}
           >
             <span className='bg-foreground size-2.5 rounded-full' />
             {text2}
@@ -216,19 +217,23 @@ const HeroHomepage = ({ title, text1, text2, button1, button2 }: Props) => {
           <div className='flex gap-4 xl:mt-32'>
             <Button
               variant='secondary'
-              className='group flex w-fit items-center justify-center gap-2 rounded-full px-4 py-1 tracking-tight hiddenEntry'
+              className='rounded-full hiddenEntry'
+              effect={'shineHover'}
+              size={'lg'}
               onClick={() => scrollToContainer('aboutMeHomepage', 'center')}
             >
               <span>{button1}</span>
-              <ArrowRight className='size-4 -rotate-45 transition-all ease-out group-hover:ml-3 group-hover:rotate-0' />
+              <ArrowRight className='-rotate-45' />
             </Button>
             <Button
               variant='default'
-              className='group flex w-fit items-center justify-center gap-2 rounded-full px-4 py-1 tracking-tight hiddenEntry'
+              className='rounded-full hiddenEntry'
+              effect={'pulsating'}
+              size={'lg'}
               onClick={() => scrollToContainer('contactMeHomepage', 'center')}
             >
               <span>{button2}</span>
-              <ArrowRight className='size-4 -rotate-45 transition-all ease-out group-hover:ml-3 group-hover:rotate-0' />
+              <ArrowRight className='-rotate-45' />
             </Button>
           </div>
         </div>

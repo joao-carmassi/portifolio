@@ -249,20 +249,22 @@ const ContactMeHomepage = ({
             </FieldGroup>
             <FieldGroup className='flex flex-row'>
               <Button
-                className='rounded-lg flex-1 py-6 font-bold border border-primary'
                 effect='expandIcon'
+                size={'lg'}
                 icon={ArrowRightIcon}
                 iconPlacement='right'
                 type='submit'
+                className='flex-1'
               >
                 {button1}
               </Button>
               <Button
                 effect='expandIcon'
+                size={'lg'}
                 icon={Trash2}
                 iconPlacement='right'
                 variant={'outline'}
-                className='rounded-lg flex-1 py-6 font-bold'
+                className='flex-1'
                 onClick={() => {
                   reset();
                 }}

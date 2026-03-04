@@ -165,8 +165,8 @@ const GithubHomepage = ({ title, text, cards }: Props) => {
               className='object-cover h-full w-full rounded-xl'
               src='/imgs/github-organization-img.png'
               alt=''
-              width={314}
-              height={176}
+              width={781}
+              height={410}
             />
           </motion.div>
           {/* Card 2 */}
@@ -185,8 +185,8 @@ const GithubHomepage = ({ title, text, cards }: Props) => {
                     className='object-cover h-full w-full rounded-xl'
                     src='/imgs/github-organization-img.png'
                     alt=''
-                    width={781}
-                    height={410}
+                    width={314}
+                    height={176}
                   />
                 </div>
                 <H3>{cards[1].title}</H3>
