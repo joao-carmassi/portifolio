@@ -190,11 +190,11 @@ const HeroHomepage = ({ title, text1, text2, button1, button2 }: Props) => {
   return (
     <section
       id='heroHomepage'
-      className='py-16 dark bg-black grid min-h-screen place-items-center relative'
+      className='py-12 dark bg-black grid min-h-screen place-items-center relative'
     >
       <DarkVeil />
       <style>{css}</style>
-      <div className='container mt-4 flex flex-col items-center justify-center gap-4 overflow-hidden text-left xl:mt-14 xl:flex-row xl:overflow-visible invisibleOnLoad'>
+      <div className='container flex flex-col items-center justify-center gap-y-8 gap-x-4 overflow-hidden text-left xl:flex-row xl:overflow-visible invisibleOnLoad pt-12 lg:pt-0'>
         <div className='w-full space-y-10 xl:w-1/2'>
           <Button
             variant='secondary'
@@ -204,17 +204,17 @@ const HeroHomepage = ({ title, text1, text2, button1, button2 }: Props) => {
             <span className='bg-foreground size-2.5 rounded-full' />
             {text2}
           </Button>
-          <h1 className='font-calSans text-foreground mt-12 text-5xl font-medium tracking-tight md:text-7xl z-10 relative'>
+          <h1 className='font-calSans text-foreground text-5xl font-medium tracking-tight md:text-7xl z-10 relative'>
             <span className='block hiddenEntry'>{title.line1}</span>
             <span id='animetatedTitle' className='block w-fit'>
               {title.line2},
             </span>
             <span className='block hiddenEntry'>{title.line3}</span>
           </h1>
-          <p className='text-muted-foreground font-semibold mt-3 max-w-lg hiddenEntry'>
+          <p className='text-muted-foreground font-semibold max-w-lg hiddenEntry'>
             {text1}
           </p>
-          <div className='flex gap-4 xl:mt-32'>
+          <div className='flex gap-4'>
             <Button
               variant='secondary'
               className='rounded-full hiddenEntry'
@@ -237,7 +237,7 @@ const HeroHomepage = ({ title, text1, text2, button1, button2 }: Props) => {
             </Button>
           </div>
         </div>
-        <div className='mt-10 relative w-full xl:mt-0 xl:w-3/5'>
+        <div className='relative w-full xl:w-3/5'>
           <div className='mx-auto flex h-full items-center justify-center'>
             {domLoaded && (
               <Swiper
@@ -275,7 +275,7 @@ const HeroHomepage = ({ title, text1, text2, button1, button2 }: Props) => {
               </Swiper>
             )}
           </div>
-          <div className='z-0 bg-muted/50 xl:h-155 xl:w-9/10 absolute right-0 top-0 h-full w-full rounded-3xl xl:top-1/2 xl:mt-4 xl:-translate-y-1/2 hiddenEntry' />
+          <div className='z-0 bg-muted/50 xl:h-155 xl:w-9/10 absolute right-0 top-0 h-full w-full rounded-3xl xl:top-1/2 xl:-translate-y-1/2 hiddenEntry' />
         </div>
       </div>
     </section>
