@@ -77,7 +77,7 @@ const Footer = ({ texts: { labels, text }, navigationLinks }: Props) => {
   return (
     <footer>
       <div className='p-6 md:p-12 father-animation-footer'>
-        <div className='bg-card shadow-lg inset-shadow-2xs rounded-lg p-8 md:p-16'>
+        <div className='bg-card shadow-lg inset-shadow-2xs rounded-2xl p-8 md:p-16'>
           <div className='border-border mb-6 border-b pb-6 text-left md:mb-8 md:pb-8 md:text-center'>
             <h1 className='text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-8xl xl:text-9xl footer-animation splitTextFooter'>
               {footerData.heading}
