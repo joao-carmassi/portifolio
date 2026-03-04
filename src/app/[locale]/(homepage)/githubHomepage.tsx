@@ -98,8 +98,8 @@ const GithubHomepage = ({ title, text, cards }: Props) => {
                     className='object-cover h-full w-full rounded-xl'
                     src='/imgs/github-profile-img.png'
                     alt=''
-                    width={314}
-                    height={176}
+                    width={552}
+                    height={310}
                   />
                 </div>
                 <H3>{cards[0].title}</H3>
@@ -185,8 +185,8 @@ const GithubHomepage = ({ title, text, cards }: Props) => {
                     className='object-cover h-full w-full rounded-xl'
                     src='/imgs/github-organization-img.png'
                     alt=''
-                    width={314}
-                    height={176}
+                    width={552}
+                    height={310}
                   />
                 </div>
                 <H3>{cards[1].title}</H3>
