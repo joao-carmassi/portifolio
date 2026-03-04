@@ -50,14 +50,12 @@ const AboutMeHomepage = ({ title, textMobile, textDesktop }: Props) => {
         zoom={0.9}
         className='absolute! z-0!'
       />
-      <div
-        id='aboutMeHomepage'
-        className='p-6 md:p-12 space-y-6 md:space-y-12 mx-auto max-w-7xl z-10 relative'
-      >
+      <div className='p-6 md:p-12 space-y-6 md:space-y-12 mx-auto max-w-7xl z-10 relative'>
         <H2 className='text-white drop-shadow-sm drop-shadow-black/25 text-center'>
           {title}
         </H2>
         <motion.div
+          id='aboutMeHomepage'
           variants={animation}
           initial='hidden'
           whileInView='show'
