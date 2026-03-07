@@ -110,4 +110,6 @@ export function generateStaticParams() {
   }));
 }
 
+// TODO: Seo, new section
+
 export default RootLayout;
