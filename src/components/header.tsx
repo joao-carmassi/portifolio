@@ -16,7 +16,7 @@ import {
 import scrollToContainer from '@/utils/scrowToContainer';
 import { useEffect, useState } from 'react';
 import { ScrollProgress } from './magicui/scroll-progress';
-import { Check, Globe, Settings } from 'lucide-react';
+import { ArrowRight, Check, Globe, Settings } from 'lucide-react';
 import { Sun, Moon, Monitor } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import {
@@ -33,6 +33,7 @@ import { routing } from '../../i18n/routing';
 import Image from 'next/image';
 import { useLocale } from 'next-intl';
 import { Link, usePathname } from '../../i18n/navigation';
+import { Separator } from './ui/separator';
 
 type Props = IMessage['navbar'];
 
@@ -113,8 +114,33 @@ export default function Header({
               </SheetHeader>
               <NavigationMenu className='max-w-none *:w-full items-start'>
                 <NavigationMenuList className='flex-col items-start gap-1'>
+                  <NavigationMenuItem className='px-3'>
+                    <button
+                      onClick={() => {
+                        scrollToContainer('heroHomepage', 'start');
+                        setSheetOpen(false);
+                      }}
+                      className='hover:cursor-pointer'
+                      aria-label='Logo'
+                    >
+                      <Image
+                        className='h-10 rounded-full dark:hidden'
+                        src='/icons/icon-preto.png'
+                        alt='iconi JC'
+                        width={40}
+                        height={40}
+                      />
+                      <Image
+                        className='h-10 rounded-full hidden dark:block'
+                        src='/icons/icon-branco.png'
+                        alt='iconi JC'
+                        width={40}
+                        height={40}
+                      />
+                    </button>
+                  </NavigationMenuItem>
                   {links.map((link, index) => (
-                    <NavigationMenuItem asChild key={index}>
+                    <NavigationMenuItem key={index}>
                       <Button
                         onClick={() => {
                           scrollToContainer(
@@ -134,6 +160,18 @@ export default function Header({
                       </Button>
                     </NavigationMenuItem>
                   ))}
+                  <Separator />
+                  <NavigationMenuItem className='w-full p-3'>
+                    <Button
+                      onClick={() => {
+                        scrollToContainer('contactMeHomepage', 'center');
+                        setSheetOpen(false);
+                      }}
+                      className='rounded-none w-full'
+                    >
+                      {contact} <ArrowRight />
+                    </Button>
+                  </NavigationMenuItem>
                 </NavigationMenuList>
               </NavigationMenu>
             </SheetContent>

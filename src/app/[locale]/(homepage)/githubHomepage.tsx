@@ -92,7 +92,7 @@ const GithubHomepage = ({ title, text, cards }: Props) => {
           >
             <MagicCard className='rounded-xl' gradientColor='bg-card'>
               {/* Media 1 Mobile */}
-              <div className='rounded-xl p-3 md:p-6 shadow-lg flex flex-col gap-3 md:gap-6'>
+              <div className='rounded-xl p-6 shadow-lg flex flex-col gap-3 md:gap-6'>
                 <div className='md:hidden aspect-video w-full bg-background rounded-xl mb-3'>
                   <Image
                     className='object-cover h-full w-full rounded-xl'

@@ -247,14 +247,14 @@ const ContactMeHomepage = ({
                 )}
               </Field>
             </FieldGroup>
-            <FieldGroup className='flex flex-row'>
+            <FieldGroup className='flex md:flex-row'>
               <Button
                 effect='expandIcon'
                 size={'lg'}
                 icon={ArrowRightIcon}
                 iconPlacement='right'
                 type='submit'
-                className='flex-1'
+                className='md:flex-1'
               >
                 {button1}
               </Button>
@@ -264,7 +264,7 @@ const ContactMeHomepage = ({
                 icon={Trash2}
                 iconPlacement='right'
                 variant={'outline'}
-                className='flex-1'
+                className='md:flex-1'
                 onClick={() => {
                   reset();
                 }}
