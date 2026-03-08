@@ -11,7 +11,7 @@ export function H3({
   return (
     <h3
       className={cn(
-        `scroll-m-20 text-lg md:text-xl lg:text-2xl font-semibold tracking-wide`,
+        `scroll-m-20 text-lg md:text-xl lg:text-2xl font-semibold tracking-wide font-main`,
         className,
       )}
     >
