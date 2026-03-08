@@ -14,10 +14,37 @@ import { P } from './ui/p';
 import { H3 } from './ui/h3';
 import { IMessage } from '@/types/message';
 import Image from 'next/image';
+import { gsap } from 'gsap';
+import { useGSAP } from '@gsap/react';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 type Props = IMessage['homepage']['clients'];
 
 const Clients = ({ title, text, items }: Props): React.ReactNode => {
+  useGSAP(() => {
+    if (!items || !text) return;
+    gsap.registerPlugin(ScrollTrigger);
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: '#clientsHomepage',
+        start: 'top 60%',
+      },
+    });
+
+    tl.from(
+      '.clients-animation',
+      {
+        opacity: 0,
+        y: 100,
+        ease: 'power3.out',
+        stagger: 0.08,
+        duration: 0.9,
+      },
+      0,
+    );
+  }, [text, items]);
+
   return (
     <section id='clientsHomepage' className='overflow-hidden py-6 lg:py-12'>
       <div className='container space-y-6 md:space-y-12'>
@@ -38,7 +65,7 @@ const Clients = ({ title, text, items }: Props): React.ReactNode => {
               {items.map((item, index) => (
                 <CarouselItem
                   key={index}
-                  className='basis-4/5 sm:basis-3/5 md:basis-2/5 lg:basis-[28%] xl:basis-[28%] 2xl:basis-1/4 p-6 pt-0'
+                  className='basis-4/5 sm:basis-3/5 md:basis-2/5 lg:basis-[28%] xl:basis-[28%] 2xl:basis-1/4 p-6 pt-0 clients-animation'
                 >
                   <a
                     href={item.url}
