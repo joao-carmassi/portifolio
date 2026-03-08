@@ -7,10 +7,12 @@ import {
   NavigationMenuList,
 } from '@/components/ui/navigation-menu';
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet';
 import scrollToContainer from '@/utils/scrowToContainer';
 import { useEffect, useState } from 'react';
 import { ScrollProgress } from './magicui/scroll-progress';
@@ -40,6 +42,7 @@ export default function Header({
   actions: { contact },
 }: Props) {
   const [isVisible, setIsVisible] = useState(false);
+  const [sheetOpen, setSheetOpen] = useState(false);
   const { setTheme, theme: currentTheme } = useTheme();
   const locales = routing.locales;
   const locale = useLocale();
@@ -69,8 +72,8 @@ export default function Header({
         {/* Left side */}
         <div className='flex items-center gap-2'>
           {/* Mobile menu trigger */}
-          <Popover>
-            <PopoverTrigger asChild>
+          <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
+            <SheetTrigger asChild>
               <Button
                 aria-label='Abrir menu'
                 className='group text-accent size-8 md:hidden border border-accent'
@@ -103,18 +106,17 @@ export default function Header({
                   />
                 </svg>
               </Button>
-            </PopoverTrigger>
-            <PopoverContent
-              sideOffset={16}
-              align='start'
-              className='w-36 p-1 md:hidden'
-            >
-              <NavigationMenu className='max-w-none *:w-full'>
-                <NavigationMenuList className='flex-col items-start gap-0 md:gap-2'>
+            </SheetTrigger>
+            <SheetContent side='left' className='md:hidden py-3'>
+              <SheetHeader hidden>
+                <SheetTitle>Menu</SheetTitle>
+              </SheetHeader>
+              <NavigationMenu className='max-w-none *:w-full items-start'>
+                <NavigationMenuList className='flex-col items-start gap-1'>
                   {links.map((link, index) => (
                     <NavigationMenuItem asChild key={index}>
                       <Button
-                        onClick={() =>
+                        onClick={() => {
                           scrollToContainer(
                             link.id,
                             ['center', 'start', 'end'].includes(
@@ -122,9 +124,9 @@ export default function Header({
                             )
                               ? (link.position as 'center' | 'start' | 'end')
                               : 'center',
-                          )
-                        }
-                        size={'sm'}
+                          );
+                          setSheetOpen(false);
+                        }}
                         variant={'link'}
                         className='w-full flex justify-start'
                       >
@@ -134,27 +136,28 @@ export default function Header({
                   ))}
                 </NavigationMenuList>
               </NavigationMenu>
-            </PopoverContent>
-          </Popover>
+            </SheetContent>
+          </Sheet>
           {/* Main nav */}
           <div className='flex items-center gap-6'>
             <button
               onClick={() => scrollToContainer('heroHomepage', 'start')}
               className='hover:cursor-pointer'
+              aria-label='Logo'
             >
               <Image
-                className='h-12 rounded-full dark:hidden'
+                className='h-11 rounded-full dark:hidden'
                 src='/icons/icon-preto.png'
                 alt='iconi JC'
-                width={48}
-                height={48}
+                width={44}
+                height={44}
               />
               <Image
-                className='h-12 rounded-full hidden dark:block'
+                className='h-11 rounded-full hidden dark:block'
                 src='/icons/icon-branco.png'
                 alt='iconi JC'
-                width={48}
-                height={48}
+                width={44}
+                height={44}
               />
             </button>
             {/* Navigation menu */}
