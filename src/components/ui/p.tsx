@@ -9,7 +9,12 @@ export function P({
   className?: ClassValue;
 }) {
   return (
-    <p className={cn('scroll-m-20 md:text-lg text-foreground', className)}>
+    <p
+      className={cn(
+        'scroll-m-20 md:text-lg text-muted-foreground font-medium',
+        className,
+      )}
+    >
       {children}
     </p>
   );

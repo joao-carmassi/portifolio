@@ -106,20 +106,26 @@ const GithubHomepage = ({ title, text, cards }: Props) => {
                 <ul className='space-y-4'>
                   <li>
                     <div className='flex items-start gap-3'>
-                      <Laptop className='shrink-0' />
-                      <p className='-mt-0.5'>{cards[0].text1}</p>
+                      <Laptop className='shrink-0 text-muted-foreground' />
+                      <p className='-mt-0.5 text-muted-foreground font-medium'>
+                        {cards[0].text1}
+                      </p>
                     </div>
                   </li>
                   <li>
                     <div className='flex items-start gap-3'>
-                      <Code className='shrink-0' />
-                      <p className='-mt-0.5'>{cards[0].text2}</p>
+                      <Code className='shrink-0 text-muted-foreground' />
+                      <p className='-mt-0.5 text-muted-foreground font-medium'>
+                        {cards[0].text2}
+                      </p>
                     </div>
                   </li>
                   <li>
                     <div className='flex items-start gap-3'>
-                      <Layers className='shrink-0' />
-                      <p className='-mt-0.5'>{cards[0].text3}</p>
+                      <Layers className='shrink-0 text-muted-foreground' />
+                      <p className='-mt-0.5 text-muted-foreground font-medium'>
+                        {cards[0].text3}
+                      </p>
                     </div>
                   </li>
                 </ul>
@@ -193,20 +199,26 @@ const GithubHomepage = ({ title, text, cards }: Props) => {
                 <ul className='space-y-4'>
                   <li>
                     <div className='flex items-start gap-3'>
-                      <BookOpen className='shrink-0' />
-                      <p className='-mt-0.5'>{cards[1].text1}</p>
+                      <BookOpen className='shrink-0 text-muted-foreground' />
+                      <p className='-mt-0.5 text-muted-foreground font-medium'>
+                        {cards[1].text1}
+                      </p>
                     </div>
                   </li>
                   <li>
                     <div className='flex items-start gap-3'>
-                      <Layers className='shrink-0' />
-                      <p className='-mt-0.5'>{cards[1].text2}</p>
+                      <Layers className='shrink-0 text-muted-foreground' />
+                      <p className='-mt-0.5 text-muted-foreground font-medium'>
+                        {cards[1].text2}
+                      </p>
                     </div>
                   </li>
                   <li>
                     <div className='flex items-start gap-3'>
-                      <Code className='shrink-0' />
-                      <p className='-mt-0.5'>{cards[1].text3}</p>
+                      <Code className='shrink-0 text-muted-foreground' />
+                      <p className='-mt-0.5 text-muted-foreground font-medium'>
+                        {cards[1].text3}
+                      </p>
                     </div>
                   </li>
                 </ul>
