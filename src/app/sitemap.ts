@@ -1,8 +1,9 @@
 import type { MetadataRoute } from 'next';
 import { routing } from '../../i18n/routing';
+import getAppBasePath from '@/lib/get-app-base-path';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || '';
+  const baseUrl = getAppBasePath();
 
   const locales = routing.locales.map((locale) => ({
     url: `${baseUrl}/${locale}`,

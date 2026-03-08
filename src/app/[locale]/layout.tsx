@@ -14,6 +14,9 @@ import {
 import { IMessage } from '@/types/message';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
+import getAppBasePath from '@/lib/get-app-base-path';
+import serializeJavascript from 'serialize-javascript';
+import type { Graph, Person, WebSite } from 'schema-dts';
 
 const raleway = Raleway({
   variable: '--font-main',
@@ -30,13 +33,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const messages = (await getMessagesIntl()) as IMessage;
   const metadata = messages.metadata;
 
-  const pageUrl = `${process.env.NEXT_PUBLIC_SITE_URL || ''}/${locale}`;
+  const pageUrl = `${getAppBasePath()}/${locale}`;
 
   const languages = Object.fromEntries(
-    routing.locales.map((item) => [
-      item,
-      `${process.env.NEXT_PUBLIC_SITE_URL || ''}/${item}`,
-    ]),
+    routing.locales.map((item) => [item, `${getAppBasePath()}/${item}`]),
   );
 
   return {
@@ -75,9 +75,56 @@ const RootLayout = async ({ children, params }: Props) => {
 
   const messages = (await getMessagesIntl()) as IMessage;
 
+  const pageUrl = `${getAppBasePath()}/${locale}`;
+  const baseUrl = getAppBasePath();
+
+  const person: Person = {
+    '@type': 'Person',
+    '@id': `${baseUrl}/#person`,
+    name: 'João Vitor Carmassi',
+    jobTitle: messages.jsonLd.jobTitle,
+    description: messages.metadata.description,
+    url: pageUrl,
+    email: 'joaovitorcarmassi@gmail.com',
+    telephone: '+5512996661778',
+    birthDate: '2004-12-08',
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'São Bento do Sapucaí',
+      addressRegion: 'SP',
+      addressCountry: 'BR',
+    },
+    sameAs: [
+      'https://github.com/joao-carmassi',
+      'https://www.linkedin.com/in/joao-carmassi/',
+      'https://www.instagram.com/joao_carmassi/',
+    ],
+    knowsLanguage: ['pt-BR', 'en', 'es'],
+  };
+
+  const website: WebSite = {
+    '@type': 'WebSite',
+    name: messages.metadata.title,
+    url: pageUrl,
+    description: messages.metadata.description,
+    inLanguage: locale,
+    author: { '@id': `${baseUrl}/#person` },
+  };
+
+  const jsonLd: Graph = {
+    '@context': 'https://schema.org',
+    '@graph': [person, website],
+  };
+
   return (
     <html lang={locale} suppressHydrationWarning>
       <body className={`${raleway.variable} font-main antialiased`}>
+        <script
+          type='application/ld+json'
+          dangerouslySetInnerHTML={{
+            __html: serializeJavascript(jsonLd),
+          }}
+        />
         <ReactLenis
           options={{
             lerp: 0.1,
@@ -110,6 +157,6 @@ export function generateStaticParams() {
   }));
 }
 
-// TODO: Seo, new section
+// TODO: New section
 
 export default RootLayout;

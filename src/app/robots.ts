@@ -1,7 +1,8 @@
+import getAppBasePath from '@/lib/get-app-base-path';
 import type { MetadataRoute } from 'next';
 
 export default function robots(): MetadataRoute.Robots {
-  const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || '';
+  const siteUrl = getAppBasePath();
 
   return {
     rules: {
