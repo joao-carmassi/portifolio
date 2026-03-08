@@ -96,8 +96,8 @@ const GithubHomepage = ({ title, text, cards }: Props) => {
                 <div className='md:hidden aspect-video w-full bg-background rounded-xl mb-3'>
                   <Image
                     className='object-cover h-full w-full rounded-xl'
-                    src='/imgs/github-profile-img.png'
-                    alt=''
+                    src='/github/github-profile-img.png'
+                    alt='github profile picture'
                     width={552}
                     height={310}
                   />
@@ -153,8 +153,8 @@ const GithubHomepage = ({ title, text, cards }: Props) => {
           >
             <Image
               className='object-cover h-full w-full rounded-xl'
-              src='/imgs/github-profile-img.png'
-              alt=''
+              src='/github/github-profile-img.png'
+              alt='github profile picture'
               width={781}
               height={410}
             />
@@ -169,8 +169,8 @@ const GithubHomepage = ({ title, text, cards }: Props) => {
           >
             <Image
               className='object-cover h-full w-full rounded-xl'
-              src='/imgs/github-organization-img.png'
-              alt=''
+              src='/github/github-organization-img.png'
+              alt='github organization picture'
               width={781}
               height={410}
             />
@@ -189,8 +189,8 @@ const GithubHomepage = ({ title, text, cards }: Props) => {
                 <div className='md:hidden aspect-video w-full bg-background rounded-xl mb-3'>
                   <Image
                     className='object-cover h-full w-full rounded-xl'
-                    src='/imgs/github-organization-img.png'
-                    alt=''
+                    src='/github/github-organization-img.png'
+                    alt='github organization picture'
                     width={552}
                     height={310}
                   />

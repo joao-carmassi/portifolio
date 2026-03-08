@@ -10,6 +10,7 @@ import {
   getMessages as getMessagesIntl,
   setRequestLocale,
 } from 'next-intl/server';
+import Clients from '@/components/clients';
 
 interface Props {
   params: Promise<{ locale: string }>;
@@ -28,6 +29,7 @@ export default async function Home({ params }: Props) {
       <DidYouKnowHomepage {...messages.homepage.didYouKnow} />
       <AboutMeHomepage {...messages.homepage.aboutMe} />
       <DocumentosHomepage {...messages.homepage.documentos} />
+      <Clients />
       <TechStack {...messages.homepage.techStack} />
       <GithubHomepage {...messages.homepage.github} />
       <ContactMeHomepage {...messages.homepage.contactMe} />
