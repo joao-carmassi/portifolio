@@ -164,7 +164,7 @@ export default function Header({
             <NavigationMenu className='max-md:hidden'>
               <NavigationMenuList>
                 {links.map((link, index) => (
-                  <NavigationMenuItem asChild key={index}>
+                  <NavigationMenuItem key={index}>
                     <Button
                       onClick={() =>
                         scrollToContainer(

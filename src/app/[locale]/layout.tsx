@@ -139,6 +139,7 @@ const RootLayout = async ({ children, params }: Props) => {
                 <Footer
                   {...messages.footer}
                   navigationLinks={messages.navbar.links}
+                  actions={messages.navbar.actions}
                 />
               </QueryProvider>
             </ThemeProvider>

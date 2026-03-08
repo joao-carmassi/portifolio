@@ -1,4 +1,5 @@
 'use client';
+
 import scrollToContainer from '@/utils/scrowToContainer';
 import { ArrowUpRight } from 'lucide-react';
 import { gsap } from 'gsap';
@@ -10,6 +11,9 @@ type Props = {
   texts: {
     labels: string[];
     text: string;
+  };
+  actions: {
+    contact: string;
   };
   navigationLinks: {
     id: string;
@@ -35,7 +39,11 @@ const footerData = {
   ],
 };
 
-const Footer = ({ texts: { labels, text }, navigationLinks }: Props) => {
+const Footer = ({
+  texts: { labels, text },
+  navigationLinks,
+  actions,
+}: Props) => {
   useGSAP(() => {
     if (!labels || !text) return;
     gsap.registerPlugin(ScrollTrigger, SplitText);
@@ -79,9 +87,9 @@ const Footer = ({ texts: { labels, text }, navigationLinks }: Props) => {
       <div className='p-6 md:p-12 father-animation-footer'>
         <div className='bg-card shadow-lg inset-shadow-2xs rounded-2xl p-8 md:p-16'>
           <div className='border-border mb-6 border-b pb-6 text-left md:mb-8 md:pb-8 md:text-center'>
-            <h1 className='text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-8xl xl:text-9xl footer-animation splitTextFooter'>
+            <h2 className='text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-8xl xl:text-9xl footer-animation splitTextFooter'>
               {footerData.heading}
-            </h1>
+            </h2>
           </div>
 
           <div className='mb-12 flex flex-col gap-8 md:mb-16 lg:flex-row lg:justify-between lg:gap-4 xl:gap-8'>
@@ -156,7 +164,7 @@ const Footer = ({ texts: { labels, text }, navigationLinks }: Props) => {
               onClick={() => scrollToContainer('contactMeHomepage', 'center')}
               className='text-muted-foreground hover:text-primary text-sm transition-colors footer-animation'
             >
-              {labels && labels[2] ? labels[2] : ''}
+              {actions.contact}
             </button>
           </nav>
 
