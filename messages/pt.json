@@ -11,6 +11,7 @@
     "links": [
       { "id": "aboutMeHomepage", "label": "Sobre" },
       { "id": "documentosHomepage", "label": "Currículo", "position": "start" },
+      { "id": "clientsHomepage", "label": "Projetos" },
       { "id": "techStack", "label": "Tecnologias" },
       { "id": "githubHomepage", "label": "Github" }
     ],
@@ -114,6 +115,42 @@
           "text2": "Confira experimentos com diferentes frameworks e linguagens—TypeScript, Vue, React e mais.",
           "text3": "Veja pequenos projetos práticos que construí para aprimorar minhas habilidades e explorar novas tecnologias.",
           "button": "Ver organização"
+        }
+      ]
+    },
+    "clients": {
+      "title": "Projetos & Clientes",
+      "text": "Soluções digitais reais com resultados concretos — de pousadas a SaaS B2B e projetos open source.",
+      "items": [
+        {
+          "title": "Refugio Da Pedra SP",
+          "description": "Chalés aconchegantes nas montanhas de São Bento do Sapucaí, ao pé da Pedra do Baú — vistas deslumbrantes, lareira e natureza preservada.",
+          "url": "https://refugiodapedrasp.com",
+          "image": "/clients/refugio.png"
+        },
+        {
+          "title": "Quotation Factory",
+          "description": "Plataforma SaaS B2B com IA para metalurgia: lê arquivos CAD, gera listas de materiais, calcula custos e cria orçamentos automaticamente.",
+          "url": "https://www.quotationfactory.com",
+          "image": "/clients/qf.png"
+        },
+        {
+          "title": "Enhanced Button",
+          "description": "Componente open source que estende o Button do shadcn/ui com novos estilos e efeitos visuais — pronto para usar em qualquer projeto.",
+          "url": "https://enhanced-button.vercel.app",
+          "image": "/clients/button.png"
+        },
+        {
+          "title": "Higgx",
+          "description": "Plataforma aberta de IA que orquestra orçamentos, planejamento e produção para metalurgia de alto mix — construída sobre 10+ anos de experiência na Quotation Factory.",
+          "url": "https://higgx.app",
+          "image": "/clients/higgx.png"
+        },
+        {
+          "title": "Loja do VRF",
+          "description": "E-commerce especializado em peças e componentes originais para sistemas VRF de ar condicionado — atendendo profissionais de HVAC em todo o Brasil.",
+          "url": "https://lojadovrf.com.br",
+          "image": "/clients/vrf.png"
         }
       ]
     },

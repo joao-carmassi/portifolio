@@ -29,7 +29,7 @@ export default async function Home({ params }: Props) {
       <DidYouKnowHomepage {...messages.homepage.didYouKnow} />
       <AboutMeHomepage {...messages.homepage.aboutMe} />
       <DocumentosHomepage {...messages.homepage.documentos} />
-      <Clients />
+      <Clients {...messages.homepage.clients} />
       <TechStack {...messages.homepage.techStack} />
       <GithubHomepage {...messages.homepage.github} />
       <ContactMeHomepage {...messages.homepage.contactMe} />

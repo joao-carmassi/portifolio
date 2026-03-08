@@ -15,6 +15,7 @@
         "label": "Certificates",
         "position": "start"
       },
+      { "id": "clientsHomepage", "label": "Projects" },
       { "id": "techStack", "label": "Stack" },
       { "id": "githubHomepage", "label": "Github" }
     ],
@@ -118,6 +119,42 @@
           "text2": "See experiments with different frameworks and languages—TypeScript, Vue, React, and more.",
           "text3": "View small, practical projects I built to sharpen my skills and explore new technologies.",
           "button": "See organization"
+        }
+      ]
+    },
+    "clients": {
+      "title": "Projects & Clients",
+      "text": "Real digital solutions that delivered results — from hospitality to B2B SaaS and open source.",
+      "items": [
+        {
+          "title": "Refugio Da Pedra SP",
+          "description": "Cozy chalets nestled in the mountains of São Bento do Sapucaí, at the foot of Pedra do Baú — breathtaking views, fireplace, and pure nature.",
+          "url": "https://refugiodapedrasp.com",
+          "image": "/clients/refugio.png"
+        },
+        {
+          "title": "Quotation Factory",
+          "description": "AI-powered B2B SaaS for metalworking. Reads CAD files, builds BOMs, calculates production costs, and generates quotes automatically.",
+          "url": "https://www.quotationfactory.com",
+          "image": "/clients/qf.png"
+        },
+        {
+          "title": "Enhanced Button",
+          "description": "Open-source shadcn/ui component extending the default Button with beautiful new styles and effects — ready to drop into any project.",
+          "url": "https://enhanced-button.vercel.app",
+          "image": "/clients/button.png"
+        },
+        {
+          "title": "Higgx",
+          "description": "Open AI platform orchestrating quoting, planning, and production for high-mix metalworking — built on 10+ years of Quotation Factory expertise.",
+          "url": "https://higgx.app",
+          "image": "/clients/higgx.png"
+        },
+        {
+          "title": "Loja do VRF",
+          "description": "Specialized e-commerce for original VRF (Variable Refrigerant Flow) parts and components — serving HVAC professionals nationwide.",
+          "url": "https://lojadovrf.com.br",
+          "image": "/clients/vrf.png"
         }
       ]
     },
