@@ -1,6 +1,6 @@
 import { ThemeProvider } from '@/components/theme-provider';
 import { Metadata } from 'next';
-import { DM_Serif_Display, Raleway } from 'next/font/google';
+import { Raleway, DM_Serif_Display } from 'next/font/google';
 import '../globals.css';
 import { ReactLenis } from 'lenis/react';
 import QueryProvider from '@/components/query-provider';
@@ -19,13 +19,13 @@ import serializeJavascript from 'serialize-javascript';
 import type { Graph, Person, WebSite } from 'schema-dts';
 
 const dmSerifDisplay = DM_Serif_Display({
-  variable: '--font-main',
+  variable: '--font-title',
   subsets: ['latin'],
   weight: '400',
 });
 
 const raleway = Raleway({
-  variable: '--font-body',
+  variable: '--font-main',
   subsets: ['latin'],
 });
 
@@ -125,7 +125,7 @@ const RootLayout = async ({ children, params }: Props) => {
   return (
     <html lang={locale} suppressHydrationWarning>
       <body
-        className={`${dmSerifDisplay.variable} ${raleway.variable} font-body antialiased`}
+        className={`${raleway.variable} ${dmSerifDisplay.variable} font-main antialiased`}
       >
         <script
           type='application/ld+json'

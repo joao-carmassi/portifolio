@@ -92,7 +92,7 @@ const TechStack = ({ title }: Props) => {
           scrollStart='center bottom+=40%'
           scrollEnd='bottom bottom-=60%'
           stagger={0.03}
-          textClassName='md:text-7xl lg:text-9xl font-semibold font-main'
+          textClassName='md:text-7xl lg:text-9xl font-semibold font-title'
         >
           {title}
         </ScrollFloat>

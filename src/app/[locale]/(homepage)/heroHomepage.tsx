@@ -204,7 +204,7 @@ const HeroHomepage = ({ title, text1, text2, button1, button2 }: Props) => {
             <span className='bg-foreground size-2.5 rounded-full' />
             {text2}
           </Button>
-          <h1 className='font-main text-foreground text-5xl font-medium tracking-tight md:text-7xl z-10 relative'>
+          <h1 className='font-title text-foreground text-5xl font-medium md:text-7xl z-10 relative'>
             <span className='block hiddenEntry'>{title.line1}</span>
             <span id='animetatedTitle' className='block w-fit'>
               {title.line2},

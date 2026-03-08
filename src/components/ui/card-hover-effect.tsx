@@ -79,7 +79,7 @@ export const HoverEffect = ({
         >
           <Card className='relative'>
             <div className='absolute top-3 left-3 hidden md:block'>
-              <H3 className='group-hover:text-background duration-200'>
+              <H3 className='group-hover:text-background font-normal duration-200 font-main'>
                 {item.name}
               </H3>
             </div>
