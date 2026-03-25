@@ -92,54 +92,56 @@ const GithubHomepage = ({ title, text, cards }: Props) => {
           >
             <MagicCard className='rounded-xl' gradientColor='bg-card'>
               {/* Media 1 Mobile */}
-              <div className='rounded-xl p-5 shadow-lg flex flex-col gap-3 md:gap-6'>
+              <div className='rounded-xl shadow-lg flex flex-col gap-3 md:gap-6'>
                 <div className='md:hidden aspect-video w-full bg-background rounded-xl mb-3'>
                   <Image
-                    className='object-cover h-full w-full rounded-xl'
+                    className='object-cover h-full w-full rounded-xl rounded-b-none'
                     src='/github/github-profile-img.png'
                     alt='github profile picture'
                     width={552}
                     height={310}
                   />
                 </div>
-                <H3>{cards[0].title}</H3>
-                <ul className='space-y-4'>
-                  <li>
-                    <div className='flex items-start gap-3'>
-                      <Laptop className='shrink-0 text-muted-foreground' />
-                      <p className='-mt-0.5 text-muted-foreground font-medium'>
-                        {cards[0].text1}
-                      </p>
-                    </div>
-                  </li>
-                  <li>
-                    <div className='flex items-start gap-3'>
-                      <Code className='shrink-0 text-muted-foreground' />
-                      <p className='-mt-0.5 text-muted-foreground font-medium'>
-                        {cards[0].text2}
-                      </p>
-                    </div>
-                  </li>
-                  <li>
-                    <div className='flex items-start gap-3'>
-                      <Layers className='shrink-0 text-muted-foreground' />
-                      <p className='-mt-0.5 text-muted-foreground font-medium'>
-                        {cards[0].text3}
-                      </p>
-                    </div>
-                  </li>
-                </ul>
-                <Button
-                  effect={'expandIcon'}
-                  icon={Github}
-                  iconPlacement='right'
-                  className='w-full mt-auto'
-                  asChild
-                >
-                  <a target='_blank' href='https://github.com/joao-carmassi'>
-                    {cards[0].button}
-                  </a>
-                </Button>
+                <div className='p-5 pt-0 md:pt-5 flex flex-col gap-3 md:gap-6'>
+                  <H3>{cards[0].title}</H3>
+                  <ul className='space-y-4'>
+                    <li>
+                      <div className='flex items-start gap-3'>
+                        <Laptop className='shrink-0 text-muted-foreground' />
+                        <p className='-mt-0.5 text-muted-foreground font-medium'>
+                          {cards[0].text1}
+                        </p>
+                      </div>
+                    </li>
+                    <li>
+                      <div className='flex items-start gap-3'>
+                        <Code className='shrink-0 text-muted-foreground' />
+                        <p className='-mt-0.5 text-muted-foreground font-medium'>
+                          {cards[0].text2}
+                        </p>
+                      </div>
+                    </li>
+                    <li>
+                      <div className='flex items-start gap-3'>
+                        <Layers className='shrink-0 text-muted-foreground' />
+                        <p className='-mt-0.5 text-muted-foreground font-medium'>
+                          {cards[0].text3}
+                        </p>
+                      </div>
+                    </li>
+                  </ul>
+                  <Button
+                    effect={'expandIcon'}
+                    icon={Github}
+                    iconPlacement='right'
+                    className='w-full mt-auto'
+                    asChild
+                  >
+                    <a target='_blank' href='https://github.com/joao-carmassi'>
+                      {cards[0].button}
+                    </a>
+                  </Button>
+                </div>
               </div>
             </MagicCard>
           </motion.div>
@@ -185,57 +187,59 @@ const GithubHomepage = ({ title, text, cards }: Props) => {
           >
             <MagicCard className='rounded-xl' gradientColor='bg-card'>
               {/* Media 1 Mobile */}
-              <div className='rounded-xl p-5 md:p-6 shadow-lg flex flex-col gap-3 md:gap-6'>
+              <div className='rounded-xl shadow-lg flex flex-col gap-3 md:gap-6'>
                 <div className='md:hidden aspect-video w-full bg-background rounded-xl mb-3'>
                   <Image
-                    className='object-cover h-full w-full rounded-xl'
+                    className='object-cover h-full w-full rounded-xl rounded-b-none'
                     src='/github/github-organization-img.png'
                     alt='github organization picture'
                     width={552}
                     height={310}
                   />
                 </div>
-                <H3>{cards[1].title}</H3>
-                <ul className='space-y-4'>
-                  <li>
-                    <div className='flex items-start gap-3'>
-                      <BookOpen className='shrink-0 text-muted-foreground' />
-                      <p className='-mt-0.5 text-muted-foreground font-medium'>
-                        {cards[1].text1}
-                      </p>
-                    </div>
-                  </li>
-                  <li>
-                    <div className='flex items-start gap-3'>
-                      <Layers className='shrink-0 text-muted-foreground' />
-                      <p className='-mt-0.5 text-muted-foreground font-medium'>
-                        {cards[1].text2}
-                      </p>
-                    </div>
-                  </li>
-                  <li>
-                    <div className='flex items-start gap-3'>
-                      <Code className='shrink-0 text-muted-foreground' />
-                      <p className='-mt-0.5 text-muted-foreground font-medium'>
-                        {cards[1].text3}
-                      </p>
-                    </div>
-                  </li>
-                </ul>
-                <Button
-                  effect={'expandIcon'}
-                  icon={Github}
-                  iconPlacement='right'
-                  className='w-full mt-auto'
-                  asChild
-                >
-                  <a
-                    target='_blank'
-                    href='https://github.com/joao-carmassi-studies'
+                <div className='p-5 pt-0 md:pt-5 flex flex-col gap-3 md:gap-6'>
+                  <H3>{cards[1].title}</H3>
+                  <ul className='space-y-4'>
+                    <li>
+                      <div className='flex items-start gap-3'>
+                        <BookOpen className='shrink-0 text-muted-foreground' />
+                        <p className='-mt-0.5 text-muted-foreground font-medium'>
+                          {cards[1].text1}
+                        </p>
+                      </div>
+                    </li>
+                    <li>
+                      <div className='flex items-start gap-3'>
+                        <Layers className='shrink-0 text-muted-foreground' />
+                        <p className='-mt-0.5 text-muted-foreground font-medium'>
+                          {cards[1].text2}
+                        </p>
+                      </div>
+                    </li>
+                    <li>
+                      <div className='flex items-start gap-3'>
+                        <Code className='shrink-0 text-muted-foreground' />
+                        <p className='-mt-0.5 text-muted-foreground font-medium'>
+                          {cards[1].text3}
+                        </p>
+                      </div>
+                    </li>
+                  </ul>
+                  <Button
+                    effect={'expandIcon'}
+                    icon={Github}
+                    iconPlacement='right'
+                    className='w-full mt-auto'
+                    asChild
                   >
-                    {cards[1].button}
-                  </a>
-                </Button>
+                    <a
+                      target='_blank'
+                      href='https://github.com/joao-carmassi-studies'
+                    >
+                      {cards[1].button}
+                    </a>
+                  </Button>
+                </div>
               </div>
             </MagicCard>
           </motion.div>
