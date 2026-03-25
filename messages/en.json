@@ -139,10 +139,10 @@
           "image": "/clients/qf.png"
         },
         {
-          "title": "Enhanced Button",
-          "description": "Open-source shadcn/ui component extending the default Button with beautiful new styles and effects — ready to drop into any project.",
-          "url": "https://enhanced-button.vercel.app",
-          "image": "/clients/button.png"
+          "title": "Prisma UI",
+          "description": "Open source React component library for building beautiful, accessible, and customizable user interfaces — built with Radix UI and Tailwind CSS.",
+          "url": "https://prisma-ui-xi.vercel.app/",
+          "image": "/clients/prisma.png"
         },
         {
           "title": "Higgx",
