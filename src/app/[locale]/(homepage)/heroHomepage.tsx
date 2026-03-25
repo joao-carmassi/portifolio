@@ -1,5 +1,4 @@
 'use client';
-
 import { ArrowRight } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Autoplay, EffectCoverflow, Pagination } from 'swiper/modules';
@@ -15,9 +14,9 @@ import { SplitText } from 'gsap/SplitText';
 
 import { Button } from '@/components/ui/button';
 import scrollToContainer from '@/utils/scrowToContainer';
-import DarkVeil from '@/components/dark-veil';
 import { IMessage } from '@/types/message';
 import Image from 'next/image';
+import Shader from '@/components/shader';
 
 type Props = IMessage['homepage']['hero'];
 
@@ -192,7 +191,7 @@ const HeroHomepage = ({ title, text1, text2, button1, button2 }: Props) => {
       id='heroHomepage'
       className='py-12 dark bg-black grid min-h-screen place-items-center relative'
     >
-      <DarkVeil />
+      <Shader />
       <style>{css}</style>
       <div className='container flex flex-col items-center justify-center gap-y-8 gap-x-4 overflow-hidden text-left xl:flex-row xl:overflow-visible invisibleOnLoad pt-12 lg:pt-0'>
         <div className='w-full space-y-10 xl:w-1/2'>
@@ -204,7 +203,7 @@ const HeroHomepage = ({ title, text1, text2, button1, button2 }: Props) => {
             <span className='bg-foreground size-2.5 rounded-full' />
             {text2}
           </Button>
-          <h1 className='font-title text-foreground text-5xl font-medium md:text-7xl z-10 relative'>
+          <h1 className='font-title text-foreground text-5xl font-medium md:text-7xl z-10 relative text-shadow-lg'>
             <span className='block hiddenEntry'>{title.line1}</span>
             <span id='animetatedTitle' className='block w-fit'>
               {title.line2},
@@ -269,6 +268,7 @@ const HeroHomepage = ({ title, text1, text2, button1, button2 }: Props) => {
                       alt={image.alt}
                       width={332}
                       height={419}
+                      loading='eager'
                     />
                   </SwiperSlide>
                 ))}

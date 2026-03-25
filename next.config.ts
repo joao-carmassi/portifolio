@@ -10,6 +10,7 @@ const nextConfig: NextConfig = {
     typedEnv: true,
   },
   images: {
+    formats: ['image/avif'],
     remotePatterns: [
       {
         protocol: 'https',

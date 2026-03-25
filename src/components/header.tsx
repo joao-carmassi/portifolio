@@ -129,6 +129,7 @@ export default function Header({
                         alt='iconi JC'
                         width={40}
                         height={40}
+                        loading='eager'
                       />
                       <Image
                         className='h-10 rounded-full hidden dark:block'
@@ -136,6 +137,7 @@ export default function Header({
                         alt='iconi JC'
                         width={40}
                         height={40}
+                        loading='eager'
                       />
                     </button>
                   </NavigationMenuItem>
