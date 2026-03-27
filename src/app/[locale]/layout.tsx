@@ -39,10 +39,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const messages = (await getMessagesIntl()) as IMessage;
   const metadata = messages.metadata;
 
-  const pageUrl = `${getAppBasePath()}/${locale}`;
+  const basePath = getAppBasePath();
+  const pageUrl = `${basePath}/${locale}`;
 
   const languages = Object.fromEntries(
-    routing.locales.map((item) => [item, `${getAppBasePath()}/${item}`]),
+    routing.locales.map((item) => [item, `${basePath}/${item}`]),
   );
 
   return {
@@ -52,7 +53,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     robots: 'index, follow',
     alternates: {
       canonical: pageUrl,
-      languages,
+      languages: {
+        ...languages,
+        'x-default': `${basePath}/en`,
+      },
     },
     openGraph: {
       title: metadata.title,
@@ -81,12 +85,12 @@ const RootLayout = async ({ children, params }: Props) => {
 
   const messages = (await getMessagesIntl()) as IMessage;
 
-  const pageUrl = `${getAppBasePath()}/${locale}`;
-  const baseUrl = getAppBasePath();
+  const basePath = getAppBasePath();
+  const pageUrl = `${basePath}/${locale}`;
 
   const person: Person = {
     '@type': 'Person',
-    '@id': `${baseUrl}/#person`,
+    '@id': `${basePath}/#person`,
     name: 'João Vitor Carmassi',
     jobTitle: messages.jsonLd.jobTitle,
     description: messages.metadata.description,
@@ -114,7 +118,7 @@ const RootLayout = async ({ children, params }: Props) => {
     url: pageUrl,
     description: messages.metadata.description,
     inLanguage: locale,
-    author: { '@id': `${baseUrl}/#person` },
+    author: { '@id': `${basePath}/#person` },
   };
 
   const jsonLd: Graph = {
