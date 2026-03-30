@@ -6,7 +6,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = getAppBasePath();
 
   const locales = routing.locales.map((locale) => ({
-    url: `${baseUrl}/${locale}`,
+    url: `${baseUrl}/${locale}/`,
     lastModified: new Date(),
     changeFrequency: 'yearly' as const,
     priority: 1,
