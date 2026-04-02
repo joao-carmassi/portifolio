@@ -1,6 +1,7 @@
 import { cn } from '@/lib/utils';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Textarea } from './textarea';
 
 /*
  * @author: @joao-carmassi
@@ -18,6 +19,15 @@ function FloatingInput({
   ...props
 }: React.ComponentProps<'input'>): React.ReactNode {
   return <Input placeholder=' ' className={cn('peer', className)} {...props} />;
+}
+
+function FloatingTextarea({
+  className,
+  ...props
+}: React.ComponentProps<'textarea'>): React.ReactNode {
+  return (
+    <Textarea placeholder=' ' className={cn('peer', className)} {...props} />
+  );
 }
 
 function FloatingLabelText({
@@ -52,6 +62,7 @@ function FloatingLabelRoot({
 
 const FloatingLabel = Object.assign(FloatingLabelRoot, {
   Input: FloatingInput,
+  Textarea: FloatingTextarea,
   Label: FloatingLabelText,
 });
 

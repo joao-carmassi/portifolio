@@ -83,7 +83,6 @@
         "dialog": {
           "title": "Mis currículums",
           "button": "Selecciona el idioma para descargar mi currículum:",
-          "placeholder": "Seleccionar idioma",
           "options": [
             {
               "lang": "en",
@@ -164,7 +163,6 @@
       "form": {
         "name": {
           "label": "Nombre",
-          "placeholder": "nombre",
           "errors": {
             "toLong": "El nombre es demasiado largo",
             "toShort": "El nombre es demasiado corto"
@@ -173,7 +171,6 @@
         },
         "email": {
           "label": "Correo electrónico",
-          "placeholder": "correo electrónico",
           "errors": {
             "invalid": "Correo electrónico inválido",
             "toLong": "El correo electrónico es demasiado largo"
@@ -182,7 +179,6 @@
         },
         "phone": {
           "label": "Teléfono",
-          "placeholder": "teléfono",
           "errors": {
             "invalid": "Teléfono inválido",
             "toLong": "El teléfono es demasiado largo"
@@ -191,7 +187,6 @@
         },
         "message": {
           "label": "Tu mensaje",
-          "placeholder": "escribe tu mensaje aquí.",
           "errors": {
             "toLong": "El mensaje es demasiado largo"
           },

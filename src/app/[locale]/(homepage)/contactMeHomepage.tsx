@@ -12,7 +12,6 @@ import {
 import { H2 } from '@/components/ui/h2';
 import { Spinner } from '@/components/ui/kibo-ui/spinner';
 import { P } from '@/components/ui/p';
-import { Textarea } from '@/components/ui/textarea';
 import axios from 'axios';
 import confetti from 'canvas-confetti';
 import { ArrowRightIcon, Trash2 } from 'lucide-react';
@@ -236,8 +235,7 @@ const ContactMeHomepage = ({
               </Field>
               <Field>
                 <FloatingLabel>
-                  <Textarea
-                    placeholder={form?.message.placeholder}
+                  <FloatingLabel.Textarea
                     id='message'
                     {...register('message')}
                     aria-invalid={errors.message ? 'true' : 'false'}

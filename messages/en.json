@@ -83,7 +83,6 @@
         "dialog": {
           "title": "My resumes",
           "button": "Select the language to download my resume:",
-          "placeholder": "Select language",
           "options": [
             {
               "lang": "en",
@@ -164,7 +163,6 @@
       "form": {
         "name": {
           "label": "Name",
-          "placeholder": "name",
           "errors": {
             "toLong": "Name is too long",
             "toShort": "Name is too short"
@@ -173,7 +171,6 @@
         },
         "email": {
           "label": "Email",
-          "placeholder": "email",
           "errors": {
             "invalid": "Invalid email",
             "toLong": "Email is too long"
@@ -182,7 +179,6 @@
         },
         "phone": {
           "label": "Phone",
-          "placeholder": "phone",
           "errors": {
             "invalid": "Invalid phone number",
             "toLong": "Phone number is too long"
@@ -191,7 +187,6 @@
         },
         "message": {
           "label": "Your message",
-          "placeholder": "type your message here.",
           "errors": {
             "toLong": "Message is too long"
           },
