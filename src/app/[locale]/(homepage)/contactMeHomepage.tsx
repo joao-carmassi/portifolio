@@ -10,7 +10,6 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { H2 } from '@/components/ui/h2';
-import { Input } from '@/components/ui/input';
 import { Spinner } from '@/components/ui/kibo-ui/spinner';
 import { P } from '@/components/ui/p';
 import { Textarea } from '@/components/ui/textarea';
@@ -27,10 +26,10 @@ import {
   FieldDescription,
   FieldGroup,
   Field,
-  FieldLabel,
   FieldError,
 } from '@/components/ui/field';
 import { IMessage } from '@/types/message';
+import { FloatingLabel } from '@/components/ui/floating-label-input';
 
 type Props = IMessage['homepage']['contactMe'];
 
@@ -183,14 +182,16 @@ const ContactMeHomepage = ({
           <FieldSet className='bg-card max-w-full w-full md:w-md rounded-2xl p-7 shadow-2xl border border-border'>
             <FieldGroup>
               <Field>
-                <FieldLabel htmlFor='name'>{form?.name.label}</FieldLabel>
-                <Input
-                  className='py-5! rounded-lg shadow-none border-primary/25'
-                  id='name'
-                  placeholder={form?.name.placeholder}
-                  {...register('name')}
-                  aria-invalid={errors.name ? 'true' : 'false'}
-                />
+                <FloatingLabel>
+                  <FloatingLabel.Input
+                    id='name'
+                    {...register('name')}
+                    aria-invalid={errors.name ? 'true' : 'false'}
+                  />
+                  <FloatingLabel.Label htmlFor='name'>
+                    {form?.name.label}
+                  </FloatingLabel.Label>
+                </FloatingLabel>
                 {errors.name ? (
                   <FieldError>{errors.name.message}</FieldError>
                 ) : (
@@ -198,15 +199,17 @@ const ContactMeHomepage = ({
                 )}
               </Field>
               <Field>
-                <FieldLabel htmlFor='email'>{form?.email.label}</FieldLabel>
-                <Input
-                  className='py-5! rounded-lg shadow-none border-primary/25'
-                  id='email'
-                  type='email'
-                  placeholder={form?.email.placeholder}
-                  {...register('email')}
-                  aria-invalid={errors.email ? 'true' : 'false'}
-                />
+                <FloatingLabel>
+                  <FloatingLabel.Input
+                    id='email'
+                    type='email'
+                    {...register('email')}
+                    aria-invalid={errors.email ? 'true' : 'false'}
+                  />
+                  <FloatingLabel.Label htmlFor='email'>
+                    {form?.email.label}
+                  </FloatingLabel.Label>
+                </FloatingLabel>
                 {errors.email ? (
                   <FieldError>{errors.email.message}</FieldError>
                 ) : (
@@ -214,15 +217,17 @@ const ContactMeHomepage = ({
                 )}
               </Field>
               <Field>
-                <FieldLabel htmlFor='phone'>{form?.phone.label}</FieldLabel>
-                <Input
-                  className='py-5! rounded-lg shadow-none border-primary/25'
-                  id='phone'
-                  type='tel'
-                  placeholder={form?.phone.placeholder}
-                  {...register('phone')}
-                  aria-invalid={errors.phone ? 'true' : 'false'}
-                />
+                <FloatingLabel>
+                  <FloatingLabel.Input
+                    id='phone'
+                    type='tel'
+                    {...register('phone')}
+                    aria-invalid={errors.phone ? 'true' : 'false'}
+                  />
+                  <FloatingLabel.Label htmlFor='phone'>
+                    {form?.phone.label}
+                  </FloatingLabel.Label>
+                </FloatingLabel>
                 {errors.phone ? (
                   <FieldError>{errors.phone.message}</FieldError>
                 ) : (
@@ -230,14 +235,17 @@ const ContactMeHomepage = ({
                 )}
               </Field>
               <Field>
-                <FieldLabel htmlFor='message'>{form?.message.label}</FieldLabel>
-                <Textarea
-                  className='rounded-lg min-h-32 border-primary/25'
-                  placeholder={form?.message.placeholder}
-                  id='message'
-                  {...register('message')}
-                  aria-invalid={errors.message ? 'true' : 'false'}
-                />
+                <FloatingLabel>
+                  <Textarea
+                    placeholder={form?.message.placeholder}
+                    id='message'
+                    {...register('message')}
+                    aria-invalid={errors.message ? 'true' : 'false'}
+                  />
+                  <FloatingLabel.Label htmlFor='message'>
+                    {form?.message.label}
+                  </FloatingLabel.Label>
+                </FloatingLabel>
                 {errors.message ? (
                   <FieldError>{errors.message.message}</FieldError>
                 ) : (
