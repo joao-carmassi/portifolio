@@ -79,6 +79,7 @@
         "dialog": {
           "title": "Meus currículos",
           "button": "Selecione o idioma para baixar meu currículo:",
+          "placeholder": "Selecione o idioma",
           "options": [
             {
               "lang": "en",

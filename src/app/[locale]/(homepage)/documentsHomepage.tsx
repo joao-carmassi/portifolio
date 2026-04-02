@@ -153,7 +153,7 @@ const DocumentosHomepage = ({ title, text, docs, resume }: Props) => {
                         {resume.dialog.button}
                       </DialogDescription>
                       <Select onValueChange={(value) => setResumeLang(value)}>
-                        <SelectTrigger className='w-45 border-border shadow-sm'>
+                        <SelectTrigger className='w-full md:w-45 border-border shadow-sm'>
                           <SelectValue
                             placeholder={resume.dialog.placeholder}
                           />

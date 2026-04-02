@@ -83,6 +83,7 @@
         "dialog": {
           "title": "My resumes",
           "button": "Select the language to download my resume:",
+          "placeholder": "Select language",
           "options": [
             {
               "lang": "en",
