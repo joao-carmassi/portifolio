@@ -17,6 +17,7 @@ import Image from 'next/image';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { Tilt } from './ui/tilt';
 
 type Props = IMessage['homepage']['clients'];
 
@@ -67,30 +68,34 @@ const Clients = ({ title, text, items }: Props): React.ReactNode => {
                   key={index}
                   className='basis-4/5 sm:basis-3/5 md:basis-2/5 lg:basis-[28%] xl:basis-[28%] 2xl:basis-1/4 p-3 lg:p-6 pt-0 clients-animation'
                 >
-                  <a
-                    href={item.url}
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    className='block h-full'
-                  >
-                    <Card className='overflow-hidden border-none shadow-lg bg-card pt-0! gap-3 h-fit'>
-                      <CardContent className='flex h-full flex-col p-0'>
-                        <div className='relative h-72 lg:h-82'>
-                          <Image
-                            width={410}
-                            height={328}
-                            src={item.image}
-                            alt={item.title}
-                            className='absolute inset-0 size-full object-cover object-top'
-                          />
-                        </div>
-                      </CardContent>
-                      <CardFooter className='flex flex-col gap-1.5 md:gap-3 items-start'>
-                        <H3 className='md:text-lg lg:text-xl'>{item.title}</H3>
-                        <P>{item.description}</P>
-                      </CardFooter>
-                    </Card>
-                  </a>
+                  <Tilt rotationFactor={8} isReverse>
+                    <a
+                      href={item.url}
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      className='block h-full'
+                    >
+                      <Card className='overflow-hidden border-none shadow-lg bg-card pt-0! gap-3 h-fit'>
+                        <CardContent className='flex h-full flex-col p-0'>
+                          <div className='relative h-72 lg:h-82'>
+                            <Image
+                              width={410}
+                              height={328}
+                              src={item.image}
+                              alt={item.title}
+                              className='absolute inset-0 size-full object-cover object-top'
+                            />
+                          </div>
+                        </CardContent>
+                        <CardFooter className='flex flex-col gap-1.5 md:gap-3 items-start'>
+                          <H3 className='md:text-lg lg:text-xl'>
+                            {item.title}
+                          </H3>
+                          <P>{item.description}</P>
+                        </CardFooter>
+                      </Card>
+                    </a>
+                  </Tilt>
                 </CarouselItem>
               ))}
             </CarouselContent>

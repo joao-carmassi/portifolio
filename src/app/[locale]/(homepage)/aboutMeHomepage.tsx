@@ -4,6 +4,7 @@ import Grainient from '@/components/grainient/grainient';
 import { H2 } from '@/components/ui/h2';
 import ContainerCodigo from './containerCodigo';
 import * as motion from 'motion/react-client';
+import { Backlight } from '@/components/ui/backlight';
 
 type Props = IMessage['homepage']['aboutMe'];
 
@@ -54,22 +55,24 @@ const AboutMeHomepage = ({ title, textMobile, textDesktop }: Props) => {
         <H2 className='text-white drop-shadow-sm drop-shadow-black/25 text-center'>
           {title}
         </H2>
-        <motion.div
-          id='aboutMeHomepage'
-          variants={animation}
-          initial='hidden'
-          whileInView='show'
-          viewport={{ once: true }}
-        >
-          <div className='w-full p-5 bg-white flex items-center gap-4 rounded-t-xl'>
-            <span className='inline-block w-4 aspect-square rounded-full duration-300 hover:scale-110 hover:shadow-md bg-[#fb2c36]' />
-            <span className='inline-block w-4 aspect-square rounded-full duration-300 hover:scale-110 hover:shadow-md bg-[#fdc700]' />
-            <span className='inline-block w-4 aspect-square rounded-full duration-300 hover:scale-110 hover:shadow-md bg-[#05df72]' />
-          </div>
-          <ContainerCodigo
-            json={{ mobile: textMobile, desktop: textDesktop }}
-          />
-        </motion.div>
+        <Backlight>
+          <motion.div
+            id='aboutMeHomepage'
+            variants={animation}
+            initial='hidden'
+            whileInView='show'
+            viewport={{ once: true }}
+          >
+            <div className='w-full p-5 bg-white flex items-center gap-4 rounded-t-xl'>
+              <span className='inline-block w-4 aspect-square rounded-full duration-300 hover:scale-110 hover:shadow-md bg-[#fb2c36]' />
+              <span className='inline-block w-4 aspect-square rounded-full duration-300 hover:scale-110 hover:shadow-md bg-[#fdc700]' />
+              <span className='inline-block w-4 aspect-square rounded-full duration-300 hover:scale-110 hover:shadow-md bg-[#05df72]' />
+            </div>
+            <ContainerCodigo
+              json={{ mobile: textMobile, desktop: textDesktop }}
+            />
+          </motion.div>
+        </Backlight>
       </div>
     </section>
   );

@@ -17,6 +17,7 @@ import scrollToContainer from '@/utils/scrowToContainer';
 import { IMessage } from '@/types/message';
 import Image from 'next/image';
 import Shader from '@/components/shader';
+import { Magnetic } from '@/components/ui/magnetic';
 
 type Props = IMessage['homepage']['hero'];
 
@@ -214,26 +215,30 @@ const HeroHomepage = ({ title, text1, text2, button1, button2 }: Props) => {
             {text1}
           </p>
           <div className='flex gap-4'>
-            <Button
-              variant='secondary'
-              className='rounded-full hiddenEntry'
-              effect={'shineHover'}
-              size={'lg'}
-              onClick={() => scrollToContainer('aboutMeHomepage', 'center')}
-            >
-              <span>{button1}</span>
-              <ArrowRight className='-rotate-45' />
-            </Button>
-            <Button
-              variant='default'
-              className='rounded-full hiddenEntry'
-              effect={'pulsating'}
-              size={'lg'}
-              onClick={() => scrollToContainer('contactMeHomepage', 'center')}
-            >
-              <span>{button2}</span>
-              <ArrowRight className='-rotate-45' />
-            </Button>
+            <Magnetic>
+              <Button
+                variant='secondary'
+                className='rounded-full hiddenEntry'
+                effect={'shineHover'}
+                size={'lg'}
+                onClick={() => scrollToContainer('aboutMeHomepage', 'center')}
+              >
+                <span>{button1}</span>
+                <ArrowRight className='-rotate-45' />
+              </Button>
+            </Magnetic>
+            <Magnetic>
+              <Button
+                variant='default'
+                className='rounded-full hiddenEntry'
+                effect={'pulsating'}
+                size={'lg'}
+                onClick={() => scrollToContainer('contactMeHomepage', 'center')}
+              >
+                <span>{button2}</span>
+                <ArrowRight className='-rotate-45' />
+              </Button>
+            </Magnetic>
           </div>
         </div>
         <div className='relative w-full xl:w-3/5'>
