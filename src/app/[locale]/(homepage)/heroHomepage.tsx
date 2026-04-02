@@ -275,7 +275,7 @@ const HeroHomepage = ({ title, text1, text2, button1, button2 }: Props) => {
               </Swiper>
             )}
           </div>
-          <div className='z-0 bg-muted/50 xl:h-155 xl:w-9/10 absolute right-0 top-0 h-full w-full rounded-3xl xl:top-1/2 xl:-translate-y-1/2 hiddenEntry' />
+          <div className='z-0 bg-muted/50 xl:h-155 xl:w-9/10 absolute xl:right-11 top-0 h-full w-full rounded-3xl xl:top-1/2 xl:-translate-y-1/2 hiddenEntry' />
         </div>
       </div>
     </section>

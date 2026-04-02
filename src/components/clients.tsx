@@ -65,7 +65,7 @@ const Clients = ({ title, text, items }: Props): React.ReactNode => {
               {items.map((item, index) => (
                 <CarouselItem
                   key={index}
-                  className='basis-4/5 sm:basis-3/5 md:basis-2/5 lg:basis-[28%] xl:basis-[28%] 2xl:basis-1/4 p-6 pt-0 clients-animation'
+                  className='basis-4/5 sm:basis-3/5 md:basis-2/5 lg:basis-[28%] xl:basis-[28%] 2xl:basis-1/4 p-3 lg:p-6 pt-0 clients-animation'
                 >
                   <a
                     href={item.url}
@@ -95,8 +95,8 @@ const Clients = ({ title, text, items }: Props): React.ReactNode => {
               ))}
             </CarouselContent>
             <div className='flex gap-3'>
-              <CarouselPrevious className='static size-10 translate-x-0 translate-y-0 bg-card transition-colors hover:bg-primary/80 [&>svg]:size-6 lg:[&>svg]:size-8 border-t shadow-md' />
-              <CarouselNext className='static size-10 translate-x-0 translate-y-0 bg-card transition-colors hover:bg-primary/80 [&>svg]:size-6 lg:[&>svg]:size-8 border-t shadow-md' />
+              <CarouselPrevious className='static size-10 translate-x-0 translate-y-0 bg-card transition-colors hover:text-card hover:bg-primary/80 [&>svg]:size-6 lg:[&>svg]:size-8 border-t shadow-md' />
+              <CarouselNext className='static size-10 translate-x-0 translate-y-0 bg-card transition-colors hover:text-card hover:bg-primary/80 [&>svg]:size-6 lg:[&>svg]:size-8 border-t shadow-md' />
             </div>
           </Carousel>
         </div>

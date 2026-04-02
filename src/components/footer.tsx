@@ -55,7 +55,7 @@ const Footer = ({
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: '.father-animation-footer',
-        start: 'top 50%',
+        start: 'top 60%',
       },
     });
 

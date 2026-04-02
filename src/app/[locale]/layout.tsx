@@ -170,6 +170,4 @@ export function generateStaticParams() {
   }));
 }
 
-// TODO: New section
-
 export default RootLayout;
