@@ -55,7 +55,7 @@ const AboutMeHomepage = ({ title, textMobile, textDesktop }: Props) => {
         <H2 className='text-white drop-shadow-sm drop-shadow-black/25 text-center'>
           {title}
         </H2>
-        <Backlight>
+        <Backlight blur={5}>
           <motion.div
             id='aboutMeHomepage'
             variants={animation}

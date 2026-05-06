@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { createContext, useContext, useRef } from 'react';
 import {
   motion,
   useMotionTemplate,
@@ -8,13 +8,24 @@ import {
   useSpring,
   useTransform,
 } from 'motion/react';
-import type { MotionStyle, SpringOptions } from 'motion/react';
+import type { MotionStyle, MotionValue, SpringOptions } from 'motion/react';
 import { cn } from '@/lib/utils';
+
+interface TiltContextValue {
+  rotateX: MotionValue<number>;
+  rotateY: MotionValue<number>;
+}
+
+const TiltContext = createContext<TiltContextValue | null>(null);
+
+export function useTiltContext(): TiltContextValue | null {
+  return useContext(TiltContext);
+}
 
 /*
  * @author: @joao-carmassi
  * @description: 3D tilt wrapper — applies a perspective tilt effect on mouse move.
- *               Wrap any card or element. Great for interactive cards.
+ * Wrap any card or element. Great for interactive cards.
  * @version: 1.0.0
  * @date: 2026-31-03
  * @license: MIT
@@ -56,16 +67,16 @@ export function Tilt({
     ySpring,
     [-0.5, 0.5],
     isReverse
-      ? [rotationFactor, -rotationFactor]
-      : [-rotationFactor, rotationFactor],
+      ? [-rotationFactor, rotationFactor]
+      : [rotationFactor, -rotationFactor],
   );
 
   const rotateY = useTransform(
     xSpring,
     [-0.5, 0.5],
     isReverse
-      ? [-rotationFactor, rotationFactor]
-      : [rotationFactor, -rotationFactor],
+      ? [rotationFactor, -rotationFactor]
+      : [-rotationFactor, rotationFactor],
   );
 
   const transform = useMotionTemplate`perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
@@ -90,18 +101,20 @@ export function Tilt({
   };
 
   return (
-    <motion.div
-      ref={ref}
-      className={cn(className)}
-      style={{
-        transformStyle: 'preserve-3d',
-        ...style,
-        transform,
-      }}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-    >
-      {children}
-    </motion.div>
+    <TiltContext.Provider value={{ rotateX, rotateY }}>
+      <motion.div
+        ref={ref}
+        className={cn(className)}
+        style={{
+          transformStyle: 'preserve-3d',
+          ...style,
+          transform,
+        }}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+      >
+        {children}
+      </motion.div>
+    </TiltContext.Provider>
   );
 }

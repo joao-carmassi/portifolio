@@ -13,11 +13,11 @@ import { H2 } from './ui/h2';
 import { P } from './ui/p';
 import { H3 } from './ui/h3';
 import { IMessage } from '@/types/message';
-import Image from 'next/image';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Tilt } from './ui/tilt';
+import { DepthMedia } from './ui/depth-media';
 
 type Props = IMessage['homepage']['clients'];
 
@@ -68,7 +68,7 @@ const Clients = ({ title, text, items }: Props): React.ReactNode => {
                   key={index}
                   className='basis-4/5 sm:basis-3/5 md:basis-2/5 lg:basis-[28%] xl:basis-[28%] 2xl:basis-1/4 p-3 lg:p-6 pt-0 clients-animation'
                 >
-                  <Tilt rotationFactor={8} isReverse>
+                  <Tilt rotationFactor={8}>
                     <a
                       href={item.url}
                       target='_blank'
@@ -77,15 +77,12 @@ const Clients = ({ title, text, items }: Props): React.ReactNode => {
                     >
                       <Card className='overflow-hidden border-none shadow-lg bg-card pt-0! gap-3 h-fit'>
                         <CardContent className='flex h-full flex-col p-0'>
-                          <div className='relative h-72 lg:h-82'>
-                            <Image
-                              width={410}
-                              height={328}
-                              src={item.image}
-                              alt={item.title}
-                              className='absolute inset-0 size-full object-cover object-top'
-                            />
-                          </div>
+                          <DepthMedia
+                            src={item.image}
+                            alt={item.title}
+                            className='h-72 lg:h-82'
+                            sizes='(max-width: 639px) 80vw, (max-width: 767px) 60vw, (max-width: 1023px) 40vw, (max-width: 1535px) 28vw, 25vw'
+                          />
                         </CardContent>
                         <CardFooter className='flex flex-col gap-1.5 md:gap-3 items-start'>
                           <H3 className='md:text-lg lg:text-xl'>
