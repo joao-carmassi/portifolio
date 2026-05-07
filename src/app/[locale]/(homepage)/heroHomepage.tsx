@@ -18,7 +18,6 @@ import { IMessage } from '@/types/message';
 import Image from 'next/image';
 import Shader from '@/components/shader';
 import { Magnetic } from '@/components/ui/magnetic';
-import { Backlight } from '@/components/ui/backlight';
 
 type Props = IMessage['homepage']['hero'];
 
