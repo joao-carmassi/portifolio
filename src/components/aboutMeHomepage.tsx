@@ -3,10 +3,53 @@ import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import {
+  ArrowRight,
+  Code,
+  Gauge,
+  GitBranch,
+  Languages,
+  MapPin,
+  Smartphone,
+} from 'lucide-react';
 import { videos } from '@/components/about/videos';
 import { FPS, type AboutVideo } from '@/components/about/videos/types';
+import { Button } from '@/components/ui/button';
+import { siGithub } from 'simple-icons';
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
+
+// lucide v1 dropped brand icons, so the GitHub mark comes from simple-icons
+const GithubIcon = () => (
+  <svg viewBox='0 0 24 24' fill='currentColor' className='size-4'>
+    <path d={siGithub.path} />
+  </svg>
+);
+
+const cards = [
+  {
+    title: 'Quem sou eu',
+    items: [
+      { icon: MapPin, text: 'São Bento do Sapucaí, SP — trabalho remoto' },
+      { icon: Languages, text: 'Português nativo, inglês C1 e espanhol B2' },
+      { icon: Code, text: 'Foco em Astro, Next.js, React e Tailwind' },
+    ],
+    button: { label: 'Fale comigo', href: '#contactMeHomepage' },
+  },
+  {
+    title: 'Como eu trabalho',
+    items: [
+      { icon: Gauge, text: 'Performance e SEO desde o primeiro commit' },
+      { icon: Smartphone, text: 'Mobile first, acessível e responsivo' },
+      { icon: GitBranch, text: 'Git, code review e deploy contínuo' },
+    ],
+    button: {
+      label: 'Ver no GitHub',
+      href: 'https://github.com/joao-carmassi',
+      external: true,
+    },
+  },
+];
 
 const VideoPlayer = ({
   video,
@@ -53,6 +96,66 @@ const VideoPlayer = ({
   );
 };
 
+const InfoCard = ({
+  card,
+  className,
+}: {
+  card: (typeof cards)[number];
+  className: string;
+}) => (
+  <div
+    className={`dark bg-black text-foreground rounded-3xl p-6 md:p-8 flex flex-col gap-6 ${className}`}
+  >
+    <h3 className='font-title text-3xl md:text-4xl'>{card.title}</h3>
+    <ul className='space-y-4'>
+      {card.items.map(({ icon: Icon, text }) => (
+        <li key={text} className='flex items-start gap-3'>
+          <Icon className='shrink-0 text-muted-foreground' />
+          <p className='-mt-0.5 text-muted-foreground font-medium'>{text}</p>
+        </li>
+      ))}
+    </ul>
+    <Button
+      asChild
+      size='lg'
+      effect='expandIcon'
+      icon={card.button.external ? GithubIcon : ArrowRight}
+      iconPlacement='right'
+      className='w-full mt-auto rounded-full'
+    >
+      <a
+        href={card.button.href}
+        {...(card.button.external && {
+          target: '_blank',
+          rel: 'noreferrer noopener',
+        })}
+      >
+        {card.button.label}
+      </a>
+    </Button>
+  </div>
+);
+
+const VideoCard = ({
+  video,
+  reduced,
+  className,
+}: {
+  video: AboutVideo;
+  reduced: boolean | null;
+  className: string;
+}) => (
+  <figure
+    style={{ aspectRatio: `${video.width} / ${video.height}` }}
+    className={`dark relative overflow-hidden rounded-3xl bg-black ${className}`}
+  >
+    {reduced !== null && <VideoPlayer video={video} reduced={reduced} />}
+    <figcaption className='sr-only'>
+      {video.title}. {video.srText}
+    </figcaption>
+  </figure>
+);
+
 const AboutMeHomepage = () => {
   const section = useRef<HTMLElement>(null);
   // null until mounted: initialFrame is only read on mount, so wait for matchMedia
@@ -65,18 +168,25 @@ const AboutMeHomepage = () => {
   useGSAP(
     () => {
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      gsap.from('.about-tile', {
-        autoAlpha: 0,
-        y: 60,
-        scale: 0.95,
-        duration: 0.9,
-        stagger: 0.1,
-        ease: 'back.out(1.7)',
-        scrollTrigger: {
-          trigger: section.current,
-          start: 'top 85%',
-          once: true,
-        },
+      // same entrance as the old github section: every cell flies in from its own side
+      const moves = [
+        { selector: '.about-card-top', x: 0, y: -150 },
+        { selector: '.about-media-right', x: 150, y: 0 },
+        { selector: '.about-media-left', x: -150, y: 0 },
+        { selector: '.about-card-bottom', x: 0, y: 150 },
+      ];
+
+      moves.forEach(({ selector, x, y }) => {
+        gsap.from(selector, {
+          autoAlpha: 0,
+          x,
+          y,
+          scale: 0.95,
+          duration: 0.9,
+          delay: 0.1,
+          ease: 'back.out(1.7)',
+          scrollTrigger: { trigger: selector, start: 'top 85%', once: true },
+        });
       });
     },
     { scope: section },
@@ -84,25 +194,34 @@ const AboutMeHomepage = () => {
 
   return (
     <section ref={section} id='aboutMeHomepage' className='p-4 md:p-12'>
-      <h2 className='font-title text-5xl md:text-7xl mb-8 md:mb-12 container'>
-        Sobre mim
-      </h2>
-      {/* columns sized by each video's aspect ratio (1920/820 : 960/600) so both share one height */}
-      <div className='grid gap-4 lg:grid-cols-[234fr_160fr]'>
-        {videos.map((video) => (
-          <figure
-            key={video.id}
-            style={{ aspectRatio: `${video.width} / ${video.height}` }}
-            className='about-tile dark relative overflow-hidden rounded-3xl bg-black'
-          >
-            {reduced !== null && (
-              <VideoPlayer video={video} reduced={reduced} />
-            )}
-            <figcaption className='sr-only'>
-              {video.title}. {video.srText}
-            </figcaption>
-          </figure>
-        ))}
+      <div className='container mx-auto space-y-6 md:space-y-12'>
+        <div className='space-y-1.5 md:space-y-3'>
+          <h2 className='font-title text-5xl md:text-7xl'>Sobre mim</h2>
+          <p className='text-muted-foreground font-semibold max-w-2xl'>
+            Dois vídeos: quem eu sou e como um projeto meu sai da ideia até o
+            deploy.
+          </p>
+        </div>
+        <div className='grid sm:grid-cols-2 md:grid-cols-5 lg:grid-cols-3 gap-6'>
+          <InfoCard
+            card={cards[0]}
+            className='about-card-top col-span-1 md:col-span-2 lg:col-span-1'
+          />
+          <VideoCard
+            video={videos[0]}
+            reduced={reduced}
+            className='about-media-right col-span-1 sm:col-span-2 md:col-span-3 lg:col-span-2'
+          />
+          <VideoCard
+            video={videos[1]}
+            reduced={reduced}
+            className='about-media-left col-span-1 sm:col-span-2 md:col-span-3 lg:col-span-2'
+          />
+          <InfoCard
+            card={cards[1]}
+            className='about-card-bottom col-span-1 md:col-span-2 lg:col-span-1'
+          />
+        </div>
       </div>
     </section>
   );

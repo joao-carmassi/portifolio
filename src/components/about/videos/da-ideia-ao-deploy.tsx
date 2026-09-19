@@ -94,7 +94,7 @@ function Abertura() {
 
 function Terminal() {
   return (
-    <AbsoluteFill style={{ scale: '0.92' }}>
+    <AbsoluteFill style={{ scale: '1.12' }}>
       <TerminalSimulator
         title='~/portifolio'
         lines={[
@@ -116,8 +116,8 @@ function Codigo() {
       <GlassCodeBlock
         code={HERO_CODE}
         title='hero.tsx'
-        width={700}
-        height={380}
+        width={900}
+        height={430}
         staggerFrames={10}
         aura
       />
@@ -127,9 +127,9 @@ function Codigo() {
           color='#eba8ff'
           size={30}
           points={[
-            { x: 180, y: 500 },
-            { x: 520, y: 210, hold: 22 },
-            { x: 282, y: 292, hold: 60, click: true },
+            { x: 300, y: 590 },
+            { x: 900, y: 230, hold: 22 },
+            { x: 560, y: 285, hold: 60, click: true },
           ]}
         />
       </Sequence>
@@ -186,7 +186,7 @@ function Resultado() {
 function Deploy() {
   return (
     <AbsoluteFill>
-      <AbsoluteFill style={{ scale: '0.86' }}>
+      <AbsoluteFill style={{ scale: '1.05' }}>
         <TerminalSimulator
           title='~/portifolio'
           lines={[
@@ -251,8 +251,8 @@ export const daIdeiaAoDeploy: AboutVideo = {
   id: 'da-ideia-ao-deploy',
   title: 'Da ideia ao deploy',
   component: DaIdeiaAoDeploy,
-  width: 960,
-  height: 600,
+  width: 1440,
+  height: 615,
   durationInFrames: TOTAL,
   srText:
     'Animação de cerca de 22 segundos que mostra um projeto nascendo: as frases "Uma ideia", "Um prazo", "Um site" abrem a história; um terminal roda npm create astro@latest, instala as dependências e adiciona Tailwind e GSAP; o arquivo hero.tsx é escrito linha a linha com um botão de Contato, e um cursor clica nele; em seguida aparecem os logos de React, Next.js, Astro, TypeScript, Tailwind e GSAP sob o rótulo "construído com", com um contador subindo de 0 a 100 no Lighthouse; no fim, git push origin main confirma "deploy em 1.2s" e confetes comemoram.',

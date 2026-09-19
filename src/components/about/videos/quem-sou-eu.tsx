@@ -18,7 +18,8 @@ import { StaggeredFadeUp } from '@/components/remocn/staggered-fade-up';
 import { whipPan } from '@/components/remocn/whip-pan';
 import { FPS, type AboutVideo } from './types';
 
-const HERO_COLORS = ['#7300ff', '#eba8ff', '#00bfff', '#2b00ff'];
+// deliberately not the hero palette/shape: this one is a graphite-violet blob
+const GRAIN_COLORS = ['#2e2a45', '#5b4f8f', '#a99ae0'];
 
 const INK = '#f3eeff';
 const MUTED = '#a89cc4';
@@ -33,15 +34,15 @@ const SANS = 'var(--font-raleway), sans-serif';
  */
 const SUBTITLE_INVERTED_INK = '#162300';
 
-/** Dim hero gradient used on the two dark bookend scenes. */
+/** Dim grain gradient used on the two dark bookend scenes. */
 const DimGrain = ({ opacity = 1 }: { opacity?: number }) => (
   <AbsoluteFill style={{ opacity }}>
     <ShaderGrainGradient
-      colors={HERO_COLORS}
-      colorBack='#000000'
-      shape='corners'
-      rotation={90}
-      speed={0.25}
+      colors={GRAIN_COLORS}
+      colorBack='#050409'
+      shape='blob'
+      rotation={0}
+      speed={0.18}
       softness={0.6}
       intensity={0.16}
       noise={0.22}
@@ -123,7 +124,7 @@ const Origem = () => (
               height: '100%',
               objectFit: 'cover',
               // portrait source in a landscape window: bias upward to keep the face
-              objectPosition: '50% 22%',
+              objectPosition: '50% 42%',
             }}
           />
         </Polaroid>
@@ -298,9 +299,9 @@ const QuemSouEu = () => (
       </TransitionSeries.Sequence>
       <TransitionSeries.Transition
         presentation={grainDissolve({
-          colors: HERO_COLORS,
-          colorBack: '#000000',
-          shape: 'corners',
+          colors: GRAIN_COLORS,
+          colorBack: '#050409',
+          shape: 'blob',
         })}
         timing={linearTiming({ durationInFrames: T_GRAIN })}
       />
