@@ -119,7 +119,8 @@ const HeroHomepage = () => {
           />
         </div>
 
-        <div className='hero-content invisible relative z-10 w-full h-full flex flex-col items-end justify-start gap-y-8 gap-x-4 xl:flex-row'>
+        {/* stacked: content sits at the bottom; xl: side by side, still bottom-left */}
+        <div className='hero-content invisible relative z-10 w-full h-full flex flex-col items-end justify-end gap-y-8 gap-x-4 xl:flex-row xl:justify-start'>
           <div className='w-full space-y-10 xl:w-1/2'>
             <h1 className='font-title text-5xl md:text-7xl text-shadow-lg'>
               <span className='hero-entry block'>João Vitor</span>
