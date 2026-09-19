@@ -3,7 +3,36 @@ import Layout from '@/layout/layout.astro';
 ---
 
 <Layout>
-  Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam, animi,
-  deserunt consequuntur dolorem explicabo, eaque nam ex non quos delectus
-  eligendi pariatur. Nisi debitis sapiente aut molestias fugit eum quis!
+  <main class='h-svh p-12'>
+    <div
+      class='bg-black text-white h-full w-full rounded-3xl p-12 relative overflow-auto hero'
+    >
+      <div class='relative z-10 flex flex-col justify-end gap-6 h-full'>
+        <p>Focado em Next.js, Astro.js e Tailwind CSS</p>
+        <h1 class='text-6xl font-semibold italic max-w-xs'>
+          João Vitor Carmassi, desenvolvedor
+        </h1>
+        <p class='opacity-60 max-w-md font-semibold text-lg'>
+          Criando experiências web perfeitas com tecnologias modernas e paixão
+          por inovação.
+        </p>
+        <div class='space-x-3'>
+          <button class='bg-white text-black px-3 py-2 rounded-full'>
+            Sobre mim
+          </button>
+          <button
+            class='bg-blue-600 text-secondary-foreground px-3 py-2 rounded-full'
+          >
+            Contato
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
 </Layout>
+
+<style>
+  .hero {
+    background: url('/full-circle.svg') center / cover no-repeat;
+  }
+</style>
