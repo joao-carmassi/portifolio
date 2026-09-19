@@ -118,16 +118,13 @@ const VideoPlayer = ({
 
 const InfoCard = ({
   card,
-  from,
   className,
 }: {
   card: (typeof cards)[number];
-  from: 'left' | 'right';
   className: string;
 }) => (
   <div
-    data-from={from}
-    className={`about-cell dark bg-black text-foreground rounded-3xl p-6 md:p-8 flex flex-col gap-6 ${className}`}
+    className={`dark bg-black text-foreground rounded-3xl p-6 md:p-8 flex flex-col gap-6 ${className}`}
   >
     <div className='space-y-2'>
       <h3 className='font-title text-3xl md:text-4xl'>{card.title}</h3>
@@ -165,18 +162,15 @@ const InfoCard = ({
 const VideoCard = ({
   video,
   reduced,
-  from,
   className,
 }: {
   video: AboutVideo;
   reduced: boolean | null;
-  from: 'left' | 'right';
   className: string;
 }) => (
   <figure
-    data-from={from}
     style={{ aspectRatio: `${video.width} / ${video.height}` }}
-    className={`about-cell dark relative overflow-hidden rounded-3xl bg-black ${className}`}
+    className={`dark relative overflow-hidden rounded-3xl bg-black ${className}`}
   >
     {reduced !== null && <VideoPlayer video={video} reduced={reduced} />}
     <figcaption className='sr-only'>
@@ -197,20 +191,24 @@ const AboutMeHomepage = () => {
   useGSAP(
     () => {
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      // stacked layout: cells are full width, so a sideways slide would push the
-      // page wider — come straight up instead
-      const stacked = !window.matchMedia('(min-width: 1024px)').matches;
+      // same entrance as the old github section: every cell flies in from its own side
+      const moves = [
+        { selector: '.about-card-top', x: 0, y: -150 },
+        { selector: '.about-media-right', x: 150, y: 0 },
+        { selector: '.about-media-left', x: -150, y: 0 },
+        { selector: '.about-card-bottom', x: 0, y: 150 },
+      ];
 
-      gsap.utils.toArray<HTMLElement>('.about-cell').forEach((cell) => {
-        gsap.from(cell, {
+      moves.forEach(({ selector, x, y }) => {
+        gsap.from(selector, {
           autoAlpha: 0,
-          x: stacked ? 0 : cell.dataset.from === 'left' ? -150 : 150,
-          y: stacked ? 150 : 0,
+          x,
+          y,
           scale: 0.95,
           duration: 0.9,
           delay: 0.1,
           ease: 'back.out(1.7)',
-          scrollTrigger: { trigger: cell, start: 'top 85%', once: true },
+          scrollTrigger: { trigger: selector, start: 'top 85%', once: true },
         });
       });
     },
@@ -218,8 +216,8 @@ const AboutMeHomepage = () => {
   );
 
   return (
-    <section ref={section} id='aboutMeHomepage' className='overflow-x-clip'>
-      <div className='container max-w-7xl py-12 md:py-20 space-y-6 md:space-y-12'>
+    <section ref={section} id='aboutMeHomepage' className='p-4 md:p-12'>
+      <div className='container mx-auto space-y-6 md:space-y-12'>
         <div className='space-y-1.5 md:space-y-3'>
           <h2 className='font-title text-5xl md:text-7xl'>Sobre mim</h2>
           <p className='text-muted-foreground font-semibold max-w-2xl'>
@@ -231,25 +229,21 @@ const AboutMeHomepage = () => {
         <div className='grid sm:grid-cols-2 md:grid-cols-5 lg:grid-cols-3 gap-6'>
           <InfoCard
             card={cards[0]}
-            from='left'
-            className='col-span-1 md:col-span-2 lg:col-span-1'
+            className='about-card-top col-span-1 md:col-span-2 lg:col-span-1'
           />
           <VideoCard
             video={videos[0]}
             reduced={reduced}
-            from='right'
-            className='col-span-1 sm:col-span-2 md:col-span-3 lg:col-span-2'
-          />
-          <InfoCard
-            card={cards[1]}
-            from='left'
-            className='col-span-1 md:col-span-2 lg:col-span-1'
+            className='about-media-right col-span-1 sm:col-span-2 md:col-span-3 lg:col-span-2'
           />
           <VideoCard
             video={videos[1]}
             reduced={reduced}
-            from='right'
-            className='col-span-1 sm:col-span-2 md:col-span-3 lg:col-span-2'
+            className='about-media-left col-span-1 sm:col-span-2 md:col-span-3 lg:col-span-2'
+          />
+          <InfoCard
+            card={cards[1]}
+            className='about-card-bottom col-span-1 md:col-span-2 lg:col-span-1'
           />
         </div>
       </div>
