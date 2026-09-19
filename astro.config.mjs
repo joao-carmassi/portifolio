@@ -26,6 +26,15 @@ export default defineConfig({
       styles: ['normal'],
       fallbacks: ['Georgia', 'serif'],
     },
+    // remocn code/terminal blocks read --font-geist-mono
+    {
+      provider: fontProviders.google(),
+      name: 'Geist Mono',
+      cssVariable: '--font-geist-mono',
+      weights: ['400', '500'],
+      styles: ['normal'],
+      fallbacks: ['ui-monospace', 'monospace'],
+    },
   ],
 
   vite: {

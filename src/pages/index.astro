@@ -1,10 +1,14 @@
 ---
 import Layout from '@/layout/layout.astro';
 import HeroHomepage from '@/components/heroHomepage';
+import AboutMeHomepage from '@/components/aboutMeHomepage';
 ---
 
 <Layout>
-  <main class='min-h-svh flex'>
-    <HeroHomepage client:load />
+  <main class='flex flex-col'>
+    <div class='min-h-svh flex'>
+      <HeroHomepage client:load />
+    </div>
+    <AboutMeHomepage client:visible={{ rootMargin: '400px' }} />
   </main>
 </Layout>
