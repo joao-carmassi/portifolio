@@ -5,12 +5,12 @@ import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
   ArrowRight,
-  Code,
+  Eye,
   Gauge,
-  GitBranch,
-  Languages,
-  MapPin,
-  Smartphone,
+  MessageCircle,
+  Palette,
+  Search,
+  Wrench,
 } from 'lucide-react';
 import { videos } from '@/components/about/videos';
 import { FPS, type AboutVideo } from '@/components/about/videos/types';
@@ -28,20 +28,40 @@ const GithubIcon = () => (
 
 const cards = [
   {
-    title: 'Quem sou eu',
+    title: 'O que eu faço',
+    lead: 'Design e código com a mesma pessoa — você não contrata dois.',
     items: [
-      { icon: MapPin, text: 'São Bento do Sapucaí, SP — trabalho remoto' },
-      { icon: Languages, text: 'Português nativo, inglês C1 e espanhol B2' },
-      { icon: Code, text: 'Foco em Astro, Next.js, React e Tailwind' },
+      {
+        icon: Palette,
+        text: 'Layout feito do zero para o seu negócio, sem tema pronto.',
+      },
+      {
+        icon: Gauge,
+        text: 'Site que abre rápido no 4G, não só no wi-fi do escritório.',
+      },
+      {
+        icon: Search,
+        text: 'Estrutura e textos prontos para o Google entender o site.',
+      },
     ],
-    button: { label: 'Fale comigo', href: '#contactMeHomepage' },
+    button: { label: 'Me conta seu projeto', href: '#contactMeHomepage' },
   },
   {
     title: 'Como eu trabalho',
+    lead: 'Escopo combinado antes, link no ar desde o primeiro dia.',
     items: [
-      { icon: Gauge, text: 'Performance e SEO desde o primeiro commit' },
-      { icon: Smartphone, text: 'Mobile first, acessível e responsivo' },
-      { icon: GitBranch, text: 'Git, code review e deploy contínuo' },
+      {
+        icon: Eye,
+        text: 'Você acompanha o site crescer, sem esperar a entrega final.',
+      },
+      {
+        icon: MessageCircle,
+        text: 'Converso em português claro, sem jargão para inflar preço.',
+      },
+      {
+        icon: Wrench,
+        text: 'Depois do lançamento, ajustes e manutenção continuam comigo.',
+      },
     ],
     button: {
       label: 'Ver no GitHub',
@@ -106,7 +126,10 @@ const InfoCard = ({
   <div
     className={`dark bg-black text-foreground rounded-3xl p-6 md:p-8 flex flex-col gap-6 ${className}`}
   >
-    <h3 className='font-title text-3xl md:text-4xl'>{card.title}</h3>
+    <div className='space-y-2'>
+      <h3 className='font-title text-3xl md:text-4xl'>{card.title}</h3>
+      <p className='text-muted-foreground font-semibold'>{card.lead}</p>
+    </div>
     <ul className='space-y-4'>
       {card.items.map(({ icon: Icon, text }) => (
         <li key={text} className='flex items-start gap-3'>
@@ -198,8 +221,9 @@ const AboutMeHomepage = () => {
         <div className='space-y-1.5 md:space-y-3'>
           <h2 className='font-title text-5xl md:text-7xl'>Sobre mim</h2>
           <p className='text-muted-foreground font-semibold max-w-2xl'>
-            Dois vídeos: quem eu sou e como um projeto meu sai da ideia até o
-            deploy.
+            Faço sites do rascunho até o ar — design e código. Nos vídeos, quem
+            eu sou e um projeto nascendo; nos cards, o que eu entrego e como a
+            gente trabalha junto.
           </p>
         </div>
         <div className='grid sm:grid-cols-2 md:grid-cols-5 lg:grid-cols-3 gap-6'>

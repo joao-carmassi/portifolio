@@ -1,14 +1,22 @@
+import { TransitionSeries, linearTiming } from '@remotion/transitions';
 import {
-  TransitionSeries,
-  linearTiming,
-} from '@remotion/transitions';
+  siAstro,
+  siGreensock,
+  siNextdotjs,
+  siReact,
+  siTailwindcss,
+  siTypescript,
+  type SimpleIcon,
+} from 'simple-icons';
 import { AbsoluteFill, Img, Sequence } from 'remotion';
 import { CheckList } from '@/components/remocn/check-list';
 import { Drift } from '@/components/remocn/drift';
 import { focusPull } from '@/components/remocn/focus-pull';
 import { GlassCodeWalk } from '@/components/remocn/glass-code-walk';
 import { grainDissolve } from '@/components/remocn/grain-dissolve';
+import { Handwrite } from '@/components/remocn/handwrite';
 import { InkUnderline } from '@/components/remocn/ink-underline';
+import { LogoEnter, type Logo } from '@/components/remocn/logo-enter';
 import { PaperSticker } from '@/components/remocn/paper-sticker';
 import { Polaroid } from '@/components/remocn/polaroid';
 import { pushThrough } from '@/components/remocn/push-through';
@@ -16,6 +24,7 @@ import { ShaderGrainGradient } from '@/components/remocn/shader-grain-gradient';
 import { SoftBlurIn } from '@/components/remocn/soft-blur-in';
 import { StaggeredFadeUp } from '@/components/remocn/staggered-fade-up';
 import { whipPan } from '@/components/remocn/whip-pan';
+import { WordStream, wordStreamLength } from '@/components/remocn/word-stream';
 import { FPS, type AboutVideo } from './types';
 
 // deliberately not the hero palette/shape: this one is a graphite-violet blob
@@ -63,7 +72,9 @@ const SoftVignette = () => (
 const Abertura = () => (
   <AbsoluteFill style={{ background: '#000000' }}>
     <DimGrain />
-    <div style={{ position: 'absolute', left: 0, right: 0, top: 250, height: 200 }}>
+    <div
+      style={{ position: 'absolute', left: 0, right: 0, top: 250, height: 200 }}
+    >
       <SoftBlurIn
         text='João Vitor Carmassi'
         className='font-title!'
@@ -151,6 +162,37 @@ const Origem = () => (
   </AbsoluteFill>
 );
 
+const Kicker = ({ children }: { children: string }) => (
+  <span
+    style={{
+      fontFamily: SANS,
+      fontSize: 28,
+      fontWeight: 600,
+      letterSpacing: '0.42em',
+      textTransform: 'uppercase',
+      color: MUTED,
+      alignSelf: 'center',
+    }}
+  >
+    {children}
+  </span>
+);
+
+const SERRA_TEXT = 'da serra de são bento|para o mundo todo|100% remoto';
+
+const Serra = () => (
+  <AbsoluteFill style={{ background: '#050409' }}>
+    <SoftVignette />
+    <WordStream
+      text={SERRA_TEXT}
+      className='font-title!'
+      fontSize={96}
+      fontWeight={400}
+      color={INK}
+    />
+  </AbsoluteFill>
+);
+
 const IDIOMAS = ['português · nativo', 'inglês · C1', 'espanhol · B2'];
 
 const Idiomas = () => (
@@ -164,19 +206,7 @@ const Idiomas = () => (
         gap: 48,
       }}
     >
-      <span
-        style={{
-          fontFamily: SANS,
-          fontSize: 28,
-          fontWeight: 600,
-          letterSpacing: '0.42em',
-          textTransform: 'uppercase',
-          color: MUTED,
-          alignSelf: 'center',
-        }}
-      >
-        idiomas
-      </span>
+      <Kicker>idiomas</Kicker>
       <CheckList
         items={IDIOMAS}
         width={957}
@@ -192,16 +222,24 @@ const Idiomas = () => (
 
 const CODE = `const joao = {
   nome: 'João Vitor Carmassi',
-  mora: 'São Bento do Sapucaí, SP',
+  base: 'São Bento do Sapucaí, SP',
   idiomas: { ingles: 'C1', espanhol: 'B2' },
-  foco: ['Astro', 'Next.js', 'Tailwind'],
+  foco: 'front-end',
 };`;
 
 const EmCodigo = () => (
   <AbsoluteFill style={{ background: '#050409' }}>
     <SoftVignette />
     {/* GlassCodeWalk works on a fixed 1280x720 stage; centre it on the canvas */}
-    <div style={{ position: 'absolute', left: 320, top: 50, width: 1280, height: 720 }}>
+    <div
+      style={{
+        position: 'absolute',
+        left: 320,
+        top: 50,
+        width: 1280,
+        height: 720,
+      }}
+    >
       <GlassCodeWalk
         code={CODE}
         title='joao.ts'
@@ -215,10 +253,107 @@ const EmCodigo = () => (
   </AbsoluteFill>
 );
 
+/** simple-icons path in a LogoEnter chip; fg is picked per brand, not computed. */
+const chip = (icon: SimpleIcon, bg: string, fg = '#ffffff'): Logo => ({
+  bg,
+  mark: (
+    <svg
+      width='100%'
+      height='100%'
+      viewBox='0 0 24 24'
+      role='img'
+      aria-label={icon.title}
+    >
+      <path d={icon.path} fill={fg} />
+    </svg>
+  ),
+});
+
+const STACK: Logo[] = [
+  chip(siAstro, `#${siAstro.hex}`),
+  chip(siReact, `#${siReact.hex}`, '#0a0a0a'),
+  // Next.js brand hex is pure black; invert it so the chip reads on a dark canvas.
+  chip(siNextdotjs, '#ffffff', '#000000'),
+  chip(siTypescript, `#${siTypescript.hex}`),
+  chip(siTailwindcss, `#${siTailwindcss.hex}`),
+  chip(siGreensock, `#${siGreensock.hex}`),
+];
+
+const Ferramentas = () => (
+  <AbsoluteFill style={{ background: '#050409' }}>
+    <SoftVignette />
+    <AbsoluteFill
+      style={{
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'column',
+        gap: 56,
+      }}
+    >
+      <Kicker>no dia a dia</Kicker>
+      <div style={{ position: 'relative', width: '100%', height: 150 }}>
+        <LogoEnter logos={STACK} diameter={128} overlap={40} stagger={7} />
+      </div>
+    </AbsoluteFill>
+  </AbsoluteFill>
+);
+
+const FORA = ['trilhas · pedra do baú', 'música', 'games', 'filmes'];
+
+const ForaDoCodigo = () => (
+  <AbsoluteFill style={{ background: '#050409' }}>
+    <SoftVignette />
+    <Drift grow={0.04}>
+      <div
+        style={{
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          top: 210,
+          height: 150,
+        }}
+      >
+        <Handwrite
+          text='fora do código'
+          fontSize={104}
+          color='#d9cdff'
+          delay={8}
+        />
+      </div>
+      <div
+        style={{
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          top: 470,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'flex-start',
+          gap: 34,
+        }}
+      >
+        {FORA.map((item, i) => (
+          <PaperSticker
+            key={item}
+            // last sticker must land well before the outgoing dissolve at 126
+            at={32 + i * 15}
+            seed={`fora-${i}`}
+            padding='14px 24px'
+          >
+            <Chip>{item}</Chip>
+          </PaperSticker>
+        ))}
+      </div>
+    </Drift>
+  </AbsoluteFill>
+);
+
 const Assinatura = () => (
   <AbsoluteFill style={{ background: '#000000' }}>
     <DimGrain opacity={0.8} />
-    <div style={{ position: 'absolute', left: 0, right: 0, top: 290, height: 220 }}>
+    <div
+      style={{ position: 'absolute', left: 0, right: 0, top: 290, height: 220 }}
+    >
       <SoftBlurIn
         text='joão.'
         className='font-title!'
@@ -247,28 +382,60 @@ const Assinatura = () => (
         seed='assinatura'
       />
     </div>
+    {/* handle lands after the underline has finished drawing (delay 30 + 6 steps) */}
+    <Sequence from={54} layout='none'>
+      <div
+        style={{
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          top: 570,
+          height: 90,
+        }}
+      >
+        <SoftBlurIn
+          text='github.com/joao-carmassi'
+          fontSize={34}
+          fontWeight={600}
+          color={MUTED}
+          blur={8}
+        />
+      </div>
+    </Sequence>
   </AbsoluteFill>
 );
 
 // scene lengths before transition overlap
 const S_ABERTURA = Math.round(3.3 * FPS);
 const S_ORIGEM = Math.round(5.5 * FPS);
-const S_IDIOMAS = Math.round(5.5 * FPS);
+// WordStream drives its own length; add a beat so the last phrase can sit still
+const S_SERRA = wordStreamLength(SERRA_TEXT) + 34;
+const S_IDIOMAS = Math.round(5 * FPS);
 const S_CODIGO = Math.round(5.5 * FPS);
-const S_ASSINATURA = Math.round(3.5 * FPS);
+const S_FERRAMENTAS = Math.round(3.8 * FPS);
+const S_FORA = Math.round(5 * FPS);
+const S_ASSINATURA = Math.round(4.3 * FPS);
 
 const T_WHIP = 14;
 const T_PUSH = 18;
 const T_FOCUS = 18;
 const T_GRAIN = 24;
 
-const DURATION =
-  S_ABERTURA +
-  S_ORIGEM +
-  S_IDIOMAS +
-  S_CODIGO +
-  S_ASSINATURA -
-  (T_WHIP + T_PUSH + T_FOCUS + T_GRAIN);
+const SCENES = [
+  S_ABERTURA,
+  S_ORIGEM,
+  S_SERRA,
+  S_IDIOMAS,
+  S_CODIGO,
+  S_FERRAMENTAS,
+  S_FORA,
+  S_ASSINATURA,
+];
+const TRANSITIONS = [T_WHIP, T_PUSH, T_FOCUS, T_GRAIN, T_PUSH, T_WHIP, T_GRAIN];
+
+const sum = (values: number[]) => values.reduce((a, b) => a + b, 0);
+
+const DURATION = sum(SCENES) - sum(TRANSITIONS);
 
 const QuemSouEu = () => (
   <AbsoluteFill style={{ background: '#000000' }}>
@@ -287,15 +454,40 @@ const QuemSouEu = () => (
         presentation={pushThrough()}
         timing={linearTiming({ durationInFrames: T_PUSH })}
       />
-      <TransitionSeries.Sequence durationInFrames={S_IDIOMAS}>
-        <Idiomas />
+      <TransitionSeries.Sequence durationInFrames={S_SERRA}>
+        <Serra />
       </TransitionSeries.Sequence>
       <TransitionSeries.Transition
         presentation={focusPull()}
         timing={linearTiming({ durationInFrames: T_FOCUS })}
       />
+      <TransitionSeries.Sequence durationInFrames={S_IDIOMAS}>
+        <Idiomas />
+      </TransitionSeries.Sequence>
+      <TransitionSeries.Transition
+        presentation={grainDissolve({
+          colors: GRAIN_COLORS,
+          colorBack: '#050409',
+          shape: 'blob',
+        })}
+        timing={linearTiming({ durationInFrames: T_GRAIN })}
+      />
       <TransitionSeries.Sequence durationInFrames={S_CODIGO}>
         <EmCodigo />
+      </TransitionSeries.Sequence>
+      <TransitionSeries.Transition
+        presentation={pushThrough()}
+        timing={linearTiming({ durationInFrames: T_PUSH })}
+      />
+      <TransitionSeries.Sequence durationInFrames={S_FERRAMENTAS}>
+        <Ferramentas />
+      </TransitionSeries.Sequence>
+      <TransitionSeries.Transition
+        presentation={whipPan({ direction: 'right' })}
+        timing={linearTiming({ durationInFrames: T_WHIP })}
+      />
+      <TransitionSeries.Sequence durationInFrames={S_FORA}>
+        <ForaDoCodigo />
       </TransitionSeries.Sequence>
       <TransitionSeries.Transition
         presentation={grainDissolve({
@@ -320,5 +512,5 @@ export const quemSouEu: AboutVideo = {
   height: 820,
   durationInFrames: DURATION,
   srText:
-    'João Vitor Carmassi, desenvolvedor front-end. Nascido em São Paulo em 2004, mora em São Bento do Sapucaí. Fala português como língua nativa, inglês em nível C1 e espanhol em nível B2. Trabalha com Astro, Next.js e Tailwind. Assinatura: joão.',
+    'Animação de cerca de 31 segundos em oito cenas. Abre com o nome João Vitor Carmassi e a legenda "desenvolvedor front-end". Em seguida, um polaroid com a foto dele e duas etiquetas: "nascido em são paulo, 2004" e "mora em são bento do sapucaí". Depois as frases "da serra de são bento", "para o mundo todo" e "100% remoto". Na sequência, a lista de idiomas: português nativo, inglês C1 e espanhol B2. Um editor de código mostra o objeto joao com nome, base em São Bento do Sapucaí, idiomas inglês C1 e espanhol B2, e foco em front-end. Sob o rótulo "no dia a dia" aparecem os logos de Astro, React, Next.js, TypeScript, Tailwind e GSAP. A cena "fora do código" traz as etiquetas trilhas e pedra do baú, música, games e filmes. Fecha com a assinatura "joão." sublinhada e o endereço github.com/joao-carmassi.',
 };
