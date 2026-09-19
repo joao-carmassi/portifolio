@@ -217,7 +217,8 @@ const AboutMeHomepage = () => {
 
   return (
     <section ref={section} id='aboutMeHomepage' className='p-4 md:p-12'>
-      <div className='container mx-auto space-y-6 md:space-y-12'>
+      {/* no max width: the section spans the same gutter as the hero frame */}
+      <div className='space-y-6 md:space-y-12'>
         <div className='space-y-1.5 md:space-y-3'>
           <h2 className='font-title text-5xl md:text-7xl'>Sobre mim</h2>
           <p className='text-muted-foreground font-semibold max-w-2xl'>
