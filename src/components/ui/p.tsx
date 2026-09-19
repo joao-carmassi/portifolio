@@ -1,0 +1,21 @@
+import { cn } from '@/lib/utils';
+import type { ClassValue } from 'clsx';
+
+export function P({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: ClassValue;
+}) {
+  return (
+    <p
+      className={cn(
+        'scroll-m-20 md:text-lg text-muted-foreground font-medium',
+        className,
+      )}
+    >
+      {children}
+    </p>
+  );
+}

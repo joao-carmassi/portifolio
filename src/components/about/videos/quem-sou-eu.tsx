@@ -180,16 +180,57 @@ const Kicker = ({ children }: { children: string }) => (
 
 const SERRA_TEXT = 'da serra de são bento|para o mundo todo|100% remoto';
 
+/** photo holds the frame alone before the words start running over it */
+const SERRA_PHOTO_BEAT = 18;
+
 const Serra = () => (
   <AbsoluteFill style={{ background: '#050409' }}>
-    <SoftVignette />
-    <WordStream
-      text={SERRA_TEXT}
-      className='font-title!'
-      fontSize={96}
-      fontWeight={400}
-      color={INK}
+    <Drift grow={0.08}>
+      <Img
+        src='/images/about/pedra-do-bau.webp'
+        style={{
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+          // rock sits left of centre; bias there and keep some cloud below it
+          objectPosition: '44% 46%',
+        }}
+      />
+    </Drift>
+    {/* the shot is mostly white sky, so the type needs a hard scrim to survive */}
+    <AbsoluteFill
+      style={{
+        background:
+          'linear-gradient(180deg, rgba(5,4,9,0.52) 0%, rgba(12,9,21,0.74) 46%, rgba(5,4,9,0.92) 100%)',
+      }}
     />
+    <AbsoluteFill
+      style={{
+        background:
+          'radial-gradient(64% 58% at 50% 46%, rgba(5,4,9,0.58) 0%, rgba(5,4,9,0) 72%)',
+      }}
+    />
+    <Sequence from={SERRA_PHOTO_BEAT} layout='none'>
+      <WordStream
+        text={SERRA_TEXT}
+        className='font-title!'
+        fontSize={96}
+        fontWeight={400}
+        color={INK}
+      />
+    </Sequence>
+    <div
+      style={{
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        bottom: 54,
+        display: 'flex',
+        justifyContent: 'center',
+      }}
+    >
+      <Kicker>pedra do baú</Kicker>
+    </div>
   </AbsoluteFill>
 );
 
@@ -298,7 +339,8 @@ const Ferramentas = () => (
   </AbsoluteFill>
 );
 
-const FORA = ['trilhas · pedra do baú', 'música', 'games', 'filmes'];
+// "pedra do baú" moved to the Serra photo, so the chip is just the activity now
+const FORA = ['trilhas', 'viajar de moto', 'música', 'games', 'filmes'];
 
 const ForaDoCodigo = () => (
   <AbsoluteFill style={{ background: '#050409' }}>
@@ -409,7 +451,7 @@ const Assinatura = () => (
 const S_ABERTURA = Math.round(3.3 * FPS);
 const S_ORIGEM = Math.round(5.5 * FPS);
 // WordStream drives its own length; add a beat so the last phrase can sit still
-const S_SERRA = wordStreamLength(SERRA_TEXT) + 34;
+const S_SERRA = SERRA_PHOTO_BEAT + wordStreamLength(SERRA_TEXT) + 34;
 const S_IDIOMAS = Math.round(5 * FPS);
 const S_CODIGO = Math.round(5.5 * FPS);
 const S_FERRAMENTAS = Math.round(3.8 * FPS);
@@ -512,5 +554,5 @@ export const quemSouEu: AboutVideo = {
   height: 820,
   durationInFrames: DURATION,
   srText:
-    'Animação de cerca de 31 segundos em oito cenas. Abre com o nome João Vitor Carmassi e a legenda "desenvolvedor front-end". Em seguida, um polaroid com a foto dele e duas etiquetas: "nascido em são paulo, 2004" e "mora em são bento do sapucaí". Depois as frases "da serra de são bento", "para o mundo todo" e "100% remoto". Na sequência, a lista de idiomas: português nativo, inglês C1 e espanhol B2. Um editor de código mostra o objeto joao com nome, base em São Bento do Sapucaí, idiomas inglês C1 e espanhol B2, e foco em front-end. Sob o rótulo "no dia a dia" aparecem os logos de Astro, React, Next.js, TypeScript, Tailwind e GSAP. A cena "fora do código" traz as etiquetas trilhas e pedra do baú, música, games e filmes. Fecha com a assinatura "joão." sublinhada e o endereço github.com/joao-carmassi.',
+    'Animação de cerca de 33 segundos em oito cenas. Abre com o nome João Vitor Carmassi e a legenda "desenvolvedor front-end". Em seguida, um polaroid com a foto dele e duas etiquetas: "nascido em são paulo, 2004" e "mora em são bento do sapucaí". Depois, uma foto aérea da Pedra do Baú saindo das nuvens, com a legenda "pedra do baú" e as frases "da serra de são bento", "para o mundo todo" e "100% remoto". Na sequência, a lista de idiomas: português nativo, inglês C1 e espanhol B2. Um editor de código mostra o objeto joao com nome, base em São Bento do Sapucaí, idiomas inglês C1 e espanhol B2, e foco em front-end. Sob o rótulo "no dia a dia" aparecem os logos de Astro, React, Next.js, TypeScript, Tailwind e GSAP. A cena "fora do código" traz as etiquetas trilhas, viajar de moto, música, games e filmes. Fecha com a assinatura "joão." sublinhada e o endereço github.com/joao-carmassi.',
 };

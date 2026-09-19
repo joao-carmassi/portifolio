@@ -5,7 +5,8 @@ import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
   ArrowRight,
-  Eye,
+  ClipboardCheck,
+  CodeXml,
   Gauge,
   MessageCircle,
   Palette,
@@ -37,22 +38,26 @@ const cards = [
       },
       {
         icon: Gauge,
-        text: 'Site que abre rápido no 4G, não só no wi-fi do escritório.',
+        text: 'Site que abre rápido no 4G, com Core Web Vitals medidos.',
       },
       {
-        icon: Search,
-        text: 'Estrutura e textos prontos para o Google entender o site.',
+        icon: CodeXml,
+        text: 'HTML semântico e dados estruturados, para o Google ler o site.',
       },
     ],
     button: { label: 'Me conta seu projeto', href: '#contactMeHomepage' },
   },
   {
     title: 'Como eu trabalho',
-    lead: 'Escopo combinado antes, link no ar desde o primeiro dia.',
+    lead: 'Escopo combinado antes, link no ar e SEO desde o primeiro dia.',
     items: [
       {
-        icon: Eye,
-        text: 'Você acompanha o site crescer, sem esperar a entrega final.',
+        icon: Search,
+        text: 'Pesquiso as palavras que o seu cliente digita no seu setor.',
+      },
+      {
+        icon: ClipboardCheck,
+        text: 'Audito com as ferramentas do Google e corrijo o que elas apontam.',
       },
       {
         icon: MessageCircle,

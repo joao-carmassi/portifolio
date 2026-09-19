@@ -2,6 +2,12 @@
 import Layout from '@/layout/layout.astro';
 import HeroHomepage from '@/components/heroHomepage';
 import AboutMeHomepage from '@/components/aboutMeHomepage';
+import DocumentosHomepage from '@/components/documentsHomepage';
+import TechStackHomepage from '@/components/techStackHomepage';
+import ClientsHomepage from '@/components/clientsHomepage';
+import FooterHomepage from '@/components/footerHomepage';
+
+const visible = { rootMargin: '400px' };
 ---
 
 <Layout>
@@ -9,6 +15,10 @@ import AboutMeHomepage from '@/components/aboutMeHomepage';
     <div class='min-h-svh flex'>
       <HeroHomepage client:load />
     </div>
-    <AboutMeHomepage client:visible={{ rootMargin: '400px' }} />
+    <AboutMeHomepage client:visible={visible} />
+    <DocumentosHomepage client:visible={visible} />
+    <TechStackHomepage client:visible={visible} />
+    <ClientsHomepage client:visible={visible} />
   </main>
+  <FooterHomepage client:visible={visible} />
 </Layout>
