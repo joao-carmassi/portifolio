@@ -1,6 +1,6 @@
 ---
 import '@/styles/global.css';
-import { AstroFont } from 'astro-font';
+import { Font } from 'astro:assets';
 
 interface Props {
   title?: string;
@@ -17,30 +17,8 @@ const { title = '' } = Astro.props as Props;
     <meta name='viewport' content='width=device-width' />
     <meta name='generator' content={Astro.generator} />
     <title>{title}</title>
-    <AstroFont
-      config={[
-        {
-          name: 'Raleway',
-          src: [],
-          googleFontsURL:
-            'https://fonts.googleapis.com/css2?family=Raleway:wght@100..900&display=swap',
-          preload: true,
-          display: 'swap',
-          fallback: 'sans-serif',
-          cssVariable: 'raleway',
-        },
-        {
-          name: 'DM Serif Display',
-          src: [],
-          googleFontsURL:
-            'https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap',
-          preload: true,
-          display: 'swap',
-          fallback: 'serif',
-          cssVariable: 'dm-serif',
-        },
-      ]}
-    />
+    <Font cssVariable='--font-raleway' preload />
+    <Font cssVariable='--font-dm-serif' preload />
   </head>
   <body>
     <slot />
