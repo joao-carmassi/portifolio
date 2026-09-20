@@ -7,11 +7,13 @@ import TechStackHomepage from '@/components/techStackHomepage';
 import ClientsHomepage from '@/components/clientsHomepage';
 import ContactMeHomepage from '@/components/contactMeHomepage';
 import FooterHomepage from '@/components/footerHomepage';
+import StickyNav from '@/components/stickyNav';
 
 const visible = { rootMargin: '400px' };
 ---
 
 <Layout>
+  <StickyNav client:load />
   <main class='flex flex-col'>
     <div class='min-h-svh flex'>
       <HeroHomepage client:load />
