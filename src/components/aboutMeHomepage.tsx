@@ -8,7 +8,6 @@ import {
   ClipboardCheck,
   CodeXml,
   Gauge,
-  MessageCircle,
   Palette,
   Search,
   Wrench,

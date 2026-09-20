@@ -1,5 +1,5 @@
 import { createStaticI18n } from '@embra/i18n/astro';
-import type { Locale, Locales } from '@embra/i18n';
+import type { Locales } from '@embra/i18n';
 import { FALLBACK, isLang, type Lang } from '@/i18n/langs';
 
 import ptMeta from '@/locales/pt/meta.json';
@@ -32,7 +32,6 @@ import esClients from '@/locales/es/clients.json';
 import esContact from '@/locales/es/contact.json';
 import esFooter from '@/locales/es/footer.json';
 
-export { FALLBACK, hrefFor, isLang, langs, type Lang } from '@/i18n/langs';
 
 /** The shape every language has to match, taken from the Portuguese files. */
 export type Messages = {
@@ -96,11 +95,9 @@ export const { getI18n, getT } = createStaticI18n({
   fallback: FALLBACK,
 });
 
-export type { Locale };
 
 // per-section types for the islands. They are type-only imports there, so the
 // Portuguese json never reaches a client bundle.
-export type MetaCopy = Messages['meta'];
 export type NavCopy = Messages['nav'];
 export type HeroCopy = Messages['hero'];
 export type AboutCopy = Messages['about'];

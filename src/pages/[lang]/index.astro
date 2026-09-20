@@ -9,13 +9,16 @@ import ContactMeHomepage from '@/components/contactMeHomepage';
 import FooterHomepage from '@/components/footerHomepage';
 import StickyNav from '@/components/stickyNav';
 import ThemeCord from '@/components/themeCord';
-import { messages } from '@/i18n';
+import { getT, messages } from '@/i18n';
 import { langs, type Lang } from '@/i18n/langs';
 
 // all three languages are prefixed, so this route builds every one of them
 export const getStaticPaths = () => langs.map((lang) => ({ params: { lang } }));
 
 const lang = Astro.params.lang as Lang;
+// the page's own strings go through @embra/i18n; the islands get typed slices,
+// because a `t` function cannot cross the island boundary as a prop
+const t = getT(lang);
 const m = messages(lang);
 
 const visible = { rootMargin: '400px' };
@@ -23,9 +26,9 @@ const visible = { rootMargin: '400px' };
 
 <Layout
   lang={lang}
-  title={m.meta.title}
-  description={m.meta.description}
-  keywords={m.meta.keywords}
+  title={t('meta.title')}
+  description={t('meta.description')}
+  keywords={t('meta.keywords')}
 >
   <StickyNav client:load lang={lang} copy={m.nav} />
   <ThemeCord client:idle copy={m.nav} />
