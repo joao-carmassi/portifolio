@@ -125,6 +125,13 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
+/* the old project overrode Tailwind's container with this; the ported clients
+   section relies on it for its side gutter */
+@utility container {
+  margin-inline: auto;
+  padding-inline: 2rem;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
