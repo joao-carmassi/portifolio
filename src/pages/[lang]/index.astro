@@ -1,4 +1,7 @@
 ---
+import type { Graph, Person, WebSite } from 'schema-dts';
+import serialize from 'serialize-javascript';
+
 import Layout from '@/layout/layout.astro';
 import HeroHomepage from '@/components/heroHomepage';
 import AboutMeHomepage from '@/components/aboutMeHomepage';
@@ -10,7 +13,15 @@ import FooterHomepage from '@/components/footerHomepage';
 import StickyNav from '@/components/stickyNav';
 import ThemeCord from '@/components/themeCord';
 import { getT, messages } from '@/i18n';
-import { langs, type Lang } from '@/i18n/langs';
+import {
+  FALLBACK,
+  HTML_LANG,
+  OG_LOCALE,
+  hrefFor,
+  langs,
+  type Lang,
+} from '@/i18n/langs';
+import { getBasePath, getCanonicalUrl } from '@/utils/env';
 
 // all three languages are prefixed, so this route builds every one of them
 export const getStaticPaths = () => langs.map((lang) => ({ params: { lang } }));
@@ -21,15 +32,107 @@ const lang = Astro.params.lang as Lang;
 const t = getT(lang);
 const m = messages(lang);
 
+const siteUrl = getBasePath().replace(/\/+$/, '');
+const pageUrl = getCanonicalUrl(hrefFor(lang));
+const ogImage = `${siteUrl}/og-image.jpg`;
+
+const title = t('meta.title');
+const description = t('meta.description');
+
+// one node id per person, shared by every schema that cites him, so the three
+// language pages describe one identity instead of three
+const personId = `${siteUrl}/#person`;
+
+const person: Person = {
+  '@type': 'Person',
+  '@id': personId,
+  name: 'João Vitor Carmassi',
+  jobTitle: t('meta.jobTitle'),
+  description,
+  url: pageUrl,
+  image: ogImage,
+  email: 'joaovitorcarmassi@gmail.com',
+  telephone: '+5512996661778',
+  birthDate: '2004-12-08',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'São Bento do Sapucaí',
+    addressRegion: 'SP',
+    addressCountry: 'BR',
+  },
+  sameAs: Object.values(m.nav.social).map((s) => s.link),
+  knowsLanguage: ['pt-BR', 'en', 'es'],
+  // brand names, identical in every language, so they stay out of the locales
+  knowsAbout: [
+    'Astro',
+    'React',
+    'Next.js',
+    'TypeScript',
+    'Tailwind CSS',
+    'GSAP',
+    'Git',
+    'TanStack Query',
+    'Zustand',
+  ],
+};
+
+const website: WebSite = {
+  '@type': 'WebSite',
+  '@id': `${pageUrl}#website`,
+  name: title,
+  url: pageUrl,
+  description,
+  inLanguage: HTML_LANG[lang],
+  author: { '@id': personId },
+};
+
+const jsonLd: Graph = {
+  '@context': 'https://schema.org',
+  '@graph': [person, website],
+};
+
 const visible = { rootMargin: '400px' };
 ---
 
 <Layout
   lang={lang}
-  title={t('meta.title')}
-  description={t('meta.description')}
-  keywords={t('meta.keywords')}
+  title={title}
+  description={description}
+  canonical={pageUrl}
+  languageAlternates={[
+    ...langs.map((alternate) => ({
+      hrefLang: HTML_LANG[alternate],
+      href: getCanonicalUrl(hrefFor(alternate)),
+    })),
+    { hrefLang: 'x-default', href: getCanonicalUrl(hrefFor(FALLBACK)) },
+  ]}
+  extend={{ meta: [{ name: 'keywords', content: t('meta.keywords') }] }}
+  openGraph={{
+    basic: { title, type: 'website', image: ogImage, url: pageUrl },
+    optional: {
+      description,
+      siteName: title,
+      locale: OG_LOCALE[lang],
+      localeAlternate: langs
+        .filter((alternate) => alternate !== lang)
+        .map((alternate) => OG_LOCALE[alternate]),
+    },
+    image: { alt: t('meta.ogAlt'), width: 1200, height: 630 },
+  }}
+  twitter={{
+    card: 'summary_large_image',
+    title,
+    description,
+    image: ogImage,
+    imageAlt: t('meta.ogAlt'),
+  }}
 >
+  <script
+    is:inline
+    type='application/ld+json'
+    set:html={serialize(jsonLd)}
+    slot='head'
+  />
   <StickyNav client:load lang={lang} copy={m.nav} />
   <ThemeCord client:idle copy={m.nav} />
   <main class='flex flex-col'>

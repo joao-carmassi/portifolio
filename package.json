@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@astrojs/react": "^6.0.6",
+    "@astrojs/sitemap": "^3.7.4",
     "@base-ui/react": "^1.8.0",
     "@embra/i18n": "^0.1.0",
     "@embra/reactivity": "^0.0.8",
@@ -31,6 +32,8 @@
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "astro": "^7.3.3",
+    "astro-robots-txt": "^1.0.0",
+    "astro-seo": "^1.2.0",
     "axios": "^1.20.0",
     "canvas-confetti": "^1.9.4",
     "class-variance-authority": "^0.7.1",
@@ -46,6 +49,8 @@
     "react-dom": "^19.3.0",
     "react-hook-form": "^7.88.0",
     "remotion": "4.0.526",
+    "schema-dts": "^2.0.0",
+    "serialize-javascript": "^7.1.1",
     "shadcn": "^4.21.0",
     "simple-icons": "^16.31.0",
     "tailwindcss": "^4.3.3",
@@ -57,5 +62,8 @@
   },
   "allowScripts": {
     "esbuild": true
+  },
+  "devDependencies": {
+    "@types/serialize-javascript": "^5.0.4"
   }
 }

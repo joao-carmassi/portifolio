@@ -1,5 +1,7 @@
 {
   "title": "Portfólio | João Carmassi",
   "description": "Portfólio profissional de João Vitor Carmassi, desenvolvedor front-end especializado em Astro, React e Tailwind CSS.",
-  "keywords": "João Vitor Carmassi, desenvolvimento web, desenvolvimento frontend, programação, HTML, CSS, JavaScript, TypeScript, React, Next.js, Astro, Tailwind, GSAP, Git, jogos, música, filmes, trilhas, idiomas Inglês C1, Espanhol B2"
+  "keywords": "João Vitor Carmassi, desenvolvimento web, desenvolvimento frontend, programação, HTML, CSS, JavaScript, TypeScript, React, Next.js, Astro, Tailwind, GSAP, Git, jogos, música, filmes, trilhas, idiomas Inglês C1, Espanhol B2",
+  "jobTitle": "Desenvolvedor Front-End",
+  "ogAlt": "João Vitor Carmassi, desenvolvedor front-end"
 }

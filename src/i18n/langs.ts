@@ -14,3 +14,17 @@ export const isLang = (value: unknown): value is Lang =>
 
 /** Every language is prefixed, the default one included. / only redirects here. */
 export const hrefFor = (lang: Lang): string => `/${lang}/`;
+
+/** BCP 47 for <html lang>: the site is written in the Brazilian variant. */
+export const HTML_LANG: Record<Lang, string> = {
+  pt: 'pt-BR',
+  en: 'en',
+  es: 'es',
+};
+
+/** og:locale wants language_TERRITORY, which is not the same list as above. */
+export const OG_LOCALE: Record<Lang, string> = {
+  pt: 'pt_BR',
+  en: 'en_US',
+  es: 'es_ES',
+};

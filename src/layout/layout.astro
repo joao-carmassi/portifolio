@@ -1,54 +1,27 @@
 ---
 import '@/styles/global.css';
 import { Font } from 'astro:assets';
-import { FALLBACK, hrefFor, langs, type Lang } from '@/i18n/langs';
+import { SEO, type Props as SEOProps } from 'astro-seo';
+import { HTML_LANG, type Lang } from '@/i18n/langs';
 
-interface Props {
+interface Props extends SEOProps {
   lang: Lang;
-  title: string;
-  description: string;
-  keywords: string;
 }
 
-const { lang, title, description, keywords } = Astro.props as Props;
-
-// BCP 47 for <html lang>: the site is written in the Brazilian variant
-const HTML_LANG: Record<Lang, string> = {
-  pt: 'pt-BR',
-  en: 'en',
-  es: 'es',
-};
-
-// astro.config has no `site` yet, and a canonical pointing at localhost is
-// worse than a relative one, which resolves against whatever host serves it
-const abs = (path: string) => (Astro.site ? new URL(path, Astro.site).href : path);
-const canonical = abs(hrefFor(lang));
+const { lang, ...seo } = Astro.props as Props;
 ---
 
 <html lang={HTML_LANG[lang]}>
   <head>
     <meta charset='utf-8' />
-    <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
-    <link rel='icon' href='/favicon.ico' />
     <meta name='viewport' content='width=device-width' />
     <meta name='generator' content={Astro.generator} />
-    <meta name='description' content={description} />
-    <meta name='keywords' content={keywords} />
-    <link rel='canonical' href={canonical} />
-    {
-      langs.map((alternate) => (
-        <link
-          rel='alternate'
-          hreflang={HTML_LANG[alternate]}
-          href={abs(hrefFor(alternate))}
-        />
-      ))
-    }
-    <link
-      rel='alternate'
-      hreflang='x-default'
-      href={abs(hrefFor(FALLBACK))}
-    />
+
+    <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
+    <link rel='icon' href='/favicon.ico' />
+    <link rel='manifest' href='/site.webmanifest' />
+    <link rel='sitemap' href='/sitemap-index.xml' />
+
     <script is:inline>
       // runs before the first paint, so the page never flashes the wrong theme
       const stored =
@@ -71,7 +44,9 @@ const canonical = abs(hrefFor(lang));
         attributeFilter: ['class'],
       });
     </script>
-    <title>{title}</title>
+    <SEO {...seo} />
+    <slot name='head' />
+
     <Font cssVariable='--font-raleway' preload />
     <Font cssVariable='--font-dm-serif' preload />
     <Font cssVariable='--font-geist-mono' />

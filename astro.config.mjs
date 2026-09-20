@@ -2,12 +2,50 @@
 import { defineConfig, fontProviders } from 'astro/config';
 
 import react from '@astrojs/react';
+import sitemap from '@astrojs/sitemap';
+import robotsTxt from 'astro-robots-txt';
 
 import tailwindcss from '@tailwindcss/vite';
+// astro.config runs before astro loads .env into import.meta.env, so the file
+// has to be read here the way vite would
+import { loadEnv } from 'vite';
+
+const { PUBLIC_SITE_URL } = loadEnv(
+  process.env.NODE_ENV ?? 'development',
+  process.cwd(),
+  '',
+);
+
+// @astrojs/sitemap needs a real origin, and canonical/hreflang are built from
+// the same value, so a missing one is worth saying out loud at build time
+const SITE = PUBLIC_SITE_URL || 'http://localhost:4321';
+if (!PUBLIC_SITE_URL) {
+  console.warn(
+    '[seo] PUBLIC_SITE_URL is unset: canonical, hreflang and sitemap will point at localhost',
+  );
+}
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [react()],
+  site: SITE,
+
+  // every route is served at /path/, so canonical, sitemap and internal links
+  // all agree instead of pointing at a redirect
+  trailingSlash: 'always',
+  build: { format: 'directory' },
+
+  integrations: [
+    react(),
+    sitemap({
+      i18n: {
+        defaultLocale: 'pt',
+        locales: { pt: 'pt-BR', en: 'en', es: 'es' },
+      },
+      // / is the noindex redirect to /pt/, it does not belong in the sitemap
+      filter: (page) => new URL(page).pathname !== '/',
+    }),
+    robotsTxt(),
+  ],
 
   // every language carries its prefix, including the default one; / is only a
   // redirect to /pt
