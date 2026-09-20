@@ -7,7 +7,9 @@
 :root {
   /* remocn typography blocks read --font-geist-sans */
   --font-geist-sans: var(--font-raleway);
-  --background: oklch(1 0 0);
+  /* same page background as the old portfolio: the copied sections use bg-card
+     on top of it, so a pure white background flattens them */
+  --background: oklch(0.9702 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
