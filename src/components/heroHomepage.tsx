@@ -6,6 +6,7 @@ import { useRef } from 'react';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { SplitText } from 'gsap/SplitText';
+import HeroNav from '@/components/heroNav';
 
 gsap.registerPlugin(useGSAP, SplitText);
 
@@ -20,7 +21,7 @@ const HeroHomepage = () => {
       frame.current!.removeAttribute('data-intro');
       section.current!.removeAttribute('data-intro');
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        gsap.set(content, { autoAlpha: 1 });
+        gsap.set([content, '.hero-nav'], { autoAlpha: 1 });
         return;
       }
 
@@ -86,8 +87,8 @@ const HeroHomepage = () => {
           2.5,
         );
 
-      // from() tweens already hid everything, safe to reveal the wrapper
-      gsap.set(content, { autoAlpha: 1 });
+      // from() tweens already hid everything, safe to reveal the wrappers
+      gsap.set([content, '.hero-nav'], { autoAlpha: 1 });
     },
     { scope: section },
   );
@@ -118,6 +119,8 @@ const HeroHomepage = () => {
             rotation={90}
           />
         </div>
+
+        <HeroNav />
 
         {/* stacked: content sits at the bottom; xl: side by side, still bottom-left */}
         <div className='hero-content invisible relative z-10 w-full h-full flex flex-col items-end justify-end gap-y-8 gap-x-4 xl:flex-row xl:justify-start'>

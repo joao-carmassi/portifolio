@@ -83,7 +83,7 @@ const FooterHomepage = () => {
   }, [text, labels]);
 
   return (
-    <footer id='contactMeHomepage'>
+    <footer id='footerHomepage'>
       <div className='p-6 md:p-12 lg:px-24 father-animation-footer'>
         <div className='bg-card shadow-lg inset-shadow-2xs rounded-2xl p-8 md:p-16'>
           <div className='border-border mb-6 border-b pb-6 text-left md:mb-12 md:pb-12 md:text-center'>
