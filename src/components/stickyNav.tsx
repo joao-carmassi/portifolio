@@ -72,13 +72,13 @@ const StickyNav = () => {
         aria-hidden={!shown}
         inert={!shown}
       >
-        <GlassSurface
-          width='100%'
-          height={56}
-          borderRadius={999}
-          className='w-full'
-        >
-          <nav className='flex w-full items-center justify-between gap-4 px-3'>
+        {/* the glass stays in flow and the bar floats over it: an absolute
+            sibling with no z-index keeps both in the same blending group, so
+            mix-blend-difference on the bar reads the glass and the page under
+            it and paints the wordmark in whatever colour opposes them */}
+        <div className='relative'>
+          <GlassSurface width='100%' height={56} borderRadius={999} />
+          <nav className='absolute inset-0 flex items-center justify-between gap-4 px-5 text-white mix-blend-difference'>
             <a href='#heroHomepage' className='font-title text-2xl md:text-3xl'>
               JC
             </a>
@@ -87,12 +87,12 @@ const StickyNav = () => {
               aria-label={menuOpen ? 'Fechar menu' : 'Abrir menu'}
               aria-expanded={menuOpen}
               onClick={() => setMenuOpen((v) => !v)}
-              className='grid size-9 place-items-center rounded-full transition-colors hover:bg-foreground/10'
+              className='grid size-9 place-items-center rounded-full transition-colors hover:bg-white/20'
             >
               {menuOpen ? <X className='size-5' /> : <Menu className='size-5' />}
             </button>
           </nav>
-        </GlassSurface>
+        </div>
       </div>
     </>
   );

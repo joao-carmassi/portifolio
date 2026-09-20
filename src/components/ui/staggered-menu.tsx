@@ -89,7 +89,9 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
       const icon = iconRef.current;
       const textInner = textInnerRef.current;
 
-      if (!panel || !plusH || !plusV || !icon || !textInner) return;
+      // only the panel is required: the icon and the label live in the header,
+      // which showHeader can take away
+      if (!panel) return;
 
       let preLayers: HTMLElement[] = [];
       if (preContainer) {
@@ -103,11 +105,11 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
         gsap.set(preContainer, { xPercent: 0, opacity: 1 });
       }
 
-      gsap.set(plusH, { transformOrigin: '50% 50%', rotate: 0 });
-      gsap.set(plusV, { transformOrigin: '50% 50%', rotate: 90 });
-      gsap.set(icon, { rotate: 0, transformOrigin: '50% 50%' });
+      if (plusH) gsap.set(plusH, { transformOrigin: '50% 50%', rotate: 0 });
+      if (plusV) gsap.set(plusV, { transformOrigin: '50% 50%', rotate: 90 });
+      if (icon) gsap.set(icon, { rotate: 0, transformOrigin: '50% 50%' });
 
-      gsap.set(textInner, { yPercent: 0 });
+      if (textInner) gsap.set(textInner, { yPercent: 0 });
 
       if (toggleBtnRef.current) gsap.set(toggleBtnRef.current, { color: menuButtonColor });
     });
