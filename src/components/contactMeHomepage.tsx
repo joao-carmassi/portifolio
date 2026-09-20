@@ -9,7 +9,6 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { Spinner } from '@/components/ui/kibo-ui/spinner';
-import { P } from '@/components/ui/p';
 import axios from 'axios';
 import confetti from 'canvas-confetti';
 import { ArrowRightIcon, Trash2 } from 'lucide-react';
@@ -307,17 +306,21 @@ const ContactMeForm = () => {
             </FieldGroup>
           </FieldSet>
         </form>
-        <div className='contact-copy-desktop-animation hidden md:block space-y-3 flex-1'>
+        <div className='contact-copy-desktop-animation hidden md:block space-y-1.5 md:space-y-3 flex-1'>
           <h2 className='font-title text-4xl md:text-5xl text-center md:text-start'>
             {title}
           </h2>
-          <P className='text-center md:text-start'>{text}</P>
+          <p className='text-muted-foreground font-semibold max-w-2xl text-center md:text-start'>
+            {text}
+          </p>
         </div>
-        <div className='contact-copy-mobile-animation md:hidden space-y-1.5 flex-1'>
+        <div className='contact-copy-mobile-animation md:hidden space-y-1.5 md:space-y-3 flex-1'>
           <h2 className='font-title text-4xl md:text-5xl text-center md:text-start'>
             {title}
           </h2>
-          <P className='text-center md:text-start'>{text}</P>
+          <p className='text-muted-foreground font-semibold max-w-2xl text-center md:text-start'>
+            {text}
+          </p>
         </div>
       </div>
       <Dialog open={enviado === true} onOpenChange={handleModal}>

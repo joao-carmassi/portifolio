@@ -40,9 +40,9 @@ function FloatingLabelText({
       data-slot='label'
       className={cn(
         'flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50',
-        'absolute inset-s-2 top-0.5 z-10 origin-left -translate-y-3 translate-x-1.5 scale-75 transform bg-card px-2 text-sm text-muted-foreground duration-300',
-        'peer-placeholder-shown:top-4.5 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-x-0.5',
-        'peer-focus:top-0.5 peer-focus:-translate-y-3 peer-focus:scale-75 peer-focus:px-2 peer-focus:text-foreground peer-focus:translate-x-1.5',
+        'absolute inset-s-2 top-0.5 z-10 origin-left -translate-y-3 translate-x-1 scale-75 transform bg-card px-2 text-sm text-muted-foreground duration-300',
+        'peer-placeholder-shown:top-4.5 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-x-0',
+        'peer-focus:top-0.5 peer-focus:-translate-y-3 peer-focus:scale-75 peer-focus:px-2 peer-focus:text-foreground peer-focus:translate-x-1',
         'cursor-text',
         className,
       )}
