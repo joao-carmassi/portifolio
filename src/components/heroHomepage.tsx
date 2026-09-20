@@ -96,13 +96,13 @@ const HeroHomepage = () => {
     <div
       ref={frame}
       data-intro
-      className='flex-1 flex p-4 md:py-12 md:px-24 data-intro:p-0 bg-card'
+      className='flex-1 flex p-4 md:p-24 data-intro:p-0 bg-card'
     >
       <section
         ref={section}
         data-intro
         id='heroHomepage'
-        className='dark bg-black text-foreground flex-1 rounded-3xl data-intro:rounded-none p-6 md:p-12 relative overflow-hidden'
+        className='dark bg-black text-foreground flex-1 rounded-3xl data-intro:rounded-none p-6 md:p-24 relative overflow-hidden'
       >
         <div className='hero-bg absolute inset-0'>
           <GrainGradient

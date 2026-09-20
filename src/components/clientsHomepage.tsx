@@ -220,7 +220,7 @@ const Clients = (): React.ReactNode => {
 
   return (
     <section className='overflow-hidden py-6 lg:py-12'>
-      <div className='px-4 md:px-12 space-y-6 md:space-y-12'>
+      <div className='px-4 md:px-24 space-y-6 md:space-y-12'>
         <div className='space-y-1.5 md:space-y-3'>
           <h2 className='font-title text-5xl md:text-7xl'>{title}</h2>
           <p className='text-muted-foreground font-semibold max-w-2xl'>
@@ -241,7 +241,7 @@ const Clients = (): React.ReactNode => {
               {items.map((item, index) => (
                 <CarouselItem
                   key={index}
-                  className='basis-4/5 sm:basis-3/5 md:basis-2/5 lg:basis-[28%] xl:basis-[28%] 2xl:basis-1/4 p-3 lg:p-6 pt-0 clients-animation'
+                  className='basis-4/5 sm:basis-3/5 md:basis-2/5 lg:basis-[28%] xl:basis-[28%] 2xl:basis-1/3 p-3 lg:p-6 pt-0 clients-animation'
                 >
                   <ClientCard item={item} cta={cta} />
                 </CarouselItem>
