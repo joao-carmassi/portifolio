@@ -70,7 +70,7 @@ const title = 'Minha Stack';
 const TechStack = () => {
   return (
     <section id='techStack' className='bg-card'>
-      <div className='p-6 md:p-12 max-w-302 mx-auto space-y-3 md:space-y-6'>
+      <div className='p-6 md:p-12 max-w-302 mx-auto space-y-6 md:space-y-12'>
         <ScrollFloat
           animationDuration={1}
           ease='back.inOut(2)'
