@@ -33,6 +33,8 @@
   --chart-4: oklch(0.371 0 0);
   --chart-5: oklch(0.269 0 0);
   --radius: 0.625rem;
+  --sb-track-color: var(--card);
+  --sb-thumb-color: var(--color-gray-300);
   --height-container: calc(100vh - 4rem);
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
@@ -76,6 +78,8 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+  --sb-track-color: var(--card);
+  --sb-thumb-color: var(--color-gray-500);
 }
 
 @theme inline {
@@ -141,11 +145,28 @@
     /* the clients carousel bleeds past the viewport on purpose, same as the
        old project, which hid the resulting horizontal scroll here */
     overflow-x: hidden;
+    /* same scrollbar as the old portfolio */
+    --sb-size: 8px;
+  }
+  body::-webkit-scrollbar {
+    width: var(--sb-size);
+  }
+  body::-webkit-scrollbar-track {
+    background: var(--sb-track-color);
+  }
+  body::-webkit-scrollbar-thumb {
+    background: var(--sb-thumb-color);
+    border-radius: 12px;
+  }
+  @supports not selector(::-webkit-scrollbar) {
+    body {
+      scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+    }
   }
   button:not(:disabled), [role="button"]:not(:disabled) {
     cursor: pointer;
   }
   html {
-    @apply font-sans scroll-smooth;
+    @apply font-sans;
   }
 }

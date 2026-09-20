@@ -23,5 +23,23 @@ const { title = '' } = Astro.props as Props;
   </head>
   <body>
     <slot />
+
+    <script>
+      import Lenis from 'lenis';
+      import 'lenis/dist/lenis.css';
+      import { gsap } from 'gsap';
+      import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      // same smooth scroll the old portfolio had through <ReactLenis root>
+      const lenis = new Lenis({ lerp: 0.1, anchors: true });
+
+      // ScrollTrigger reads the scroll position that lenis now writes, so it
+      // has to hear about every move and run off the same clock
+      lenis.on('scroll', ScrollTrigger.update);
+      gsap.ticker.add((time) => lenis.raf(time * 1000));
+      gsap.ticker.lagSmoothing(0);
+    </script>
   </body>
 </html>
