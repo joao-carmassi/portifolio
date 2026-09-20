@@ -239,12 +239,12 @@ const AboutMeHomepage = () => {
           <VideoCard
             video={videos[0]}
             reduced={reduced}
-            className='about-media-right lg:col-span-2'
+            className='about-media-right lg:col-span-2 lg:self-end'
           />
           <VideoCard
             video={videos[1]}
             reduced={reduced}
-            className='about-media-left lg:col-span-2'
+            className='about-media-left lg:col-span-2 lg:self-start'
           />
           <InfoCard
             card={cards[1]}
