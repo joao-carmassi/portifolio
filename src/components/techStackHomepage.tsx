@@ -84,14 +84,14 @@ const title = 'Minha Stack';
 const TechStack = () => {
   return (
     <section id='techStack' className='bg-card'>
-      <div className='p-4 md:p-12 space-y-3 md:space-y-6'>
+      <div className='p-6 md:p-12 max-w-7xl mx-auto space-y-3 md:space-y-6'>
         <ScrollFloat
           animationDuration={1}
           ease='back.inOut(2)'
           scrollStart='center bottom+=40%'
           scrollEnd='bottom bottom-=60%'
           stagger={0.03}
-          textClassName='md:text-7xl lg:text-9xl font-semibold font-title'
+          textClassName='font-title text-5xl md:text-7xl'
         >
           {title}
         </ScrollFloat>
