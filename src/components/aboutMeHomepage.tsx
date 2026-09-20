@@ -175,7 +175,7 @@ const VideoCard = ({
 }) => (
   <figure
     style={{ '--ar': `${video.width} / ${video.height}` } as React.CSSProperties}
-    className={`dark relative overflow-hidden rounded-3xl bg-black aspect-[var(--ar)] lg:max-h-[calc((100svh-7.5rem)/2)] ${className}`}
+    className={`dark relative overflow-hidden rounded-3xl bg-black aspect-[var(--ar)] ${className}`}
   >
     {reduced !== null && <VideoPlayer video={video} reduced={reduced} />}
     <figcaption className='sr-only'>
@@ -226,8 +226,10 @@ const AboutMeHomepage = () => {
       id='aboutMeHomepage'
       className='p-6 md:py-12 md:px-24 bg-card'
     >
-      {/* no max width: the section spans the same gutter as the hero frame */}
-      <div className='space-y-6 md:space-y-12'>
+      {/* a video is two of the three columns wide and 2.34x as wide as it is
+          tall, so capping the width here is what keeps the grid inside one
+          screen; heading and grid share the cap so they stay aligned */}
+      <div className='space-y-6 md:space-y-12 lg:mx-auto lg:max-w-[calc((100svh-7.5rem)*1.755+0.75rem)]'>
         <div className='space-y-1.5 md:space-y-3'>
           <h2 className='font-title text-5xl md:text-6xl'>Sobre mim</h2>
           <p className='text-muted-foreground font-semibold max-w-2xl'>
