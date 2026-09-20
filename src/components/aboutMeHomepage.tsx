@@ -60,10 +60,6 @@ const cards = [
         text: 'Audito com as ferramentas do Google e corrijo o que elas apontam.',
       },
       {
-        icon: MessageCircle,
-        text: 'Converso em português claro, sem jargão para inflar preço.',
-      },
-      {
         icon: Wrench,
         text: 'Depois do lançamento, ajustes e manutenção continuam comigo.',
       },
@@ -174,8 +170,10 @@ const VideoCard = ({
   className: string;
 }) => (
   <figure
-    style={{ '--ar': `${video.width} / ${video.height}` } as React.CSSProperties}
-    className={`dark relative overflow-hidden rounded-3xl bg-black aspect-[var(--ar)] ${className}`}
+    style={
+      { '--ar': `${video.width} / ${video.height}` } as React.CSSProperties
+    }
+    className={`dark relative overflow-hidden rounded-3xl bg-black aspect-(--ar) ${className}`}
   >
     {reduced !== null && <VideoPlayer video={video} reduced={reduced} />}
     <figcaption className='sr-only'>
@@ -236,24 +234,21 @@ const AboutMeHomepage = () => {
             gente trabalha junto.
           </p>
         </div>
-        <div className='grid sm:grid-cols-2 md:grid-cols-5 lg:grid-cols-[minmax(0,1fr)_min(calc(33.333%-16px),calc((100svh-7.5rem)*2.34-100%))_minmax(0,1fr)] gap-6'>
-          <InfoCard
-            card={cards[0]}
-            className='about-card-top col-span-1 md:col-span-2 lg:col-span-1'
-          />
+        <div className='grid lg:grid-cols-[minmax(0,1fr)_min(calc(33.333%-16px),calc((100svh-7.5rem)*2.34-100%))_minmax(0,1fr)] gap-6'>
+          <InfoCard card={cards[0]} className='about-card-top lg:col-span-1' />
           <VideoCard
             video={videos[0]}
             reduced={reduced}
-            className='about-media-right col-span-1 sm:col-span-2 md:col-span-3 lg:col-span-2'
+            className='about-media-right lg:col-span-2'
           />
           <VideoCard
             video={videos[1]}
             reduced={reduced}
-            className='about-media-left col-span-1 sm:col-span-2 md:col-span-3 lg:col-span-2'
+            className='about-media-left lg:col-span-2'
           />
           <InfoCard
             card={cards[1]}
-            className='about-card-bottom col-span-1 md:col-span-2 lg:col-span-1'
+            className='about-card-bottom lg:col-span-1'
           />
         </div>
       </div>
