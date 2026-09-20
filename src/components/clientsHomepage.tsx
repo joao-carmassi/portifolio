@@ -153,7 +153,7 @@ const ClientCard = ({
 
     <MorphingDialogContainer>
       <MorphingDialogContent className='relative w-full max-w-3xl max-h-[90dvh] overflow-y-auto rounded-2xl bg-card shadow-2xl'>
-        <div className='relative aspect-[1861/912] w-full'>
+        <div className='relative aspect-1861/912 w-full'>
           <img
             src={item.image}
             alt={item.title}
@@ -221,12 +221,12 @@ const Clients = (): React.ReactNode => {
 
   return (
     <section className='overflow-hidden py-6 lg:py-12'>
-      <div className='container space-y-6 md:space-y-12'>
+      <div className='px-4 md:px-12 space-y-6 md:space-y-12'>
         <div className='space-y-1.5 md:space-y-3'>
           <H2>{title}</H2>
           <P className='max-w-md'>{text}</P>
         </div>
-        <div className='relative -mr-[max(3rem,calc((100vw-80rem)/2+3rem))]'>
+        <div className='relative -mr-4 md:-mr-12'>
           <Carousel
             opts={{
               align: 'start',
