@@ -121,13 +121,13 @@ const HeroHomepage = () => {
 
         {/* stacked: content sits at the bottom; xl: side by side, still bottom-left */}
         <div className='hero-content invisible relative z-10 w-full h-full flex flex-col items-end justify-end gap-y-8 gap-x-4 xl:flex-row xl:justify-start'>
-          <div className='w-full space-y-10 xl:w-1/2'>
+          <div className='w-full space-y-6 md:space-y-10 xl:w-1/2'>
             <h1 className='font-title text-5xl md:text-7xl text-shadow-lg'>
               <span className='hero-entry block'>João Vitor</span>
               <span className='hero-title block w-fit'>Carmassi,</span>
               <span className='hero-entry block'>desenvolvedor</span>
             </h1>
-            <p className='hero-entry text-muted-foreground font-semibold max-w-lg'>
+            <p className='hero-entry opacity-80 font-semibold max-w-lg'>
               Criando experiências web perfeitas com tecnologias modernas e
               paixão por inovação.
             </p>
