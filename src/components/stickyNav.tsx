@@ -49,13 +49,18 @@ const StickyNav = () => {
     return () => removeEventListener('scroll', onScroll);
   }, []);
 
-  // the pill is the only way to close the menu, so it cannot leave with the
-  // menu still open
+  // the hero's own button opens this menu, and it fires before the pill has
+  // scrolled into view
   useEffect(() => {
-    if (!shown) setMenuOpen(false);
-  }, [shown]);
+    const open = () => setMenuOpen(true);
+    addEventListener('nav:menu', open);
+    return () => removeEventListener('nav:menu', open);
+  }, []);
 
-  const LAYER = `${GEOMETRY} ${shown ? 'translate-y-0' : 'translate-y-[-250%]'}`;
+  // the pill carries the only close button, so it has to stay out while the
+  // menu is open even if the scroll says otherwise
+  const visible = shown || menuOpen;
+  const LAYER = `${GEOMETRY} ${visible ? 'translate-y-0' : 'translate-y-[-250%]'}`;
 
   return (
     <>
@@ -86,8 +91,8 @@ const StickyNav = () => {
       <div
         className={`${LAYER} z-50 mix-blend-difference`}
         // the bar is inert while it sits above the viewport
-        aria-hidden={!shown}
-        inert={!shown}
+        aria-hidden={!visible}
+        inert={!visible}
       >
         <nav className='flex h-14 items-center justify-between gap-4 px-5 text-white'>
           <a href='#top' className='font-title text-2xl md:text-3xl'>

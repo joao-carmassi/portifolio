@@ -13,11 +13,17 @@ import { Textarea } from './textarea';
  * @reference: https://shadcnui-expansions.typeart.cc/docs/floating-label-input
  */
 
+// the floating label punches a bg-card hole through the field's border, so the
+// field has to be that same colour. Input/Textarea tint themselves in dark.
+const FILL = 'dark:bg-transparent';
+
 function FloatingInput({
   className,
   ...props
 }: React.ComponentProps<'input'>): React.ReactNode {
-  return <Input placeholder=' ' className={cn('peer', className)} {...props} />;
+  return (
+    <Input placeholder=' ' className={cn('peer', FILL, className)} {...props} />
+  );
 }
 
 function FloatingTextarea({
@@ -25,7 +31,11 @@ function FloatingTextarea({
   ...props
 }: React.ComponentProps<'textarea'>): React.ReactNode {
   return (
-    <Textarea placeholder=' ' className={cn('peer', className)} {...props} />
+    <Textarea
+      placeholder=' '
+      className={cn('peer', FILL, className)}
+      {...props}
+    />
   );
 }
 

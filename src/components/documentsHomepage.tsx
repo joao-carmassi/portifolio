@@ -138,7 +138,7 @@ const DocumentosHomepage = () => {
                   />
                 </div>
                 <div className='basis-1/2 shrink-0 space-y-3 '>
-                  <span className='uppercase font-semibold text-sm text-accent'>
+                  <span className='uppercase font-semibold text-sm text-muted-foreground'>
                     {doc.category}
                   </span>
                   <H3>{doc.title}</H3>
@@ -172,7 +172,7 @@ const DocumentosHomepage = () => {
                 />
               </div>
               <div className='basis-1/2 shrink-0 space-y-3 '>
-                <span className='uppercase font-semibold text-sm text-accent'>
+                <span className='uppercase font-semibold text-sm text-muted-foreground'>
                   {resume.category}
                 </span>
                 <H3>{resume.title}</H3>

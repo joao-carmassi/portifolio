@@ -1,3 +1,5 @@
+import { Menu } from 'lucide-react';
+
 const links = [
   { href: '#aboutMeHomepage', label: 'Sobre' },
   { href: '#documentosHomepage', label: 'Currículo' },
@@ -24,12 +26,16 @@ const HeroNav = () => (
           </li>
         ))}
       </ul>
-      <a
-        href='#contactMeHomepage'
-        className='md:hidden text-foreground/70 hover:text-foreground transition-colors font-semibold'
+      {/* no room for the links on a phone: this opens the same staggered menu
+          the sticky pill does, which lives in its own island */}
+      <button
+        type='button'
+        aria-label='Abrir menu'
+        onClick={() => dispatchEvent(new Event('nav:menu'))}
+        className='md:hidden grid size-9 place-items-center rounded-full text-foreground/70 hover:text-foreground transition-colors'
       >
-        Contato
-      </a>
+        <Menu className='size-6' />
+      </button>
     </nav>
   </div>
 );

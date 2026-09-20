@@ -10,6 +10,15 @@ import HeroNav from '@/components/heroNav';
 
 gsap.registerPlugin(useGSAP, SplitText);
 
+/** The second beat: the frame closes back in and the rest of the copy arrives.
+ *  The pull cord waits for this so it drops with it instead of on its own. */
+const STAGE_2 = 'hero:stage2';
+const announceStage2 = () => {
+  // the attribute covers an island that hydrates after the event already fired
+  document.documentElement.dataset.heroStage = '2';
+  dispatchEvent(new Event(STAGE_2));
+};
+
 const HeroHomepage = () => {
   const frame = useRef<HTMLDivElement>(null);
   const section = useRef<HTMLElement>(null);
@@ -22,6 +31,7 @@ const HeroHomepage = () => {
       section.current!.removeAttribute('data-intro');
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
         gsap.set([content, '.hero-nav'], { autoAlpha: 1 });
+        announceStage2();
         return;
       }
 
@@ -86,6 +96,8 @@ const HeroHomepage = () => {
           },
           2.5,
         );
+
+      tl.call(announceStage2, undefined, 2);
 
       // from() tweens already hid everything, safe to reveal the wrappers
       gsap.set([content, '.hero-nav'], { autoAlpha: 1 });
