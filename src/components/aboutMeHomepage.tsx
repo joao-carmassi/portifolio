@@ -174,8 +174,8 @@ const VideoCard = ({
   className: string;
 }) => (
   <figure
-    style={{ aspectRatio: `${video.width} / ${video.height}` }}
-    className={`dark relative overflow-hidden rounded-3xl bg-black ${className}`}
+    style={{ '--ar': `${video.width} / ${video.height}` } as React.CSSProperties}
+    className={`dark relative overflow-hidden rounded-3xl bg-black aspect-[var(--ar)] lg:max-h-[calc((100svh-7.5rem)/2)] ${className}`}
   >
     {reduced !== null && <VideoPlayer video={video} reduced={reduced} />}
     <figcaption className='sr-only'>
