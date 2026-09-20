@@ -100,7 +100,9 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
       preLayerElsRef.current = preLayers;
 
       const offscreen = position === 'left' ? -100 : 100;
-      gsap.set([panel, ...preLayers], { xPercent: offscreen, opacity: 1 });
+      // x: 0 clears the css translate that parks the panel before hydration,
+      // which gsap would otherwise read as a baseline and add xPercent on top of
+      gsap.set([panel, ...preLayers], { x: 0, xPercent: offscreen, opacity: 1 });
       if (preContainer) {
         gsap.set(preContainer, { xPercent: 0, opacity: 1 });
       }
@@ -576,6 +578,11 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
 .sm-scope .sm-prelayers { position: absolute; top: 0; right: 0; bottom: 0; width: clamp(260px, 38vw, 420px); pointer-events: none; z-index: 5; }
 .sm-scope [data-position='left'] .sm-prelayers { right: auto; left: 0; }
 .sm-scope .sm-prelayer { position: absolute; top: 0; right: 0; height: 100%; width: 100%; transform: translateX(0); }
+/* the panel is only pushed offscreen once gsap runs, which is a frame too late
+   on a hydrated island; these two rules hold it there until the inline
+   transform gsap writes takes over */
+.sm-scope [data-position='right'] .staggered-menu-panel, .sm-scope [data-position='right'] .sm-prelayer { transform: translateX(100%); }
+.sm-scope [data-position='left'] .staggered-menu-panel, .sm-scope [data-position='left'] .sm-prelayer { transform: translateX(-100%); }
 .sm-scope .sm-panel-inner { flex: 1; display: flex; flex-direction: column; gap: 1.25rem; }
 .sm-scope .sm-socials { margin-top: auto; padding-top: 2rem; display: flex; flex-direction: column; gap: 0.75rem; }
 .sm-scope .sm-socials-title { margin: 0; font-size: 1rem; font-weight: 500; color: var(--sm-accent, #ff0000); }

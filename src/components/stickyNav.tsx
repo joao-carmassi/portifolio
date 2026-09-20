@@ -19,13 +19,17 @@ const items = [
     ariaLabel: 'Ir para os projetos',
     link: '#clientsHomepage',
   },
-  { label: 'Tecnologias', ariaLabel: 'Ir para a stack', link: '#techStack' },
+  { label: 'Stack', ariaLabel: 'Ir para a stack', link: '#techStack' },
   {
     label: 'Contato',
     ariaLabel: 'Ir para o formulário de contato',
     link: '#contactMeHomepage',
   },
 ];
+
+// shared by both layers so they move as one; no fade, it just drops in
+const GEOMETRY =
+  'fixed top-4 md:top-6 inset-x-6 mx-auto md:w-1/2 transition-transform duration-700 ease-[cubic-bezier(0.33,1.15,0.5,1)]';
 
 const socialItems = [
   { label: 'GitHub', link: 'https://github.com/joao-carmassi' },
@@ -45,6 +49,8 @@ const StickyNav = () => {
     return () => removeEventListener('scroll', onScroll);
   }, []);
 
+  const LAYER = `${GEOMETRY} ${shown ? 'translate-y-0' : 'translate-y-[-250%]'}`;
+
   return (
     <>
       {/* the menu paints its own full-screen overlay; the pill sits above it so
@@ -63,36 +69,34 @@ const StickyNav = () => {
         onMenuClose={() => setMenuOpen(false)}
       />
 
+      {/* two layers on purpose. mix-blend-mode anywhere inside the glass's
+          parent turns that parent into a backdrop root, and the glass then has
+          nothing behind it left to filter. Keeping the blended bar in its own
+          fixed layer leaves both rooted at the page. */}
+      <div className={`${LAYER} z-40`} aria-hidden inert>
+        <GlassSurface width='100%' height={56} borderRadius={999} />
+      </div>
+
       <div
-        // no fade: it drops in from past the top edge and settles, nothing else
-        className={`fixed top-4 md:top-6 inset-x-6 mx-auto md:w-1/2 z-50 transition-transform duration-700 ease-[cubic-bezier(0.33,1.15,0.5,1)] ${
-          shown ? 'translate-y-0' : 'translate-y-[-250%]'
-        }`}
+        className={`${LAYER} z-50 mix-blend-difference`}
         // the bar is inert while it sits above the viewport
         aria-hidden={!shown}
         inert={!shown}
       >
-        {/* the glass stays in flow and the bar floats over it: an absolute
-            sibling with no z-index keeps both in the same blending group, so
-            mix-blend-difference on the bar reads the glass and the page under
-            it and paints the wordmark in whatever colour opposes them */}
-        <div className='relative'>
-          <GlassSurface width='100%' height={56} borderRadius={999} />
-          <nav className='absolute inset-0 flex items-center justify-between gap-4 px-5 text-white mix-blend-difference'>
-            <a href='#heroHomepage' className='font-title text-2xl md:text-3xl'>
-              JC
-            </a>
-            <button
-              type='button'
-              aria-label={menuOpen ? 'Fechar menu' : 'Abrir menu'}
-              aria-expanded={menuOpen}
-              onClick={() => setMenuOpen((v) => !v)}
-              className='grid size-9 place-items-center rounded-full transition-colors hover:bg-white/20'
-            >
-              {menuOpen ? <X className='size-5' /> : <Menu className='size-5' />}
-            </button>
-          </nav>
-        </div>
+        <nav className='flex h-14 items-center justify-between gap-4 px-5 text-white'>
+          <a href='#heroHomepage' className='font-title text-2xl md:text-3xl'>
+            JC
+          </a>
+          <button
+            type='button'
+            aria-label={menuOpen ? 'Fechar menu' : 'Abrir menu'}
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen((v) => !v)}
+            className='grid size-9 place-items-center rounded-full transition-colors hover:bg-white/20'
+          >
+            {menuOpen ? <X className='size-5' /> : <Menu className='size-5' />}
+          </button>
+        </nav>
       </div>
     </>
   );
