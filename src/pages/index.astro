@@ -5,6 +5,7 @@ import AboutMeHomepage from '@/components/aboutMeHomepage';
 import DocumentosHomepage from '@/components/documentsHomepage';
 import TechStackHomepage from '@/components/techStackHomepage';
 import ClientsHomepage from '@/components/clientsHomepage';
+import ContactMeHomepage from '@/components/contactMeHomepage';
 import FooterHomepage from '@/components/footerHomepage';
 
 const visible = { rootMargin: '400px' };
@@ -19,6 +20,7 @@ const visible = { rootMargin: '400px' };
     <DocumentosHomepage client:visible={visible} />
     <TechStackHomepage client:visible={visible} />
     <ClientsHomepage client:visible={visible} />
+    <ContactMeHomepage client:visible={visible} />
   </main>
   <FooterHomepage client:visible={visible} />
 </Layout>
