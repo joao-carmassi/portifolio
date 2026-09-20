@@ -222,7 +222,7 @@ const Clients = (): React.ReactNode => {
     <section className='overflow-hidden py-6 lg:py-12'>
       <div className='px-4 md:px-24 space-y-6 md:space-y-12'>
         <div className='space-y-1.5 md:space-y-3'>
-          <h2 className='font-title text-5xl md:text-7xl'>{title}</h2>
+          <h2 className='font-title text-5xl md:text-6xl'>{title}</h2>
           <p className='text-muted-foreground font-semibold max-w-2xl'>
             {text}
           </p>

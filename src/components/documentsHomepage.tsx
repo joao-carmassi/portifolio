@@ -115,7 +115,7 @@ const DocumentosHomepage = () => {
       className='bg-background w-full min-h-container py-6 md:py-12 mx-auto flex flex-col gap-6 md:gap-12 justify-center'
     >
       <div className='space-y-1.5 md:space-y-3 px-6 md:px-12'>
-        <h2 className='font-title text-5xl md:text-7xl text-center'>{title}</h2>
+        <h2 className='font-title text-5xl md:text-6xl text-center'>{title}</h2>
         <p className='text-muted-foreground font-semibold max-w-2xl mx-auto text-center'>
           {text}
         </p>
