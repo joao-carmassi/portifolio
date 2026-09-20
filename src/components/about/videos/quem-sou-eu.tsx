@@ -8,7 +8,14 @@ import {
   siTypescript,
   type SimpleIcon,
 } from 'simple-icons';
-import { AbsoluteFill, Img, Sequence } from 'remotion';
+import {
+  AbsoluteFill,
+  Img,
+  Sequence,
+  spring,
+  useCurrentFrame,
+  useVideoConfig,
+} from 'remotion';
 import { CheckList } from '@/components/remocn/check-list';
 import { Drift } from '@/components/remocn/drift';
 import { focusPull } from '@/components/remocn/focus-pull';
@@ -16,7 +23,6 @@ import { GlassCodeWalk } from '@/components/remocn/glass-code-walk';
 import { grainDissolve } from '@/components/remocn/grain-dissolve';
 import { Handwrite } from '@/components/remocn/handwrite';
 import { InkUnderline } from '@/components/remocn/ink-underline';
-import { LogoEnter, type Logo } from '@/components/remocn/logo-enter';
 import { PaperSticker } from '@/components/remocn/paper-sticker';
 import { Polaroid } from '@/components/remocn/polaroid';
 import { pushThrough } from '@/components/remocn/push-through';
@@ -126,16 +132,22 @@ const Origem = () => (
   <AbsoluteFill style={{ background: '#050409' }}>
     <SoftVignette />
     <Drift grow={0.05}>
-      <div style={{ position: 'absolute', left: 240, top: 174 }}>
-        <Polaroid width={720} caption='joão' captionAt={54}>
+      <div style={{ position: 'absolute', left: 340, top: 83 }}>
+        {/* portrait window, to match the 2:3 photo instead of cropping it */}
+        <Polaroid
+          width={500}
+          mediaRatio={4 / 5}
+          captionSize={32}
+          caption='joão'
+          captionAt={54}
+        >
           <Img
             src='/images/about/joao.webp'
             style={{
               width: '100%',
               height: '100%',
               objectFit: 'cover',
-              // portrait source in a landscape window: bias upward to keep the face
-              objectPosition: '50% 42%',
+              objectPosition: '50% 38%',
             }}
           />
         </Polaroid>
@@ -294,31 +306,78 @@ const EmCodigo = () => (
   </AbsoluteFill>
 );
 
-/** simple-icons path in a LogoEnter chip; fg is picked per brand, not computed. */
-const chip = (icon: SimpleIcon, bg: string, fg = '#ffffff'): Logo => ({
-  bg,
-  mark: (
-    <svg
-      width='100%'
-      height='100%'
-      viewBox='0 0 24 24'
-      role='img'
-      aria-label={icon.title}
-    >
-      <path d={icon.path} fill={fg} />
-    </svg>
-  ),
-});
-
-const STACK: Logo[] = [
-  chip(siAstro, `#${siAstro.hex}`),
-  chip(siReact, `#${siReact.hex}`, '#0a0a0a'),
-  // Next.js brand hex is pure black; invert it so the chip reads on a dark canvas.
-  chip(siNextdotjs, '#ffffff', '#000000'),
-  chip(siTypescript, `#${siTypescript.hex}`),
-  chip(siTailwindcss, `#${siTailwindcss.hex}`),
-  chip(siGreensock, `#${siGreensock.hex}`),
+const TOOLS: { icon: SimpleIcon; name: string; use: string }[] = [
+  { icon: siAstro, name: 'Astro', use: 'sites' },
+  { icon: siReact, name: 'React', use: 'interfaces' },
+  { icon: siNextdotjs, name: 'Next.js', use: 'aplicações' },
+  { icon: siTypescript, name: 'TypeScript', use: 'tipagem' },
+  { icon: siTailwindcss, name: 'Tailwind', use: 'estilo' },
+  { icon: siGreensock, name: 'GSAP', use: 'animação' },
 ];
+
+/** Next.js' brand hex is pure black and would vanish on the dark tile. */
+const brandFill = (icon: SimpleIcon) =>
+  icon.hex.toLowerCase() === '000000' ? '#ffffff' : `#${icon.hex}`;
+
+const ToolCard = ({
+  icon,
+  name,
+  use,
+  at,
+}: {
+  icon: SimpleIcon;
+  name: string;
+  use: string;
+  at: number;
+}) => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  const enter = spring({
+    frame: frame - at,
+    fps,
+    config: { damping: 14, mass: 0.6 },
+  });
+
+  return (
+    <div
+      style={{
+        width: 258,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 22,
+        opacity: enter,
+        transform: `translateY(${(1 - enter) * 54}px)`,
+      }}
+    >
+      <div
+        style={{
+          width: 132,
+          height: 132,
+          borderRadius: 34,
+          display: 'grid',
+          placeItems: 'center',
+          background: 'rgba(243,238,255,0.06)',
+          border: '1px solid rgba(243,238,255,0.14)',
+        }}
+      >
+        <svg
+          width={64}
+          height={64}
+          viewBox='0 0 24 24'
+          role='img'
+          aria-label={name}
+        >
+          <path d={icon.path} fill={brandFill(icon)} />
+        </svg>
+      </div>
+      <div style={{ textAlign: 'center', fontFamily: SANS }}>
+        <div style={{ fontSize: 30, fontWeight: 600, color: INK }}>{name}</div>
+        <div style={{ fontSize: 24, fontWeight: 500, color: MUTED }}>{use}</div>
+      </div>
+    </div>
+  );
+};
 
 const Ferramentas = () => (
   <AbsoluteFill style={{ background: '#050409' }}>
@@ -328,12 +387,14 @@ const Ferramentas = () => (
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'column',
-        gap: 56,
+        gap: 64,
       }}
     >
       <Kicker>no dia a dia</Kicker>
-      <div style={{ position: 'relative', width: '100%', height: 150 }}>
-        <LogoEnter logos={STACK} diameter={128} overlap={40} stagger={7} />
+      <div style={{ display: 'flex', gap: 32 }}>
+        {TOOLS.map((tool, i) => (
+          <ToolCard key={tool.name} {...tool} at={i * 5} />
+        ))}
       </div>
     </AbsoluteFill>
   </AbsoluteFill>
@@ -454,7 +515,7 @@ const S_ORIGEM = Math.round(5.5 * FPS);
 const S_SERRA = SERRA_PHOTO_BEAT + wordStreamLength(SERRA_TEXT) + 34;
 const S_IDIOMAS = Math.round(5 * FPS);
 const S_CODIGO = Math.round(5.5 * FPS);
-const S_FERRAMENTAS = Math.round(3.8 * FPS);
+const S_FERRAMENTAS = Math.round(4.6 * FPS);
 const S_FORA = Math.round(5 * FPS);
 const S_ASSINATURA = Math.round(4.3 * FPS);
 
@@ -554,5 +615,5 @@ export const quemSouEu: AboutVideo = {
   height: 820,
   durationInFrames: DURATION,
   srText:
-    'Animação de cerca de 33 segundos em oito cenas. Abre com o nome João Vitor Carmassi e a legenda "desenvolvedor front-end". Em seguida, um polaroid com a foto dele e duas etiquetas: "nascido em são paulo, 2004" e "mora em são bento do sapucaí". Depois, uma foto aérea da Pedra do Baú saindo das nuvens, com a legenda "pedra do baú" e as frases "da serra de são bento", "para o mundo todo" e "100% remoto". Na sequência, a lista de idiomas: português nativo, inglês C1 e espanhol B2. Um editor de código mostra o objeto joao com nome, base em São Bento do Sapucaí, idiomas inglês C1 e espanhol B2, e foco em front-end. Sob o rótulo "no dia a dia" aparecem os logos de Astro, React, Next.js, TypeScript, Tailwind e GSAP. A cena "fora do código" traz as etiquetas trilhas, viajar de moto, música, games e filmes. Fecha com a assinatura "joão." sublinhada e o endereço github.com/joao-carmassi.',
+    'Animação de cerca de 34 segundos em oito cenas. Abre com o nome João Vitor Carmassi e a legenda "desenvolvedor front-end". Em seguida, um polaroid com a foto dele e duas etiquetas: "nascido em são paulo, 2004" e "mora em são bento do sapucaí". Depois, uma foto aérea da Pedra do Baú saindo das nuvens, com a legenda "pedra do baú" e as frases "da serra de são bento", "para o mundo todo" e "100% remoto". Na sequência, a lista de idiomas: português nativo, inglês C1 e espanhol B2. Um editor de código mostra o objeto joao com nome, base em São Bento do Sapucaí, idiomas inglês C1 e espanhol B2, e foco em front-end. Sob o rótulo "no dia a dia" aparecem seis cartões com as ferramentas e para que ele usa cada uma: Astro para sites, React para interfaces, Next.js para aplicações, TypeScript para tipagem, Tailwind para estilo e GSAP para animação. A cena "fora do código" traz as etiquetas trilhas, viajar de moto, música, games e filmes. Fecha com a assinatura "joão." sublinhada e o endereço github.com/joao-carmassi.',
 };

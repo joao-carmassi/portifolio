@@ -10,6 +10,7 @@ const BASE_MEDIA_WIDTH = 620;
 const BASE_MEDIA_HEIGHT = 349;
 const BASE_CAPTION_HEIGHT = 62;
 const BASE_CAPTION_SIZE = 36;
+const BASE_MEDIA_RATIO = BASE_MEDIA_WIDTH / BASE_MEDIA_HEIGHT;
 
 export type PolaroidGeometry = {
   pad: number;
@@ -19,11 +20,15 @@ export type PolaroidGeometry = {
   height: number;
 };
 
-export function polaroidGeometry(width: number): PolaroidGeometry {
+export function polaroidGeometry(
+  width: number,
+  mediaRatio = BASE_MEDIA_RATIO,
+): PolaroidGeometry {
   const scale = width / BASE_WIDTH;
   const pad = BASE_PAD * scale;
   const mediaWidth = BASE_MEDIA_WIDTH * scale;
-  const mediaHeight = BASE_MEDIA_HEIGHT * scale;
+  // the window follows the ratio asked for; only the frame width is fixed
+  const mediaHeight = mediaWidth / mediaRatio;
   const captionHeight = BASE_CAPTION_HEIGHT * scale;
   return {
     pad,
@@ -42,6 +47,8 @@ export interface PolaroidProps {
   frameColor?: string;
   captionColor?: string;
   captionSize?: number;
+  /** width / height of the photo window. Defaults to the landscape original. */
+  mediaRatio?: number;
   step?: number;
 }
 
@@ -53,10 +60,11 @@ export function Polaroid({
   frameColor = "#fdfcf8",
   captionColor = "#26242c",
   captionSize,
+  mediaRatio,
   step = DEFAULT_STEP,
 }: PolaroidProps) {
   const { pad, mediaWidth, mediaHeight, captionHeight, height } =
-    polaroidGeometry(width);
+    polaroidGeometry(width, mediaRatio);
   const resolvedCaptionSize =
     captionSize ?? BASE_CAPTION_SIZE * (width / BASE_WIDTH);
 
