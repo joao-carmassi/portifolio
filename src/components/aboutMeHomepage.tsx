@@ -226,10 +226,8 @@ const AboutMeHomepage = () => {
       id='aboutMeHomepage'
       className='p-6 md:py-12 md:px-24 bg-card'
     >
-      {/* a video is two of the three columns wide and 2.34x as wide as it is
-          tall, so capping the width here is what keeps the grid inside one
-          screen; heading and grid share the cap so they stay aligned */}
-      <div className='space-y-6 md:space-y-12 lg:mx-auto lg:max-w-[calc((100svh-7.5rem)*1.755+0.75rem)]'>
+      {/* no max width: the section spans the same gutter as the hero frame */}
+      <div className='space-y-6 md:space-y-12'>
         <div className='space-y-1.5 md:space-y-3'>
           <h2 className='font-title text-5xl md:text-6xl'>Sobre mim</h2>
           <p className='text-muted-foreground font-semibold max-w-2xl'>
@@ -238,7 +236,7 @@ const AboutMeHomepage = () => {
             gente trabalha junto.
           </p>
         </div>
-        <div className='grid sm:grid-cols-2 md:grid-cols-5 lg:grid-cols-3 gap-6'>
+        <div className='grid sm:grid-cols-2 md:grid-cols-5 lg:grid-cols-[minmax(0,1fr)_min(calc(33.333%-16px),calc((100svh-7.5rem)*2.34-100%))_minmax(0,1fr)] gap-6'>
           <InfoCard
             card={cards[0]}
             className='about-card-top col-span-1 md:col-span-2 lg:col-span-1'
