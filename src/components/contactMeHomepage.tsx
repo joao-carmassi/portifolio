@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/dialog';
 import { Spinner } from '@/components/ui/kibo-ui/spinner';
 import { P } from '@/components/ui/p';
+import axios from 'axios';
 import confetti from 'canvas-confetti';
 import { ArrowRightIcon, Trash2 } from 'lucide-react';
 import gsap from 'gsap';
@@ -26,6 +27,8 @@ import {
   FieldError,
 } from '@/components/ui/field';
 import { FloatingLabel } from '@/components/ui/floating-label-input';
+import { useMutation } from '@tanstack/react-query';
+import QueryProvider from '@/components/query-provider';
 
 // copy from the old project's messages/pt.json -> homepage.contactMe
 const title = 'Entre em contato!';
@@ -70,7 +73,7 @@ const modal = {
 const access_key = 'e25d109e-87c5-431e-9bd5-89f4b0792f09';
 const API_URL = 'https://api.web3forms.com/submit';
 
-const ContactMeHomepage = () => {
+const ContactMeForm = () => {
   const [enviado, setEnviado] = useState<null | boolean>(null);
   const [modalAberto, setModalAberto] = useState(false);
 
@@ -140,40 +143,35 @@ const ContactMeHomepage = () => {
     resolver: schema ? zodResolver(schema) : undefined,
   });
 
+  const { mutate } = useMutation({
+    mutationFn: (dados: tSchema & { access_key: string }) =>
+      axios.post(API_URL, dados),
+    onMutate: () => setModalAberto(true),
+    onSuccess: (res) => {
+      if (res.status === 200) {
+        setModalAberto(false);
+        setEnviado(true);
+        confetti({
+          particleCount: 100,
+          spread: 90,
+          origin: { y: 0.7 },
+        });
+      } else {
+        setEnviado(false);
+        setModalAberto(false);
+      }
+    },
+    onError: (err) => {
+      console.log(err);
+      setModalAberto(false);
+      setEnviado(false);
+    },
+  });
+
   const enviaEmail = (data: tSchema) => {
     if (!schema) return;
 
-    const dados = {
-      access_key,
-      ...data,
-    };
-
-    setModalAberto(true);
-    // the old project used axios here; fetch is the same POST without the dep
-    fetch(API_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(dados),
-    })
-      .then((res) => {
-        if (res.status === 200) {
-          setModalAberto(false);
-          setEnviado(true);
-          confetti({
-            particleCount: 100,
-            spread: 90,
-            origin: { y: 0.7 },
-          });
-        } else {
-          setEnviado(false);
-          setModalAberto(false);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        setModalAberto(false);
-        setEnviado(false);
-      });
+    mutate({ access_key, ...data });
   };
 
   const handleModal = () => {
@@ -360,5 +358,12 @@ const ContactMeHomepage = () => {
     </section>
   );
 };
+
+// react-query lives inside the island: an Astro page has no shared React tree
+const ContactMeHomepage = () => (
+  <QueryProvider>
+    <ContactMeForm />
+  </QueryProvider>
+);
 
 export default ContactMeHomepage;
