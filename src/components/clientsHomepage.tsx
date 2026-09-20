@@ -17,6 +17,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Tilt } from '@/components/ui/tilt';
 import { DepthMedia } from '@/components/ui/depth-media';
 import type { ClientsCopy } from '@/i18n';
+import { Picture } from '@/components/ui/picture';
+import type { OptimizedImage } from '@/lib/images';
 import {
   MorphingDialog,
   MorphingDialogClose,
@@ -59,9 +61,11 @@ const getHost = (url: string): string => {
 
 const ClientCard = ({
   item,
+  image,
   cta,
 }: {
   item: ClientItem;
+  image: OptimizedImage;
   cta: string;
 }): React.ReactNode => (
   <MorphingDialog transition={dialogTransition}>
@@ -73,7 +77,7 @@ const ClientCard = ({
         <Card className='overflow-hidden border-none shadow-lg bg-card pt-0! gap-4 h-fit'>
           <CardContent className='flex h-full flex-col p-0'>
             <DepthMedia
-              src={item.image}
+              image={image}
               alt={item.title}
               className='h-72 lg:h-82'
               sizes='(max-width: 639px) 92vw, (max-width: 767px) 69vw, (max-width: 1023px) 46vw, (max-width: 1535px) 32vw, 29vw'
@@ -92,10 +96,11 @@ const ClientCard = ({
     <MorphingDialogContainer>
       <MorphingDialogContent className='relative w-full max-w-3xl max-h-[90dvh] overflow-y-auto rounded-2xl bg-card shadow-2xl'>
         <div className='relative aspect-1861/912 w-full'>
-          <img
-            src={item.image}
+          <Picture
+            image={image}
             alt={item.title}
             sizes='(max-width: 768px) 100vw, 768px'
+            wrapperClassName='contents'
             className='absolute inset-0 size-full object-cover'
           />
         </div>
@@ -134,7 +139,14 @@ const ClientCard = ({
   </MorphingDialog>
 );
 
-const Clients = ({ copy }: { copy: ClientsCopy }): React.ReactNode => {
+const Clients = ({
+  copy,
+  images,
+}: {
+  copy: ClientsCopy;
+  /** optimised by the page, keyed by the same path the json holds */
+  images: Record<string, OptimizedImage>;
+}): React.ReactNode => {
   const items: ClientItem[] = Object.values(copy.items);
 
   useGSAP(() => {
@@ -184,7 +196,11 @@ const Clients = ({ copy }: { copy: ClientsCopy }): React.ReactNode => {
                   key={index}
                   className='basis-4/5 sm:basis-3/5 md:basis-2/5 lg:basis-[28%] xl:basis-[28%] 2xl:basis-1/3 p-3 lg:p-6 pt-0 clients-animation'
                 >
-                  <ClientCard item={item} cta={copy.cta} />
+                  <ClientCard
+                    item={item}
+                    image={images[item.image]}
+                    cta={copy.cta}
+                  />
                 </CarouselItem>
               ))}
             </CarouselContent>

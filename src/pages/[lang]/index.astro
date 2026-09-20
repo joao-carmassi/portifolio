@@ -22,6 +22,7 @@ import {
   type Lang,
 } from '@/i18n/langs';
 import { getBasePath, getCanonicalUrl } from '@/utils/env';
+import { pictures, srcAt } from '@/lib/images';
 
 // all three languages are prefixed, so this route builds every one of them
 export const getStaticPaths = () => langs.map((lang) => ({ params: { lang } }));
@@ -91,6 +92,28 @@ const jsonLd: Graph = {
   '@graph': [person, website],
 };
 
+// astro:assets is server-only, so the images are built here and handed to the
+// islands as props. The keys are the same paths the locale json already holds.
+const clientImages = await pictures(
+  Object.values(m.clients.items).map((item) => item.image),
+  // card tops out near 600px, the dialog at 768
+  { widths: [400, 600, 768, 1100] },
+);
+
+const docImages = await pictures(
+  [...Object.values(m.docs.docs).map((doc) => doc.img), m.docs.resume.img],
+  { widths: [480, 720, 1080] },
+);
+
+// the remotion compositions lay out at their own 1920px scale, so each of
+// these is one fixed render rather than a srcset — see srcAt's note
+const aboutImages = {
+  // shown inside a 500px polaroid, so 1000 covers a 2x screen
+  '/about/joao.webp': await srcAt('/about/joao.webp', 1000),
+  // full-bleed across the composition
+  '/about/pedra-do-bau.webp': await srcAt('/about/pedra-do-bau.webp', 1920),
+};
+
 const visible = { rootMargin: '400px' };
 ---
 
@@ -139,10 +162,22 @@ const visible = { rootMargin: '400px' };
     <div class='min-h-svh flex'>
       <HeroHomepage client:load copy={m.hero} navCopy={m.nav} />
     </div>
-    <AboutMeHomepage client:visible={visible} copy={m.about} />
-    <DocumentosHomepage client:visible={visible} copy={m.docs} />
+    <AboutMeHomepage
+      client:visible={visible}
+      copy={m.about}
+      images={aboutImages}
+    />
+    <DocumentosHomepage
+      client:visible={visible}
+      copy={m.docs}
+      images={docImages}
+    />
     <TechStackHomepage client:visible={visible} copy={m.stack} />
-    <ClientsHomepage client:visible={visible} copy={m.clients} />
+    <ClientsHomepage
+      client:visible={visible}
+      copy={m.clients}
+      images={clientImages}
+    />
     <ContactMeHomepage client:visible={visible} copy={m.contact} />
   </main>
   <FooterHomepage client:visible={visible} copy={m.footer} navCopy={m.nav} />

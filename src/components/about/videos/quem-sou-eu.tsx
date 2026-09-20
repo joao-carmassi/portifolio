@@ -31,7 +31,11 @@ import { SoftBlurIn } from '@/components/remocn/soft-blur-in';
 import { StaggeredFadeUp } from '@/components/remocn/staggered-fade-up';
 import { whipPan } from '@/components/remocn/whip-pan';
 import { WordStream, wordStreamLength } from '@/components/remocn/word-stream';
-import { FPS, type AboutVideo } from './types';
+import { FPS, type AboutVideo, type VideoProps } from './types';
+
+// keys into the optimised urls the page passes in, see src/lib/images.ts
+const JOAO = '/about/joao.webp';
+const PEDRA_DO_BAU = '/about/pedra-do-bau.webp';
 
 // deliberately not the hero palette/shape: this one is a graphite-violet blob
 const GRAIN_COLORS = ['#2e2a45', '#5b4f8f', '#a99ae0'];
@@ -128,7 +132,7 @@ const Chip = ({ children }: { children: string }) => (
   </span>
 );
 
-const Origem = () => (
+const Origem = ({ images }: VideoProps) => (
   <AbsoluteFill style={{ background: '#050409' }}>
     <SoftVignette />
     <Drift grow={0.05}>
@@ -142,7 +146,7 @@ const Origem = () => (
           captionAt={54}
         >
           <Img
-            src='/images/about/joao.webp'
+            src={images[JOAO]}
             style={{
               width: '100%',
               height: '100%',
@@ -195,11 +199,11 @@ const SERRA_TEXT = 'da serra de são bento|para o mundo todo|100% remoto';
 /** photo holds the frame alone before the words start running over it */
 const SERRA_PHOTO_BEAT = 18;
 
-const Serra = () => (
+const Serra = ({ images }: VideoProps) => (
   <AbsoluteFill style={{ background: '#050409' }}>
     <Drift grow={0.08}>
       <Img
-        src='/images/about/pedra-do-bau.webp'
+        src={images[PEDRA_DO_BAU]}
         style={{
           width: '100%',
           height: '100%',
@@ -540,7 +544,7 @@ const sum = (values: number[]) => values.reduce((a, b) => a + b, 0);
 
 const DURATION = sum(SCENES) - sum(TRANSITIONS);
 
-const QuemSouEu = () => (
+const QuemSouEu = ({ images }: VideoProps) => (
   <AbsoluteFill style={{ background: '#000000' }}>
     <TransitionSeries>
       <TransitionSeries.Sequence durationInFrames={S_ABERTURA}>
@@ -551,14 +555,14 @@ const QuemSouEu = () => (
         timing={linearTiming({ durationInFrames: T_WHIP })}
       />
       <TransitionSeries.Sequence durationInFrames={S_ORIGEM}>
-        <Origem />
+        <Origem images={images} />
       </TransitionSeries.Sequence>
       <TransitionSeries.Transition
         presentation={pushThrough()}
         timing={linearTiming({ durationInFrames: T_PUSH })}
       />
       <TransitionSeries.Sequence durationInFrames={S_SERRA}>
-        <Serra />
+        <Serra images={images} />
       </TransitionSeries.Sequence>
       <TransitionSeries.Transition
         presentation={focusPull()}

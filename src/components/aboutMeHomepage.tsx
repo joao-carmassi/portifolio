@@ -13,7 +13,11 @@ import {
   Wrench,
 } from 'lucide-react';
 import { videos } from '@/components/about/videos';
-import { FPS, type AboutVideo } from '@/components/about/videos/types';
+import {
+  FPS,
+  type AboutVideo,
+  type VideoImages,
+} from '@/components/about/videos/types';
 import { Button } from '@/components/ui/button';
 import type { AboutCopy } from '@/i18n';
 import { siGithub } from 'simple-icons';
@@ -44,9 +48,11 @@ type VideoCopy = AboutCopy['videos'][AboutVideo['id']];
 
 const VideoPlayer = ({
   video,
+  images,
   reduced,
 }: {
   video: AboutVideo;
+  images: VideoImages;
   reduced: boolean;
 }) => {
   const box = useRef<HTMLDivElement>(null);
@@ -67,6 +73,7 @@ const VideoPlayer = ({
       <Player
         ref={player}
         component={video.component}
+        inputProps={{ images }}
         durationInFrames={video.durationInFrames}
         fps={FPS}
         compositionWidth={video.width}
@@ -138,11 +145,13 @@ const InfoCard = ({
 const VideoCard = ({
   video,
   copy,
+  images,
   reduced,
   className,
 }: {
   video: AboutVideo;
   copy: VideoCopy;
+  images: VideoImages;
   reduced: boolean | null;
   className: string;
 }) => (
@@ -152,14 +161,23 @@ const VideoCard = ({
     }
     className={`dark relative overflow-hidden rounded-3xl bg-black aspect-(--ar) ${className}`}
   >
-    {reduced !== null && <VideoPlayer video={video} reduced={reduced} />}
+    {reduced !== null && (
+      <VideoPlayer video={video} images={images} reduced={reduced} />
+    )}
     <figcaption className='sr-only'>
       {copy.title}. {copy.srText}
     </figcaption>
   </figure>
 );
 
-const AboutMeHomepage = ({ copy }: { copy: AboutCopy }) => {
+const AboutMeHomepage = ({
+  copy,
+  images,
+}: {
+  copy: AboutCopy;
+  /** optimised by the page: astro:assets cannot run inside a Remotion player */
+  images: VideoImages;
+}) => {
   const section = useRef<HTMLElement>(null);
   // null until mounted: initialFrame is only read on mount, so wait for matchMedia
   const [reduced, setReduced] = useState<boolean | null>(null);
@@ -218,12 +236,14 @@ const AboutMeHomepage = ({ copy }: { copy: AboutCopy }) => {
           <VideoCard
             video={videos[0]}
             copy={copy.videos[videos[0].id]}
+            images={images}
             reduced={reduced}
             className='about-media-right lg:col-span-2 lg:self-end'
           />
           <VideoCard
             video={videos[1]}
             copy={copy.videos[videos[1].id]}
+            images={images}
             reduced={reduced}
             className='about-media-left lg:col-span-2 lg:self-start'
           />

@@ -1,6 +1,8 @@
 import { useMotionValue, useTransform, motion } from 'motion/react';
 import { cn } from '@/lib/utils';
 import { useTiltContext } from '@/components/ui/tilt';
+import { Picture } from '@/components/ui/picture';
+import type { OptimizedImage } from '@/lib/images';
 
 /*
  * @author: @joao-carmassi
@@ -15,10 +17,10 @@ import { useTiltContext } from '@/components/ui/tilt';
 
 interface DepthMediaProps extends Omit<
   React.ComponentProps<'img'>,
-  'src' | 'alt' | 'className'
+  'src' | 'srcSet' | 'width' | 'height' | 'alt' | 'className'
 > {
-  /** Image URL to apply the depth effect to. */
-  src: string;
+  /** Optimised image to apply the depth effect to, built by src/lib/images.ts. */
+  image: OptimizedImage;
   /** Alt text for the foreground (accessible) image. */
   alt?: string;
   /** Additional CSS classes for the container. */
@@ -40,7 +42,7 @@ interface DepthMediaProps extends Omit<
  * Place it inside a positioned container (e.g. `relative h-48`) so the filled images work.
  */
 export function DepthMedia({
-  src,
+  image,
   alt = '',
   className,
   depthIntensity = 8,
@@ -73,9 +75,11 @@ export function DepthMedia({
           scale: fgScale,
         }}
       >
-        <img
-          src={src}
+        <Picture
+          image={image}
           alt={alt}
+          // display:contents — the <img> keeps filling the layer, as before
+          wrapperClassName='contents'
           className='absolute inset-0 size-full rounded-[inherit] object-cover'
           {...imageProps}
         />

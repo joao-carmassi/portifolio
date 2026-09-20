@@ -25,8 +25,17 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import type { DocsCopy } from '@/i18n';
+import { Picture } from '@/components/ui/picture';
+import type { OptimizedImage } from '@/lib/images';
 
-const DocumentosHomepage = ({ copy }: { copy: DocsCopy }) => {
+const DocumentosHomepage = ({
+  copy,
+  images,
+}: {
+  copy: DocsCopy;
+  /** optimised by the page, keyed by the same path the json holds */
+  images: Record<string, OptimizedImage>;
+}) => {
   const sectionContainer = useRef<HTMLElement>(null);
   const width = useWindowWidth();
   const [resumeLang, setResumeLang] = useState('');
@@ -76,12 +85,12 @@ const DocumentosHomepage = ({ copy }: { copy: DocsCopy }) => {
           <div key={doc.category} className='min-w-screen'>
             <div className='max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center gap-x-12 gap-y-6'>
               <div className='w-full max-h-96 aspect-4/3 bg-muted rounded-xl border border-border/50 basis-1/2 shadow-lg'>
-                <img
+                <Picture
                   className='w-full h-full object-cover object-top hover:object-bottom duration-1000 delay-150'
-                  src={doc.img}
+                  wrapperClassName='contents'
+                  image={images[doc.img]}
                   alt={doc.title}
-                  width={1280}
-                  height={960}
+                  sizes='(max-width: 767px) 88vw, 44vw'
                 />
               </div>
               <div className='basis-1/2 shrink-0 space-y-3 '>
@@ -109,12 +118,12 @@ const DocumentosHomepage = ({ copy }: { copy: DocsCopy }) => {
         <div className='min-w-screen'>
           <div className='max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center gap-x-12 gap-y-6'>
             <div className='w-full max-h-96 aspect-4/3 bg-muted rounded-xl border border-border/50 basis-1/2 shadow-lg'>
-              <img
+              <Picture
                 className='w-full h-full object-cover object-top hover:object-bottom duration-1000 delay-150'
-                src={copy.resume.img}
+                wrapperClassName='contents'
+                image={images[copy.resume.img]}
                 alt={copy.resume.title}
-                width={542}
-                height={382}
+                sizes='(max-width: 767px) 88vw, 44vw'
               />
             </div>
             <div className='basis-1/2 shrink-0 space-y-3 '>
