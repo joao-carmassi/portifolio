@@ -7,14 +7,11 @@ const links = [
 ];
 
 // lives inside the hero section, so it scrolls away with it and inherits the
-// hero's GSAP scope; the padding repeats the hero's own so the wordmark lines
-// up with the h1 below it
+// hero's GSAP scope; the padding repeats the hero's own so the links end on
+// the same edge as the frame
 const HeroNav = () => (
   <div className='hero-nav invisible absolute inset-x-0 top-0 z-20 p-6 md:p-12 lg:p-24'>
-    <nav className='hero-entry flex items-center justify-between gap-6'>
-      <a href='#heroHomepage' className='font-title text-2xl md:text-3xl'>
-        JC
-      </a>
+    <nav className='hero-entry flex items-center justify-end gap-6'>
       <ul className='hidden md:flex items-center gap-6 font-semibold'>
         {links.map(({ href, label }) => (
           <li key={href}>
