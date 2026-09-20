@@ -97,6 +97,9 @@ const HeroHomepage = () => {
     <div
       ref={frame}
       data-intro
+      // the hero section itself starts below this frame's padding; anchoring to
+      // the frame is what actually lands the page back at zero
+      id='top'
       className='flex-1 flex p-6 md:p-12 lg:p-24 data-intro:p-0 bg-card'
     >
       <section

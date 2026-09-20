@@ -90,7 +90,7 @@ const StickyNav = () => {
         inert={!shown}
       >
         <nav className='flex h-14 items-center justify-between gap-4 px-5 text-white'>
-          <a href='#heroHomepage' className='font-title text-2xl md:text-3xl'>
+          <a href='#top' className='font-title text-2xl md:text-3xl'>
             JC
           </a>
           <button

@@ -112,7 +112,7 @@ const DocumentosHomepage = () => {
     <section
       ref={sectionContainer}
       id='documentosHomepage'
-      className='bg-background w-full min-h-container py-6 md:py-12 mx-auto flex flex-col gap-6 md:gap-12 justify-center'
+      className='bg-background w-full min-h-svh py-6 md:py-12 mx-auto flex flex-col gap-6 md:gap-12 justify-center'
     >
       <div className='space-y-1.5 md:space-y-3 px-6 md:px-12'>
         <h2 className='font-title text-4xl md:text-5xl text-center'>{title}</h2>
