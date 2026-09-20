@@ -1,0 +1,51 @@
+{
+  "title": "Contact me!",
+  "text": "I’d love to hear from you! Whether you have a question, a project in mind, or just want to connect, feel free to reach out. I’m always open to new opportunities and collaborations.",
+  "form": {
+    "name": {
+      "label": "Name",
+      "errors": {
+        "toLong": "Name is too long",
+        "toShort": "Name is too short"
+      },
+      "description": "Please enter your full name."
+    },
+    "email": {
+      "label": "Email",
+      "errors": {
+        "invalid": "Invalid email",
+        "toLong": "Email is too long"
+      },
+      "description": "Please enter a valid email address."
+    },
+    "phone": {
+      "label": "Phone",
+      "errors": {
+        "invalid": "Invalid phone number",
+        "toLong": "Phone number is too long"
+      },
+      "description": "Please enter a valid phone number."
+    },
+    "message": {
+      "label": "Your message",
+      "errors": {
+        "toLong": "Message is too long"
+      },
+      "description": "Please enter your message."
+    }
+  },
+  "button1": "Submit",
+  "button2": "Clear",
+  "modal": {
+    "sent": {
+      "title": "Message Sent Successfully",
+      "text": "Thank you for reaching out! I’ll get back to you as soon as possible."
+    },
+    "error": {
+      "title": "Oops! Something Went Wrong",
+      "text": "Sorry, there was a problem sending your message. Please try again later or contact me directly at joaovitorcarmassi@email.com"
+    },
+    "sending": "Sending",
+    "close": "Close"
+  }
+}

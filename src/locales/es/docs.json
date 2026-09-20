@@ -1,0 +1,44 @@
+{
+  "title": "Mi Portafolio y Logros",
+  "text": "Explora mis currículums, certificaciones y logros profesionales en un solo lugar.",
+  "download": "Descargar",
+  "docs": {
+    "0": {
+      "category": "Certificado de Inglés",
+      "title": "Evaluaciones de idiomas de Cambridge Michigan – MET C1",
+      "details": "Certificado en el nivel C1 Avanzado en inglés a través del Michigan English Test (MET), demostrando alta competencia en lectura, escritura, escucha y expresión oral.",
+      "img": "/docs/img-certificado-ingles.webp",
+      "link": "/docs/certificado-ingles.pdf"
+    },
+    "1": {
+      "category": "Certificado de Español",
+      "title": "SIELE – Competencia en Español B2",
+      "details": "Alcancé el nivel B2 en español con la certificación SIELE, validando sólidas habilidades de comunicación y comprensión avanzada en el idioma español.",
+      "img": "/docs/img-certificado-espanhol.webp",
+      "link": "/docs/certificado-espanhol.pdf"
+    }
+  },
+  "resume": {
+    "category": "Currículum",
+    "title": "Currículum Profesional",
+    "img": "/docs/img-curriculo-portugues.webp",
+    "details": "Accede a mi currículum completo, destacando mis habilidades, proyectos y trayectoria profesional en la industria tecnológica.",
+    "dialog": {
+      "title": "Mis currículums",
+      "button": "Selecciona el idioma para descargar mi currículum:",
+      "placeholder": "Seleccionar idioma",
+      "options": {
+        "0": {
+          "lang": "en",
+          "label": "Inglés",
+          "link": "/docs/resume-joao-carmassi.pdf"
+        },
+        "1": {
+          "lang": "pt",
+          "label": "Portugués",
+          "link": "/docs/curriculo-joao-carmassi.pdf"
+        }
+      }
+    }
+  }
+}

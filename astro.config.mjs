@@ -9,6 +9,13 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   integrations: [react()],
 
+  // pt lives at /, the other two under their own prefix
+  i18n: {
+    defaultLocale: 'pt',
+    locales: ['pt', 'en', 'es'],
+    routing: { prefixDefaultLocale: false },
+  },
+
   fonts: [
     {
       provider: fontProviders.google(),

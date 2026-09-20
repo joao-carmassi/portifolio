@@ -1,5 +1,6 @@
 import ScrollFloat from '@/components/scroll-float';
 import { HoverEffect } from '@/components/ui/card-hover-effect';
+import type { StackCopy } from '@/i18n';
 import 'devicon/devicon.min.css';
 
 const tecnologias = [
@@ -65,9 +66,7 @@ const tecnologias = [
   },
 ];
 
-const title = 'Minha Stack';
-
-const TechStack = () => {
+const TechStack = ({ copy }: { copy: StackCopy }) => {
   return (
     <section id='techStack' className='bg-card'>
       <div className='p-6 md:p-12 max-w-302 mx-auto space-y-6 md:space-y-12'>
@@ -79,7 +78,7 @@ const TechStack = () => {
           stagger={0.03}
           textClassName='font-title text-5xl md:text-7xl'
         >
-          {title}
+          {copy.title}
         </ScrollFloat>
         <HoverEffect items={tecnologias} />
       </div>

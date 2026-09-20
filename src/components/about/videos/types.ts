@@ -1,14 +1,13 @@
 import type { ComponentType } from 'react';
+import type { AboutCopy } from '@/i18n';
 
 export const FPS = 30;
 
 export interface AboutVideo {
-  id: string;
-  title: string;
+  /** the key under `about.videos` holding this video's caption in each language */
+  id: keyof AboutCopy['videos'];
   component: ComponentType;
   width: number;
   height: number;
   durationInFrames: number;
-  /** pt-BR summary for screen readers */
-  srText: string;
 }

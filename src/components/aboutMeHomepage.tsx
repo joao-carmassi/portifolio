@@ -16,6 +16,7 @@ import {
 import { videos } from '@/components/about/videos';
 import { FPS, type AboutVideo } from '@/components/about/videos/types';
 import { Button } from '@/components/ui/button';
+import type { AboutCopy } from '@/i18n';
 import { siGithub } from 'simple-icons';
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -27,50 +28,20 @@ const GithubIcon = () => (
   </svg>
 );
 
+// only the parts that are not text: the copy lives in src/locales/*/about.json
 const cards = [
   {
-    title: 'O que eu faço',
-    lead: 'Eu mesmo monto o layout e escrevo o código do site.',
-    items: [
-      {
-        icon: Palette,
-        text: 'Layout montado para o seu negócio, em vez de um tema pronto.',
-      },
-      {
-        icon: Gauge,
-        text: 'Site que abre rápido no 4G, com Core Web Vitals medidos.',
-      },
-      {
-        icon: CodeXml,
-        text: 'HTML semântico e dados estruturados, para o Google ler o site.',
-      },
-    ],
-    button: { label: 'Me conta seu projeto', href: '#contactMeHomepage' },
+    icons: [Palette, Gauge, CodeXml],
+    button: { href: '#contactMeHomepage' },
   },
   {
-    title: 'Como eu trabalho',
-    lead: 'Escopo combinado antes, link no ar e SEO desde o primeiro dia.',
-    items: [
-      {
-        icon: Search,
-        text: 'Pesquiso as palavras que o seu cliente digita no seu setor.',
-      },
-      {
-        icon: ClipboardCheck,
-        text: 'Audito com as ferramentas do Google e corrijo o que elas apontam.',
-      },
-      {
-        icon: Wrench,
-        text: 'Depois do lançamento, ajustes e manutenção continuam comigo.',
-      },
-    ],
-    button: {
-      label: 'Ver no GitHub',
-      href: 'https://github.com/joao-carmassi',
-      external: true,
-    },
+    icons: [Search, ClipboardCheck, Wrench],
+    button: { href: 'https://github.com/joao-carmassi', external: true },
   },
 ];
+
+type CardCopy = AboutCopy['cards']['0'];
+type VideoCopy = AboutCopy['videos'][AboutVideo['id']];
 
 const VideoPlayer = ({
   video,
@@ -119,25 +90,30 @@ const VideoPlayer = ({
 
 const InfoCard = ({
   card,
+  copy,
   className,
 }: {
   card: (typeof cards)[number];
+  copy: CardCopy;
   className: string;
 }) => (
   <div
     className={`dark bg-black text-foreground rounded-3xl p-6 md:p-8 flex flex-col gap-6 ${className}`}
   >
     <div className='space-y-2'>
-      <h3 className='font-title text-3xl md:text-4xl'>{card.title}</h3>
-      <p className='text-muted-foreground font-semibold'>{card.lead}</p>
+      <h3 className='font-title text-3xl md:text-4xl'>{copy.title}</h3>
+      <p className='text-muted-foreground font-semibold'>{copy.lead}</p>
     </div>
     <ul className='space-y-4'>
-      {card.items.map(({ icon: Icon, text }) => (
-        <li key={text} className='flex items-start gap-3'>
-          <Icon className='shrink-0 text-muted-foreground' />
-          <p className='-mt-0.5 text-muted-foreground font-medium'>{text}</p>
-        </li>
-      ))}
+      {Object.values(copy.items).map((text, i) => {
+        const Icon = card.icons[i];
+        return (
+          <li key={text} className='flex items-start gap-3'>
+            <Icon className='shrink-0 text-muted-foreground' />
+            <p className='-mt-0.5 text-muted-foreground font-medium'>{text}</p>
+          </li>
+        );
+      })}
     </ul>
     <Button
       asChild
@@ -154,7 +130,7 @@ const InfoCard = ({
           rel: 'noreferrer noopener',
         })}
       >
-        {card.button.label}
+        {copy.button}
       </a>
     </Button>
   </div>
@@ -162,10 +138,12 @@ const InfoCard = ({
 
 const VideoCard = ({
   video,
+  copy,
   reduced,
   className,
 }: {
   video: AboutVideo;
+  copy: VideoCopy;
   reduced: boolean | null;
   className: string;
 }) => (
@@ -177,12 +155,12 @@ const VideoCard = ({
   >
     {reduced !== null && <VideoPlayer video={video} reduced={reduced} />}
     <figcaption className='sr-only'>
-      {video.title}. {video.srText}
+      {copy.title}. {copy.srText}
     </figcaption>
   </figure>
 );
 
-const AboutMeHomepage = () => {
+const AboutMeHomepage = ({ copy }: { copy: AboutCopy }) => {
   const section = useRef<HTMLElement>(null);
   // null until mounted: initialFrame is only read on mount, so wait for matchMedia
   const [reduced, setReduced] = useState<boolean | null>(null);
@@ -227,27 +205,32 @@ const AboutMeHomepage = () => {
       {/* no max width: the section spans the same gutter as the hero frame */}
       <div className='space-y-6 md:space-y-12'>
         <div className='space-y-1.5 md:space-y-3'>
-          <h2 className='font-title text-4xl md:text-5xl'>Sobre mim</h2>
+          <h2 className='font-title text-4xl md:text-5xl'>{copy.title}</h2>
           <p className='text-muted-foreground font-semibold max-w-2xl'>
-            Faço sites do rascunho até o ar, do layout ao código. Nos vídeos,
-            quem eu sou e um projeto nascendo; nos cards, o que eu entrego e
-            como a gente trabalha junto.
+            {copy.intro}
           </p>
         </div>
         <div className='grid lg:grid-cols-[minmax(0,1fr)_min(calc(33.333%-16px),calc((100svh-7.5rem)*2.34-100%))_minmax(0,1fr)] gap-6'>
-          <InfoCard card={cards[0]} className='about-card-top lg:col-span-1' />
+          <InfoCard
+            card={cards[0]}
+            copy={copy.cards['0']}
+            className='about-card-top lg:col-span-1'
+          />
           <VideoCard
             video={videos[0]}
+            copy={copy.videos[videos[0].id]}
             reduced={reduced}
             className='about-media-right lg:col-span-2 lg:self-end'
           />
           <VideoCard
             video={videos[1]}
+            copy={copy.videos[videos[1].id]}
             reduced={reduced}
             className='about-media-left lg:col-span-2 lg:self-start'
           />
           <InfoCard
             card={cards[1]}
+            copy={copy.cards['1']}
             className='about-card-bottom lg:col-span-1'
           />
         </div>

@@ -1,0 +1,36 @@
+{
+  "title": "About me",
+  "intro": "I make websites from the draft to going live, from the layout to the code. In the videos, who I am and a project being born; in the cards, what I deliver and how we work together.",
+  "cards": {
+    "0": {
+      "title": "What I do",
+      "lead": "I put the layout together and write the site's code myself.",
+      "items": {
+        "0": "A layout put together for your business, instead of an off-the-shelf theme.",
+        "1": "A site that opens fast on 4G, with Core Web Vitals measured.",
+        "2": "Semantic HTML and structured data, so Google can read the site."
+      },
+      "button": "Tell me about your project"
+    },
+    "1": {
+      "title": "How I work",
+      "lead": "Scope agreed up front, a live link and SEO from day one.",
+      "items": {
+        "0": "I research the words your customer types in your industry.",
+        "1": "I audit with Google's tools and fix what they point out.",
+        "2": "After launch, tweaks and maintenance stay with me."
+      },
+      "button": "See it on GitHub"
+    }
+  },
+  "videos": {
+    "quem-sou-eu": {
+      "title": "Who I am",
+      "srText": "An animation of about 34 seconds in eight scenes. It opens with the name João Vitor Carmassi and the caption \"front-end developer\". Then a polaroid with his photo and two labels: \"born in são paulo, 2004\" and \"lives in são bento do sapucaí\". Next, an aerial photo of Pedra do Baú coming out of the clouds, with the caption \"pedra do baú\" and the lines \"from the hills of são bento\", \"to the whole world\" and \"100% remote\". After that, the list of languages: native Portuguese, English C1 and Spanish B2. A code editor shows the joao object with his name, based in São Bento do Sapucaí, languages English C1 and Spanish B2, and a front-end focus. Under the label \"day to day\" six cards appear with the tools and what he uses each one for: Astro for websites, React for interfaces, Next.js for applications, TypeScript for typing, Tailwind for styling and GSAP for animation. The \"outside the code\" scene brings the labels hiking, motorcycle trips, music, games and movies. It closes with the signature \"joão.\" underlined and the address github.com/joao-carmassi."
+    },
+    "da-ideia-ao-deploy": {
+      "title": "From idea to deploy",
+      "srText": "An animation of about 46 seconds showing a project being born: the lines \"An idea\", \"A deadline\", \"A website\" open the story; then a handwritten list gathers what the site needs — a responsive layout, being found on Google, animation with GSAP and lighthouse 100; the keyword research begins: a search field types \"site institucional\" and the related terms from the client's niche appear — criar site institucional, site institucional preço and site institucional rápido; a terminal runs npm create astro@latest, installs the dependencies and adds Tailwind and GSAP; the hero.tsx file is written line by line with a Contact button, and a cursor clicks it; in the seo.astro file the title, the meta description, the og:image, the canonical link, the h1, the image alt and a JSON-LD structured data block of type LocalBusiness appear; the site screen then shrinks from desktop to phone, the menu turns into an icon and the cards stack up, showing the responsive layout; in the terminal, npx tsc --noEmit confirms there are no type errors and npx lighthouse audits the local site, pointing out three images without alt, an h2 before the h1 and the missing meta description, all fixed and revalidated right after; then the React, Next.js, Astro, TypeScript, Tailwind and GSAP logos appear under the label \"built with\"; on the next screen, four Lighthouse counters climb from 0 to 100 in performance, accessibility, best practices and SEO, measured on the production build; git push origin main confirms \"deploy in 1.2s\" and confetti celebrates; the animation closes with the word \"live.\" underlined by hand."
+    }
+  }
+}

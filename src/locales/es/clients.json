@@ -1,0 +1,48 @@
+{
+  "title": "Proyectos & Clientes",
+  "text": "Soluciones digitales reales con resultados concretos — desde alojamientos hasta SaaS B2B y proyectos de código abierto.",
+  "cta": "Visitar",
+  "items": {
+    "0": {
+      "title": "Refugio Da Pedra SP",
+      "description": "Cabañas acogedoras en las montañas de São Bento do Sapucaí, al pie de la Pedra do Baú — vistas impresionantes, chimenea y naturaleza pura.",
+      "url": "https://refugiodapedrasp.com",
+      "image": "/clients/refugio.webp",
+      "longDescription": "Posada familiar fundada en 2018 en São Bento do Sapucaí, en la Sierra de la Mantiqueira, a 1,5 km de la base de la Pedra do Baú. Cinco alojamientos — tres chalés, una cabaña con chimenea y un domo geodésico — todos con terraza, vistas a la sierra y desayuno con productos regionales. El sitio combina galería completa y páginas por alojamiento con un flujo de reserva propio de cuatro pasos que arma la solicitud y la envía directo al WhatsApp de la posada."
+    },
+    "1": {
+      "title": "Quotation Factory",
+      "description": "Plataforma SaaS B2B con IA para metalurgia: lee archivos CAD, genera listas de materiales, calcula costos y crea cotizaciones automáticamente.",
+      "url": "https://www.quotationfactory.com",
+      "image": "/clients/qf.webp",
+      "longDescription": "SaaS B2B neerlandés que automatiza la cotización de la industria metalúrgica: lee archivos CAD en más de 30 formatos (STEP, DXF, DWG, DSTV, NC1), analiza geometría y perforaciones y devuelve cotizaciones precisas en minutos. Su Virtual Factory modela máquinas, tolerancias y costos operativos para asignar cada trabajo solo a equipos capaces, sumando material, tiempo de máquina, herramientas, nesting y deducción de plegado. Se integra con ERPs (Ridder IQ, MKG, Bemet) y sistemas CAM (TruTops, Lantek, CADMAN, BySoft) mediante un Edge Connector on-premise, y ya procesó más de 281.000 cotizaciones para 1.200+ usuarios."
+    },
+    "2": {
+      "title": "Higgx",
+      "description": "Plataforma abierta de IA que orquesta cotizaciones, planificación y producción para metalurgia de alto mix — construida sobre 10+ años de experiencia en Quotation Factory.",
+      "url": "https://higgx.app",
+      "image": "/clients/higgx.webp",
+      "longDescription": "Runtime de relaciones de negocio para operaciones agénticas — no es un ERP, un CRM ni un motor de workflow. Conecta eventos, expectativas, compromisos y acciones entre clientes, proveedores, equipos, máquinas y agentes de IA sin centralizar todo en una sola aplicación: SignalMesh transporta señales atribuibles por API, correo, EDI, SCSN y MQTT, y el Expectation Management System monitorea lo prometido, detecta riesgos y coordina la recuperación bajo política. Nació de más de una década de Quotation Factory, hoy la primera app que corre sobre él."
+    },
+    "3": {
+      "title": "Prisma UI",
+      "description": "Descontinuado. Biblioteca de componentes React de código abierto para construir interfaces de usuario hermosas, accesibles y personalizables — construida con Radix UI y Tailwind CSS.",
+      "image": "/clients/prisma.webp",
+      "longDescription": "Biblioteca de componentes React de código abierto (MIT) construida sobre primitivos de Radix UI y Tailwind CSS, totalmente tipada en TypeScript. Trece componentes en tres categorías — General, Inputs y Cards — con variantes de efecto listas como shine, ringHover, gooey, expandIcon, rainbow y border-beam, además de estados de loading y disabled y la prop asChild. La distribución es copy-paste mediante un registry compatible con shadcn/ui: el comando add de la CLI resuelve las dependencias por sí solo, sin configuración adicional. El proyecto fue descontinuado: la biblioteca salió de línea y ya no recibe mantenimiento."
+    },
+    "4": {
+      "title": "Dr Jean Almeida",
+      "description": "Médico psiquiatra en São Paulo, en la Avenida Paulista — atención a adultos con depresión, ansiedad, TDAH y burnout, con escucha atenta y seguimiento longitudinal.",
+      "url": "https://drjeanalmeida.com",
+      "image": "/clients/jean.webp",
+      "longDescription": "Landing page de una sola página para el consultorio del Dr. Jean Almeida, médico psiquiatra (CRM 127.207) en la Avenida Paulista, São Paulo. Presenta su enfoque clínico — psiquiatría integrada con comprensión psicodinámica, escucha atenta y seguimiento longitudinal — y las áreas que atiende: depresión, ansiedad, TDAH en adultos, burnout, trastorno bipolar, insomnio crónico y borderline. Incluye testimonios, FAQ y un flujo de agendamiento en cuatro pasos que lleva directo a WhatsApp, además de un blog con 22 artículos de salud mental."
+    },
+    "5": {
+      "title": "Loja do VRF",
+      "description": "E-commerce especializado en piezas y componentes originales para sistemas VRF de aire acondicionado — atendiendo a profesionales de HVAC en todo Brasil.",
+      "url": "https://lojadovrf.com.br",
+      "image": "/clients/vrf.webp",
+      "longDescription": "E-commerce especializado en piezas nuevas y originales para sistemas de aire acondicionado VRF, con un catálogo de unos 430 productos de las marcas Daikin, Samsung, Mitsubishi, Toshiba, LG, Midea, Gree, Hitachi, GMCC y Montreal. Cubre compresores, placas, sensores, válvulas de expansión, bombas de drenaje, automatización y equipos de diagnóstico, con navegación por categoría y por fabricante y SKU propio por pieza. Envío gratis a todo Brasil, 7% de descuento en PIX y hasta 12 cuotas, además de soporte por WhatsApp con especialistas técnicos en VRF y una sección de manuales Toshiba y Midea."
+    }
+  }
+}

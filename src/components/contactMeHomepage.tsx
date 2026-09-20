@@ -28,51 +28,12 @@ import {
 import { FloatingLabel } from '@/components/ui/floating-label-input';
 import { useMutation } from '@tanstack/react-query';
 import QueryProvider from '@/components/query-provider';
-
-// copy from the old project's messages/pt.json -> homepage.contactMe
-const title = 'Entre em contato!';
-const text =
-  'Adoraria ouvir de você! Seja uma dúvida, um projeto em mente ou apenas para se conectar, sinta-se à vontade para me chamar. Estou sempre aberto a novas oportunidades e colaborações.';
-const form = {
-  name: {
-    label: 'Nome',
-    errors: { toLong: 'Nome muito longo', toShort: 'Nome muito curto' },
-    description: 'Por favor, insira seu nome completo.',
-  },
-  email: {
-    label: 'Email',
-    errors: { invalid: 'Email inválido', toLong: 'Email muito longo' },
-    description: 'Por favor, insira um endereço de email válido.',
-  },
-  phone: {
-    label: 'Telefone',
-    errors: { invalid: 'Telefone inválido', toLong: 'Telefone muito longo' },
-    description: 'Por favor, insira um telefone válido.',
-  },
-  message: {
-    label: 'Sua mensagem',
-    errors: { toLong: 'Mensagem muito longa' },
-    description: 'Por favor, insira sua mensagem.',
-  },
-};
-const button1 = 'Enviar';
-const button2 = 'Limpar';
-const modal = {
-  sent: {
-    title: 'Mensagem enviada com sucesso',
-    text: 'Obrigado por entrar em contato! Responderei o mais rápido possível.',
-  },
-  error: {
-    title: 'Oops! Algo deu errado',
-    text: 'Desculpe, houve um problema ao enviar sua mensagem. Tente novamente mais tarde ou entre em contato diretamente pelo email joaovitorcarmassi@email.com',
-  },
-  sending: 'Enviando',
-};
+import type { ContactCopy } from '@/i18n';
 
 const access_key = 'e25d109e-87c5-431e-9bd5-89f4b0792f09';
 const API_URL = 'https://api.web3forms.com/submit';
 
-const ContactMeForm = () => {
+const ContactMeForm = ({ copy }: { copy: ContactCopy }) => {
   const [enviado, setEnviado] = useState<null | boolean>(null);
   const [modalAberto, setModalAberto] = useState(false);
 
@@ -105,26 +66,29 @@ const ContactMeForm = () => {
         },
       });
     });
-  }, [title, text, form]);
+  }, [copy]);
 
-  const schema = useMemo(() => {
-    if (!form) return null;
-    return z.object({
-      name: z
-        .string()
-        .min(3, form.name?.errors.toShort)
-        .max(100, form.name?.errors.toLong),
-      email: z
-        .string()
-        .email(form.email?.errors.invalid)
-        .max(100, form.email?.errors.toLong),
-      phone: z
-        .string()
-        .regex(/^\+?[0-9\s()-]{7,20}$/, form.phone?.errors.invalid)
-        .max(20, form.phone?.errors.toLong),
-      message: z.string().max(500, form.message?.errors.toLong),
-    });
-  }, [form]);
+  const { form } = copy;
+
+  const schema = useMemo(
+    () =>
+      z.object({
+        name: z
+          .string()
+          .min(3, form.name.errors.toShort)
+          .max(100, form.name.errors.toLong),
+        email: z
+          .string()
+          .email(form.email.errors.invalid)
+          .max(100, form.email.errors.toLong),
+        phone: z
+          .string()
+          .regex(/^\+?[0-9\s()-]{7,20}$/, form.phone.errors.invalid)
+          .max(20, form.phone.errors.toLong),
+        message: z.string().max(500, form.message.errors.toLong),
+      }),
+    [form],
+  );
 
   type tSchema = {
     name: string;
@@ -139,7 +103,7 @@ const ContactMeForm = () => {
     reset,
     formState: { errors },
   } = useForm({
-    resolver: schema ? zodResolver(schema) : undefined,
+    resolver: zodResolver(schema),
   });
 
   const { mutate } = useMutation({
@@ -168,8 +132,6 @@ const ContactMeForm = () => {
   });
 
   const enviaEmail = (data: tSchema) => {
-    if (!schema) return;
-
     mutate({ access_key, ...data });
   };
 
@@ -213,13 +175,13 @@ const ContactMeForm = () => {
                     aria-invalid={errors.name ? 'true' : 'false'}
                   />
                   <FloatingLabel.Label htmlFor='name'>
-                    {form?.name.label}
+                    {form.name.label}
                   </FloatingLabel.Label>
                 </FloatingLabel>
                 {errors.name ? (
                   <FieldError>{errors.name.message}</FieldError>
                 ) : (
-                  <FieldDescription>{form?.name.description}</FieldDescription>
+                  <FieldDescription>{form.name.description}</FieldDescription>
                 )}
               </Field>
               <Field>
@@ -231,13 +193,13 @@ const ContactMeForm = () => {
                     aria-invalid={errors.email ? 'true' : 'false'}
                   />
                   <FloatingLabel.Label htmlFor='email'>
-                    {form?.email.label}
+                    {form.email.label}
                   </FloatingLabel.Label>
                 </FloatingLabel>
                 {errors.email ? (
                   <FieldError>{errors.email.message}</FieldError>
                 ) : (
-                  <FieldDescription>{form?.email.description}</FieldDescription>
+                  <FieldDescription>{form.email.description}</FieldDescription>
                 )}
               </Field>
               <Field>
@@ -249,13 +211,13 @@ const ContactMeForm = () => {
                     aria-invalid={errors.phone ? 'true' : 'false'}
                   />
                   <FloatingLabel.Label htmlFor='phone'>
-                    {form?.phone.label}
+                    {form.phone.label}
                   </FloatingLabel.Label>
                 </FloatingLabel>
                 {errors.phone ? (
                   <FieldError>{errors.phone.message}</FieldError>
                 ) : (
-                  <FieldDescription>{form?.phone.description}</FieldDescription>
+                  <FieldDescription>{form.phone.description}</FieldDescription>
                 )}
               </Field>
               <Field>
@@ -266,14 +228,14 @@ const ContactMeForm = () => {
                     aria-invalid={errors.message ? 'true' : 'false'}
                   />
                   <FloatingLabel.Label htmlFor='message'>
-                    {form?.message.label}
+                    {form.message.label}
                   </FloatingLabel.Label>
                 </FloatingLabel>
                 {errors.message ? (
                   <FieldError>{errors.message.message}</FieldError>
                 ) : (
                   <FieldDescription>
-                    {form?.message.description}
+                    {form.message.description}
                   </FieldDescription>
                 )}
               </Field>
@@ -287,7 +249,7 @@ const ContactMeForm = () => {
                 type='submit'
                 className='md:flex-1'
               >
-                {button1}
+                {copy.button1}
               </Button>
               <Button
                 effect='expandIcon'
@@ -301,36 +263,36 @@ const ContactMeForm = () => {
                 }}
                 type='button'
               >
-                {button2}
+                {copy.button2}
               </Button>
             </FieldGroup>
           </FieldSet>
         </form>
         <div className='contact-copy-desktop-animation hidden md:block space-y-1.5 md:space-y-3 flex-1'>
           <h2 className='font-title text-4xl md:text-5xl text-center md:text-start'>
-            {title}
+            {copy.title}
           </h2>
           <p className='text-muted-foreground font-semibold max-w-2xl text-center md:text-start'>
-            {text}
+            {copy.text}
           </p>
         </div>
         <div className='contact-copy-mobile-animation md:hidden space-y-1.5 md:space-y-3 flex-1'>
           <h2 className='font-title text-4xl md:text-5xl text-center md:text-start'>
-            {title}
+            {copy.title}
           </h2>
           <p className='text-muted-foreground font-semibold max-w-2xl text-center md:text-start'>
-            {text}
+            {copy.text}
           </p>
         </div>
       </div>
       <Dialog open={enviado === true} onOpenChange={handleModal}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>{modal?.sent.title}</DialogTitle>
-            <DialogDescription>{modal?.sent.text}</DialogDescription>
+            <DialogTitle>{copy.modal.sent.title}</DialogTitle>
+            <DialogDescription>{copy.modal.sent.text}</DialogDescription>
           </DialogHeader>
           <DialogFooter>
-            <Button onClick={handleModal}>Close</Button>
+            <Button onClick={handleModal}>{copy.modal.close}</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
@@ -338,12 +300,12 @@ const ContactMeForm = () => {
         <DialogContent>
           <DialogHeader>
             {/* the old project printed the literal string "mod?.error.title" here */}
-            <DialogTitle>{modal?.error.title}</DialogTitle>
-            <DialogDescription>{modal?.error.text}</DialogDescription>
+            <DialogTitle>{copy.modal.error.title}</DialogTitle>
+            <DialogDescription>{copy.modal.error.text}</DialogDescription>
           </DialogHeader>
           <DialogFooter>
             <Button onClick={handleModal} variant={'destructive'}>
-              Close
+              {copy.modal.close}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -351,7 +313,7 @@ const ContactMeForm = () => {
       <Dialog open={modalAberto} onOpenChange={handleModal}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle hidden={true}>{modal?.sending}</DialogTitle>
+            <DialogTitle hidden={true}>{copy.modal.sending}</DialogTitle>
             <DialogDescription className='h-28 grid place-items-center'>
               <Spinner variant='ellipsis' />
             </DialogDescription>
@@ -363,9 +325,9 @@ const ContactMeForm = () => {
 };
 
 // react-query lives inside the island: an Astro page has no shared React tree
-const ContactMeHomepage = () => (
+const ContactMeHomepage = ({ copy }: { copy: ContactCopy }) => (
   <QueryProvider>
-    <ContactMeForm />
+    <ContactMeForm copy={copy} />
   </QueryProvider>
 );
 

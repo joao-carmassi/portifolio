@@ -1,0 +1,36 @@
+{
+  "title": "Sobre mí",
+  "intro": "Hago sitios desde el borrador hasta publicarlo, del layout al código. En los videos, quién soy y un proyecto naciendo; en las tarjetas, lo que entrego y cómo trabajamos juntos.",
+  "cards": {
+    "0": {
+      "title": "Lo que hago",
+      "lead": "Yo mismo armo el layout y escribo el código del sitio.",
+      "items": {
+        "0": "Layout armado para tu negocio, en vez de una plantilla lista.",
+        "1": "Sitio que abre rápido en 4G, con Core Web Vitals medidos.",
+        "2": "HTML semántico y datos estructurados, para que Google lea el sitio."
+      },
+      "button": "Cuéntame tu proyecto"
+    },
+    "1": {
+      "title": "Cómo trabajo",
+      "lead": "Alcance acordado antes, enlace publicado y SEO desde el primer día.",
+      "items": {
+        "0": "Investigo las palabras que tu cliente escribe en tu sector.",
+        "1": "Audito con las herramientas de Google y corrijo lo que señalan.",
+        "2": "Después del lanzamiento, los ajustes y el mantenimiento siguen conmigo."
+      },
+      "button": "Ver en GitHub"
+    }
+  },
+  "videos": {
+    "quem-sou-eu": {
+      "title": "Quién soy",
+      "srText": "Animación de unos 34 segundos en ocho escenas. Abre con el nombre João Vitor Carmassi y el subtítulo \"desarrollador front-end\". Enseguida, una polaroid con su foto y dos etiquetas: \"nacido en são paulo, 2004\" y \"vive en são bento do sapucaí\". Después, una foto aérea de la Pedra do Baú saliendo de las nubes, con el subtítulo \"pedra do baú\" y las frases \"de la sierra de são bento\", \"para todo el mundo\" y \"100% remoto\". A continuación, la lista de idiomas: portugués nativo, inglés C1 y español B2. Un editor de código muestra el objeto joao con nombre, base en São Bento do Sapucaí, idiomas inglés C1 y español B2, y enfoque en front-end. Bajo la etiqueta \"en el día a día\" aparecen seis tarjetas con las herramientas y para qué usa cada una: Astro para sitios, React para interfaces, Next.js para aplicaciones, TypeScript para tipado, Tailwind para estilo y GSAP para animación. La escena \"fuera del código\" trae las etiquetas senderismo, viajar en moto, música, videojuegos y películas. Cierra con la firma \"joão.\" subrayada y la dirección github.com/joao-carmassi."
+    },
+    "da-ideia-ao-deploy": {
+      "title": "De la idea al deploy",
+      "srText": "Animación de unos 46 segundos que muestra un proyecto naciendo: las frases \"Una idea\", \"Un plazo\", \"Un sitio\" abren la historia; enseguida una lista escrita a mano reúne lo que el sitio necesita — layout responsivo, ser encontrado en Google, animación con GSAP y lighthouse 100; empieza entonces la investigación de palabras clave: un campo de búsqueda escribe \"site institucional\" y surgen los términos relacionados del nicho del cliente — criar site institucional, site institucional preço y site institucional rápido; una terminal ejecuta npm create astro@latest, instala las dependencias y agrega Tailwind y GSAP; el archivo hero.tsx se escribe línea a línea con un botón de Contacto, y un cursor hace clic en él; en el archivo seo.astro aparecen el title, la meta description, la og:image, el link canonical, el h1, el alt de la imagen y un bloque de datos estructurados JSON-LD del tipo LocalBusiness; la pantalla del sitio entonces se encoge de escritorio a celular, el menú se vuelve un ícono y las tarjetas se apilan, mostrando el layout responsivo; en la terminal, npx tsc --noEmit confirma que no hay errores de tipo y npx lighthouse audita el sitio local, señalando tres imágenes sin alt, un h2 antes del h1 y la falta de meta description, todo corregido y revalidado enseguida; después aparecen los logos de React, Next.js, Astro, TypeScript, Tailwind y GSAP bajo la etiqueta \"construido con\"; en la pantalla siguiente, cuatro contadores de Lighthouse suben de 0 a 100 en rendimiento, accesibilidad, buenas prácticas y SEO, medidos en la build de producción; git push origin main confirma \"deploy en 1.2s\" y confeti celebra; la animación cierra con la palabra \"en el aire.\" subrayada a mano."
+    }
+  }
+}

@@ -1,10 +1,11 @@
 import { PullCord } from 'pullcord';
 import 'pullcord/pullcord.css';
 import { useEffect, useState } from 'react';
+import type { NavCopy } from '@/i18n';
 
 const isDark = () => document.documentElement.classList.contains('dark');
 
-const ThemeCord = () => {
+const ThemeCord = ({ copy }: { copy: NavCopy }) => {
   // the inline script in layout.astro already picked the theme before paint;
   // read it after mount so the server render stays deterministic
   const [dark, setDark] = useState(false);
@@ -36,7 +37,7 @@ const ThemeCord = () => {
       onPull={pull}
       // the cord reads like a lamp switch: pulled = light on
       pulled={!dark}
-      ariaLabel='Alternar entre tema claro e escuro'
+      ariaLabel={copy.theme.toggle}
       className={
         // the phone's right edge belongs to the hero's menu button, so over
         // there the cord hangs on the left gutter instead; z-30 is above the

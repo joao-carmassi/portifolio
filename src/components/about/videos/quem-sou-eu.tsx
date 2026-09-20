@@ -609,11 +609,8 @@ const QuemSouEu = () => (
 
 export const quemSouEu: AboutVideo = {
   id: 'quem-sou-eu',
-  title: 'Quem sou eu',
   component: QuemSouEu,
   width: 1920,
   height: 820,
   durationInFrames: DURATION,
-  srText:
-    'Animação de cerca de 34 segundos em oito cenas. Abre com o nome João Vitor Carmassi e a legenda "desenvolvedor front-end". Em seguida, um polaroid com a foto dele e duas etiquetas: "nascido em são paulo, 2004" e "mora em são bento do sapucaí". Depois, uma foto aérea da Pedra do Baú saindo das nuvens, com a legenda "pedra do baú" e as frases "da serra de são bento", "para o mundo todo" e "100% remoto". Na sequência, a lista de idiomas: português nativo, inglês C1 e espanhol B2. Um editor de código mostra o objeto joao com nome, base em São Bento do Sapucaí, idiomas inglês C1 e espanhol B2, e foco em front-end. Sob o rótulo "no dia a dia" aparecem seis cartões com as ferramentas e para que ele usa cada uma: Astro para sites, React para interfaces, Next.js para aplicações, TypeScript para tipagem, Tailwind para estilo e GSAP para animação. A cena "fora do código" traz as etiquetas trilhas, viajar de moto, música, games e filmes. Fecha com a assinatura "joão." sublinhada e o endereço github.com/joao-carmassi.',
 };

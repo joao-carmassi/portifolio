@@ -1,0 +1,43 @@
+---
+import Layout from '@/layout/layout.astro';
+import HeroHomepage from '@/components/heroHomepage';
+import AboutMeHomepage from '@/components/aboutMeHomepage';
+import DocumentosHomepage from '@/components/documentsHomepage';
+import TechStackHomepage from '@/components/techStackHomepage';
+import ClientsHomepage from '@/components/clientsHomepage';
+import ContactMeHomepage from '@/components/contactMeHomepage';
+import FooterHomepage from '@/components/footerHomepage';
+import StickyNav from '@/components/stickyNav';
+import ThemeCord from '@/components/themeCord';
+import { messages, type Lang } from '@/i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props as Props;
+const m = messages(lang);
+
+const visible = { rootMargin: '400px' };
+---
+
+<Layout
+  lang={lang}
+  title={m.meta.title}
+  description={m.meta.description}
+  keywords={m.meta.keywords}
+>
+  <StickyNav client:load lang={lang} copy={m.nav} />
+  <ThemeCord client:idle copy={m.nav} />
+  <main class='flex flex-col'>
+    <div class='min-h-svh flex'>
+      <HeroHomepage client:load copy={m.hero} navCopy={m.nav} />
+    </div>
+    <AboutMeHomepage client:visible={visible} copy={m.about} />
+    <DocumentosHomepage client:visible={visible} copy={m.docs} />
+    <TechStackHomepage client:visible={visible} copy={m.stack} />
+    <ClientsHomepage client:visible={visible} copy={m.clients} />
+    <ContactMeHomepage client:visible={visible} copy={m.contact} />
+  </main>
+  <FooterHomepage client:visible={visible} copy={m.footer} navCopy={m.nav} />
+</Layout>

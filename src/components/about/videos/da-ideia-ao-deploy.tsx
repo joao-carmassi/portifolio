@@ -731,11 +731,8 @@ function DaIdeiaAoDeploy() {
 
 export const daIdeiaAoDeploy: AboutVideo = {
   id: 'da-ideia-ao-deploy',
-  title: 'Da ideia ao deploy',
   component: DaIdeiaAoDeploy,
   width: 1440,
   height: 615,
   durationInFrames: TOTAL,
-  srText:
-    'Animação de cerca de 46 segundos que mostra um projeto nascendo: as frases "Uma ideia", "Um prazo", "Um site" abrem a história; em seguida uma lista escrita à mão reúne o que o site precisa — layout responsivo, ser achado no Google, animação com GSAP e lighthouse 100; começa então a pesquisa de palavras-chave: um campo de busca digita "site institucional" e surgem os termos relacionados do nicho do cliente — criar site institucional, site institucional preço e site institucional rápido; um terminal roda npm create astro@latest, instala as dependências e adiciona Tailwind e GSAP; o arquivo hero.tsx é escrito linha a linha com um botão de Contato, e um cursor clica nele; no arquivo seo.astro aparecem o title, a meta description, a og:image, o link canonical, o h1, o alt da imagem e um bloco de dados estruturados JSON-LD do tipo LocalBusiness; a tela do site então encolhe de desktop para celular, o menu vira um ícone e os cards se empilham, mostrando o layout responsivo; no terminal, npx tsc --noEmit confirma que não há erros de tipo e npx lighthouse audita o site local, apontando três imagens sem alt, um h2 antes do h1 e a falta de meta description, tudo corrigido e revalidado em seguida; depois aparecem os logos de React, Next.js, Astro, TypeScript, Tailwind e GSAP sob o rótulo "construído com"; na tela seguinte, quatro contadores do Lighthouse sobem de 0 a 100 em performance, acessibilidade, boas práticas e SEO, medidos na build de produção; git push origin main confirma "deploy em 1.2s" e confetes comemoram; a animação fecha com a palavra "no ar." sublinhada à mão.',
 };

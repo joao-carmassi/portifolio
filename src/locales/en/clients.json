@@ -1,0 +1,48 @@
+{
+  "title": "Projects & Clients",
+  "text": "Real digital solutions that delivered results — from hospitality to B2B SaaS and open source.",
+  "cta": "Visit",
+  "items": {
+    "0": {
+      "title": "Refugio Da Pedra SP",
+      "description": "Cozy chalets nestled in the mountains of São Bento do Sapucaí, at the foot of Pedra do Baú — breathtaking views, fireplace, and pure nature.",
+      "url": "https://refugiodapedrasp.com",
+      "image": "/clients/refugio.webp",
+      "longDescription": "A family-run guesthouse founded in 2018 in São Bento do Sapucaí, in the Mantiqueira mountains, 1.5 km from the base of Pedra do Baú. Five units — three chalets, a fireplace cabin, and a geodesic dome — each with a deck, mountain views, and a breakfast built from regional produce. The site pairs a full photo gallery and per-unit pages with a custom four-step booking flow that assembles the request and hands it straight to the owners on WhatsApp."
+    },
+    "1": {
+      "title": "Quotation Factory",
+      "description": "AI-powered B2B SaaS for metalworking. Reads CAD files, builds BOMs, calculates production costs, and generates quotes automatically.",
+      "url": "https://www.quotationfactory.com",
+      "image": "/clients/qf.webp",
+      "longDescription": "Dutch B2B SaaS that automates quoting for metalworking: it reads CAD files in 30+ formats (STEP, DXF, DWG, DSTV, NC1), analyses geometry and piercings, and returns accurate quotes in minutes. Its Virtual Factory models machines, tolerances, and operating costs so every job is routed only to capable equipment, rolling up material, machine time, tooling, nesting, and bend deduction. It plugs into ERPs (Ridder IQ, MKG, Bemet) and CAM systems (TruTops, Lantek, CADMAN, BySoft) through an on-premise Edge Connector, and has processed 281,000+ quotes for 1,200+ users."
+    },
+    "2": {
+      "title": "Higgx",
+      "description": "Open AI platform orchestrating quoting, planning, and production for high-mix metalworking — built on 10+ years of Quotation Factory expertise.",
+      "url": "https://higgx.app",
+      "image": "/clients/higgx.webp",
+      "longDescription": "A business-relationship runtime for agentic operations — not an ERP, a CRM, or a workflow engine. It connects events, expectations, commitments, and actions across customers, suppliers, teams, machines, and AI agents without centralising everything into a single application: SignalMesh carries attributable signals over API, email, EDI, SCSN, and MQTT, while the Expectation Management System tracks what was promised, flags risk, and coordinates recovery under policy. It grew out of a decade of Quotation Factory, now the first app running on top of it."
+    },
+    "3": {
+      "title": "Prisma UI",
+      "description": "Discontinued. Open source React component library for building beautiful, accessible, and customizable user interfaces — built with Radix UI and Tailwind CSS.",
+      "image": "/clients/prisma.webp",
+      "longDescription": "Open source (MIT) React component library built on Radix UI primitives and Tailwind CSS, fully typed in TypeScript. Thirteen components across three categories — General, Inputs, and Cards — ship with ready-made effect variants such as shine, ringHover, gooey, expandIcon, rainbow, and border-beam, plus loading and disabled states and an asChild prop. Distribution is copy-paste through a shadcn/ui-compatible registry: the CLI add command resolves every dependency on its own, with no extra configuration. The project has been discontinued: the library is offline and no longer maintained."
+    },
+    "4": {
+      "title": "Dr Jean Almeida",
+      "description": "Psychiatrist in São Paulo, on Avenida Paulista — treating adults with depression, anxiety, adult ADHD, and burnout through careful listening and longitudinal care.",
+      "url": "https://drjeanalmeida.com",
+      "image": "/clients/jean.webp",
+      "longDescription": "Single-page site for Dr. Jean Almeida's practice, a psychiatrist (CRM 127.207) on Avenida Paulista in São Paulo. It lays out his clinical approach — psychiatry integrated with psychodynamic understanding, careful listening, and longitudinal follow-up — and the conditions he treats: depression, anxiety, adult ADHD, burnout, bipolar disorder, chronic insomnia, and borderline personality disorder. Testimonials, an FAQ, and a four-step booking flow that lands in WhatsApp sit alongside a blog of 22 mental-health articles."
+    },
+    "5": {
+      "title": "Loja do VRF",
+      "description": "Specialized e-commerce for original VRF (Variable Refrigerant Flow) parts and components — serving HVAC professionals nationwide.",
+      "url": "https://lojadovrf.com.br",
+      "image": "/clients/vrf.webp",
+      "longDescription": "Specialised e-commerce for new, original VRF air-conditioning parts, with a catalogue of roughly 430 products from Daikin, Samsung, Mitsubishi, Toshiba, LG, Midea, Gree, Hitachi, GMCC, and Montreal. It covers compressors, boards, sensors, expansion valves, drain pumps, automation, and diagnostic equipment, browsable by category or manufacturer with its own per-part SKU scheme. Free shipping across Brazil, 7% off on PIX, and 12-instalment payment sit alongside WhatsApp support from VRF technicians and a library of Toshiba and Midea manuals."
+    }
+  }
+}

@@ -29,6 +29,10 @@ export interface StaggeredMenuProps {
   showHeader?: boolean;
   changeMenuColorOnOpen?: boolean;
   closeOnClickAway?: boolean;
+  /** extra panel content, below the links and above the socials */
+  children?: React.ReactNode;
+  /** heading over the socials block; the shipped default is English */
+  socialsLabel?: string;
   onMenuOpen?: () => void;
   onMenuClose?: () => void;
 }
@@ -50,6 +54,8 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   open: controlledOpen,
   showHeader = true,
   closeOnClickAway = true,
+  children,
+  socialsLabel = 'Socials',
   onMenuOpen,
   onMenuClose
 }: StaggeredMenuProps) => {
@@ -534,9 +540,11 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
               )}
             </ul>
 
+            {children}
+
             {displaySocials && socialItems && socialItems.length > 0 && (
-              <div className="sm-socials mt-auto pt-8 flex flex-col gap-3" aria-label="Social links">
-                <h3 className="sm-socials-title m-0 text-base font-medium [color:var(--sm-accent,#ff0000)]">Socials</h3>
+              <div className="sm-socials mt-auto pt-8 flex flex-col gap-3" aria-label={socialsLabel}>
+                <h3 className="sm-socials-title m-0 text-base font-medium [color:var(--sm-accent,#ff0000)]">{socialsLabel}</h3>
                 <ul
                   className="sm-socials-list list-none m-0 p-0 flex flex-row items-center gap-4 flex-wrap"
                   role="list"

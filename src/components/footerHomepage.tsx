@@ -4,24 +4,13 @@ import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText } from 'gsap/SplitText';
+import type { FooterCopy, NavCopy } from '@/i18n';
 
-const labels = ['Siga-nos', 'Telefone'];
-const text = 'Desenvolvido por';
-
-const actions = {
-  contact: 'Contato',
+// the documents section starts below its own top edge, so it needs 'start'
+// where every other section reads best centred
+const scrollPosition: Record<string, 'center' | 'start' | 'end'> = {
+  documentosHomepage: 'start',
 };
-
-const navigationLinks: {
-  id: string;
-  label: string;
-  position?: string;
-}[] = [
-  { id: 'aboutMeHomepage', label: 'Sobre' },
-  { id: 'documentosHomepage', label: 'Currículo', position: 'start' },
-  { id: 'clientsHomepage', label: 'Projetos' },
-  { id: 'techStack', label: 'Tecnologias' },
-];
 
 const footerData = {
   heading: 'João Carmassi',
@@ -40,9 +29,14 @@ const footerData = {
   ],
 };
 
-const FooterHomepage = () => {
+const FooterHomepage = ({
+  copy,
+  navCopy,
+}: {
+  copy: FooterCopy;
+  navCopy: NavCopy;
+}) => {
   useGSAP(() => {
-    if (!labels || !text) return;
     gsap.registerPlugin(ScrollTrigger, SplitText);
 
     const split = SplitText.create('.splitTextFooter', {
@@ -80,7 +74,7 @@ const FooterHomepage = () => {
       },
       0,
     );
-  }, [text, labels]);
+  }, [copy]);
 
   return (
     <footer id='footerHomepage'>
@@ -96,7 +90,7 @@ const FooterHomepage = () => {
             {/* Email Section */}
             <div className='flex flex-col items-start gap-4'>
               <h3 className='text-primary text-sm font-medium uppercase tracking-wide footer-animation'>
-                Email
+                {copy.labels.email}
               </h3>
               <a
                 href={footerData.email.href}
@@ -110,7 +104,7 @@ const FooterHomepage = () => {
             {/* Social Links Section */}
             <div className='flex flex-col items-start gap-4'>
               <h3 className='text-primary text-sm font-medium uppercase tracking-wide footer-animation'>
-                {labels && labels[0]}
+                {copy.labels.social}
               </h3>
               <div className='grid grid-cols-2 gap-4 lg:grid-cols-4'>
                 {footerData.socialLinks.map((link) => (
@@ -128,7 +122,7 @@ const FooterHomepage = () => {
             {/* Phone Section */}
             <div className='flex flex-col items-start gap-4'>
               <h3 className='text-primary text-sm font-medium uppercase tracking-wide footer-animation'>
-                {labels && labels[1]}
+                {copy.labels.phone}
               </h3>
               <a
                 href={footerData.phone.href}
@@ -144,32 +138,25 @@ const FooterHomepage = () => {
         {/* Bottom Section */}
         <div className='flex flex-col gap-6 py-6 lg:flex-row lg:items-center lg:justify-between lg:py-4'>
           <nav className='grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-6'>
-            {navigationLinks.map((link) => (
-              <button
-                key={link.label}
-                onClick={() =>
-                  scrollToContainer(
-                    link.id,
-                    ['center', 'start', 'end'].includes(link.position as string)
-                      ? (link.position as 'center' | 'start' | 'end')
-                      : 'center',
-                  )
-                }
-                className='text-muted-foreground hover:text-primary text-sm transition-colors footer-animation'
-              >
-                {link.label}
-              </button>
-            ))}
-            <button
-              onClick={() => scrollToContainer('contactMeHomepage', 'center')}
-              className='text-muted-foreground hover:text-primary text-sm transition-colors footer-animation'
-            >
-              {actions.contact}
-            </button>
+            {Object.values(navCopy.links).map((link) => {
+              const id = link.href.slice(1);
+
+              return (
+                <button
+                  key={id}
+                  onClick={() =>
+                    scrollToContainer(id, scrollPosition[id] ?? 'center')
+                  }
+                  className='text-muted-foreground hover:text-primary text-sm transition-colors footer-animation'
+                >
+                  {link.label}
+                </button>
+              );
+            })}
           </nav>
 
           <div className='text-muted-foreground text-center text-sm lg:text-right lg:text-xs footer-animation'>
-            {text} <strong>João Carmassi</strong>
+            {copy.developedBy} <strong>João Carmassi</strong>
           </div>
         </div>
       </div>

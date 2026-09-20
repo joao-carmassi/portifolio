@@ -1,0 +1,51 @@
+{
+  "title": "Entre em contato!",
+  "text": "Adoraria ouvir de você! Seja uma dúvida, um projeto em mente ou apenas para se conectar, sinta-se à vontade para me chamar. Estou sempre aberto a novas oportunidades e colaborações.",
+  "form": {
+    "name": {
+      "label": "Nome",
+      "errors": {
+        "toLong": "Nome muito longo",
+        "toShort": "Nome muito curto"
+      },
+      "description": "Por favor, insira seu nome completo."
+    },
+    "email": {
+      "label": "Email",
+      "errors": {
+        "invalid": "Email inválido",
+        "toLong": "Email muito longo"
+      },
+      "description": "Por favor, insira um endereço de email válido."
+    },
+    "phone": {
+      "label": "Telefone",
+      "errors": {
+        "invalid": "Telefone inválido",
+        "toLong": "Telefone muito longo"
+      },
+      "description": "Por favor, insira um telefone válido."
+    },
+    "message": {
+      "label": "Sua mensagem",
+      "errors": {
+        "toLong": "Mensagem muito longa"
+      },
+      "description": "Por favor, insira sua mensagem."
+    }
+  },
+  "button1": "Enviar",
+  "button2": "Limpar",
+  "modal": {
+    "sent": {
+      "title": "Mensagem enviada com sucesso",
+      "text": "Obrigado por entrar em contato! Responderei o mais rápido possível."
+    },
+    "error": {
+      "title": "Oops! Algo deu errado",
+      "text": "Desculpe, houve um problema ao enviar sua mensagem. Tente novamente mais tarde ou entre em contato diretamente pelo email joaovitorcarmassi@email.com"
+    },
+    "sending": "Enviando",
+    "close": "Fechar"
+  }
+}

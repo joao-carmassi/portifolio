@@ -1,0 +1,58 @@
+{
+  "links": {
+    "0": {
+      "href": "#aboutMeHomepage",
+      "label": "About",
+      "ariaLabel": "Go to the about me section"
+    },
+    "1": {
+      "href": "#documentosHomepage",
+      "label": "Certificates",
+      "ariaLabel": "Go to the documents"
+    },
+    "2": {
+      "href": "#clientsHomepage",
+      "label": "Projects",
+      "ariaLabel": "Go to the projects"
+    },
+    "3": {
+      "href": "#techStack",
+      "label": "Stack",
+      "ariaLabel": "Go to the stack"
+    },
+    "4": {
+      "href": "#contactMeHomepage",
+      "label": "Contact",
+      "ariaLabel": "Go to the contact form"
+    }
+  },
+  "menu": {
+    "open": "Open menu",
+    "close": "Close menu",
+    "home": "Back to top"
+  },
+  "socials": "Socials",
+  "theme": {
+    "toggle": "Switch between light and dark theme"
+  },
+  "language": {
+    "label": "Language",
+    "pt": "Português",
+    "en": "English",
+    "es": "Español"
+  },
+  "social": {
+    "0": {
+      "label": "GitHub",
+      "link": "https://github.com/joao-carmassi"
+    },
+    "1": {
+      "label": "LinkedIn",
+      "link": "https://www.linkedin.com/in/joao-carmassi/"
+    },
+    "2": {
+      "label": "Instagram",
+      "link": "https://www.instagram.com/joao_carmassi/"
+    }
+  }
+}

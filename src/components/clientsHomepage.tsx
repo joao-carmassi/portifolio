@@ -16,6 +16,7 @@ import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Tilt } from '@/components/ui/tilt';
 import { DepthMedia } from '@/components/ui/depth-media';
+import type { ClientsCopy } from '@/i18n';
 import {
   MorphingDialog,
   MorphingDialogClose,
@@ -26,6 +27,7 @@ import {
   MorphingDialogTrigger,
 } from '@/components/ui/morphing-dialog';
 
+/** one entry of copy.items — every member of that union fits this shape */
 type ClientItem = {
   title: string;
   description: string;
@@ -34,69 +36,6 @@ type ClientItem = {
   image: string;
   longDescription: string;
 };
-
-const title = 'Projetos & Clientes';
-
-const text =
-  'Soluções digitais reais com resultados concretos — de pousadas a SaaS B2B e projetos open source.';
-
-const cta = 'Visitar';
-
-const items: ClientItem[] = [
-  {
-    title: 'Refugio Da Pedra SP',
-    description:
-      'Chalés aconchegantes nas montanhas de São Bento do Sapucaí, ao pé da Pedra do Baú — vistas deslumbrantes, lareira e natureza preservada.',
-    url: 'https://refugiodapedrasp.com',
-    image: '/clients/refugio.webp',
-    longDescription:
-      'Pousada familiar fundada em 2018 em São Bento do Sapucaí, na Serra da Mantiqueira, a 1,5 km da base da Pedra do Baú. São cinco acomodações — três chalés, uma cabana com lareira e um domo geodésico — todas com deck, vista para a serra e café da manhã com produtos regionais. O site traz galeria completa, páginas por acomodação e um fluxo de reserva próprio em quatro etapas que monta a solicitação e envia direto pelo WhatsApp da pousada.',
-  },
-  {
-    title: 'Quotation Factory',
-    description:
-      'Plataforma SaaS B2B com IA para metalurgia: lê arquivos CAD, gera listas de materiais, calcula custos e cria orçamentos automaticamente.',
-    url: 'https://www.quotationfactory.com',
-    image: '/clients/qf.webp',
-    longDescription:
-      'SaaS B2B holandês que automatiza a orçamentação da indústria metalúrgica: lê arquivos CAD em mais de 30 formatos (STEP, DXF, DWG, DSTV, NC1), analisa geometria e furos e devolve orçamentos precisos em minutos. A Virtual Factory modela máquinas, tolerâncias e custos operacionais para alocar cada trabalho só a equipamentos capazes, somando material, tempo de máquina, ferramental, nesting e dedução de dobra. Integra com ERPs (Ridder IQ, MKG, Bemet) e sistemas CAM (TruTops, Lantek, CADMAN, BySoft) por um Edge Connector on-premise, e já processou mais de 281 mil orçamentos para 1.200+ usuários.',
-  },
-  {
-    title: 'Higgx',
-    description:
-      'Plataforma aberta de IA que orquestra orçamentos, planejamento e produção para metalurgia de alto mix — construída sobre 10+ anos de experiência na Quotation Factory.',
-    url: 'https://higgx.app',
-    image: '/clients/higgx.webp',
-    longDescription:
-      'Runtime de relacionamentos de negócio para operações agênticas — não é ERP, CRM nem motor de workflow. Conecta eventos, expectativas, compromissos e ações entre clientes, fornecedores, times, máquinas e agentes de IA sem centralizar tudo numa única aplicação: o SignalMesh transporta sinais atribuíveis por API, e-mail, EDI, SCSN e MQTT, e o Expectation Management System monitora o que foi prometido, detecta risco e coordena a recuperação sob política. Nasceu de mais de uma década de Quotation Factory, hoje o primeiro app rodando sobre ele.',
-  },
-  {
-    title: 'Prisma UI',
-    description:
-      'Descontinuado. Biblioteca de componentes React de código aberto para construir interfaces de usuário bonitas, acessíveis e personalizáveis — construída com Radix UI e Tailwind CSS.',
-    image: '/clients/prisma.webp',
-    longDescription:
-      'Biblioteca de componentes React open source (MIT) construída sobre primitivos Radix UI e Tailwind CSS, inteiramente tipada em TypeScript. São 13 componentes em três categorias — General, Inputs e Cards — com variantes de efeito prontas como shine, ringHover, gooey, expandIcon, rainbow e border-beam, além de estados de loading e disabled e a prop asChild. A distribuição é copy-paste por um registry compatível com shadcn/ui: o comando add da CLI resolve as dependências sozinho, sem configuração extra. O projeto foi descontinuado: a biblioteca saiu do ar e não recebe mais manutenção.',
-  },
-  {
-    title: 'Dr Jean Almeida',
-    description:
-      'Médico psiquiatra em São Paulo, na Avenida Paulista — atendimento a adultos com depressão, ansiedade, TDAH e burnout, com escuta cuidadosa e acompanhamento longitudinal.',
-    url: 'https://drjeanalmeida.com',
-    image: '/clients/jean.webp',
-    longDescription:
-      'Landing page de página única para o consultório do Dr. Jean Almeida, médico psiquiatra (CRM 127.207) na Avenida Paulista, em São Paulo. Apresenta a abordagem clínica — psiquiatria integrada a compreensão psicodinâmica, com escuta cuidadosa e acompanhamento longitudinal — e as áreas de atuação: depressão, ansiedade, TDAH em adultos, burnout, transtorno bipolar, insônia crônica e borderline. Traz depoimentos, FAQ e um fluxo de agendamento em quatro etapas que leva direto ao WhatsApp, somados a um blog com 22 artigos de saúde mental.',
-  },
-  {
-    title: 'Loja do VRF',
-    description:
-      'E-commerce especializado em peças e componentes originais para sistemas VRF de ar condicionado — atendendo profissionais de HVAC em todo o Brasil.',
-    url: 'https://lojadovrf.com.br',
-    image: '/clients/vrf.webp',
-    longDescription:
-      'E-commerce especializado em peças novas e originais para sistemas de ar-condicionado VRF, com catálogo de cerca de 430 produtos das marcas Daikin, Samsung, Mitsubishi, Toshiba, LG, Midea, Gree, Hitachi, GMCC e Montreal. Cobre compressores, placas, sensores, válvulas de expansão, bombas de dreno, automação e equipamentos de diagnóstico, com navegação por categoria e por fabricante e SKU próprio por peça. Frete grátis para todo o Brasil, 7% de desconto no PIX e parcelamento em 12x, além de suporte por WhatsApp com especialistas técnicos em VRF e uma seção de manuais Toshiba e Midea.',
-  },
-];
 
 const dialogTransition = {
   type: 'spring' as const,
@@ -195,9 +134,10 @@ const ClientCard = ({
   </MorphingDialog>
 );
 
-const Clients = (): React.ReactNode => {
+const Clients = ({ copy }: { copy: ClientsCopy }): React.ReactNode => {
+  const items: ClientItem[] = Object.values(copy.items);
+
   useGSAP(() => {
-    if (!items || !text) return;
     gsap.registerPlugin(ScrollTrigger);
 
     const tl = gsap.timeline({
@@ -224,9 +164,9 @@ const Clients = (): React.ReactNode => {
     <section id='clientsHomepage' className='overflow-hidden py-6 lg:py-12 shadow-md'>
       <div className='p-6 md:px-12 lg:px-24 space-y-6 md:space-y-12'>
         <div className='space-y-1.5 md:space-y-3'>
-          <h2 className='font-title text-4xl md:text-5xl'>{title}</h2>
+          <h2 className='font-title text-4xl md:text-5xl'>{copy.title}</h2>
           <p className='text-muted-foreground font-semibold max-w-2xl'>
-            {text}
+            {copy.text}
           </p>
         </div>
         <div className='relative -mr-4 md:-mr-12'>
@@ -244,7 +184,7 @@ const Clients = (): React.ReactNode => {
                   key={index}
                   className='basis-4/5 sm:basis-3/5 md:basis-2/5 lg:basis-[28%] xl:basis-[28%] 2xl:basis-1/3 p-3 lg:p-6 pt-0 clients-animation'
                 >
-                  <ClientCard item={item} cta={cta} />
+                  <ClientCard item={item} cta={copy.cta} />
                 </CarouselItem>
               ))}
             </CarouselContent>
