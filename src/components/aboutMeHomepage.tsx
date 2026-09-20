@@ -222,7 +222,7 @@ const AboutMeHomepage = () => {
     <section
       ref={section}
       id='aboutMeHomepage'
-      className='p-6 md:py-12 md:px-24 bg-card'
+      className='p-6 md:p-12 lg:px-24 bg-card'
     >
       {/* no max width: the section spans the same gutter as the hero frame */}
       <div className='space-y-6 md:space-y-12'>
