@@ -77,7 +77,7 @@ const TechStack = () => {
           scrollStart='center bottom+=40%'
           scrollEnd='bottom bottom-=60%'
           stagger={0.03}
-          textClassName='font-title text-5xl md:text-6xl'
+          textClassName='font-title text-5xl md:text-7xl'
         >
           {title}
         </ScrollFloat>
