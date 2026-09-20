@@ -1,5 +1,26 @@
 ---
-import Home from '@/layout/home.astro';
+import { FALLBACK, hrefFor } from '@/i18n/langs';
+
+// Astro's own redirectToDefaultLocale page sits on a 2 second meta refresh,
+// which is a long stare at a blank page on the site's most linked url. This
+// one moves on the first frame and leaves no history entry to trap the back
+// button, with the meta refresh kept as the no-javascript fallback.
+const target = hrefFor(FALLBACK);
 ---
 
-<Home lang='pt' />
+<!doctype html>
+<html lang='pt-BR'>
+  <head>
+    <meta charset='utf-8' />
+    <title>{`Redirecionando para ${target}`}</title>
+    <meta http-equiv='refresh' content={`0;url=${target}`} />
+    <meta name='robots' content='noindex' />
+    <link rel='canonical' href={target} />
+    <script is:inline define:vars={{ target }}>
+      location.replace(target);
+    </script>
+  </head>
+  <body>
+    <a href={target}>Ir para o portfólio</a>
+  </body>
+</html>

@@ -9,11 +9,14 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   integrations: [react()],
 
-  // pt lives at /, the other two under their own prefix
+  // every language carries its prefix, including the default one; / is only a
+  // redirect to /pt
   i18n: {
     defaultLocale: 'pt',
     locales: ['pt', 'en', 'es'],
-    routing: { prefixDefaultLocale: false },
+    // the generated redirect waits 2s before moving; src/pages/index.astro does
+    // it instantly instead
+    routing: { prefixDefaultLocale: true, redirectToDefaultLocale: false },
   },
 
   fonts: [

@@ -1,10 +1,9 @@
 ---
 import Home from '@/layout/home.astro';
-import { FALLBACK, langs, type Lang } from '@/i18n/langs';
+import { langs, type Lang } from '@/i18n/langs';
 
-// pt is served from the root, so only the prefixed languages get a route here
-export const getStaticPaths = () =>
-  langs.filter((lang) => lang !== FALLBACK).map((lang) => ({ params: { lang } }));
+// all three languages are prefixed now, so this route builds every one of them
+export const getStaticPaths = () => langs.map((lang) => ({ params: { lang } }));
 
 const lang = Astro.params.lang as Lang;
 ---
