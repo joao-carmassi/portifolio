@@ -5,6 +5,8 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
+  /* native scrollbars, form controls and the caret follow the theme too */
+  color-scheme: light;
   /* remocn typography blocks read --font-geist-sans */
   --font-geist-sans: var(--font-raleway);
   /* same page background as the old portfolio: the copied sections use bg-card
@@ -47,6 +49,7 @@
 }
 
 .dark {
+  color-scheme: dark;
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);

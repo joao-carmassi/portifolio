@@ -8,12 +8,14 @@ import ClientsHomepage from '@/components/clientsHomepage';
 import ContactMeHomepage from '@/components/contactMeHomepage';
 import FooterHomepage from '@/components/footerHomepage';
 import StickyNav from '@/components/stickyNav';
+import ThemeCord from '@/components/themeCord';
 
 const visible = { rootMargin: '400px' };
 ---
 
 <Layout>
   <StickyNav client:load />
+  <ThemeCord client:idle />
   <main class='flex flex-col'>
     <div class='min-h-svh flex'>
       <HeroHomepage client:load />
