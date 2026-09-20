@@ -227,7 +227,7 @@ const AboutMeHomepage = () => {
       {/* no max width: the section spans the same gutter as the hero frame */}
       <div className='space-y-6 md:space-y-12'>
         <div className='space-y-1.5 md:space-y-3'>
-          <h2 className='font-title text-5xl md:text-6xl'>Sobre mim</h2>
+          <h2 className='font-title text-4xl md:text-5xl'>Sobre mim</h2>
           <p className='text-muted-foreground font-semibold max-w-2xl'>
             Faço sites do rascunho até o ar — design e código. Nos vídeos, quem
             eu sou e um projeto nascendo; nos cards, o que eu entrego e como a
