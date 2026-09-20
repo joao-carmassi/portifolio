@@ -49,6 +49,12 @@ const StickyNav = () => {
     return () => removeEventListener('scroll', onScroll);
   }, []);
 
+  // the pill is the only way to close the menu, so it cannot leave with the
+  // menu still open
+  useEffect(() => {
+    if (!shown) setMenuOpen(false);
+  }, [shown]);
+
   const LAYER = `${GEOMETRY} ${shown ? 'translate-y-0' : 'translate-y-[-250%]'}`;
 
   return (
