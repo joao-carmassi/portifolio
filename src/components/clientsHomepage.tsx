@@ -29,7 +29,8 @@ import {
 type ClientItem = {
   title: string;
   description: string;
-  url: string;
+  /** absent when the project is no longer online */
+  url?: string;
   image: string;
   longDescription: string;
 };
@@ -72,11 +73,10 @@ const items: ClientItem[] = [
   {
     title: 'Prisma UI',
     description:
-      'Biblioteca de componentes React de código aberto para construir interfaces de usuário hermosas, acessíveis e personalizáveis — construída com Radix UI e Tailwind CSS.',
-    url: 'https://prismaui.com/',
+      'Descontinuado. Biblioteca de componentes React de código aberto para construir interfaces de usuário bonitas, acessíveis e personalizáveis — construída com Radix UI e Tailwind CSS.',
     image: '/clients/prisma.webp',
     longDescription:
-      'Biblioteca de componentes React open source (MIT) construída sobre primitivos Radix UI e Tailwind CSS, inteiramente tipada em TypeScript. São 13 componentes em três categorias — General, Inputs e Cards — com variantes de efeito prontas como shine, ringHover, gooey, expandIcon, rainbow e border-beam, além de estados de loading e disabled e a prop asChild. A distribuição é copy-paste por um registry compatível com shadcn/ui: o comando add da CLI resolve as dependências sozinho, sem configuração extra.',
+      'Biblioteca de componentes React open source (MIT) construída sobre primitivos Radix UI e Tailwind CSS, inteiramente tipada em TypeScript. São 13 componentes em três categorias — General, Inputs e Cards — com variantes de efeito prontas como shine, ringHover, gooey, expandIcon, rainbow e border-beam, além de estados de loading e disabled e a prop asChild. A distribuição é copy-paste por um registry compatível com shadcn/ui: o comando add da CLI resolve as dependências sozinho, sem configuração extra. O projeto foi descontinuado: a biblioteca saiu do ar e não recebe mais manutenção.',
   },
   {
     title: 'Dr Jean Almeida',
@@ -170,18 +170,20 @@ const ClientCard = ({
             className='space-y-4'
           >
             <P>{item.longDescription}</P>
-            <Button
-              asChild
-              variant='link'
-              size='lg'
-              effect='hoverUnderline'
-              className='px-0'
-            >
-              <a href={item.url} target='_blank' rel='noopener noreferrer'>
-                {cta} {getHost(item.url)}
-                <ArrowUpRight />
-              </a>
-            </Button>
+            {item.url && (
+              <Button
+                asChild
+                variant='link'
+                size='lg'
+                effect='hoverUnderline'
+                className='px-0'
+              >
+                <a href={item.url} target='_blank' rel='noopener noreferrer'>
+                  {cta} {getHost(item.url)}
+                  <ArrowUpRight />
+                </a>
+              </Button>
+            )}
           </MorphingDialogDescription>
         </div>
         <MorphingDialogClose
