@@ -8,7 +8,6 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
-import { H2 } from '@/components/ui/h2';
 import { P } from '@/components/ui/p';
 import { H3 } from '@/components/ui/h3';
 import { Button } from '@/components/ui/button';
@@ -223,8 +222,10 @@ const Clients = (): React.ReactNode => {
     <section className='overflow-hidden py-6 lg:py-12'>
       <div className='px-4 md:px-12 space-y-6 md:space-y-12'>
         <div className='space-y-1.5 md:space-y-3'>
-          <H2>{title}</H2>
-          <P className='max-w-md'>{text}</P>
+          <h2 className='font-title text-5xl md:text-7xl'>{title}</h2>
+          <p className='text-muted-foreground font-semibold max-w-2xl'>
+            {text}
+          </p>
         </div>
         <div className='relative -mr-4 md:-mr-12'>
           <Carousel

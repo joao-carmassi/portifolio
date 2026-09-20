@@ -1,6 +1,5 @@
 import { Button } from '@/components/ui/button';
 import { ArrowDown } from 'lucide-react';
-import { H2 } from '@/components/ui/h2';
 import { P } from '@/components/ui/p';
 import { H3 } from '@/components/ui/h3';
 import { useGSAP } from '@gsap/react';
@@ -116,8 +115,10 @@ const DocumentosHomepage = () => {
       className='bg-background w-full min-h-container py-6 md:py-12 mx-auto flex flex-col gap-6 md:gap-12 justify-center'
     >
       <div className='space-y-1.5 md:space-y-3 px-6 md:px-12'>
-        <H2 className='text-center'>{title}</H2>
-        <P className='text-center'>{text}</P>
+        <h2 className='font-title text-5xl md:text-7xl text-center'>{title}</h2>
+        <p className='text-muted-foreground font-semibold max-w-2xl mx-auto text-center'>
+          {text}
+        </p>
       </div>
       <div
         id='animatedCertificates'
