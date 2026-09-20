@@ -96,7 +96,7 @@ const HeroHomepage = () => {
     <div
       ref={frame}
       data-intro
-      className='flex-1 flex p-4 md:p-12 data-intro:p-0 bg-card'
+      className='flex-1 flex p-4 md:py-12 md:px-24 data-intro:p-0 bg-card'
     >
       <section
         ref={section}
