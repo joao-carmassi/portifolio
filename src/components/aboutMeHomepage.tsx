@@ -30,11 +30,11 @@ const GithubIcon = () => (
 const cards = [
   {
     title: 'O que eu faço',
-    lead: 'Design e código com a mesma pessoa — você não contrata dois.',
+    lead: 'Eu mesmo monto o layout e escrevo o código do site.',
     items: [
       {
         icon: Palette,
-        text: 'Layout feito do zero para o seu negócio, sem tema pronto.',
+        text: 'Layout montado para o seu negócio, em vez de um tema pronto.',
       },
       {
         icon: Gauge,
@@ -229,9 +229,9 @@ const AboutMeHomepage = () => {
         <div className='space-y-1.5 md:space-y-3'>
           <h2 className='font-title text-4xl md:text-5xl'>Sobre mim</h2>
           <p className='text-muted-foreground font-semibold max-w-2xl'>
-            Faço sites do rascunho até o ar — design e código. Nos vídeos, quem
-            eu sou e um projeto nascendo; nos cards, o que eu entrego e como a
-            gente trabalha junto.
+            Faço sites do rascunho até o ar, do layout ao código. Nos vídeos,
+            quem eu sou e um projeto nascendo; nos cards, o que eu entrego e
+            como a gente trabalha junto.
           </p>
         </div>
         <div className='grid lg:grid-cols-[minmax(0,1fr)_min(calc(33.333%-16px),calc((100svh-7.5rem)*2.34-100%))_minmax(0,1fr)] gap-6'>
