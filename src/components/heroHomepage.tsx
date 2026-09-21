@@ -23,15 +23,22 @@ const announceStage2 = () => {
 const HeroHomepage = ({
   copy,
   navCopy,
+  intro = true,
 }: {
   copy: HeroCopy;
   navCopy: NavCopy;
+  /** false renders the hero in its final state, no entrance animation */
+  intro?: boolean;
 }) => {
   const frame = useRef<HTMLDivElement>(null);
   const section = useRef<HTMLElement>(null);
 
   useGSAP(
     () => {
+      if (!intro) {
+        announceStage2();
+        return;
+      }
       const content = '.hero-content';
       // data-intro keeps the hero full-bleed (no frame, no radius) until hydration
       frame.current!.removeAttribute('data-intro');
@@ -118,7 +125,7 @@ const HeroHomepage = ({
   return (
     <div
       ref={frame}
-      data-intro
+      data-intro={intro || undefined}
       // the hero section itself starts below this frame's padding; anchoring to
       // the frame is what actually lands the page back at zero
       id='top'
@@ -126,7 +133,7 @@ const HeroHomepage = ({
     >
       <section
         ref={section}
-        data-intro
+        data-intro={intro || undefined}
         id='heroHomepage'
         className='dark bg-black text-foreground flex-1 rounded-3xl data-intro:rounded-none p-6 md:p-12 lg:p-24 relative overflow-hidden'
       >
@@ -145,10 +152,10 @@ const HeroHomepage = ({
           />
         </div>
 
-        <HeroNav copy={navCopy} />
+        <HeroNav copy={navCopy} intro={intro} />
 
         {/* stacked: content sits at the bottom; xl: side by side, still bottom-left */}
-        <div className='hero-content invisible relative z-10 w-full h-full flex flex-col items-end justify-end gap-y-8 gap-x-4 xl:flex-row xl:justify-start'>
+        <div className={`hero-content ${intro ? 'invisible' : ''} relative z-10 w-full h-full flex flex-col items-end justify-end gap-y-8 gap-x-4 xl:flex-row xl:justify-start`}>
           <div className='w-full space-y-6 md:space-y-10 xl:w-1/2'>
             {/* the name lives on the heading, where aria-label is allowed, and
                 the three lines are hidden: SplitText shreds the middle one into

@@ -4,8 +4,10 @@ import type { NavCopy } from '@/i18n';
 // lives inside the hero section, so it scrolls away with it and inherits the
 // hero's GSAP scope; the padding repeats the hero's own so the links end on
 // the same edge as the frame
-const HeroNav = ({ copy }: { copy: NavCopy }) => (
-  <div className='hero-nav invisible absolute inset-x-0 top-0 z-20 p-6 md:p-12 lg:p-24'>
+const HeroNav = ({ copy, intro }: { copy: NavCopy; intro: boolean }) => (
+  <div
+    className={`hero-nav ${intro ? 'invisible' : ''} absolute inset-x-0 top-0 z-20 p-6 md:p-12 lg:p-24`}
+  >
     <nav className='hero-entry flex items-center justify-end gap-6'>
       <ul className='hidden md:flex items-center gap-6 font-semibold'>
         {Object.values(copy.links).map(({ href, label }) => (

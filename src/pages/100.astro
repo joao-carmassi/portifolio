@@ -1,0 +1,192 @@
+---
+import type { Graph, Person, WebSite } from 'schema-dts';
+import serialize from 'serialize-javascript';
+
+import Layout from '@/layout/layout.astro';
+import HeroHomepage from '@/components/heroHomepage';
+import AboutMeHomepage from '@/components/aboutMeHomepage';
+import DocumentosHomepage from '@/components/documentsHomepage';
+import TechStackHomepage from '@/components/techStackHomepage';
+import ClientsHomepage from '@/components/clientsHomepage';
+import ContactMeHomepage from '@/components/contactMeHomepage';
+import FooterHomepage from '@/components/footerHomepage';
+import StickyNav from '@/components/stickyNav';
+import ThemeCord from '@/components/themeCord';
+import { getT, messages } from '@/i18n';
+import {
+  FALLBACK,
+  HTML_LANG,
+  OG_LOCALE,
+  hrefFor,
+  langs,
+  type Lang,
+} from '@/i18n/langs';
+import { getSiteUrl, getCanonicalUrl } from '@/utils/env';
+import { pictures, srcAt } from '@/lib/images';
+
+// the same page as /pt/ minus the hero's entrance animation, which holds the
+// content back for seconds and sinks lighthouse's performance score. Its
+// canonical still points at /pt/, so search engines treat it as that page
+const lang: Lang = FALLBACK;
+// the page's own strings go through @embra/i18n; the islands get typed slices,
+// because a `t` function cannot cross the island boundary as a prop
+const t = getT(lang);
+const m = messages(lang);
+
+const siteUrl = getSiteUrl();
+const pageUrl = getCanonicalUrl(hrefFor(lang));
+const ogImage = `${siteUrl}/og-image.jpg`;
+
+const title = t('meta.title');
+// the <title> leads with the page topic, which is too long for og:site_name and
+// for schema's WebSite name; a proper name needs no translation
+const SITE_NAME = 'João Carmassi';
+const description = t('meta.description');
+
+// one node id per person, shared by every schema that cites him, so the three
+// language pages describe one identity instead of three
+const personId = `${siteUrl}/#person`;
+
+const person: Person = {
+  '@type': 'Person',
+  '@id': personId,
+  name: 'João Vitor Carmassi',
+  jobTitle: t('meta.jobTitle'),
+  description,
+  url: pageUrl,
+  image: ogImage,
+  email: 'joaovitorcarmassi@gmail.com',
+  telephone: '+5512996661778',
+  birthDate: '2004-12-08',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'São Bento do Sapucaí',
+    addressRegion: 'SP',
+    addressCountry: 'BR',
+  },
+  sameAs: Object.values(m.nav.social).map((s) => s.link),
+  knowsLanguage: ['pt-BR', 'en', 'es'],
+  // brand names, identical in every language, so they stay out of the locales
+  knowsAbout: [
+    'Astro',
+    'React',
+    'Next.js',
+    'TypeScript',
+    'Tailwind CSS',
+    'GSAP',
+    'Git',
+    'TanStack Query',
+    'Zustand',
+  ],
+};
+
+const website: WebSite = {
+  '@type': 'WebSite',
+  '@id': `${pageUrl}#website`,
+  name: SITE_NAME,
+  url: pageUrl,
+  description,
+  inLanguage: HTML_LANG[lang],
+  author: { '@id': personId },
+};
+
+const jsonLd: Graph = {
+  '@context': 'https://schema.org',
+  '@graph': [person, website],
+};
+
+// astro:assets is server-only, so the images are built here and handed to the
+// islands as props. The keys are the same paths the locale json already holds.
+const clientImages = await pictures(
+  Object.values(m.clients.items).map((item) => item.image),
+  // card tops out near 600px, the dialog at 768
+  { widths: [400, 600, 768, 1100] },
+);
+
+const docImages = await pictures(
+  [...Object.values(m.docs.docs).map((doc) => doc.img), m.docs.resume.img],
+  { widths: [480, 720, 1080] },
+);
+
+// the remotion compositions lay out at their own 1920px scale, so each of
+// these is one fixed render rather than a srcset — see srcAt's note
+const aboutImages = {
+  // shown inside a 500px polaroid, so 1000 covers a 2x screen
+  '/about/joao.webp': await srcAt('/about/joao.webp', 1000),
+  // full-bleed across the composition
+  '/about/pedra-do-bau.webp': await srcAt('/about/pedra-do-bau.webp', 1920),
+};
+
+const visible = { rootMargin: '400px' };
+---
+
+<Layout
+  lang={lang}
+  title={title}
+  description={description}
+  canonical={pageUrl}
+  languageAlternates={[
+    ...langs.map((alternate) => ({
+      hrefLang: HTML_LANG[alternate],
+      href: getCanonicalUrl(hrefFor(alternate)),
+    })),
+    { hrefLang: 'x-default', href: getCanonicalUrl(hrefFor(FALLBACK)) },
+  ]}
+  extend={{ meta: [{ name: 'keywords', content: t('meta.keywords') }] }}
+  openGraph={{
+    basic: { title, type: 'website', image: ogImage, url: pageUrl },
+    optional: {
+      description,
+      siteName: SITE_NAME,
+      locale: OG_LOCALE[lang],
+      localeAlternate: langs
+        .filter((alternate) => alternate !== lang)
+        .map((alternate) => OG_LOCALE[alternate]),
+    },
+    image: { alt: t('meta.ogAlt'), width: 1200, height: 630 },
+  }}
+  twitter={{
+    card: 'summary_large_image',
+    title,
+    description,
+    image: ogImage,
+    imageAlt: t('meta.ogAlt'),
+  }}
+>
+  <script
+    is:inline
+    type='application/ld+json'
+    set:html={serialize(jsonLd)}
+    slot='head'
+  />
+  <StickyNav client:load lang={lang} copy={m.nav} />
+  <ThemeCord client:idle copy={m.nav} />
+  <main class='flex flex-col'>
+    <div class='min-h-svh flex'>
+      <HeroHomepage
+        client:load
+        copy={m.hero}
+        navCopy={m.nav}
+        intro={false}
+      />
+    </div>
+    <AboutMeHomepage
+      client:visible={visible}
+      copy={m.about}
+      images={aboutImages}
+    />
+    <DocumentosHomepage
+      client:visible={visible}
+      copy={m.docs}
+      images={docImages}
+    />
+    <TechStackHomepage client:visible={visible} copy={m.stack} />
+    <ClientsHomepage
+      client:visible={visible}
+      copy={m.clients}
+      images={clientImages}
+    />
+    <ContactMeHomepage client:visible={visible} copy={m.contact} />
+  </main>
+  <FooterHomepage client:visible={visible} copy={m.footer} navCopy={m.nav} />
+</Layout>

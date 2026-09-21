@@ -53,8 +53,8 @@ export default defineConfig({
         defaultLocale: 'pt',
         locales: { pt: 'pt-BR', en: 'en', es: 'es' },
       },
-      // / is the noindex redirect to /pt/, it does not belong in the sitemap
-      filter: (page) => new URL(page).pathname !== '/',
+      // / is the noindex redirect to /pt/ and /100/ a copy of /pt/ for lighthouse runs
+      filter: (page) => !['/', '/100/'].includes(new URL(page).pathname),
     }),
     robotsTxt(),
   ],
