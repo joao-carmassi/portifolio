@@ -159,10 +159,10 @@ const HeroHomepage = ({
             >
               <span aria-hidden='true' className='hero-entry block'>
                 {copy.title.line1}
-              </span>
+              </span>{' '}
               <span aria-hidden='true' className='hero-title block w-fit'>
                 {copy.title.line2}
-              </span>
+              </span>{' '}
               <span aria-hidden='true' className='hero-entry block'>
                 {copy.title.line3}
               </span>

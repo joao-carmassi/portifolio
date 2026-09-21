@@ -22,7 +22,10 @@
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
   --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
+  /* shadcn ships 0.556, which is 4.34:1 on --background and fails AA for body
+     text. 0.52 is 5.05:1 there and 5.51:1 on --card, still plainly muted.
+     The dark theme's 0.708 already passes at 7.63:1, so it is left alone */
+  --muted-foreground: oklch(0.52 0 0);
   --accent: oklch(0.97 0 0);
   --accent-foreground: oklch(0.205 0 0);
   --destructive: oklch(0.577 0.245 27.325);
