@@ -136,11 +136,15 @@
   * {
     @apply border-border outline-ring/50;
   }
+  /* the clients carousel bleeds past the viewport on purpose. hidden on body
+     alone is ignored by mobile browsers, which zoom the whole page out to fit
+     the bleed; clip on both keeps it out without making either a scroller */
+  html,
+  body {
+    overflow-x: clip;
+  }
   body {
     @apply bg-background text-foreground;
-    /* the clients carousel bleeds past the viewport on purpose, same as the
-       old project, which hid the resulting horizontal scroll here */
-    overflow-x: hidden;
     /* same scrollbar as the old portfolio */
     --sb-size: 8px;
   }

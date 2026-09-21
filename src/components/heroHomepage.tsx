@@ -122,7 +122,7 @@ const HeroHomepage = ({
       // the hero section itself starts below this frame's padding; anchoring to
       // the frame is what actually lands the page back at zero
       id='top'
-      className='flex-1 flex p-6 md:p-12 lg:p-24 data-intro:p-0 bg-card'
+      className='flex-1 min-w-0 flex p-6 md:p-12 lg:p-24 data-intro:p-0 bg-card'
     >
       <section
         ref={section}
@@ -170,7 +170,7 @@ const HeroHomepage = ({
             <p className='hero-entry opacity-80 font-semibold max-w-lg'>
               {copy.text1}
             </p>
-            <div className='flex gap-4'>
+            <div className='flex flex-wrap gap-4'>
               <div className='hero-entry'>
                 <Magnetic>
                   <Button
