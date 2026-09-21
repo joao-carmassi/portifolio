@@ -1,6 +1,6 @@
 import { Menu, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import GlassSurface from '@/components/ui/glass-surface';
+import LiquidGlass from 'liquid-glass-react';
 import StaggeredMenu from '@/components/ui/staggered-menu';
 // from @/i18n/langs, not @/i18n: this island is client:load and the barrel
 // pulls in every locale file
@@ -14,6 +14,9 @@ const GEOMETRY =
 const StickyNav = ({ lang, copy }: { lang: Lang; copy: NavCopy }) => {
   const [shown, setShown] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  // liquid-glass-react reads navigator during render, so it can't SSR
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
   useEffect(() => {
     // lenis scrolls the window itself, so the native event still fires
@@ -87,8 +90,21 @@ const StickyNav = ({ lang, copy }: { lang: Lang; copy: NavCopy }) => {
           parent turns that parent into a backdrop root, and the glass then has
           nothing behind it left to filter. Keeping the blended bar in its own
           fixed layer leaves both rooted at the page. */}
-      <div className={`${LAYER} z-40`} aria-hidden inert>
-        <GlassSurface width='100%' height={56} borderRadius={999} />
+      {/* the lib's rim spans blend (screen/overlay) as siblings of the glass,
+          which makes this layer a backdrop root; forced back to normal */}
+      <div className={`${LAYER} z-40 h-14 [&_*]:mix-blend-normal!`} aria-hidden inert>
+        {mounted && (
+          // the lib centers itself with top/left 50% + translate(-50%, -50%)
+          <LiquidGlass
+            cornerRadius={999}
+            mode='shader'
+            padding='0'
+            className='h-14 w-full [&_.glass]:size-full'
+            style={{ position: 'absolute', top: '50%', left: '50%' }}
+          >
+            <span />
+          </LiquidGlass>
+        )}
       </div>
 
       <div
