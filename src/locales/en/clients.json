@@ -25,19 +25,26 @@
       "longDescription": "A business-relationship runtime for agentic operations — not an ERP, a CRM, or a workflow engine. It connects events, expectations, commitments, and actions across customers, suppliers, teams, machines, and AI agents without centralising everything into a single application: SignalMesh carries attributable signals over API, email, EDI, SCSN, and MQTT, while the Expectation Management System tracks what was promised, flags risk, and coordinates recovery under policy. It grew out of a decade of Quotation Factory, now the first app running on top of it."
     },
     "3": {
+      "title": "São Bento do Sapucaí Tourist Map",
+      "description": "Interactive map of São Bento do Sapucaí — sights, culture, restaurants, cafés, lodging, and adventure in the Serra da Mantiqueira, right in the browser.",
+      "url": "https://mapaturisticosaobento.com",
+      "image": "/clients/mapa.webp",
+      "longDescription": "A tourist guide to São Bento do Sapucaí built on an interactive map: 40+ places pinned by category — sights, culture, restaurants, cafés, lodging, shopping, adventure, and services — each with photos, address, opening hours, distance from downtown, and directions through Google Maps. A side list follows the map with featured spots, ratings, and open-now status, search tolerates typos and missing accents, and the site also gathers multi-day itineraries, an events calendar, and a blog. It works on a phone mid-trip, with no app and no sign-up."
+    },
+    "4": {
       "title": "Prisma UI",
       "description": "Discontinued. Open source React component library for building beautiful, accessible, and customizable user interfaces — built with Radix UI and Tailwind CSS.",
       "image": "/clients/prisma.webp",
       "longDescription": "Open source (MIT) React component library built on Radix UI primitives and Tailwind CSS, fully typed in TypeScript. Thirteen components across three categories — General, Inputs, and Cards — ship with ready-made effect variants such as shine, ringHover, gooey, expandIcon, rainbow, and border-beam, plus loading and disabled states and an asChild prop. Distribution is copy-paste through a shadcn/ui-compatible registry: the CLI add command resolves every dependency on its own, with no extra configuration. The project has been discontinued: the library is offline and no longer maintained."
     },
-    "4": {
+    "5": {
       "title": "Dr Jean Almeida",
       "description": "Psychiatrist in São Paulo, on Avenida Paulista — treating adults with depression, anxiety, adult ADHD, and burnout through careful listening and longitudinal care.",
       "url": "https://drjeanalmeida.com",
       "image": "/clients/jean.webp",
       "longDescription": "Single-page site for Dr. Jean Almeida's practice, a psychiatrist (CRM 127.207) on Avenida Paulista in São Paulo. It lays out his clinical approach — psychiatry integrated with psychodynamic understanding, careful listening, and longitudinal follow-up — and the conditions he treats: depression, anxiety, adult ADHD, burnout, bipolar disorder, chronic insomnia, and borderline personality disorder. Testimonials, an FAQ, and a four-step booking flow that lands in WhatsApp sit alongside a blog of 22 mental-health articles."
     },
-    "5": {
+    "6": {
       "title": "Loja do VRF",
       "description": "Specialized e-commerce for original VRF (Variable Refrigerant Flow) parts and components — serving HVAC professionals nationwide.",
       "url": "https://lojadovrf.com.br",

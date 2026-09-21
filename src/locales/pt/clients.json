@@ -25,19 +25,26 @@
       "longDescription": "Runtime de relacionamentos de negócio para operações agênticas — não é ERP, CRM nem motor de workflow. Conecta eventos, expectativas, compromissos e ações entre clientes, fornecedores, times, máquinas e agentes de IA sem centralizar tudo numa única aplicação: o SignalMesh transporta sinais atribuíveis por API, e-mail, EDI, SCSN e MQTT, e o Expectation Management System monitora o que foi prometido, detecta risco e coordena a recuperação sob política. Nasceu de mais de uma década de Quotation Factory, hoje o primeiro app rodando sobre ele."
     },
     "3": {
+      "title": "Mapa Turístico de São Bento do Sapucaí",
+      "description": "Mapa interativo com os lugares de São Bento do Sapucaí — turismo, cultura, restaurantes, cafés, hospedagem e aventura na Serra da Mantiqueira, direto no navegador.",
+      "url": "https://mapaturisticosaobento.com",
+      "image": "/clients/mapa.webp",
+      "longDescription": "Guia turístico de São Bento do Sapucaí construído em cima de um mapa interativo: mais de 40 lugares marcados por categoria — turismo, cultura, restaurantes, cafés, hospedagem, compras, aventura e serviços — com foto, endereço, horários, distância do centro e rota pelo Google Maps. A lista lateral acompanha o mapa com destaques, avaliação e status de aberto agora, a busca tolera erro de digitação e acento, e o site ainda reúne roteiros de vários dias, agenda de eventos e blog. Funciona no celular durante o passeio, sem app e sem cadastro."
+    },
+    "4": {
       "title": "Prisma UI",
       "description": "Descontinuado. Biblioteca de componentes React de código aberto para construir interfaces de usuário bonitas, acessíveis e personalizáveis — construída com Radix UI e Tailwind CSS.",
       "image": "/clients/prisma.webp",
       "longDescription": "Biblioteca de componentes React open source (MIT) construída sobre primitivos Radix UI e Tailwind CSS, inteiramente tipada em TypeScript. São 13 componentes em três categorias — General, Inputs e Cards — com variantes de efeito prontas como shine, ringHover, gooey, expandIcon, rainbow e border-beam, além de estados de loading e disabled e a prop asChild. A distribuição é copy-paste por um registry compatível com shadcn/ui: o comando add da CLI resolve as dependências sozinho, sem configuração extra. O projeto foi descontinuado: a biblioteca saiu do ar e não recebe mais manutenção."
     },
-    "4": {
+    "5": {
       "title": "Dr Jean Almeida",
       "description": "Médico psiquiatra em São Paulo, na Avenida Paulista — atendimento a adultos com depressão, ansiedade, TDAH e burnout, com escuta cuidadosa e acompanhamento longitudinal.",
       "url": "https://drjeanalmeida.com",
       "image": "/clients/jean.webp",
       "longDescription": "Landing page de página única para o consultório do Dr. Jean Almeida, médico psiquiatra (CRM 127.207) na Avenida Paulista, em São Paulo. Apresenta a abordagem clínica — psiquiatria integrada a compreensão psicodinâmica, com escuta cuidadosa e acompanhamento longitudinal — e as áreas de atuação: depressão, ansiedade, TDAH em adultos, burnout, transtorno bipolar, insônia crônica e borderline. Traz depoimentos, FAQ e um fluxo de agendamento em quatro etapas que leva direto ao WhatsApp, somados a um blog com 22 artigos de saúde mental."
     },
-    "5": {
+    "6": {
       "title": "Loja do VRF",
       "description": "E-commerce especializado em peças e componentes originais para sistemas VRF de ar condicionado — atendendo profissionais de HVAC em todo o Brasil.",
       "url": "https://lojadovrf.com.br",
