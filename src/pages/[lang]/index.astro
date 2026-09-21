@@ -38,6 +38,9 @@ const pageUrl = getCanonicalUrl(hrefFor(lang));
 const ogImage = `${siteUrl}/og-image.jpg`;
 
 const title = t('meta.title');
+// the <title> leads with the page topic, which is too long for og:site_name and
+// for schema's WebSite name; a proper name needs no translation
+const SITE_NAME = 'João Carmassi';
 const description = t('meta.description');
 
 // one node id per person, shared by every schema that cites him, so the three
@@ -80,7 +83,7 @@ const person: Person = {
 const website: WebSite = {
   '@type': 'WebSite',
   '@id': `${pageUrl}#website`,
-  name: title,
+  name: SITE_NAME,
   url: pageUrl,
   description,
   inLanguage: HTML_LANG[lang],
@@ -134,7 +137,7 @@ const visible = { rootMargin: '400px' };
     basic: { title, type: 'website', image: ogImage, url: pageUrl },
     optional: {
       description,
-      siteName: title,
+      siteName: SITE_NAME,
       locale: OG_LOCALE[lang],
       localeAlternate: langs
         .filter((alternate) => alternate !== lang)
