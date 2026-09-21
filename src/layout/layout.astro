@@ -29,11 +29,7 @@ const { lang, ...seo } = Astro.props as Props;
       // runs before the first paint, so the page never flashes the wrong theme
       const stored =
         typeof localStorage !== 'undefined' && localStorage.getItem('theme');
-      const theme =
-        stored ||
-        (window.matchMedia('(prefers-color-scheme: dark)').matches
-          ? 'dark'
-          : 'light');
+      const theme = stored || 'light';
       document.documentElement.classList.toggle('dark', theme === 'dark');
 
       // whatever flips the class (the pull cord) gets persisted for free
