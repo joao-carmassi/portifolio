@@ -67,7 +67,10 @@ const HeroHomepage = ({
 
       const title = section.current!.querySelector('.hero-title')!;
       const rect = title.getBoundingClientRect();
-      const { chars } = SplitText.create(title, { type: 'chars' });
+      // aria: 'none' — SplitText's default hides the chars and puts an
+      // aria-label on what it split, but that is a <span>, and aria-label is
+      // prohibited on a generic role. The <h1> carries the name instead
+      const { chars } = SplitText.create(title, { type: 'chars', aria: 'none' });
 
       tl.from(
         chars,
@@ -147,10 +150,22 @@ const HeroHomepage = ({
         {/* stacked: content sits at the bottom; xl: side by side, still bottom-left */}
         <div className='hero-content invisible relative z-10 w-full h-full flex flex-col items-end justify-end gap-y-8 gap-x-4 xl:flex-row xl:justify-start'>
           <div className='w-full space-y-6 md:space-y-10 xl:w-1/2'>
-            <h1 className='font-title text-5xl md:text-7xl text-shadow-lg'>
-              <span className='hero-entry block'>{copy.title.line1}</span>
-              <span className='hero-title block w-fit'>{copy.title.line2}</span>
-              <span className='hero-entry block'>{copy.title.line3}</span>
+            {/* the name lives on the heading, where aria-label is allowed, and
+                the three lines are hidden: SplitText shreds the middle one into
+                per-character spans, which is not a thing to read out */}
+            <h1
+              className='font-title text-5xl md:text-7xl text-shadow-lg'
+              aria-label={`${copy.title.line1} ${copy.title.line2} ${copy.title.line3}`}
+            >
+              <span aria-hidden='true' className='hero-entry block'>
+                {copy.title.line1}
+              </span>
+              <span aria-hidden='true' className='hero-title block w-fit'>
+                {copy.title.line2}
+              </span>
+              <span aria-hidden='true' className='hero-entry block'>
+                {copy.title.line3}
+              </span>
             </h1>
             <p className='hero-entry opacity-80 font-semibold max-w-lg'>
               {copy.text1}

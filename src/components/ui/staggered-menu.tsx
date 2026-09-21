@@ -506,6 +506,10 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
           className="staggered-menu-panel absolute top-0 right-0 h-full bg-white flex flex-col p-[6em_2em_2em_2em] overflow-y-auto z-10 backdrop-blur-[12px] pointer-events-auto"
           style={{ WebkitBackdropFilter: 'blur(12px)' }}
           aria-hidden={!open}
+          // the closed panel is only moved off screen, so its links stayed
+          // tabbable while aria-hidden claimed they were not there. inert is
+          // the half aria-hidden cannot do: it takes them out of the tab order
+          inert={!open}
         >
           <div className="sm-panel-inner flex-1 flex flex-col gap-5">
             <ul
