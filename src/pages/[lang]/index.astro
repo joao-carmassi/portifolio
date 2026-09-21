@@ -21,7 +21,7 @@ import {
   langs,
   type Lang,
 } from '@/i18n/langs';
-import { getBasePath, getCanonicalUrl } from '@/utils/env';
+import { getSiteUrl, getCanonicalUrl } from '@/utils/env';
 import { pictures, srcAt } from '@/lib/images';
 
 // all three languages are prefixed, so this route builds every one of them
@@ -33,7 +33,7 @@ const lang = Astro.params.lang as Lang;
 const t = getT(lang);
 const m = messages(lang);
 
-const siteUrl = getBasePath().replace(/\/+$/, '');
+const siteUrl = getSiteUrl();
 const pageUrl = getCanonicalUrl(hrefFor(lang));
 const ogImage = `${siteUrl}/og-image.jpg`;
 

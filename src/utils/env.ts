@@ -1,9 +1,11 @@
+import { PUBLIC_SITE_URL } from 'astro:env/client';
+
 /**
- * The deployed origin. Unset it and everything SEO points at localhost, so
- * astro.config warns at build time rather than letting a wrong canonical ship.
+ * The deployed origin, without trailing slash. Every env read goes through a
+ * getter here, so renaming a variable only touches this file. Unset, it falls
+ * back to localhost and astro.config warns at build time.
  */
-export const getBasePath = (): string =>
-  import.meta.env.PUBLIC_SITE_URL || 'http://localhost:4321';
+export const getSiteUrl = (): string => PUBLIC_SITE_URL.replace(/\/+$/, '');
 
 /**
  * Absolute URL that matches exactly what the server answers with.
@@ -15,7 +17,7 @@ export const getBasePath = (): string =>
  * and served URL agree.
  */
 export const getCanonicalUrl = (path = '/'): string => {
-  const base = getBasePath().replace(/\/+$/, '');
+  const base = getSiteUrl();
   const normalized = `/${path.replace(/^\/+/, '').replace(/\/+$/, '')}`;
   return normalized === '/' ? `${base}/` : `${base}${normalized}/`;
 };

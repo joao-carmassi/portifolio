@@ -1,5 +1,5 @@
 // @ts-check
-import { defineConfig, fontProviders } from 'astro/config';
+import { defineConfig, envField, fontProviders } from 'astro/config';
 
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
@@ -28,6 +28,18 @@ if (!PUBLIC_SITE_URL) {
 // https://astro.build/config
 export default defineConfig({
   site: SITE,
+
+  // typed and validated env, read in code through src/utils/env.ts
+  env: {
+    schema: {
+      PUBLIC_SITE_URL: envField.string({
+        context: 'client',
+        access: 'public',
+        url: true,
+        default: 'http://localhost:4321',
+      }),
+    },
+  },
 
   // every route is served at /path/, so canonical, sitemap and internal links
   // all agree instead of pointing at a redirect
