@@ -78,7 +78,7 @@ export const HoverEffect = ({
         >
           <Card className='relative'>
             <div className='absolute top-3 left-3 hidden md:block'>
-              <H3 className='group-hover:text-background font-normal duration-200 font-main'>
+              <H3 className='font-normal font-main'>
                 {item.name}
               </H3>
             </div>
@@ -100,7 +100,10 @@ export const Card = ({
   return (
     <div
       className={cn(
-        'card-inner h-full w-full relative z-20 py-12 md:py-20',
+        // white + difference reads dark on the card and light on the moving
+        // background, with no hover state to miss on touch. It sits on the
+        // element that makes the stacking context, or it would blend with nothing
+        'card-inner h-full w-full relative z-20 py-12 md:py-20 text-white mix-blend-difference',
         className,
       )}
     >
@@ -119,7 +122,7 @@ export const CardDescription = ({
   return (
     <P
       className={cn(
-        'text-foreground group-hover:text-background duration-200 text-center text-xl md:text-3xl font-semibold',
+        'text-white text-center text-xl md:text-3xl font-semibold',
         className,
       )}
     >
