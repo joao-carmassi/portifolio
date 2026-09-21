@@ -138,6 +138,19 @@ export default defineConfig({
   ],
 
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [tailwindcss()],
+    build: {
+      rolldownOptions: {
+        // astro marks every mdx entry with this directive; rolldown flags it
+        // but nothing breaks
+        onwarn(warning, warn) {
+          if (
+            warning.code === 'MODULE_LEVEL_DIRECTIVE' &&
+            warning.message.includes('astro:head-inject')
+          ) return;
+          warn(warning);
+        },
+      },
+    },
   }
 });
