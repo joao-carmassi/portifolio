@@ -11,14 +11,14 @@
       "ariaLabel": "Ir para os documentos"
     },
     "2": {
-      "href": "#clientsHomepage",
-      "label": "Projetos",
-      "ariaLabel": "Ir para os projetos"
-    },
-    "3": {
       "href": "#techStack",
       "label": "Tecnologias",
       "ariaLabel": "Ir para a stack"
+    },
+    "3": {
+      "href": "#clientsHomepage",
+      "label": "Projetos",
+      "ariaLabel": "Ir para os projetos"
     },
     "4": {
       "href": "#contactMeHomepage",
