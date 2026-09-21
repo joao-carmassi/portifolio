@@ -39,10 +39,11 @@ const ThemeCord = ({ copy }: { copy: NavCopy }) => {
       pulled={!dark}
       ariaLabel={copy.theme.toggle}
       className={
-        // the phone's right edge belongs to the hero's menu button, so over
-        // there the cord hangs on the left gutter instead; z-30 is above the
-        // hero content and its nav, below the sticky pill and the menu
-        '[--pullcord-right:calc(100%_-_7rem)] md:[--pullcord-right:7rem] [--pullcord-z:30] [--pullcord-ink:var(--color-muted-foreground)]'
+        // below lg the hero's right edge belongs to its nav — the menu button
+        // on a phone, the links on a tablet — so the cord hangs on the left
+        // gutter there instead; z-30 is above the hero content and its nav,
+        // below the sticky pill and the menu
+        '[--pullcord-right:calc(100%_-_7rem)] lg:[--pullcord-right:7rem] [--pullcord-z:30] [--pullcord-ink:var(--color-muted-foreground)]'
       }
     />
   );
