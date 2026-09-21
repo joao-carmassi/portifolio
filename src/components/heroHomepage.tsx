@@ -8,6 +8,7 @@ import { useGSAP } from '@gsap/react';
 import { SplitText } from 'gsap/SplitText';
 import HeroNav from '@/components/heroNav';
 import type { HeroCopy, NavCopy } from '@/i18n';
+import type { Lang } from '@/i18n/langs';
 
 gsap.registerPlugin(useGSAP, SplitText);
 
@@ -21,10 +22,12 @@ const announceStage2 = () => {
 };
 
 const HeroHomepage = ({
+  lang,
   copy,
   navCopy,
   intro = true,
 }: {
+  lang: Lang;
   copy: HeroCopy;
   navCopy: NavCopy;
   /** false renders the hero in its final state, no entrance animation */
@@ -152,7 +155,7 @@ const HeroHomepage = ({
           />
         </div>
 
-        <HeroNav copy={navCopy} intro={intro} />
+        <HeroNav lang={lang} copy={navCopy} intro={intro} />
 
         {/* stacked: content sits at the bottom; xl: side by side, still bottom-left */}
         <div className={`hero-content ${intro ? 'invisible' : ''} relative z-10 w-full h-full flex flex-col items-end justify-end gap-y-8 gap-x-4 xl:flex-row xl:justify-start`}>

@@ -163,7 +163,7 @@ const visible = { rootMargin: '400px' };
   <ThemeCord client:idle copy={m.nav} />
   <main class='flex flex-col'>
     <div class='min-h-svh flex'>
-      <HeroHomepage client:load copy={m.hero} navCopy={m.nav} />
+      <HeroHomepage client:load lang={lang} copy={m.hero} navCopy={m.nav} />
     </div>
     <AboutMeHomepage
       client:visible={visible}
