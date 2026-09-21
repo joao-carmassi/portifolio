@@ -153,6 +153,13 @@ const FooterHomepage = ({
                 </button>
               );
             })}
+            {/* footer only: the hero nav stays about the page's own sections */}
+            <a
+              href='/components/'
+              className='text-muted-foreground hover:text-primary text-sm transition-colors footer-animation'
+            >
+              Prisma UI
+            </a>
           </nav>
 
           <div className='text-muted-foreground text-center text-sm lg:text-right lg:text-xs footer-animation'>

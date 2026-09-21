@@ -1,11 +1,10 @@
 ---
-title: "Installation \u2014 Prisma UI"
+title: "Installation"
 description: "Install Prisma UI components via the shadcn CLI. An advanced React component library built on Radix UI and Tailwind CSS."
 ---
 
-import { Code } from '@astrojs/starlight/components';
-import { PUBLIC_SITE_URL } from 'astro:env/client';
 import Install from '@/prisma/docs/Install.astro';
+import RegistryConfig from '@/prisma/docs/RegistryConfig.astro';
 
 Prisma UI components are installed individually via the [shadcn CLI](https://ui.shadcn.com/docs/cli). Each component is a self-contained registry JSON — the CLI handles downloading, placing files, and installing dependencies automatically.
 
@@ -33,13 +32,7 @@ The CLI will:
 
 Direct URLs always serve the `radix-vega` variant. The style-aware components (Button, Badge, and Floating Label Input) also ship variants for every shadcn style — to have the CLI pick the one matching your theme automatically, add the `@prisma` namespace to the `registries` block of your project's `components.json` once:
 
-<Code lang="json" code={`{
-  "$schema": "https://ui.shadcn.com/schema.json",
-  "style": "radix-vega",
-  "registries": {
-    "@prisma": "${PUBLIC_SITE_URL}/components/{style}/{name}.json"
-  }
-}`} />
+<RegistryConfig />
 
 Then install by name:
 

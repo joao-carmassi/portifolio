@@ -1,0 +1,16 @@
+---
+// components.json with the @prisma namespace. Built here because mdx strips the
+// indentation of a multi-line template literal passed to <Code code>
+import { Code } from '@astrojs/starlight/components';
+import { PUBLIC_SITE_URL } from 'astro:env/client';
+
+const config = {
+  $schema: 'https://ui.shadcn.com/schema.json',
+  style: 'radix-vega',
+  registries: {
+    '@prisma': `${PUBLIC_SITE_URL}/components/{style}/{name}.json`,
+  },
+};
+---
+
+<Code lang="json" code={JSON.stringify(config, null, 2)} />

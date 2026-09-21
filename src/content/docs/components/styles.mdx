@@ -6,6 +6,7 @@ description: "Install Prisma UI components matched to your shadcn style. Registe
 import { Code } from '@astrojs/starlight/components';
 import { PUBLIC_SITE_URL } from 'astro:env/client';
 import Install from '@/prisma/docs/Install.astro';
+import RegistryConfig from '@/prisma/docs/RegistryConfig.astro';
 
 Prisma UI serves a separate build of its registry for every shadcn style. Register the `@prisma` namespace once and the shadcn CLI installs the component variant that matches your project's theme — no manual choice, no visual mismatch.
 
@@ -31,13 +32,7 @@ That matters for a third-party registry. If Prisma UI shipped a single Button, a
 
 Add the `@prisma` namespace to the `registries` block of your project's `components.json`:
 
-<Code lang="json" code={`{
-  "$schema": "https://ui.shadcn.com/schema.json",
-  "style": "radix-vega",
-  "registries": {
-    "@prisma": "${PUBLIC_SITE_URL}/components/{style}/{name}.json"
-  }
-}`} />
+<RegistryConfig />
 
 That single entry covers the whole library. You never edit it again — not when you add another component, and not when you switch themes.
 
