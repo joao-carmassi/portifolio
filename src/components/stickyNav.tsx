@@ -1,6 +1,5 @@
 import { Menu, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import GlassSurface from '@/components/ui/glass-surface';
 import StaggeredMenu from '@/components/ui/staggered-menu';
 // from @/i18n/langs, not @/i18n: this island is client:load and the barrel
 // pulls in every locale file
@@ -88,7 +87,9 @@ const StickyNav = ({ lang, copy }: { lang: Lang; copy: NavCopy }) => {
           nothing behind it left to filter. Keeping the blended bar in its own
           fixed layer leaves both rooted at the page. */}
       <div className={`${LAYER} z-40`} aria-hidden inert>
-        <GlassSurface width='100%' height={56} borderRadius={999} />
+        {/* plain backdrop blur, no SVG filter: no refraction, but the
+            compositor handles it and Safari and Firefox get the same look */}
+        <div className='h-14 rounded-full bg-white/10 shadow-[inset_0_1px_0_0_rgb(255_255_255/0.3),inset_0_-1px_0_0_rgb(255_255_255/0.1),0_8px_32px_rgb(0_0_0/0.2)] ring-1 ring-white/20 backdrop-blur-md backdrop-saturate-180' />
       </div>
 
       <div
