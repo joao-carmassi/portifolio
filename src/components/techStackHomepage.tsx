@@ -1,28 +1,44 @@
 import ScrollFloat from '@/components/scroll-float';
 import { HoverEffect } from '@/components/ui/card-hover-effect';
 import type { StackCopy } from '@/i18n';
-import 'devicon/devicon.min.css';
+import nextjs from 'devicon/icons/nextjs/nextjs-plain.svg?url';
+import astro from 'devicon/icons/astro/astro-plain.svg?url';
+import github from 'devicon/icons/github/github-original.svg?url';
+import typescript from 'devicon/icons/typescript/typescript-plain.svg?url';
+import tailwindcss from 'devicon/icons/tailwindcss/tailwindcss-original.svg?url';
+import zustand from 'devicon/icons/zustand/zustand-plain.svg?url';
+
+// devicon's svgs as masks, not its icon font: the font is 1.4MB and its css
+// sits in the render-blocking stylesheet, for six icons. The mask keeps the
+// same shapes and, painted with bg-current, the same currentColor
+const Devicon = ({ src }: { src: string }) => (
+  <span
+    aria-hidden='true'
+    style={{ maskImage: `url("${src}")` }}
+    className='block size-12 md:size-18 mx-auto bg-current mask-contain mask-center mask-no-repeat'
+  />
+);
 
 const tecnologias = [
   {
     name: 'Next.js',
-    img: <i className='devicon-nextjs-plain text-5xl md:text-7xl' />,
+    img: <Devicon src={nextjs} />,
   },
   {
     name: 'Astro',
-    img: <i className='devicon-astro-plain text-5xl md:text-7xl' />,
+    img: <Devicon src={astro} />,
   },
   {
     name: 'Git',
-    img: <i className='devicon-github-original text-5xl md:text-7xl' />,
+    img: <Devicon src={github} />,
   },
   {
     name: 'TypeScript',
-    img: <i className='devicon-typescript-plain text-5xl md:text-7xl' />,
+    img: <Devicon src={typescript} />,
   },
   {
     name: 'Tailwind CSS',
-    img: <i className='devicon-tailwindcss-original text-5xl md:text-7xl' />,
+    img: <Devicon src={tailwindcss} />,
   },
   {
     name: 'React-query',
@@ -46,7 +62,7 @@ const tecnologias = [
   },
   {
     name: 'Zustand',
-    img: <i className='devicon-zustand-plain text-5xl md:text-7xl' />,
+    img: <Devicon src={zustand} />,
   },
   {
     name: 'GSAP',
