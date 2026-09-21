@@ -29,7 +29,7 @@ interface FlipCardProps extends React.HTMLAttributes<HTMLDivElement> {
  * - **Controlled mode**: pass `isFlipped` to control the flip via external state.
  *
  * The container requires an explicit height for the flip to work properly.
- * Pass it via `className`, e.g. `className="h-[320px] w-[280px]"`.
+ * Pass it via `className`, e.g. `className="h-80 w-70"`.
  *
  * Both `front` and `back` Card components should include `className="h-full"`.
  */

@@ -102,7 +102,7 @@ function CometSpinner({
         role="status"
         aria-label="Loading"
         className={cn(
-          "@container-[size] relative inline-flex aspect-square items-center justify-center align-middle",
+          "@container-size relative inline-flex aspect-square items-center justify-center align-middle",
           className,
         )}
         style={cometStyle}

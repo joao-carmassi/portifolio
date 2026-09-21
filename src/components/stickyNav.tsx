@@ -66,7 +66,7 @@ const StickyNav = ({ lang, copy }: { lang: Lang; copy: NavCopy }) => {
         {/* switching language is a navigation, not client state, so these are
             plain links to the same page under another prefix */}
         <nav aria-label={copy.language.label} className='flex flex-col gap-2'>
-          <h3 className='m-0 text-base font-medium [color:var(--sm-accent)]'>
+          <h3 className='m-0 text-base font-medium text-(--sm-accent)'>
             {copy.language.label}
           </h3>
           <ul role='list' className='m-0 flex list-none flex-row gap-4 p-0'>
@@ -76,7 +76,7 @@ const StickyNav = ({ lang, copy }: { lang: Lang; copy: NavCopy }) => {
                   href={hrefFor(l)}
                   hrefLang={l}
                   aria-current={l === lang ? 'true' : undefined}
-                  className='text-lg font-medium text-[#111] no-underline transition-colors hover:[color:var(--sm-accent)] aria-[current]:[color:var(--sm-accent)]'
+                  className='text-lg font-medium text-[#111] no-underline transition-colors hover:text-(--sm-accent) aria-[current]:text-(--sm-accent)'
                 >
                   {copy.language[l]}
                 </a>
@@ -92,7 +92,11 @@ const StickyNav = ({ lang, copy }: { lang: Lang; copy: NavCopy }) => {
           fixed layer leaves both rooted at the page. */}
       {/* the lib's rim spans blend (screen/overlay) as siblings of the glass,
           which makes this layer a backdrop root; forced back to normal */}
-      <div className={`${LAYER} z-40 h-14 [&_*]:mix-blend-normal!`} aria-hidden inert>
+      <div
+        className={`${LAYER} z-40 h-14 **:mix-blend-normal!`}
+        aria-hidden
+        inert
+      >
         {mounted && (
           // the lib centers itself with top/left 50% + translate(-50%, -50%)
           <LiquidGlass
@@ -114,7 +118,11 @@ const StickyNav = ({ lang, copy }: { lang: Lang; copy: NavCopy }) => {
         inert={!visible}
       >
         <nav className='flex h-14 items-center justify-between gap-4 px-5 text-white'>
-          <a href='#top' aria-label={copy.menu.home} className='font-title text-2xl md:text-3xl'>
+          <a
+            href='#top'
+            aria-label={copy.menu.home}
+            className='font-title text-2xl md:text-3xl'
+          >
             JC
           </a>
           <button
