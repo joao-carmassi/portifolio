@@ -14,7 +14,7 @@ import confetti from 'canvas-confetti';
 import { ArrowRightIcon, Trash2 } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -29,9 +29,46 @@ import { FloatingLabel } from '@/components/ui/floating-label-input';
 import { useMutation } from '@tanstack/react-query';
 import QueryProvider from '@/components/query-provider';
 import type { ContactCopy } from '@/i18n';
+import { Blobatar } from '@blobatar/react';
+import { useGaze } from '@blobatar/react/gaze';
+import { idle, sad, thinking, unsure } from 'blobatar/expression';
+import 'blobatar/motion.css';
+import 'blobatar/gaze.css';
 
 const access_key = 'e25d109e-87c5-431e-9bd5-89f4b0792f09';
 const API_URL = 'https://api.web3forms.com/submit';
+
+/** shared, because a canvas per keystroke is a canvas per keystroke */
+let ruler: CanvasRenderingContext2D | null = null;
+
+/**
+ * Where the caret is, in client coordinates, so the blobatar can watch the
+ * typing rather than the field. A textarea wraps, so measuring one line of it
+ * would be a lie — those just get looked at.
+ */
+const caretAt = (field: HTMLInputElement | HTMLTextAreaElement) => {
+  const box = field.getBoundingClientRect();
+  const middle = { x: box.left + box.width / 2, y: box.top + box.height / 2 };
+
+  if (field instanceof HTMLTextAreaElement) return middle;
+
+  ruler ??= document.createElement('canvas').getContext('2d');
+  if (!ruler) return middle;
+
+  const style = getComputedStyle(field);
+  ruler.font = `${style.fontWeight} ${style.fontSize} ${style.fontFamily}`;
+
+  const typed = field.value.slice(0, field.selectionStart ?? field.value.length);
+  const x =
+    box.left +
+    parseFloat(style.paddingLeft) +
+    parseFloat(style.borderLeftWidth) +
+    ruler.measureText(typed).width -
+    field.scrollLeft;
+
+  // a long value scrolls under the right edge; the caret cannot be past it
+  return { x: Math.min(x, box.right - parseFloat(style.paddingRight)), y: middle.y };
+};
 
 const ContactMeForm = ({ copy }: { copy: ContactCopy }) => {
   const [enviado, setEnviado] = useState<null | boolean>(null);
@@ -101,10 +138,46 @@ const ContactMeForm = ({ copy }: { copy: ContactCopy }) => {
     register,
     handleSubmit,
     reset,
+    watch,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
   });
+
+  // the blobatar is generated from the name field, so it turns into the
+  // visitor's own as they type, and its face mirrors the form back at them
+  const name = watch('name');
+  // the eyes are the one motion layer that is not a function of the clock, so
+  // they need a driver; it writes the tracking straight onto .mo-eyes.
+  // travel is in viewBox units and the face is 100 across, so at size 72 a
+  // travel of 3 would be under 3 real pixels.
+  //
+  // `lookAt` is deliberately not passed as an option: the caret moves on every
+  // keystroke, and the option is applied whenever it changes, so declaring it
+  // would be a render per character to say what the function says directly.
+  const { ref: gaze, lookAt } = useGaze({ travel: 10 });
+
+  // constructing the driver aims it at nothing, so say what "nothing to type
+  // into" means here
+  useEffect(() => lookAt('pointer'), [lookAt]);
+
+  const aim = (event: React.SyntheticEvent) => {
+    const field = event.target;
+    if (
+      field instanceof HTMLInputElement ||
+      field instanceof HTMLTextAreaElement
+    ) {
+      lookAt(caretAt(field));
+    }
+  };
+
+  const expression = modalAberto
+    ? thinking
+    : enviado === false
+      ? sad
+      : Object.keys(errors).length
+        ? unsure
+        : idle;
 
   const { mutate } = useMutation({
     mutationFn: (dados: tSchema & { access_key: string }) =>
@@ -163,9 +236,32 @@ const ContactMeForm = ({ copy }: { copy: ContactCopy }) => {
       <div className='md:min-h-container p-6 md:p-12 mx-auto max-w-7xl flex justify-between items-center gap-6 md:gap-12 lg:gap-20 flex-col-reverse md:flex-row z-10 relative'>
         <form
           onSubmit={handleSubmit(enviaEmail)}
+          // focus and select both bubble, so the four fields are covered once
+          // here: onInput is the typing, onSelect the caret moving on its own
+          onFocus={aim}
+          onInput={aim}
+          onSelect={aim}
+          onBlur={() => lookAt('pointer')}
           className='contact-form-animation flex items-center justify-end flex-1 w-full'
         >
-          <FieldSet className='bg-card max-w-full w-full md:w-md rounded-2xl p-7 shadow-2xl border border-border'>
+          <FieldSet className='relative bg-card max-w-full w-full md:w-md rounded-2xl p-7 shadow-2xl border border-border'>
+            {/* decorative: it says nothing the fields do not already say */}
+            <Blobatar
+              ref={gaze}
+              name={name || 'blob'}
+              traits={{ shape: 0.11 }}
+              background='squircle'
+              hue={275}
+              expression={expression}
+              animate='always'
+              size={72}
+              aria-hidden='true'
+              // -right-4 and not further: the section's gutter is 24px and the
+              // body hides overflow-x, so a wider pull clips the blob on mobile.
+              // z-20 clears the floating labels, which sit at z-10; the blob
+              // overlaps the first field's corner, so it must not eat its clicks
+              className='pointer-events-none absolute -top-7 -right-4 z-20 drop-shadow-lg'
+            />
             <FieldGroup>
               <Field>
                 <FloatingLabel>
