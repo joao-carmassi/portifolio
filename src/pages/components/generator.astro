@@ -1,0 +1,14 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import Generator from '@/prisma/docs/generator';
+---
+
+<StarlightPage
+  frontmatter={{
+    title: 'Component Generator',
+    description: 'Build a shadcn registry item JSON for your own component.',
+    tableOfContents: false,
+  }}
+>
+  <div class="not-content"><Generator client:only="react" /></div>
+</StarlightPage>

@@ -1,0 +1,165 @@
+---
+title: "Tilt Card"
+description: "A 3D tilt wrapper that applies a perspective tilt effect on mouse move. Wrap any card or element for interactive depth."
+---
+
+import { Tilt } from '@/prisma/ui/tilt';
+import { DepthMedia } from '@/prisma/ui/depth-media';
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+} from '@/prisma/ui/card';
+import { ComponentPreview } from '@/prisma/docs/component-preview';
+import Install from '@/prisma/docs/Install.astro';
+import Demo1 from '@/prisma/demos/tilt-card/1';
+import Demo2 from '@/prisma/demos/tilt-card/2';
+import Demo3 from '@/prisma/demos/tilt-card/3';
+import Demo4 from '@/prisma/demos/tilt-card/4';
+
+A 3D tilt wrapper that applies a perspective tilt effect on mouse movement. Inspired by [Motion Primitives' Tilt](https://motion-primitives.com/docs/tilt). Wrap any Card or element for interactive depth.
+
+## Installation
+
+<Install registryUrl='/components/tilt.json' />
+
+## Import
+
+```tsx
+import { Tilt } from '@/components/ui/tilt';
+```
+
+---
+
+## Preview
+
+<ComponentPreview className='gap-6 items-start'>
+  <Demo1 client:visible />
+</ComponentPreview>
+
+```tsx
+<Tilt rotationFactor={15} springOptions={{ stiffness: 300, damping: 20 }}>
+  <Card className='w-72'>
+    <CardHeader>
+      <CardTitle>Tilt Card</CardTitle>
+      <CardDescription>Hover to see the 3D tilt effect.</CardDescription>
+    </CardHeader>
+    <CardContent>
+      <p className='text-sm text-muted-foreground'>
+        Wrap any element with the Tilt component for interactive depth.
+      </p>
+    </CardContent>
+  </Card>
+</Tilt>
+```
+
+---
+
+## Reversed Tilt
+
+<ComponentPreview>
+  <Demo2 client:visible />
+</ComponentPreview>
+
+```tsx
+<Tilt isReverse rotationFactor={20}>
+  <Card>...</Card>
+</Tilt>
+```
+
+---
+
+## Props
+
+| Prop             | Type              | Default | Description                    |
+| ---------------- | ----------------- | ------- | ------------------------------ |
+| `children`       | `React.ReactNode` | —       | Content to tilt.               |
+| `className`      | `string`          | —       | Additional CSS classes.        |
+| `style`          | `MotionStyle`     | —       | Motion style overrides.        |
+| `rotationFactor` | `number`          | `15`    | Max rotation angle in degrees. |
+| `isReverse`      | `boolean`         | `false` | Reverse the tilt direction.    |
+| `springOptions`  | `SpringOptions`   | —       | Spring animation config.       |
+
+---
+
+## DepthMedia
+
+A companion component that places an image inside the Tilt card and gives it real parallax depth. A blurry, desaturated background layer and a sharp foreground layer shift at different rates as the card tilts, creating the illusion that the image has volume.
+
+### Installation
+
+<Install registryUrl='/components/depth-media.json' />
+
+### Import
+
+```tsx
+import { DepthMedia } from '@/components/ui/depth-media';
+```
+
+### Preview
+
+Place `DepthMedia` inside a **positioned container** (e.g. `relative h-48`) within a Tilt card and hover to see the parallax layers in action.
+
+<ComponentPreview>
+  <Demo3 client:visible />
+</ComponentPreview>
+
+```tsx
+<Tilt rotationFactor={15} springOptions={{ stiffness: 300, damping: 20 }}>
+  <Card className='w-72 overflow-hidden'>
+    <div className='relative h-48'>
+      <DepthMedia src='https://picsum.photos/288/192' alt='...' />
+    </div>
+    <CardHeader>
+      <CardTitle>Depth Media</CardTitle>
+      <CardDescription>Hover to feel the parallax depth.</CardDescription>
+    </CardHeader>
+  </Card>
+</Tilt>
+```
+
+### Depth Intensity
+
+Increase `depthIntensity` for more pronounced layer separation.
+
+<ComponentPreview className='gap-6 items-start'>
+  <Demo4 client:visible />
+</ComponentPreview>
+
+```tsx
+{
+  /* Subtle */
+}
+<DepthMedia src='...' depthIntensity={4} />;
+
+{
+  /* Dramatic */
+}
+<DepthMedia src='...' depthIntensity={16} />;
+```
+
+### DepthMedia Props
+
+| Prop                  | Type                                                        | Default | Description                                                       |
+| --------------------- | ----------------------------------------------------------- | ------- | ----------------------------------------------------------------- |
+| `src`                 | `string`                                                    | —       | Image URL passed to the parallax image.                           |
+| `alt`                 | `string`                                                    | `''`    | Accessible alt text for the foreground image.                     |
+| `className`           | `string`                                                    | —       | Additional CSS classes for the container.                         |
+| `depthIntensity`      | `number`                                                    | `8`     | Parallax multiplier — higher values increase layer shift.         |
+| `...next/image props` | `Omit<ImageProps, 'src' \| 'alt' \| 'fill' \| 'className'>` | —       | Forwarded to `next/image` (`priority`, `loading`, `sizes`, etc.). |
+
+### Using image props
+
+You can pass regular `next/image` props directly to `DepthMedia`.
+
+```tsx
+<DepthMedia
+  src='https://picsum.photos/288/192'
+  alt='Mountain landscape'
+  sizes='(max-width: 768px) 100vw, 288px'
+  loading='lazy'
+  quality={85}
+/>
+```

@@ -1,0 +1,107 @@
+---
+title: "Rainbow Card"
+description: "A card component wrapped with an animated rainbow gradient border effect. Fully composable and accessible."
+---
+
+import {
+  RainbowBorder,
+  rainbowCardClasses,
+} from '@/prisma/ui/rainbow-border';
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter,
+} from '@/prisma/ui/card';
+import { Button } from '@/prisma/ui/button';
+import { cn } from '@/prisma/lib/utils';
+import { ComponentPreview } from '@/prisma/docs/component-preview';
+import Install from '@/prisma/docs/Install.astro';
+
+Animated rainbow gradient border effect — the exact same animation used in the `Button` rainbow effect. Drop `<RainbowBorder />` inside any `Card` and apply `rainbowCardClasses` to the `Card`.
+
+## Installation
+
+<Install registryUrl='/components/rainbow-border.json' />
+
+## Import
+
+```tsx
+import {
+  RainbowBorder,
+  rainbowCardClasses,
+} from '@/components/ui/rainbow-border';
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+} from '@/components/ui/card';
+import { cn } from '@/lib/utils';
+```
+
+---
+
+## Preview
+
+<ComponentPreview className='gap-6 items-start'>
+  <Card className={cn('relative w-[320px]', rainbowCardClasses)}>
+    <RainbowBorder />
+    <CardHeader>
+      <CardTitle>Rainbow Card</CardTitle>
+      <CardDescription className='text-primary-foreground/70'>
+        Animated rainbow gradient border.
+      </CardDescription>
+    </CardHeader>
+    <CardContent>
+      <span className='text-sm text-primary-foreground/70 block'>
+        {'Same rainbow effect as the Button component.'}
+      </span>
+    </CardContent>
+    <CardFooter>
+      <Button size='sm' variant='secondary'>
+        Action
+      </Button>
+    </CardFooter>
+  </Card>
+</ComponentPreview>
+
+```tsx
+<Card className={cn('relative w-[320px]', rainbowCardClasses)}>
+  <RainbowBorder />
+  <CardHeader>
+    <CardTitle>Rainbow Card</CardTitle>
+    <CardDescription className='text-primary-foreground/70'>
+      Animated rainbow gradient border.
+    </CardDescription>
+  </CardHeader>
+  <CardContent>
+    <p className='text-sm text-primary-foreground/70'>
+      Same rainbow effect as the Button component.
+    </p>
+  </CardContent>
+</Card>
+```
+
+---
+
+## How it works
+
+- `rainbowCardClasses` is a string of Tailwind classes that apply the rainbow gradient to the Card's background/border.
+- `<RainbowBorder />` renders the decorative blurred glow beneath the card.
+- The card body adapts to themes automatically (dark body in light mode, light body in dark mode).
+
+---
+
+## API
+
+### `rainbowCardClasses`
+
+A constant string of Tailwind classes. Apply it to the `Card`'s `className` alongside `relative`.
+
+### `<RainbowBorder />`
+
+A zero-prop decorative element. Drop it as a child of the `Card`.

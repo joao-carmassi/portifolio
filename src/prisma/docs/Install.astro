@@ -1,0 +1,30 @@
+---
+// npm/pnpm/yarn/bun tabs for a shadcn add; synced across the page and remembered
+import { Code, TabItem, Tabs } from '@astrojs/starlight/components';
+import { PUBLIC_SITE_URL } from 'astro:env/client';
+
+interface Props {
+  /** site path (/components/x.json) or a namespaced name (@prisma/x) */
+  registryUrl: string;
+}
+
+const { registryUrl } = Astro.props;
+const url = registryUrl.startsWith('/') ? PUBLIC_SITE_URL + registryUrl : registryUrl;
+
+const managers = [
+  ['npm', 'npx shadcn@latest add'],
+  ['pnpm', 'pnpm dlx shadcn@latest add'],
+  ['yarn', 'npx shadcn@latest add'],
+  ['bun', 'bunx --bun shadcn@latest add'],
+];
+---
+
+<Tabs syncKey="pkg">
+  {
+    managers.map(([label, command]) => (
+      <TabItem label={label}>
+        <Code lang="bash" code={`${command} ${url}`} />
+      </TabItem>
+    ))
+  }
+</Tabs>

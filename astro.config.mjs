@@ -2,6 +2,7 @@
 import { defineConfig, envField, fontProviders } from 'astro/config';
 
 import react from '@astrojs/react';
+import starlight from '@astrojs/starlight';
 import sitemap from '@astrojs/sitemap';
 import robotsTxt from 'astro-robots-txt';
 
@@ -47,6 +48,53 @@ export default defineConfig({
   build: { format: 'directory' },
 
   integrations: [
+    // prisma ui docs, english only, content in src/content/docs/components
+    starlight({
+      title: 'Prisma UI',
+      // lang en-US, not en: the generated astro i18n would claim /en/ as the
+      // unprefixed default locale and 404 the portfolio's english page
+      locales: { root: { label: 'English', lang: 'en-US' } },
+      logo: { src: './src/assets/prisma/logo.svg' },
+      // the portfolio has no 404 of its own and starlight's would take over the whole site
+      disable404Route: true,
+      customCss: ['./src/styles/docs.css'],
+      social: [
+        { icon: 'github', label: 'GitHub', href: 'https://github.com/joao-carmassi/prisma-ui' },
+      ],
+      sidebar: [
+        {
+          label: 'Getting started',
+          items: [
+            { label: 'Installation', link: '/components/' },
+            { slug: 'components/styles' },
+            { slug: 'components/references' },
+            { slug: 'components/contributing' },
+            { label: 'Component Generator', link: '/components/generator/' },
+          ],
+        },
+        {
+          label: 'General',
+          items: [
+            'components/button',
+            'components/badge',
+            'components/confetti-wrapper',
+            'components/magnetic',
+            'components/animated-background',
+            'components/tracing-beam',
+          ],
+        },
+        { label: 'Inputs', items: ['components/floating-label-input'] },
+        {
+          label: 'Cards',
+          items: [
+            'components/rainbow-card',
+            'components/aura-beam-card',
+            'components/flip-card',
+            'components/tilt-card',
+          ],
+        },
+      ],
+    }),
     react(),
     sitemap({
       i18n: {
@@ -59,16 +107,8 @@ export default defineConfig({
     robotsTxt(),
   ],
 
-  // every language carries its prefix, including the default one; / is only a
-  // redirect to /pt
-  i18n: {
-    defaultLocale: 'pt',
-    locales: ['pt', 'en', 'es'],
-    // the generated redirect waits 2s before moving; src/pages/index.astro does
-    // it instantly instead
-    routing: { prefixDefaultLocale: true, redirectToDefaultLocale: false },
-  },
-
+  // no astro i18n block: [lang] routes are built by hand, and starlight would
+  // otherwise copy those locales and move the english-only docs to /pt/components/
   fonts: [
     {
       provider: fontProviders.google(),

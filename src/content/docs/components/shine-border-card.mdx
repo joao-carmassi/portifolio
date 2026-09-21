@@ -1,0 +1,42 @@
+---
+title: "Shine Border Card"
+description: "Shine Border Card has been replaced by AuraBeam with variant=\"shine\". See the Aura Beam Card docs for the new API."
+---
+
+
+
+> **This component has been superseded by [`<AuraBeam variant="shine">`](/components/aura-beam-card/#shine).**
+> The new component preserves the sweeping-highlight behavior while adding the high-quality glow and blur layers of the AuraBeam aesthetic.
+
+## Migration
+
+Replace the old `ShineBorder` usage:
+
+```tsx
+<Card className='relative'>
+  <ShineBorder shineColor='#9c40ff' />
+  ...
+</Card>
+```
+
+With the new `AuraBeam`:
+
+```tsx
+<AuraBeam variant='shine' color='#9c40ff'>
+  <Card className='rounded-[inherit] border bg-background'>
+    ...
+  </Card>
+</AuraBeam>
+```
+
+For multi-color shine:
+
+```tsx
+<AuraBeam variant='shine' color={['#ffaa40', '#9c40ff', '#00d2ff']}>
+  <Card className='rounded-[inherit] border bg-background'>
+    ...
+  </Card>
+</AuraBeam>
+```
+
+See the full [Aura Beam Card documentation](/components/aura-beam-card/) for all available props.

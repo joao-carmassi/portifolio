@@ -1,0 +1,42 @@
+---
+title: "Border Beam Card"
+description: "Border Beam Card has been replaced by AuraBeam with variant=\"beam\". See the Aura Beam Card docs for the new API."
+---
+
+
+
+> **This component has been superseded by [`<AuraBeam variant="beam">`](/components/aura-beam-card/#beam).**
+> The new component preserves the travelling-arc behavior while adding the high-quality glow and blur layers of the AuraBeam aesthetic.
+
+## Migration
+
+Replace the old `BorderBeam` usage:
+
+```tsx
+<Card className='relative overflow-hidden'>
+  <BorderBeam />
+  ...
+</Card>
+```
+
+With the new `AuraBeam`:
+
+```tsx
+<AuraBeam variant='beam'>
+  <Card className='rounded-[inherit] border bg-background'>
+    ...
+  </Card>
+</AuraBeam>
+```
+
+For custom colors and duration:
+
+```tsx
+<AuraBeam variant='beam' color={['#ffaa40', '#9c40ff']} duration={4}>
+  <Card className='rounded-[inherit] border bg-background'>
+    ...
+  </Card>
+</AuraBeam>
+```
+
+See the full [Aura Beam Card documentation](/components/aura-beam-card/) for all available props.

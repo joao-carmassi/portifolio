@@ -1,0 +1,92 @@
+---
+title: "Installation \u2014 Prisma UI"
+description: "Install Prisma UI components via the shadcn CLI. An advanced React component library built on Radix UI and Tailwind CSS."
+---
+
+import { Code } from '@astrojs/starlight/components';
+import { PUBLIC_SITE_URL } from 'astro:env/client';
+import Install from '@/prisma/docs/Install.astro';
+
+Prisma UI components are installed individually via the [shadcn CLI](https://ui.shadcn.com/docs/cli). Each component is a self-contained registry JSON — the CLI handles downloading, placing files, and installing dependencies automatically.
+
+## Prerequisites
+
+Your project needs **shadcn/ui** initialized. If you have not done so yet:
+
+```bash
+npx shadcn@latest init
+```
+
+## Adding a component
+
+Install any component from its registry URL. For example, to add the **Button**:
+
+<Install registryUrl='/components/button.json' />
+
+The CLI will:
+
+1. Download the component source files into your `components/ui` directory.
+2. Install any npm dependencies (e.g. `class-variance-authority`).
+3. Resolve registry dependencies (e.g. card components required by card effects).
+
+## Automatic theme detection (optional)
+
+Direct URLs always serve the `radix-vega` variant. The style-aware components (Button, Badge, and Floating Label Input) also ship variants for every shadcn style — to have the CLI pick the one matching your theme automatically, add the `@prisma` namespace to the `registries` block of your project's `components.json` once:
+
+<Code lang="json" code={`{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "radix-vega",
+  "registries": {
+    "@prisma": "${PUBLIC_SITE_URL}/components/{style}/{name}.json"
+  }
+}`} />
+
+Then install by name:
+
+<Install registryUrl='@prisma/button' />
+
+The `{style}` placeholder is replaced by the CLI with the `style` field already present in your `components.json`, so every component arrives sized and shaped for your theme. See [Styles & Themes](/components/styles/) for the supported styles and the details.
+
+You can also pin a style manually without the namespace by including the style folder in the direct URL: `/components/radix-nova/button.json`.
+
+---
+
+## Shared styles
+
+Several components (Button, Badge, Flip Card, Rainbow Border, Shine Border) rely on a shared `style.css` file that ships alongside them. It defines keyframe animations and `[data-variant]` CSS custom properties used by effects like **shine**, **pulsating**, and **rainbow**.
+
+The CLI installs this file automatically at `components/ui/style.css`.
+
+---
+
+## Custom variant colors
+
+Prisma UI uses `data-variant` attributes to drive per-variant animation colors. The default `style.css` maps each variant to a CSS custom property:
+
+```css
+[data-variant='default'] {
+  --pulse-color: var(--primary);
+}
+[data-variant='destructive'] {
+  --pulse-color: var(--destructive);
+}
+[data-variant='secondary'] {
+  --pulse-color: var(--secondary-foreground);
+}
+[data-variant='outline'] {
+  --pulse-color: var(--ring);
+}
+[data-variant='ghost'] {
+  --pulse-color: var(--ring);
+}
+```
+
+You can extend this pattern for your own custom variants by adding a new `[data-variant='...']` selector in the same file:
+
+```css
+[data-variant='success'] {
+  --pulse-color: var(--success);
+}
+```
+
+Then use it with any component that supports the `variant` prop and effects.

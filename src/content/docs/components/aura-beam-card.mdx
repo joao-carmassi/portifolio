@@ -1,0 +1,273 @@
+---
+title: "Aura Beam Card"
+description: "A unified ambient glow wrapper with aura, beam, shine, and glow variants. Use variant=\"aura\" for a diffuse halo, variant=\"beam\" for a focused travelling arc, variant=\"shine\" for a sweeping radial highlight, or variant=\"glow\" for a cursor-following border light \u2014 all with the same high-quality blur and glow layers."
+---
+
+import { AuraEffect } from '@/prisma/ui/aura-beam';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/prisma/ui/card';
+import { Button } from '@/prisma/ui/button';
+import { ComponentPreview } from '@/prisma/docs/component-preview';
+import Install from '@/prisma/docs/Install.astro';
+import Demo1 from '@/prisma/demos/aura-beam-card/1';
+import Demo2 from '@/prisma/demos/aura-beam-card/2';
+import Demo3 from '@/prisma/demos/aura-beam-card/3';
+import Demo4 from '@/prisma/demos/aura-beam-card/4';
+import Demo5 from '@/prisma/demos/aura-beam-card/5';
+import Demo6 from '@/prisma/demos/aura-beam-card/6';
+import Demo7 from '@/prisma/demos/aura-beam-card/7';
+import Demo8 from '@/prisma/demos/aura-beam-card/8';
+import Demo9 from '@/prisma/demos/aura-beam-card/9';
+import Demo10 from '@/prisma/demos/aura-beam-card/10';
+import Demo11 from '@/prisma/demos/aura-beam-card/11';
+
+A unified ambient glow wrapper that brings four distinct border-light effects into a single component. Wrap any element with `<AuraEffect>` for a diffuse rotating conic-gradient aura, add `variant="beam"` for a sharp focused arc of light that travels around the border, use `variant="shine"` for a sweeping radial-gradient highlight, or `variant="glow"` for a cursor-proximity light that follows the pointer along the border. Every variant shares the same multi-layer blur and glow for a consistently refined look.
+
+## Installation
+
+<Install registryUrl='/components/aura-beam.json' />
+
+## Import
+
+```tsx
+import { AuraEffect } from '@/components/ui/aura-beam';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+```
+
+---
+
+## Aura (Default)
+
+`variant="aura"` (or omitted) wraps the element from outside with a soft, diffuse conic-gradient halo using the theme's `--primary` color.
+
+<ComponentPreview>
+  <Demo1 client:visible />
+</ComponentPreview>
+
+```tsx
+<AuraEffect className='w-[340px]'>
+  <Card className='rounded-[inherit]'>
+    <CardHeader>
+      <CardTitle>Aura Beam</CardTitle>
+      <CardDescription>
+        Ambient glow wrapping the card from outside.
+      </CardDescription>
+    </CardHeader>
+    <CardContent>
+      <p className='text-sm text-muted-foreground'>
+        Wrap any Card with &lt;AuraEffect&gt; to apply the effect.
+      </p>
+    </CardContent>
+    <CardFooter>
+      <Button size='sm'>Action</Button>
+    </CardFooter>
+  </Card>
+</AuraEffect>
+```
+
+---
+
+## Beam
+
+`variant="beam"` projects a focused, narrow arc of light that continuously travels around the border. It preserves the AuraEffect's soft blur layers so the beam feels deep and elegant rather than flat.
+
+<ComponentPreview>
+  <Demo2 client:visible />
+</ComponentPreview>
+
+```tsx
+<AuraEffect variant='beam' className='w-[340px]'>
+  <Card className='rounded-[inherit]'>...</Card>
+</AuraEffect>
+```
+
+### Custom Colors
+
+Pass an array to `color` for a gradient beam that transitions from one color to another.
+
+<ComponentPreview className='gap-6 items-start flex-wrap'>
+  <Demo3 client:visible />
+</ComponentPreview>
+
+```tsx
+<AuraEffect variant='beam' color={['#ffaa40', '#9c40ff']} className='w-[300px]'>
+  <Card className='rounded-[inherit]'>...</Card>
+</AuraEffect>
+
+<AuraEffect variant='beam' color={['#00c6ff', '#0072ff']} className='w-[300px]'>
+  <Card className='rounded-[inherit]'>...</Card>
+</AuraEffect>
+```
+
+---
+
+## Shine
+
+`variant="shine"` produces a sweeping radial-gradient highlight that glides across the border, elevated by the aura's glow layers for a polished, lustrous result.
+
+<ComponentPreview>
+  <Demo4 client:visible />
+</ComponentPreview>
+
+```tsx
+<AuraEffect variant='shine' className='w-[340px]'>
+  <Card className='rounded-[inherit]'>...</Card>
+</AuraEffect>
+```
+
+### Multi-color Shine
+
+Pass an array of colors to `color` to blend multiple stops into the sweep.
+
+<ComponentPreview className='gap-6 items-start flex-wrap'>
+  <Demo5 client:visible />
+</ComponentPreview>
+
+```tsx
+<AuraEffect variant='shine' color={['#ffaa40', '#9c40ff', '#00d2ff']} className='w-[300px]'>
+  <Card className='rounded-[inherit]'>...</Card>
+</AuraEffect>
+
+<AuraEffect variant='shine' color={['#f7971e', '#ffd200']} className='w-[300px]'>
+  <Card className='rounded-[inherit]'>...</Card>
+</AuraEffect>
+```
+
+---
+
+## Glow
+
+`variant="glow"` is interactive: instead of animating on its own, the light follows the cursor along the border and only lights up as the pointer approaches an edge. It reuses the same blur/halo layers as the other variants, so the hover glow keeps the Aura Beam look.
+
+Move your cursor near the card edges.
+
+<ComponentPreview>
+  <Demo6 client:visible />
+</ComponentPreview>
+
+```tsx
+<AuraEffect variant='glow' className='w-[340px]'>
+  <Card className='rounded-[inherit]'>...</Card>
+</AuraEffect>
+```
+
+### Glow Colors
+
+Pass up to three colors — they map to the center, mid and outer stops of the gradient that trails the pointer.
+
+<ComponentPreview className='gap-6 items-start flex-wrap'>
+  <Demo7 client:visible />
+</ComponentPreview>
+
+```tsx
+<AuraEffect variant='glow' color={['#c084fc', '#f472b6', '#38bdf8']} className='w-[300px]'>
+  <Card className='rounded-[inherit]'>...</Card>
+</AuraEffect>
+
+<AuraEffect variant='glow' color={['#f59e0b', '#ef4444', '#f97316']} className='w-[300px]'>
+  <Card className='rounded-[inherit]'>...</Card>
+</AuraEffect>
+```
+
+### Edge Sensitivity & Cone Spread
+
+`edgeSensitivity` (px) sets how far from an edge the glow activates — measured from both sides, so the light also builds up as the cursor approaches from outside the card. `coneSpread` (px) sets how wide the light spreads around the pointer.
+
+<ComponentPreview className='gap-6 items-start flex-wrap'>
+  <Demo8 client:visible />
+</ComponentPreview>
+
+```tsx
+<AuraEffect variant='glow' edgeSensitivity={10} className='w-[280px]'>
+  <Card className='rounded-[inherit]'>...</Card>
+</AuraEffect>
+
+<AuraEffect variant='glow' edgeSensitivity={180} coneSpread={220} className='w-[280px]'>
+  <Card className='rounded-[inherit]'>...</Card>
+</AuraEffect>
+```
+
+### Animated Intro
+
+Set `animated` to sweep the glow once around the border on mount. `duration` controls the sweep length (seconds).
+
+<ComponentPreview>
+  <Demo9 client:visible />
+</ComponentPreview>
+
+```tsx
+<AuraEffect variant='glow' animated duration={2} className='w-[340px]'>
+  <Card className='rounded-[inherit]'>...</Card>
+</AuraEffect>
+```
+
+---
+
+## Duration
+
+Control the animation speed with the `duration` prop (seconds).
+
+<ComponentPreview className='gap-6 items-start flex-wrap'>
+  <Demo10 client:visible />
+</ComponentPreview>
+
+```tsx
+<AuraEffect variant='beam' duration={3} className='w-[280px]'>
+  <Card className='rounded-[inherit]'>...</Card>
+</AuraEffect>
+
+<AuraEffect variant='shine' duration={20} className='w-[280px]'>
+  <Card className='rounded-[inherit]'>...</Card>
+</AuraEffect>
+```
+
+---
+
+## Border Width
+
+Use `borderWidth` to thicken the glow border.
+
+<ComponentPreview className='gap-6 items-start flex-wrap'>
+  <Demo11 client:visible />
+</ComponentPreview>
+
+```tsx
+<AuraEffect variant='beam' borderWidth={3} className='w-[300px]'>
+  <Card className='rounded-[inherit]'>...</Card>
+</AuraEffect>
+
+<AuraEffect variant='shine' borderWidth={3} className='w-[300px]'>
+  <Card className='rounded-[inherit]'>...</Card>
+</AuraEffect>
+```
+
+---
+
+## Props
+
+| Prop              | Type                  | Default     | Description                                                            |
+| ----------------- | --------------------- | ----------- | ---------------------------------------------------------------------- |
+| `variant`         | `"aura" \| "beam" \| "shine" \| "glow"` | `"aura"` | Visual variant                                     |
+| `duration`        | `number`              | `6`         | Animation cycle duration in seconds (sweep length for `glow` + `animated`) |
+| `color`           | `string \| string[]`  | `--primary` | Glow color(s). Array → gradient for beam, multi-stop sweep for shine, up to 3 stops for glow |
+| `borderWidth`     | `number`              | `2`         | Glow border thickness in pixels                                        |
+| `radius`          | `string`              | `"0.75rem"` | Corner radius — should match the wrapped element                       |
+| `edgeSensitivity` | `number`              | `90`        | `glow` only — distance in px from an edge where the glow activates, counted from inside **and** outside the card |
+| `coneSpread`      | `number`              | `140`       | `glow` only — gradient radius controlling glow width along the border  |
+| `glowIntensity`   | `number`              | `1`         | `glow` only — brightness multiplier (0.1 – 3.0)                        |
+| `animated`        | `boolean`             | `false`     | `glow` only — one-shot border sweep on mount                           |
+| `className`       | `string`              | —           | Additional CSS classes                                                 |
+| `style`           | `React.CSSProperties` | —           | Inline style overrides                                                 |
+| `children`        | `React.ReactNode`     | —           | Content wrapped by the aura                                            |

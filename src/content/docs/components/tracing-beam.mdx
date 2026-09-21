@@ -1,0 +1,53 @@
+---
+title: "Tracing Beam"
+description: "An SVG beam that traces a path as the user scrolls. Ideal for timelines and long-form content."
+---
+
+import { TracingBeam } from '@/prisma/ui/tracing-beam';
+import Install from '@/prisma/docs/Install.astro';
+
+An animated SVG beam that traces a path as the user scrolls through content. Inspired by [Aceternity UI's Tracing Beam](https://ui.aceternity.com/components/tracing-beam). Perfect for timelines and long-form pages.
+
+## Installation
+
+<Install registryUrl='/components/tracing-beam.json' />
+
+## Import
+
+```tsx
+import { TracingBeam } from '@/components/ui/tracing-beam';
+```
+
+---
+
+## Basic Usage
+
+Wrap your page content with `TracingBeam` to add a scroll-tracking beam on the left side.
+
+```tsx
+<TracingBeam>
+  <article className='flex flex-col gap-8'>
+    <div>
+      <h2>Section One</h2>
+      <p>Content goes here...</p>
+    </div>
+    <div>
+      <h2>Section Two</h2>
+      <p>More content...</p>
+    </div>
+    <div>
+      <h2>Section Three</h2>
+      <p>Even more content...</p>
+    </div>
+  </article>
+</TracingBeam>
+```
+
+---
+
+## Props
+
+| Prop        | Type              | Default | Description                                   |
+| ----------- | ----------------- | ------- | --------------------------------------------- |
+| `children`  | `React.ReactNode` | —       | The page content rendered alongside the beam. |
+| `className` | `string`          | —       | Additional CSS classes for the wrapper.       |

@@ -1,0 +1,307 @@
+---
+title: "Badge"
+description: "A compact label component for status indicators, tags, and categories. Supports variants, sizes, and visual effects."
+---
+
+import { Badge } from '@/prisma/ui/badge';
+import {
+  Check,
+  X,
+  AlertTriangle,
+  Star,
+  Bell,
+  Clock,
+  Flame,
+  Zap,
+  Heart,
+  Info,
+} from 'lucide-react';
+import { StyleShowcase } from '@/prisma/docs/style-showcase';
+import { ComponentPreview } from '@/prisma/docs/component-preview';
+import Install from '@/prisma/docs/Install.astro';
+
+A compact label component for status indicators, tags, and categories. Built on Radix UI with support for variants, sizes, and visual effects.
+
+## Installation
+
+<Install registryUrl='/components/badge.json' />
+
+The direct URL serves the `radix-vega` variant. The Badge is style-aware — its sizes, radius, and type scale differ per shadcn style. To let the CLI pick the variant that matches your project's theme automatically, register the `@prisma` namespace once (see [Styles & Themes](/components/styles/)) and install by name:
+
+<Install registryUrl='@prisma/badge' />
+
+## Import
+
+```tsx
+import { Badge } from '@/components/ui/badge';
+```
+
+---
+
+## Variants
+
+The `variant` prop controls the visual style of the badge.
+
+<ComponentPreview>
+  <Badge variant='default'>Default</Badge>
+  <Badge variant='secondary'>Secondary</Badge>
+  <Badge variant='destructive'>Destructive</Badge>
+  <Badge variant='outline'>Outline</Badge>
+  <Badge variant='ghost'>Ghost</Badge>
+  <Badge variant='link'>Link</Badge>
+</ComponentPreview>
+
+```tsx
+<Badge variant="default">Default</Badge>
+<Badge variant="secondary">Secondary</Badge>
+<Badge variant="destructive">Destructive</Badge>
+<Badge variant="outline">Outline</Badge>
+<Badge variant="ghost">Ghost</Badge>
+<Badge variant="link">Link</Badge>
+```
+
+| Variant       | Description                               |
+| ------------- | ----------------------------------------- |
+| `default`     | Primary badge with solid background       |
+| `secondary`   | Subtle, less prominent badge              |
+| `destructive` | For errors or dangerous states            |
+| `outline`     | Bordered badge with transparent fill      |
+| `ghost`       | No background, visible on hover (as link) |
+| `link`        | Styled as a text link                     |
+
+---
+
+## Sizes
+
+The `size` prop controls the dimensions of the badge.
+
+<ComponentPreview>
+  <Badge size='default'>Default</Badge>
+  <Badge size='lg'>Large</Badge>
+</ComponentPreview>
+
+```tsx
+<Badge size="default">Default</Badge>
+<Badge size="lg">Large</Badge>
+```
+
+### Icon Sizes
+
+For icon-only badges, use the icon size variants.
+
+<ComponentPreview>
+  <Badge size='icon'>
+    <Star />
+  </Badge>
+  <Badge size='icon-lg'>
+    <Star />
+  </Badge>
+  <Badge variant='destructive' size='icon'>
+    <X />
+  </Badge>
+  <Badge variant='destructive' size='icon-lg'>
+    <X />
+  </Badge>
+  <Badge variant='secondary' size='icon'>
+    <Check />
+  </Badge>
+  <Badge variant='secondary' size='icon-lg'>
+    <Check />
+  </Badge>
+</ComponentPreview>
+
+```tsx
+import { Star, X, Check } from 'lucide-react';
+```
+
+```tsx
+<Badge size="icon"><Star /></Badge>
+<Badge size="icon-lg"><Star /></Badge>
+<Badge variant="destructive" size="icon"><X /></Badge>
+<Badge variant="secondary" size="icon"><Check /></Badge>
+```
+
+| Size      | Description              |
+| --------- | ------------------------ |
+| `default` | Standard compact size    |
+| `lg`      | Larger with more padding |
+| `icon`    | Small circle for icons   |
+| `icon-lg` | Larger circle for icons  |
+
+---
+
+## Effects
+
+The `effect` prop adds visual animations to the badge.
+
+### Shine
+
+A continuous animated shine sweeping across the badge.
+
+<ComponentPreview>
+  <Badge effect='shine'>Shine</Badge>
+  <Badge variant='destructive' effect='shine'>
+    Error
+  </Badge>
+  <Badge variant='secondary' effect='shine'>
+    Secondary
+  </Badge>
+</ComponentPreview>
+
+```tsx
+<Badge effect="shine">Shine</Badge>
+<Badge variant="destructive" effect="shine">Error</Badge>
+<Badge variant="secondary" effect="shine">Secondary</Badge>
+```
+
+### Pulsating
+
+A continuous pulsating glow effect.
+
+<ComponentPreview>
+  <Badge effect='pulsating'>Live</Badge>
+  <Badge variant='destructive' effect='pulsating'>
+    Alert
+  </Badge>
+  <Badge variant='secondary' effect='pulsating'>
+    Active
+  </Badge>
+</ComponentPreview>
+
+```tsx
+<Badge effect="pulsating">Live</Badge>
+<Badge variant="destructive" effect="pulsating">Alert</Badge>
+```
+
+### Rainbow
+
+An animated rainbow gradient border effect.
+
+<ComponentPreview>
+  <Badge effect='rainbow'>Rainbow</Badge>
+  <Badge size='lg' effect='rainbow'>
+    Rainbow Large
+  </Badge>
+</ComponentPreview>
+
+```tsx
+<Badge effect="rainbow">Rainbow</Badge>
+<Badge size="lg" effect="rainbow">Rainbow Large</Badge>
+```
+
+| Effect      | Description                      |
+| ----------- | -------------------------------- |
+| `shine`     | Continuous animated shine        |
+| `pulsating` | Continuous pulsating glow        |
+| `rainbow`   | Animated rainbow gradient border |
+
+---
+
+## With Icons
+
+Badges can include icons as children alongside text.
+
+<ComponentPreview>
+  <Badge>
+    <Check /> Approved
+  </Badge>
+  <Badge variant='destructive'>
+    <X /> Rejected
+  </Badge>
+  <Badge variant='secondary'>
+    <Clock /> Pending
+  </Badge>
+  <Badge variant='outline'>
+    <Info /> Info
+  </Badge>
+  <Badge size='lg'>
+    <Flame /> Trending
+  </Badge>
+  <Badge size='lg' variant='secondary'>
+    <Bell /> Notifications
+  </Badge>
+</ComponentPreview>
+
+```tsx
+import { Check, X, Clock, Info, Flame, Bell } from 'lucide-react';
+```
+
+```tsx
+<Badge><Check /> Approved</Badge>
+<Badge variant="destructive"><X /> Rejected</Badge>
+<Badge variant="secondary"><Clock /> Pending</Badge>
+<Badge variant="outline"><Info /> Info</Badge>
+<Badge size="lg"><Flame /> Trending</Badge>
+```
+
+---
+
+## Use Cases
+
+Common real-world uses for badges.
+
+<ComponentPreview>
+  <Badge variant='default'>v1.0.0</Badge>
+  <Badge variant='secondary'>Beta</Badge>
+  <Badge variant='destructive'>Deprecated</Badge>
+  <Badge variant='outline'>TypeScript</Badge>
+  <Badge variant='default' effect='shine'>
+    New
+  </Badge>
+  <Badge variant='destructive' effect='pulsating'>
+    <AlertTriangle /> Critical
+  </Badge>
+  <Badge variant='secondary'>
+    <Zap /> Featured
+  </Badge>
+</ComponentPreview>
+
+```tsx
+import { AlertTriangle, Zap } from 'lucide-react';
+```
+
+```tsx
+<Badge variant="default">v1.0.0</Badge>
+<Badge variant="secondary">Beta</Badge>
+<Badge variant="destructive">Deprecated</Badge>
+<Badge variant="outline">TypeScript</Badge>
+<Badge variant="default" effect="shine">New</Badge>
+<Badge variant="destructive" effect="pulsating"><AlertTriangle /> Critical</Badge>
+<Badge variant='secondary'><Zap /> Featured</Badge>
+```
+
+---
+
+## As Child
+
+Use `asChild` to render badge styles on a different element, such as an anchor tag.
+
+```tsx
+<Badge asChild variant='outline'>
+  <a href='https://github.com' target='_blank' rel='noopener noreferrer'>
+    GitHub
+  </a>
+</Badge>
+```
+
+---
+
+## API Reference
+
+| Prop        | Type                                                                          | Default     | Description                             |
+| ----------- | ----------------------------------------------------------------------------- | ----------- | --------------------------------------- |
+| `variant`   | `"default" \| "secondary" \| "destructive" \| "outline" \| "ghost" \| "link"` | `"default"` | Visual style of the badge               |
+| `size`      | `"default" \| "lg" \| "icon" \| "icon-lg"`                                    | `"default"` | Size of the badge                       |
+| `effect`    | `"shine" \| "pulsating" \| "rainbow"`                                         | `undefined` | Visual effect applied to the badge      |
+| `asChild`   | `boolean`                                                                     | `false`     | Renders as child element via Radix Slot |
+| `className` | `string`                                                                      | `undefined` | Additional CSS classes                  |
+
+---
+
+## Theme styles
+
+The Badge ships in a dedicated variant for each supported shadcn style. Installed through the `@prisma` namespace, the CLI delivers the one matching the `style` in your `components.json` — same API, different sizing, radius, and type scale:
+
+<StyleShowcase component='badge' />
+
+See [Styles & Themes](/components/styles/) for setup and the full list of supported styles.

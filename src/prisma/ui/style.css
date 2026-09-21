@@ -1,0 +1,257 @@
+[data-variant='default'] {
+  --pulse-color: var(--primary);
+}
+[data-variant='destructive'] {
+  --pulse-color: var(--destructive);
+}
+[data-variant='secondary'] {
+  --pulse-color: var(--secondary-foreground);
+}
+[data-variant='outline'] {
+  --pulse-color: var(--ring);
+}
+[data-variant='ghost'] {
+  --pulse-color: var(--ring);
+}
+
+.before\:animate-shine-effect::before {
+  animation: shine-effect 3s ease-out infinite;
+}
+
+.animate-rainbow-effect {
+  animation: rainbow-effect 3s linear infinite;
+}
+
+.animate-pulsating-effect {
+  animation: pulsating-effect 1.5s ease-out infinite;
+}
+
+.card-shine-effect {
+  animation: card-shine-effect var(--duration) infinite linear;
+}
+
+@keyframes shine-effect {
+  0% {
+    background-position: 200% 0;
+  }
+  25% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@keyframes rainbow-effect {
+  0% {
+    background-position: 0%;
+  }
+  100% {
+    background-position: 200%;
+  }
+}
+
+@keyframes pulsating-effect {
+  0% {
+    box-shadow: 0 0 0 0 var(--pulse-color, currentColor);
+  }
+  70% {
+    box-shadow: 0 0 0 8px transparent;
+  }
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+}
+
+@keyframes card-shine-effect {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  to {
+    background-position: 0% 0%;
+  }
+}
+
+/* ─── Aura Beam ─────────────────────────────────────────────────────────── */
+
+@property --aura-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes aura-spin {
+  to {
+    --aura-angle: 360deg;
+  }
+}
+
+.aura-beam {
+  --aura-padding: 2px;
+  --aura-radius: 0.75rem;
+  --aura-duration: 6s;
+  --aura-color: var(--primary);
+  --aura-color-from: var(--aura-color);
+  --aura-color-to: var(--aura-color);
+
+  position: relative;
+  display: inline-block;
+  padding: var(--aura-padding);
+  border-radius: calc(var(--aura-radius) + var(--aura-padding));
+  color: var(--aura-color);
+
+  background-image: conic-gradient(
+    from var(--aura-angle),
+    transparent 0deg,
+    transparent 220deg,
+    currentColor 280deg,
+    currentColor 360deg
+  );
+
+  animation: aura-spin var(--aura-duration) linear infinite;
+}
+
+.aura-beam > * {
+  position: relative;
+  z-index: 2;
+  border-radius: var(--aura-radius);
+}
+
+.aura-beam::before,
+.aura-beam::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: inherit;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.aura-beam::before {
+  filter: blur(6px);
+  opacity: 0.65;
+}
+
+.aura-beam::after {
+  filter: blur(18px);
+  opacity: 0.35;
+}
+
+/* ─── Beam variant ────────────────────────────────────────────────────────── */
+
+.aura-beam[data-variant='beam'] {
+  background-image: conic-gradient(
+    from var(--aura-angle),
+    transparent 0deg,
+    transparent 275deg,
+    var(--aura-color-from) 305deg,
+    var(--aura-color-to) 325deg,
+    transparent 360deg
+  );
+}
+
+.aura-beam[data-variant='beam']::before {
+  filter: blur(4px);
+  opacity: 0.85;
+}
+
+.aura-beam[data-variant='beam']::after {
+  filter: blur(22px);
+  opacity: 0.55;
+}
+
+/* ─── Shine variant ───────────────────────────────────────────────────────── */
+
+@keyframes aura-shine {
+  0% {
+    background-position: 00% 00%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 00% 00%;
+  }
+}
+
+.aura-beam[data-variant='shine'] {
+  background-image: radial-gradient(
+    transparent,
+    transparent,
+    var(--aura-color),
+    transparent,
+    transparent
+  );
+  background-size: 300% 300%;
+  animation: aura-shine var(--aura-duration) ease-in-out infinite;
+}
+
+.aura-beam[data-variant='shine']::before {
+  filter: blur(8px);
+  opacity: 0.7;
+  animation: aura-shine var(--aura-duration) ease-in-out infinite;
+}
+
+.aura-beam[data-variant='shine']::after {
+  filter: blur(26px);
+  opacity: 0.42;
+  animation: aura-shine var(--aura-duration) ease-in-out infinite;
+}
+
+/* ─── Glow variant (cursor proximity) ─────────────────────────────────────── */
+
+@property --aura-glow-opacity {
+  syntax: '<number>';
+  initial-value: 0;
+  inherits: true;
+}
+
+.aura-beam[data-variant='glow'] {
+  --aura-x: 50%;
+  --aura-y: 0px;
+  --aura-cone: 140px;
+  --aura-color-third: var(--aura-color-to);
+
+  animation: none;
+  transition: --aura-glow-opacity 0.18s ease;
+  background-origin: border-box;
+
+  background-image: radial-gradient(
+    circle var(--aura-cone) at var(--aura-x) var(--aura-y),
+    color-mix(
+        in srgb,
+        var(--aura-color-from) calc(var(--aura-glow-opacity) * 100%),
+        transparent
+      )
+      0%,
+    color-mix(
+        in srgb,
+        var(--aura-color-to) calc(var(--aura-glow-opacity) * 78%),
+        transparent
+      )
+      45%,
+    color-mix(
+        in srgb,
+        var(--aura-color-third) calc(var(--aura-glow-opacity) * 50%),
+        transparent
+      )
+      75%,
+    transparent 100%
+  );
+}
+
+.aura-beam[data-variant='glow']::before {
+  filter: blur(5px);
+  opacity: 0.85;
+}
+
+.aura-beam[data-variant='glow']::after {
+  filter: blur(24px);
+  opacity: 0.5;
+}
+
+

@@ -1,0 +1,98 @@
+---
+title: "Magnetic"
+description: "A magnetic wrapper that attracts its children towards the mouse cursor. Supports self, parent, and global action areas."
+---
+
+import { Magnetic } from '@/prisma/ui/magnetic';
+import { Button } from '@/prisma/ui/button';
+import { ComponentPreview } from '@/prisma/docs/component-preview';
+import Install from '@/prisma/docs/Install.astro';
+import Demo1 from '@/prisma/demos/magnetic/1';
+import Demo2 from '@/prisma/demos/magnetic/2';
+import Demo3 from '@/prisma/demos/magnetic/3';
+
+A magnetic wrapper component that attracts its children towards the mouse cursor. Inspired by [Motion Primitives' Magnetic](https://motion-primitives.com/docs/magnetic). Supports self, parent, and global action areas.
+
+## Installation
+
+<Install registryUrl='/components/magnetic.json' />
+
+## Import
+
+```tsx
+import { Magnetic } from '@/components/ui/magnetic';
+```
+
+---
+
+## Preview
+
+<ComponentPreview>
+  <Demo1 client:visible />
+</ComponentPreview>
+
+```tsx
+<Magnetic>
+  <Button>Hover me</Button>
+</Magnetic>
+```
+
+---
+
+## Custom Intensity & Range
+
+<ComponentPreview>
+  <Demo2 client:visible />
+</ComponentPreview>
+
+```tsx
+<Magnetic intensity={0.8} range={200}>
+  <Button variant='outline'>Stronger pull</Button>
+</Magnetic>
+```
+
+---
+
+## Action Areas
+
+Control which element triggers the magnetic effect.
+
+<ComponentPreview className='gap-6'>
+  <Demo3 client:visible />
+</ComponentPreview>
+
+```tsx
+{
+  /* Default: self */
+}
+<Magnetic actionArea='self'>
+  <Button>Self</Button>
+</Magnetic>;
+
+{
+  /* Parent triggers the effect */
+}
+<Magnetic actionArea='parent'>
+  <Button>Parent</Button>
+</Magnetic>;
+
+{
+  /* Global mouse tracking */
+}
+<Magnetic actionArea='global' range={300}>
+  <Button>Global</Button>
+</Magnetic>;
+```
+
+---
+
+## Props
+
+| Prop            | Type                             | Default                                        | Description                     |
+| --------------- | -------------------------------- | ---------------------------------------------- | ------------------------------- |
+| `children`      | `React.ReactNode`                | —                                              | Content to apply the effect to. |
+| `className`     | `string`                         | —                                              | Additional CSS classes.         |
+| `intensity`     | `number`                         | `0.6`                                          | Strength of the magnetic pull.  |
+| `range`         | `number`                         | `100`                                          | Effective range in pixels.      |
+| `actionArea`    | `'self' \| 'parent' \| 'global'` | `'self'`                                       | Trigger area.                   |
+| `springOptions` | `SpringOptions`                  | `{ stiffness: 26.7, damping: 4.1, mass: 0.2 }` | Spring config.                  |

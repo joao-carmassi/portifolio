@@ -1,0 +1,147 @@
+---
+title: "Flip Card"
+description: "A card component with a 3D flip animation revealing a back face. Supports hover and programmatic trigger modes."
+---
+
+import { FlipCard } from '@/prisma/ui/flip-card';
+import { FlipCardControlledDemo } from '@/prisma/demos/flip-card-controlled';
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter,
+} from '@/prisma/ui/card';
+import { Button } from '@/prisma/ui/button';
+import { Badge } from '@/prisma/ui/badge';
+import { ComponentPreview } from '@/prisma/docs/component-preview';
+import Install from '@/prisma/docs/Install.astro';
+import Demo1 from '@/prisma/demos/flip-card/1';
+import Demo2 from '@/prisma/demos/flip-card/2';
+import Demo3 from '@/prisma/demos/flip-card/3';
+
+A 3D flip wrapper that accepts two shadcn `Card` components as its `front` and `back` faces and applies a smooth Y-axis rotation. Works in **hover mode** (default) or **controlled mode** via the `isFlipped` prop, inspired by [Kokonut UI's Card Flip](https://kokonutui.com/docs/cards/card).
+
+## Installation
+
+<Install registryUrl='/components/flip-card.json' />
+
+## Import
+
+```tsx
+import { FlipCard } from '@/components/ui/flip-card';
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+} from '@/components/ui/card';
+```
+
+---
+
+## Preview
+
+<ComponentPreview className='gap-6 items-start'>
+  <Demo1 />
+</ComponentPreview>
+
+```tsx
+<FlipCard
+  className='h-70 w-75'
+  front={
+    <Card className='h-full'>
+      <CardHeader>
+        <CardTitle>Front Face</CardTitle>
+        <CardDescription>Hover to reveal the back.</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <p className='text-sm text-muted-foreground'>
+          This is the front side of the card.
+        </p>
+      </CardContent>
+    </Card>
+  }
+  back={
+    <Card className='h-full bg-primary text-primary-foreground'>
+      <CardHeader>
+        <CardTitle>Back Face</CardTitle>
+        <CardDescription className='text-primary-foreground/70'>
+          Content revealed on hover.
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <p className='text-sm text-primary-foreground/70'>
+          The back face can have a completely different style.
+        </p>
+      </CardContent>
+    </Card>
+  }
+/>
+```
+
+---
+
+## With Actions
+
+<ComponentPreview className='gap-6 items-start'>
+  <Demo2 />
+</ComponentPreview>
+
+```tsx
+<FlipCard
+  className='h-75 w-75'
+  front={<Card className='h-full'>...</Card>}
+  back={<Card className='h-full'>...</Card>}
+/>
+```
+
+---
+
+## Controlled Mode
+
+Pass `isFlipped` to control the flip with external state. When provided, hover has no effect.
+
+<ComponentPreview className='gap-6 items-start'>
+  <Demo3 client:visible />
+</ComponentPreview>
+
+```tsx
+import { useState } from 'react';
+
+const [flipped, setFlipped] = useState(false);
+
+<div className='flex flex-col items-center gap-4'>
+  <FlipCard
+    className='h-70 w-75'
+    isFlipped={flipped}
+    front={<Card className='h-full'>...</Card>}
+    back={<Card className='h-full'>...</Card>}
+  />
+  <Button onClick={() => setFlipped((f) => !f)}>
+    {flipped ? 'Show Front' : 'Show Back'}
+  </Button>
+</div>;
+```
+
+---
+
+## Usage Notes
+
+- The `FlipCard` container requires an explicit **height** (and optionally width) via `className` — e.g. `className="h-70 w-75"`.
+- Both `front` and `back` Cards should include `className="h-full"` to fill the container.
+- **Hover mode** (default): the flip is triggered on hover when `isFlipped` is not provided.
+- **Controlled mode**: pass `isFlipped` to drive the flip from external state; hover is disabled.
+
+---
+
+## Props
+
+| Prop        | Type              | Default     | Description                                                           |
+| ----------- | ----------------- | ----------- | --------------------------------------------------------------------- |
+| `front`     | `React.ReactNode` | —           | Content rendered on the front face                                    |
+| `back`      | `React.ReactNode` | —           | Content rendered on the back face                                     |
+| `isFlipped` | `boolean`         | `undefined` | Controls flip state externally. When omitted, hover triggers the flip |
+| `className` | `string`          | —           | Applied to the outer container (set height here)                      |
