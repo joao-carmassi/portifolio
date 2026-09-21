@@ -1,5 +1,4 @@
-import { Player, type PlayerRef } from '@remotion/player';
-import { useEffect, useRef, useState } from 'react';
+import { Suspense, lazy, useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -12,18 +11,15 @@ import {
   Search,
   Wrench,
 } from 'lucide-react';
-import { videos } from '@/components/about/videos';
-import {
-  FPS,
-  type AboutVideo,
-  type VideoId,
-  type VideoImages,
-} from '@/components/about/videos/types';
+import type { VideoImages } from '@/components/about/videos/types';
 import { Button } from '@/components/ui/button';
 import type { AboutCopy } from '@/i18n';
 import { siGithub } from 'simple-icons';
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
+
+// remotion is the heaviest thing on the page; a page with videos off never loads it
+const AboutVideoPlayer = lazy(() => import('@/components/about/videoPlayer'));
 
 // lucide v1 dropped brand icons, so the GitHub mark comes from simple-icons
 const GithubIcon = () => (
@@ -45,59 +41,6 @@ const cards = [
 ];
 
 type CardCopy = AboutCopy['cards']['0'];
-
-// generic over the id: that is what keeps a composition's script prop typed to
-// its own slice of the locale file instead of the union of both
-const VideoPlayer = <Id extends VideoId>({
-  video,
-  copy,
-  images,
-  reduced,
-}: {
-  video: AboutVideo<Id>;
-  copy: AboutCopy['videos'][Id];
-  images: VideoImages;
-  reduced: boolean;
-}) => {
-  const box = useRef<HTMLDivElement>(null);
-  const player = useRef<PlayerRef>(null);
-  const durationInFrames = video.durationInFrames(copy.script);
-
-  useEffect(() => {
-    if (reduced) return;
-    const io = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) player.current?.play();
-      else player.current?.pause();
-    });
-    io.observe(box.current!);
-    return () => io.disconnect();
-  }, [reduced]);
-
-  return (
-    <div ref={box} aria-hidden='true' className='absolute inset-0'>
-      <Player
-        ref={player}
-        component={video.component}
-        inputProps={{ images, script: copy.script }}
-        durationInFrames={durationInFrames}
-        fps={FPS}
-        compositionWidth={video.width}
-        compositionHeight={video.height}
-        // reduced motion: never play, show the final held frame
-        initialFrame={reduced ? durationInFrames - 1 : 0}
-        loop
-        // no audio: unmuted players wait on AudioContext.resume(), which never
-        // resolves without a user gesture (scroll isn't one), freezing frame 0
-        initiallyMuted
-        numberOfSharedAudioTags={0}
-        controls={false}
-        clickToPlay={false}
-        acknowledgeRemotionLicense
-        style={{ width: '100%', height: '100%' }}
-      />
-    </div>
-  );
-};
 
 const InfoCard = ({
   card,
@@ -147,46 +90,32 @@ const InfoCard = ({
   </div>
 );
 
-const VideoCard = <Id extends VideoId>({
-  video,
-  copy,
-  images,
-  reduced,
+// both compositions are 1920x820 at heart (1440x615 is the same ratio), which
+// the grid's 2.34 above leans on too
+const MediaCard = ({
   className,
+  children,
 }: {
-  video: AboutVideo<Id>;
-  copy: AboutCopy['videos'][Id];
-  images: VideoImages;
-  reduced: boolean | null;
   className: string;
+  children?: React.ReactNode;
 }) => (
   <figure
-    style={
-      { '--ar': `${video.width} / ${video.height}` } as React.CSSProperties
-    }
-    className={`dark relative overflow-hidden rounded-3xl bg-black aspect-(--ar) ${className}`}
+    className={`dark relative overflow-hidden rounded-3xl bg-black aspect-[1920/820] ${className}`}
   >
-    {reduced !== null && (
-      <VideoPlayer
-        video={video}
-        copy={copy}
-        images={images}
-        reduced={reduced}
-      />
-    )}
-    <figcaption className='sr-only'>
-      {copy.title}. {copy.srText}
-    </figcaption>
+    {children}
   </figure>
 );
 
 const AboutMeHomepage = ({
   copy,
-  images,
+  images = {},
+  videos = true,
 }: {
   copy: AboutCopy;
   /** optimised by the page: astro:assets cannot run inside a Remotion player */
-  images: VideoImages;
+  images?: VideoImages;
+  /** false leaves the two cards plain black, for the lighter /100 */
+  videos?: boolean;
 }) => {
   const section = useRef<HTMLElement>(null);
   // null until mounted: initialFrame is only read on mount, so wait for matchMedia
@@ -245,20 +174,35 @@ const AboutMeHomepage = ({
             copy={copy.cards['0']}
             className='about-card-top lg:col-span-1'
           />
-          <VideoCard
-            video={videos[0]}
-            copy={copy.videos[videos[0].id]}
-            images={images}
-            reduced={reduced}
-            className='about-media-right lg:col-span-2 lg:self-end'
-          />
-          <VideoCard
-            video={videos[1]}
-            copy={copy.videos[videos[1].id]}
-            images={images}
-            reduced={reduced}
-            className='about-media-left lg:col-span-2 lg:self-start'
-          />
+          {(['quem-sou-eu', 'da-ideia-ao-deploy'] as const).map((id, i) => {
+            const { title, srText } = copy.videos[id];
+            return (
+              <MediaCard
+                key={id}
+                className={
+                  i === 0
+                    ? 'about-media-right lg:col-span-2 lg:self-end'
+                    : 'about-media-left lg:col-span-2 lg:self-start'
+                }
+              >
+                {videos && reduced !== null && (
+                  <Suspense fallback={null}>
+                    <AboutVideoPlayer
+                      id={id}
+                      copy={copy.videos}
+                      images={images}
+                      reduced={reduced}
+                    />
+                  </Suspense>
+                )}
+                {videos && (
+                  <figcaption className='sr-only'>
+                    {title}. {srText}
+                  </figcaption>
+                )}
+              </MediaCard>
+            );
+          })}
           <InfoCard
             card={cards[1]}
             copy={copy.cards['1']}

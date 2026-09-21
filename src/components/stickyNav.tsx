@@ -1,17 +1,28 @@
 import { Menu, X } from 'lucide-react';
-import { useEffect, useState } from 'react';
-import LiquidGlass from 'liquid-glass-react';
+import { Suspense, lazy, useEffect, useState } from 'react';
 import StaggeredMenu from '@/components/ui/staggered-menu';
 // from @/i18n/langs, not @/i18n: this island is client:load and the barrel
 // pulls in every locale file
 import { hrefFor, langs, type Lang } from '@/i18n/langs';
 import type { NavCopy } from '@/i18n';
 
+// lazy so a page without the pill never downloads the glass
+const LiquidGlass = lazy(() => import('liquid-glass-react'));
+
 // shared by both layers so they move as one; no fade, it just drops in
 const GEOMETRY =
   'fixed top-4 md:top-6 inset-x-6 mx-auto md:w-1/2 transition-transform duration-700 ease-[cubic-bezier(0.33,1.15,0.5,1)]';
 
-const StickyNav = ({ lang, copy }: { lang: Lang; copy: NavCopy }) => {
+const StickyNav = ({
+  lang,
+  copy,
+  pill = true,
+}: {
+  lang: Lang;
+  copy: NavCopy;
+  /** false: no glass, no scroll reveal; the bar only shows to close the menu */
+  pill?: boolean;
+}) => {
   const [shown, setShown] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   // liquid-glass-react reads navigator during render, so it can't SSR
@@ -19,12 +30,13 @@ const StickyNav = ({ lang, copy }: { lang: Lang; copy: NavCopy }) => {
   useEffect(() => setMounted(true), []);
 
   useEffect(() => {
+    if (!pill) return;
     // lenis scrolls the window itself, so the native event still fires
     const onScroll = () => setShown(scrollY > innerHeight * 0.5);
     onScroll();
     addEventListener('scroll', onScroll, { passive: true });
     return () => removeEventListener('scroll', onScroll);
-  }, []);
+  }, [pill]);
 
   // the hero's own button opens this menu, and it fires before the pill has
   // scrolled into view
@@ -92,24 +104,28 @@ const StickyNav = ({ lang, copy }: { lang: Lang; copy: NavCopy }) => {
           fixed layer leaves both rooted at the page. */}
       {/* the lib's rim spans blend (screen/overlay) as siblings of the glass,
           which makes this layer a backdrop root; forced back to normal */}
-      <div
-        className={`${LAYER} z-40 h-14 **:mix-blend-normal!`}
-        aria-hidden
-        inert
-      >
-        {mounted && (
-          // the lib centers itself with top/left 50% + translate(-50%, -50%)
-          <LiquidGlass
-            cornerRadius={999}
-            mode='shader'
-            padding='0'
-            className='h-14 w-full [&_.glass]:size-full'
-            style={{ position: 'absolute', top: '50%', left: '50%' }}
-          >
-            <span />
-          </LiquidGlass>
-        )}
-      </div>
+      {pill && (
+        <div
+          className={`${LAYER} z-40 h-14 **:mix-blend-normal!`}
+          aria-hidden
+          inert
+        >
+          {mounted && (
+            <Suspense fallback={null}>
+              {/* the lib centers itself with top/left 50% + translate(-50%, -50%) */}
+              <LiquidGlass
+                cornerRadius={999}
+                mode='shader'
+                padding='0'
+                className='h-14 w-full [&_.glass]:size-full'
+                style={{ position: 'absolute', top: '50%', left: '50%' }}
+              >
+                <span />
+              </LiquidGlass>
+            </Suspense>
+          )}
+        </div>
+      )}
 
       <div
         className={`${LAYER} z-50 mix-blend-difference`}

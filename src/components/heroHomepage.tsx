@@ -1,16 +1,29 @@
-import { GrainGradient } from '@paper-design/shaders-react';
 import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Magnetic } from '@/components/ui/magnetic';
-import { useRef } from 'react';
+import { Suspense, lazy, useRef } from 'react';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { SplitText } from 'gsap/SplitText';
 import HeroNav from '@/components/heroNav';
 import type { HeroCopy, NavCopy } from '@/i18n';
 import type { Lang } from '@/i18n/langs';
+import type { OptimizedImage } from '@/lib/images';
 
 gsap.registerPlugin(useGSAP, SplitText);
+
+// lazy so a page showing the still never downloads the shader
+const GrainGradient = lazy(() =>
+  import('@paper-design/shaders-react').then((m) => ({
+    default: m.GrainGradient,
+  })),
+);
+
+/** snapshots of the shader: its first frame costs ~800ms of main thread */
+export type HeroBackground = {
+  landscape: OptimizedImage;
+  portrait: OptimizedImage;
+};
 
 /** The second beat: the frame closes back in and the rest of the copy arrives.
  *  The pull cord waits for this so it drops with it instead of on its own. */
@@ -26,12 +39,15 @@ const HeroHomepage = ({
   copy,
   navCopy,
   intro = true,
+  background,
 }: {
   lang: Lang;
   copy: HeroCopy;
   navCopy: NavCopy;
   /** false renders the hero in its final state, no entrance animation */
   intro?: boolean;
+  /** a still in place of the animated shader */
+  background?: HeroBackground;
 }) => {
   const frame = useRef<HTMLDivElement>(null);
   const section = useRef<HTMLElement>(null);
@@ -141,18 +157,40 @@ const HeroHomepage = ({
         className='dark bg-black text-foreground flex-1 rounded-3xl data-intro:rounded-none p-6 md:p-12 lg:p-24 relative overflow-hidden'
       >
         <div className='hero-bg absolute inset-0'>
-          <GrainGradient
-            width='100%'
-            height='100%'
-            colors={['#7300ff', '#eba8ff', '#00bfff', '#2b00ff']}
-            colorBack='#000000'
-            softness={0.5}
-            intensity={0.5}
-            noise={0.25}
-            shape='corners'
-            speed={0.4}
-            rotation={90}
-          />
+          {background ? (
+            // art direction, which <Picture> doesn't do: the shader lays its
+            // blobs out per aspect, so a phone gets its own crop
+            <picture>
+              <source
+                media='(orientation: landscape)'
+                srcSet={background.landscape.srcSet}
+                sizes='100vw'
+              />
+              <img
+                src={background.portrait.src}
+                srcSet={background.portrait.srcSet}
+                sizes='100vw'
+                alt=''
+                fetchPriority='high'
+                className='size-full object-cover'
+              />
+            </picture>
+          ) : (
+            <Suspense fallback={null}>
+              <GrainGradient
+                width='100%'
+                height='100%'
+                colors={['#7300ff', '#eba8ff', '#00bfff', '#2b00ff']}
+                colorBack='#000000'
+                softness={0.5}
+                intensity={0.5}
+                noise={0.25}
+                shape='corners'
+                speed={0.4}
+                rotation={90}
+              />
+            </Suspense>
+          )}
         </div>
 
         <HeroNav lang={lang} copy={navCopy} intro={intro} />

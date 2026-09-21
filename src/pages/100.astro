@@ -22,10 +22,12 @@ import {
   type Lang,
 } from '@/i18n/langs';
 import { getSiteUrl, getCanonicalUrl } from '@/utils/env';
-import { pictures, srcAt } from '@/lib/images';
+import { pictures } from '@/lib/images';
 
 // the same page as /pt/ minus the hero's entrance animation, which holds the
-// content back for seconds and sinks lighthouse's performance score. Its
+// content back for seconds and sinks lighthouse's performance score, the
+// liquid-glass scroll pill, the remotion videos in the about section and the
+// hero's animated shader, swapped for a still. Its
 // canonical still points at /pt/, so search engines treat it as that page
 const lang: Lang = FALLBACK;
 // the page's own strings go through @embra/i18n; the islands get typed slices,
@@ -108,13 +110,15 @@ const docImages = await pictures(
   { widths: [480, 720, 1080] },
 );
 
-// the remotion compositions lay out at their own 1920px scale, so each of
-// these is one fixed render rather than a srcset — see srcAt's note
-const aboutImages = {
-  // shown inside a 500px polaroid, so 1000 covers a 2x screen
-  '/about/joao.webp': await srcAt('/about/joao.webp', 1000),
-  // full-bleed across the composition
-  '/about/pedra-do-bau.webp': await srcAt('/about/pedra-do-bau.webp', 1920),
+// stills of the hero's shader: its first frame is ~800ms of main thread
+const heroGrain = await pictures(
+  ['/hero/grain.webp', '/hero/grain-portrait.webp'],
+  // grain is noise, which webp spends bytes on; 50 keeps the look at a third
+  { widths: [640, 960, 1280, 1728], quality: 50 },
+);
+const heroBackground = {
+  landscape: heroGrain['/hero/grain.webp'],
+  portrait: heroGrain['/hero/grain-portrait.webp'],
 };
 
 const visible = { rootMargin: '400px' };
@@ -159,7 +163,7 @@ const visible = { rootMargin: '400px' };
     set:html={serialize(jsonLd)}
     slot='head'
   />
-  <StickyNav client:load lang={lang} copy={m.nav} />
+  <StickyNav client:load lang={lang} copy={m.nav} pill={false} />
   <ThemeCord client:idle copy={m.nav} />
   <main class='flex flex-col'>
     <div class='min-h-svh flex'>
@@ -169,12 +173,13 @@ const visible = { rootMargin: '400px' };
         copy={m.hero}
         navCopy={m.nav}
         intro={false}
+        background={heroBackground}
       />
     </div>
     <AboutMeHomepage
       client:visible={visible}
       copy={m.about}
-      images={aboutImages}
+      videos={false}
     />
     <DocumentosHomepage
       client:visible={visible}
