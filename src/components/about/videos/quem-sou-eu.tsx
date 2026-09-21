@@ -31,7 +31,15 @@ import { SoftBlurIn } from '@/components/remocn/soft-blur-in';
 import { StaggeredFadeUp } from '@/components/remocn/staggered-fade-up';
 import { whipPan } from '@/components/remocn/whip-pan';
 import { WordStream, wordStreamLength } from '@/components/remocn/word-stream';
-import { FPS, type AboutVideo, type VideoProps } from './types';
+import {
+  FPS,
+  type AboutVideo,
+  type VideoProps,
+  type VideoScript,
+} from './types';
+
+type Props = VideoProps<'quem-sou-eu'>;
+type Script = VideoScript<'quem-sou-eu'>;
 
 // keys into the optimised urls the page passes in, see src/lib/images.ts
 const JOAO = '/about/joao.webp';
@@ -79,7 +87,7 @@ const SoftVignette = () => (
   />
 );
 
-const Abertura = () => (
+const Abertura = ({ script }: { script: Script }) => (
   <AbsoluteFill style={{ background: '#000000' }}>
     <DimGrain />
     <div
@@ -107,7 +115,7 @@ const Abertura = () => (
         }}
       >
         <StaggeredFadeUp
-          text='desenvolvedor front-end'
+          text={script.subtitle}
           fontSize={46}
           fontWeight={500}
           staggerDelay={5}
@@ -132,7 +140,7 @@ const Chip = ({ children }: { children: string }) => (
   </span>
 );
 
-const Origem = ({ images }: VideoProps) => (
+const Origem = ({ images, script }: Props) => (
   <AbsoluteFill style={{ background: '#050409' }}>
     <SoftVignette />
     <Drift grow={0.05}>
@@ -168,12 +176,16 @@ const Origem = ({ images }: VideoProps) => (
         gap: 44,
       }}
     >
-      <PaperSticker at={72} seed='origem-sp' padding='14px 24px'>
-        <Chip>nascido em são paulo, 2004</Chip>
-      </PaperSticker>
-      <PaperSticker at={96} seed='origem-sbs' padding='14px 24px'>
-        <Chip>mora em são bento do sapucaí</Chip>
-      </PaperSticker>
+      {Object.values(script.stickers).map((text, i) => (
+        <PaperSticker
+          key={text}
+          at={72 + i * 24}
+          seed={`origem-${i}`}
+          padding='14px 24px'
+        >
+          <Chip>{text}</Chip>
+        </PaperSticker>
+      ))}
     </div>
   </AbsoluteFill>
 );
@@ -194,12 +206,10 @@ const Kicker = ({ children }: { children: string }) => (
   </span>
 );
 
-const SERRA_TEXT = 'da serra de são bento|para o mundo todo|100% remoto';
-
 /** photo holds the frame alone before the words start running over it */
 const SERRA_PHOTO_BEAT = 18;
 
-const Serra = ({ images }: VideoProps) => (
+const Serra = ({ images, script }: Props) => (
   <AbsoluteFill style={{ background: '#050409' }}>
     <Drift grow={0.08}>
       <Img
@@ -228,7 +238,7 @@ const Serra = ({ images }: VideoProps) => (
     />
     <Sequence from={SERRA_PHOTO_BEAT} layout='none'>
       <WordStream
-        text={SERRA_TEXT}
+        text={script.serra}
         className='font-title!'
         fontSize={96}
         fontWeight={400}
@@ -245,14 +255,12 @@ const Serra = ({ images }: VideoProps) => (
         justifyContent: 'center',
       }}
     >
-      <Kicker>pedra do baú</Kicker>
+      <Kicker>{script.serraCaption}</Kicker>
     </div>
   </AbsoluteFill>
 );
 
-const IDIOMAS = ['português · nativo', 'inglês · C1', 'espanhol · B2'];
-
-const Idiomas = () => (
+const Idiomas = ({ script }: { script: Script }) => (
   <AbsoluteFill style={{ background: '#050409' }}>
     <SoftVignette />
     <AbsoluteFill
@@ -263,9 +271,9 @@ const Idiomas = () => (
         gap: 48,
       }}
     >
-      <Kicker>idiomas</Kicker>
+      <Kicker>{script.languagesLabel}</Kicker>
       <CheckList
-        items={IDIOMAS}
+        items={Object.values(script.languages)}
         width={957}
         fontSize={56}
         delay={12}
@@ -277,14 +285,7 @@ const Idiomas = () => (
   </AbsoluteFill>
 );
 
-const CODE = `const joao = {
-  nome: 'João Vitor Carmassi',
-  base: 'São Bento do Sapucaí, SP',
-  idiomas: { ingles: 'C1', espanhol: 'B2' },
-  foco: 'front-end',
-};`;
-
-const EmCodigo = () => (
+const EmCodigo = ({ script }: { script: Script }) => (
   <AbsoluteFill style={{ background: '#050409' }}>
     <SoftVignette />
     {/* GlassCodeWalk works on a fixed 1280x720 stage; centre it on the canvas */}
@@ -298,7 +299,7 @@ const EmCodigo = () => (
       }}
     >
       <GlassCodeWalk
-        code={CODE}
+        code={script.code}
         title='joao.ts'
         width={900}
         height={380}
@@ -310,13 +311,15 @@ const EmCodigo = () => (
   </AbsoluteFill>
 );
 
-const TOOLS: { icon: SimpleIcon; name: string; use: string }[] = [
-  { icon: siAstro, name: 'Astro', use: 'sites' },
-  { icon: siReact, name: 'React', use: 'interfaces' },
-  { icon: siNextdotjs, name: 'Next.js', use: 'aplicações' },
-  { icon: siTypescript, name: 'TypeScript', use: 'tipagem' },
-  { icon: siTailwindcss, name: 'Tailwind', use: 'estilo' },
-  { icon: siGreensock, name: 'GSAP', use: 'animação' },
+// brand names never translate; `script.tools` holds what each one is for, in
+// the same order
+const TOOLS: { icon: SimpleIcon; name: string }[] = [
+  { icon: siAstro, name: 'Astro' },
+  { icon: siReact, name: 'React' },
+  { icon: siNextdotjs, name: 'Next.js' },
+  { icon: siTypescript, name: 'TypeScript' },
+  { icon: siTailwindcss, name: 'Tailwind' },
+  { icon: siGreensock, name: 'GSAP' },
 ];
 
 /** Next.js' brand hex is pure black and would vanish on the dark tile. */
@@ -383,7 +386,7 @@ const ToolCard = ({
   );
 };
 
-const Ferramentas = () => (
+const Ferramentas = ({ script }: { script: Script }) => (
   <AbsoluteFill style={{ background: '#050409' }}>
     <SoftVignette />
     <AbsoluteFill
@@ -394,20 +397,22 @@ const Ferramentas = () => (
         gap: 64,
       }}
     >
-      <Kicker>no dia a dia</Kicker>
+      <Kicker>{script.toolsLabel}</Kicker>
       <div style={{ display: 'flex', gap: 32 }}>
         {TOOLS.map((tool, i) => (
-          <ToolCard key={tool.name} {...tool} at={i * 5} />
+          <ToolCard
+            key={tool.name}
+            {...tool}
+            use={Object.values(script.tools)[i]}
+            at={i * 5}
+          />
         ))}
       </div>
     </AbsoluteFill>
   </AbsoluteFill>
 );
 
-// "pedra do baú" moved to the Serra photo, so the chip is just the activity now
-const FORA = ['trilhas', 'viajar de moto', 'música', 'games', 'filmes'];
-
-const ForaDoCodigo = () => (
+const ForaDoCodigo = ({ script }: { script: Script }) => (
   <AbsoluteFill style={{ background: '#050409' }}>
     <SoftVignette />
     <Drift grow={0.04}>
@@ -421,7 +426,7 @@ const ForaDoCodigo = () => (
         }}
       >
         <Handwrite
-          text='fora do código'
+          text={script.offLabel}
           fontSize={104}
           color='#d9cdff'
           delay={8}
@@ -439,7 +444,7 @@ const ForaDoCodigo = () => (
           gap: 34,
         }}
       >
-        {FORA.map((item, i) => (
+        {Object.values(script.off).map((item, i) => (
           <PaperSticker
             key={item}
             // last sticker must land well before the outgoing dissolve at 126
@@ -516,7 +521,8 @@ const Assinatura = () => (
 const S_ABERTURA = Math.round(3.3 * FPS);
 const S_ORIGEM = Math.round(5.5 * FPS);
 // WordStream drives its own length; add a beat so the last phrase can sit still
-const S_SERRA = SERRA_PHOTO_BEAT + wordStreamLength(SERRA_TEXT) + 34;
+const sSerra = (script: Script) =>
+  SERRA_PHOTO_BEAT + wordStreamLength(script.serra) + 34;
 const S_IDIOMAS = Math.round(5 * FPS);
 const S_CODIGO = Math.round(5.5 * FPS);
 const S_FERRAMENTAS = Math.round(4.6 * FPS);
@@ -528,10 +534,10 @@ const T_PUSH = 18;
 const T_FOCUS = 18;
 const T_GRAIN = 24;
 
-const SCENES = [
+const scenes = (script: Script) => [
   S_ABERTURA,
   S_ORIGEM,
-  S_SERRA,
+  sSerra(script),
   S_IDIOMAS,
   S_CODIGO,
   S_FERRAMENTAS,
@@ -542,34 +548,34 @@ const TRANSITIONS = [T_WHIP, T_PUSH, T_FOCUS, T_GRAIN, T_PUSH, T_WHIP, T_GRAIN];
 
 const sum = (values: number[]) => values.reduce((a, b) => a + b, 0);
 
-const DURATION = sum(SCENES) - sum(TRANSITIONS);
+const duration = (script: Script) => sum(scenes(script)) - sum(TRANSITIONS);
 
-const QuemSouEu = ({ images }: VideoProps) => (
+const QuemSouEu = ({ images, script }: Props) => (
   <AbsoluteFill style={{ background: '#000000' }}>
     <TransitionSeries>
       <TransitionSeries.Sequence durationInFrames={S_ABERTURA}>
-        <Abertura />
+        <Abertura script={script} />
       </TransitionSeries.Sequence>
       <TransitionSeries.Transition
         presentation={whipPan({ direction: 'left' })}
         timing={linearTiming({ durationInFrames: T_WHIP })}
       />
       <TransitionSeries.Sequence durationInFrames={S_ORIGEM}>
-        <Origem images={images} />
+        <Origem images={images} script={script} />
       </TransitionSeries.Sequence>
       <TransitionSeries.Transition
         presentation={pushThrough()}
         timing={linearTiming({ durationInFrames: T_PUSH })}
       />
-      <TransitionSeries.Sequence durationInFrames={S_SERRA}>
-        <Serra images={images} />
+      <TransitionSeries.Sequence durationInFrames={sSerra(script)}>
+        <Serra images={images} script={script} />
       </TransitionSeries.Sequence>
       <TransitionSeries.Transition
         presentation={focusPull()}
         timing={linearTiming({ durationInFrames: T_FOCUS })}
       />
       <TransitionSeries.Sequence durationInFrames={S_IDIOMAS}>
-        <Idiomas />
+        <Idiomas script={script} />
       </TransitionSeries.Sequence>
       <TransitionSeries.Transition
         presentation={grainDissolve({
@@ -580,21 +586,21 @@ const QuemSouEu = ({ images }: VideoProps) => (
         timing={linearTiming({ durationInFrames: T_GRAIN })}
       />
       <TransitionSeries.Sequence durationInFrames={S_CODIGO}>
-        <EmCodigo />
+        <EmCodigo script={script} />
       </TransitionSeries.Sequence>
       <TransitionSeries.Transition
         presentation={pushThrough()}
         timing={linearTiming({ durationInFrames: T_PUSH })}
       />
       <TransitionSeries.Sequence durationInFrames={S_FERRAMENTAS}>
-        <Ferramentas />
+        <Ferramentas script={script} />
       </TransitionSeries.Sequence>
       <TransitionSeries.Transition
         presentation={whipPan({ direction: 'right' })}
         timing={linearTiming({ durationInFrames: T_WHIP })}
       />
       <TransitionSeries.Sequence durationInFrames={S_FORA}>
-        <ForaDoCodigo />
+        <ForaDoCodigo script={script} />
       </TransitionSeries.Sequence>
       <TransitionSeries.Transition
         presentation={grainDissolve({
@@ -611,10 +617,10 @@ const QuemSouEu = ({ images }: VideoProps) => (
   </AbsoluteFill>
 );
 
-export const quemSouEu: AboutVideo = {
+export const quemSouEu: AboutVideo<'quem-sou-eu'> = {
   id: 'quem-sou-eu',
   component: QuemSouEu,
   width: 1920,
   height: 820,
-  durationInFrames: DURATION,
+  durationInFrames: duration,
 };

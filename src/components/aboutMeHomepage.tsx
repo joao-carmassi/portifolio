@@ -16,6 +16,7 @@ import { videos } from '@/components/about/videos';
 import {
   FPS,
   type AboutVideo,
+  type VideoId,
   type VideoImages,
 } from '@/components/about/videos/types';
 import { Button } from '@/components/ui/button';
@@ -44,19 +45,23 @@ const cards = [
 ];
 
 type CardCopy = AboutCopy['cards']['0'];
-type VideoCopy = AboutCopy['videos'][AboutVideo['id']];
 
-const VideoPlayer = ({
+// generic over the id: that is what keeps a composition's script prop typed to
+// its own slice of the locale file instead of the union of both
+const VideoPlayer = <Id extends VideoId>({
   video,
+  copy,
   images,
   reduced,
 }: {
-  video: AboutVideo;
+  video: AboutVideo<Id>;
+  copy: AboutCopy['videos'][Id];
   images: VideoImages;
   reduced: boolean;
 }) => {
   const box = useRef<HTMLDivElement>(null);
   const player = useRef<PlayerRef>(null);
+  const durationInFrames = video.durationInFrames(copy.script);
 
   useEffect(() => {
     if (reduced) return;
@@ -73,13 +78,13 @@ const VideoPlayer = ({
       <Player
         ref={player}
         component={video.component}
-        inputProps={{ images }}
-        durationInFrames={video.durationInFrames}
+        inputProps={{ images, script: copy.script }}
+        durationInFrames={durationInFrames}
         fps={FPS}
         compositionWidth={video.width}
         compositionHeight={video.height}
         // reduced motion: never play, show the final held frame
-        initialFrame={reduced ? video.durationInFrames - 1 : 0}
+        initialFrame={reduced ? durationInFrames - 1 : 0}
         loop
         // no audio: unmuted players wait on AudioContext.resume(), which never
         // resolves without a user gesture (scroll isn't one), freezing frame 0
@@ -142,15 +147,15 @@ const InfoCard = ({
   </div>
 );
 
-const VideoCard = ({
+const VideoCard = <Id extends VideoId>({
   video,
   copy,
   images,
   reduced,
   className,
 }: {
-  video: AboutVideo;
-  copy: VideoCopy;
+  video: AboutVideo<Id>;
+  copy: AboutCopy['videos'][Id];
   images: VideoImages;
   reduced: boolean | null;
   className: string;
@@ -162,7 +167,12 @@ const VideoCard = ({
     className={`dark relative overflow-hidden rounded-3xl bg-black aspect-(--ar) ${className}`}
   >
     {reduced !== null && (
-      <VideoPlayer video={video} images={images} reduced={reduced} />
+      <VideoPlayer
+        video={video}
+        copy={copy}
+        images={images}
+        reduced={reduced}
+      />
     )}
     <figcaption className='sr-only'>
       {copy.title}. {copy.srText}
@@ -189,11 +199,13 @@ const AboutMeHomepage = ({
   useGSAP(
     () => {
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      // same entrance as the old github section: every cell flies in from its own side
+      // the grid only splits into columns at lg, so only there does flying in
+      // from each cell's own side mean anything; stacked, everything rises
+      const wide = window.matchMedia('(min-width: 64rem)').matches;
       const moves = [
-        { selector: '.about-card-top', x: 0, y: -150 },
-        { selector: '.about-media-right', x: 150, y: 0 },
-        { selector: '.about-media-left', x: -150, y: 0 },
+        { selector: '.about-card-top', x: 0, y: wide ? -150 : 150 },
+        { selector: '.about-media-right', x: wide ? 150 : 0, y: wide ? 0 : 150 },
+        { selector: '.about-media-left', x: wide ? -150 : 0, y: wide ? 0 : 150 },
         { selector: '.about-card-bottom', x: 0, y: 150 },
       ];
 

@@ -26,11 +26,87 @@
   "videos": {
     "quem-sou-eu": {
       "title": "Quem sou eu",
-      "srText": "Animação de cerca de 34 segundos em oito cenas. Abre com o nome João Vitor Carmassi e a legenda \"desenvolvedor front-end\". Em seguida, um polaroid com a foto dele e duas etiquetas: \"nascido em são paulo, 2004\" e \"mora em são bento do sapucaí\". Depois, uma foto aérea da Pedra do Baú saindo das nuvens, com a legenda \"pedra do baú\" e as frases \"da serra de são bento\", \"para o mundo todo\" e \"100% remoto\". Na sequência, a lista de idiomas: português nativo, inglês C1 e espanhol B2. Um editor de código mostra o objeto joao com nome, base em São Bento do Sapucaí, idiomas inglês C1 e espanhol B2, e foco em front-end. Sob o rótulo \"no dia a dia\" aparecem seis cartões com as ferramentas e para que ele usa cada uma: Astro para sites, React para interfaces, Next.js para aplicações, TypeScript para tipagem, Tailwind para estilo e GSAP para animação. A cena \"fora do código\" traz as etiquetas trilhas, viajar de moto, música, games e filmes. Fecha com a assinatura \"joão.\" sublinhada e o endereço github.com/joao-carmassi."
+      "srText": "Animação de cerca de 34 segundos em oito cenas. Abre com o nome João Vitor Carmassi e a legenda \"desenvolvedor front-end\". Em seguida, um polaroid com a foto dele e duas etiquetas: \"nascido em são paulo, 2004\" e \"mora em são bento do sapucaí\". Depois, uma foto aérea da Pedra do Baú saindo das nuvens, com a legenda \"pedra do baú\" e as frases \"da serra de são bento\", \"para o mundo todo\" e \"100% remoto\". Na sequência, a lista de idiomas: português nativo, inglês C1 e espanhol B2. Um editor de código mostra o objeto joao com nome, base em São Bento do Sapucaí, idiomas inglês C1 e espanhol B2, e foco em front-end. Sob o rótulo \"no dia a dia\" aparecem seis cartões com as ferramentas e para que ele usa cada uma: Astro para sites, React para interfaces, Next.js para aplicações, TypeScript para tipagem, Tailwind para estilo e GSAP para animação. A cena \"fora do código\" traz as etiquetas trilhas, viajar de moto, música, games e filmes. Fecha com a assinatura \"joão.\" sublinhada e o endereço github.com/joao-carmassi.",
+      "script": {
+        "subtitle": "desenvolvedor front-end",
+        "stickers": {
+          "0": "nascido em são paulo, 2004",
+          "1": "mora em são bento do sapucaí"
+        },
+        "serra": "da serra de são bento|para o mundo todo|100% remoto",
+        "serraCaption": "pedra do baú",
+        "languagesLabel": "idiomas",
+        "languages": {
+          "0": "português · nativo",
+          "1": "inglês · C1",
+          "2": "espanhol · B2"
+        },
+        "code": "const joao = {\n  nome: 'João Vitor Carmassi',\n  base: 'São Bento do Sapucaí, SP',\n  idiomas: { ingles: 'C1', espanhol: 'B2' },\n  foco: 'front-end',\n};",
+        "toolsLabel": "no dia a dia",
+        "tools": {
+          "0": "sites",
+          "1": "interfaces",
+          "2": "aplicações",
+          "3": "tipagem",
+          "4": "estilo",
+          "5": "animação"
+        },
+        "offLabel": "fora do código",
+        "off": {
+          "0": "trilhas",
+          "1": "viajar de moto",
+          "2": "música",
+          "3": "games",
+          "4": "filmes"
+        }
+      }
     },
     "da-ideia-ao-deploy": {
       "title": "Da ideia ao deploy",
-      "srText": "Animação de cerca de 46 segundos que mostra um projeto nascendo: as frases \"Uma ideia\", \"Um prazo\", \"Um site\" abrem a história; em seguida uma lista escrita à mão reúne o que o site precisa — layout responsivo, ser achado no Google, animação com GSAP e lighthouse 100; começa então a pesquisa de palavras-chave: um campo de busca digita \"site institucional\" e surgem os termos relacionados do nicho do cliente — criar site institucional, site institucional preço e site institucional rápido; um terminal roda npm create astro@latest, instala as dependências e adiciona Tailwind e GSAP; o arquivo hero.tsx é escrito linha a linha com um botão de Contato, e um cursor clica nele; no arquivo seo.astro aparecem o title, a meta description, a og:image, o link canonical, o h1, o alt da imagem e um bloco de dados estruturados JSON-LD do tipo LocalBusiness; a tela do site então encolhe de desktop para celular, o menu vira um ícone e os cards se empilham, mostrando o layout responsivo; no terminal, npx tsc --noEmit confirma que não há erros de tipo e npx lighthouse audita o site local, apontando três imagens sem alt, um h2 antes do h1 e a falta de meta description, tudo corrigido e revalidado em seguida; depois aparecem os logos de React, Next.js, Astro, TypeScript, Tailwind e GSAP sob o rótulo \"construído com\"; na tela seguinte, quatro contadores do Lighthouse sobem de 0 a 100 em performance, acessibilidade, boas práticas e SEO, medidos na build de produção; git push origin main confirma \"deploy em 1.2s\" e confetes comemoram; a animação fecha com a palavra \"no ar.\" sublinhada à mão."
+      "srText": "Animação de cerca de 46 segundos que mostra um projeto nascendo: as frases \"Uma ideia\", \"Um prazo\", \"Um site\" abrem a história; em seguida uma lista escrita à mão reúne o que o site precisa — layout responsivo, ser achado no Google, animação com GSAP e lighthouse 100; começa então a pesquisa de palavras-chave: um campo de busca digita \"site institucional\" e surgem os termos relacionados do nicho do cliente — criar site institucional, site institucional preço e site institucional rápido; um terminal roda npm create astro@latest, instala as dependências e adiciona Tailwind e GSAP; o arquivo hero.tsx é escrito linha a linha com um botão de Contato, e um cursor clica nele; no arquivo seo.astro aparecem o title, a meta description, a og:image, o link canonical, o h1, o alt da imagem e um bloco de dados estruturados JSON-LD do tipo LocalBusiness; a tela do site então encolhe de desktop para celular, o menu vira um ícone e os cards se empilham, mostrando o layout responsivo; no terminal, npx tsc --noEmit confirma que não há erros de tipo e npx lighthouse audita o site local, apontando três imagens sem alt, um h2 antes do h1 e a falta de meta description, tudo corrigido e revalidado em seguida; depois aparecem os logos de React, Next.js, Astro, TypeScript, Tailwind e GSAP sob o rótulo \"construído com\"; na tela seguinte, quatro contadores do Lighthouse sobem de 0 a 100 em performance, acessibilidade, boas práticas e SEO, medidos na build de produção; git push origin main confirma \"deploy em 1.2s\" e confetes comemoram; a animação fecha com a palavra \"no ar.\" sublinhada à mão.",
+      "script": {
+        "opening": "Uma ideia.|Um prazo.|Um site.",
+        "briefLabel": "o que o site precisa",
+        "brief": {
+          "0": "layout responsivo",
+          "1": "ser achado no Google",
+          "2": "animação com GSAP",
+          "3": "lighthouse 100"
+        },
+        "researchLabel": "pesquisa de palavras-chave",
+        "query": "site institucional",
+        "related": {
+          "0": "criar site institucional",
+          "1": "site institucional preço",
+          "2": "site institucional rápido"
+        },
+        "researchNote": "termos do nicho do cliente",
+        "setupDone": "projeto pronto",
+        "heroButton": "Contato",
+        "responsiveLabel": "responsivo por padrão",
+        "menu": {
+          "0": "sobre",
+          "1": "projetos",
+          "2": "contato"
+        },
+        "audit": {
+          "types": "sem erros de tipo",
+          "alt": "3 imagens sem alt",
+          "heading": "h2 antes do h1 em /sobre",
+          "description": "sem meta description",
+          "fixed": "corrigido e revalidado"
+        },
+        "builtLabel": "construído com",
+        "scores": {
+          "0": "performance",
+          "1": "acessibilidade",
+          "2": "boas práticas",
+          "3": "seo"
+        },
+        "scoresNote": "build de produção",
+        "deployDone": "deploy em 1.2s",
+        "signature": "no ar."
+      }
     }
   }
 }

@@ -10,14 +10,29 @@ export const FPS = 30;
  */
 export type VideoImages = Record<string, string>;
 
-export type VideoProps = { images: VideoImages };
+export type VideoId = keyof AboutCopy['videos'];
 
-export interface AboutVideo {
-  /** the key under `about.videos` holding this video's caption in each language */
-  id: keyof AboutCopy['videos'];
+/**
+ * Every word on screen comes from the locale file, so each language renders its
+ * own cut of the video rather than a Portuguese one with a translated caption.
+ */
+export type VideoScript<Id extends VideoId> = AboutCopy['videos'][Id]['script'];
+
+export type VideoProps<Id extends VideoId> = {
   /** a composition without images is free to ignore the prop */
-  component: ComponentType<VideoProps>;
+  images: VideoImages;
+  script: VideoScript<Id>;
+};
+
+export interface AboutVideo<Id extends VideoId = VideoId> {
+  /** the key under `about.videos` holding this video's copy in each language */
+  id: Id;
+  component: ComponentType<VideoProps<Id>>;
   width: number;
   height: number;
-  durationInFrames: number;
+  /**
+   * A function, not a number: scenes driven by WordStream are as long as their
+   * text, and the text is per language.
+   */
+  durationInFrames: (script: VideoScript<Id>) => number;
 }

@@ -30,7 +30,15 @@ import { SoftBlurIn } from '@/components/remocn/soft-blur-in';
 import { TerminalSimulator } from '@/components/remocn/terminal-simulator';
 import { whipPan } from '@/components/remocn/whip-pan';
 import { WordStream } from '@/components/remocn/word-stream';
-import { FPS, type AboutVideo } from './types';
+import {
+  FPS,
+  type AboutVideo,
+  type VideoProps,
+  type VideoScript,
+} from './types';
+
+type Props = VideoProps<'da-ideia-ao-deploy'>;
+type Script = VideoScript<'da-ideia-ao-deploy'>;
 
 // Scene lengths are in frames because they are tuned to the frame budgets the
 // remocn sub-components need to finish their own animations before each cut.
@@ -100,11 +108,11 @@ const STACK: Logo[] = [
   iconChip(siGreensock),
 ];
 
-const HERO_CODE = `export function Hero() {
+const heroCode = (button: string) => `export function Hero() {
   return (
     <section className='hero'>
       <h1>João Carmassi</h1>
-      <button>Contato</button>
+      <button>${button}</button>
     </section>
   );
 }`;
@@ -141,11 +149,11 @@ const Label = ({ text, top }: { text: string; top: number }) => (
   </div>
 );
 
-function Abertura() {
+function Abertura({ script }: { script: Script }) {
   return (
     <AbsoluteFill>
       <WordStream
-        text='Uma ideia.|Um prazo.|Um site.'
+        text={script.opening}
         fontSize={86}
         color='#fafafa'
         fontWeight={500}
@@ -156,19 +164,15 @@ function Abertura() {
 
 // Unchecked on purpose: at this point in the story nothing is built yet, so the
 // boxes stay open and only the handwriting animates.
-// Order matters: CheckList staggers by index, so the longest handwriting must
-// not sit last or it runs past the cut.
-const REQUISITOS = [
-  { text: 'layout responsivo', checked: false },
-  { text: 'ser achado no Google', checked: false },
-  { text: 'animação com GSAP', checked: false },
-  { text: 'lighthouse 100', checked: false },
-];
+// Order matters in the locale file too: CheckList staggers by index, so the
+// longest handwriting must not sit last or it runs past the cut.
+const requisitos = (script: Script) =>
+  Object.values(script.brief).map((text) => ({ text, checked: false }));
 
-function Briefing() {
+function Briefing({ script }: { script: Script }) {
   return (
     <AbsoluteFill>
-      <Label text='o que o site precisa' top={92} />
+      <Label text={script.briefLabel} top={92} />
       {/* AbsoluteFill does not centre its children on its own */}
       <AbsoluteFill
         style={{
@@ -178,7 +182,7 @@ function Briefing() {
         }}
       >
         <CheckList
-          items={REQUISITOS}
+          items={requisitos(script)}
           width={780}
           fontSize={54}
           delay={12}
@@ -190,13 +194,6 @@ function Briefing() {
     </AbsoluteFill>
   );
 }
-
-const QUERY = 'site institucional';
-const RELACIONADOS = [
-  'criar site institucional',
-  'site institucional preço',
-  'site institucional rápido',
-];
 
 /** Caption in Geist Mono pinned to the bottom of a scene. */
 const Footnote = ({ text }: { text: string }) => (
@@ -216,10 +213,11 @@ const Footnote = ({ text }: { text: string }) => (
   </div>
 );
 
-function Pesquisa() {
+function Pesquisa({ script }: { script: Script }) {
   const frame = useCurrentFrame();
+  const related = Object.values(script.related);
   const typed = Math.floor(
-    interpolate(frame, [8, 38], [0, QUERY.length], {
+    interpolate(frame, [8, 38], [0, script.query.length], {
       extrapolateLeft: 'clamp',
       extrapolateRight: 'clamp',
     }),
@@ -229,7 +227,7 @@ function Pesquisa() {
 
   return (
     <AbsoluteFill style={{ alignItems: 'center', justifyContent: 'center' }}>
-      <Label text='pesquisa de palavras-chave' top={86} />
+      <Label text={script.researchLabel} top={86} />
       <div
         style={{
           width: 720,
@@ -268,7 +266,7 @@ function Pesquisa() {
             />
           </svg>
           <span style={{ fontFamily: MONO, fontSize: 26, color: '#fafafa' }}>
-            {QUERY.slice(0, typed)}
+            {script.query.slice(0, typed)}
           </span>
           {caretOn && (
             <span
@@ -281,7 +279,7 @@ function Pesquisa() {
           )}
         </div>
 
-        {RELACIONADOS.map((termo, i) => {
+        {related.map((termo, i) => {
           const local = frame - (42 + i * 9);
           const opacity = interpolate(local, [0, 12], [0, 1], {
             extrapolateLeft: 'clamp',
@@ -315,12 +313,12 @@ function Pesquisa() {
           );
         })}
       </div>
-      <Footnote text='termos do nicho do cliente' />
+      <Footnote text={script.researchNote} />
     </AbsoluteFill>
   );
 }
 
-function Terminal() {
+function Terminal({ script }: { script: Script }) {
   return (
     <AbsoluteFill style={{ scale: '1.12' }}>
       <TerminalSimulator
@@ -331,18 +329,18 @@ function Terminal() {
           { text: '✔ Dependencies installed', type: 'log', delay: 6 },
           { text: 'npm i tailwindcss gsap', type: 'command', delay: 10 },
           { text: 'added 84 packages in 3s', type: 'log', delay: 8 },
-          { text: '✔ projeto pronto', type: 'success', delay: 8 },
+          { text: `✔ ${script.setupDone}`, type: 'success', delay: 8 },
         ]}
       />
     </AbsoluteFill>
   );
 }
 
-function Codigo() {
+function Codigo({ script }: { script: Script }) {
   return (
     <AbsoluteFill>
       <GlassCodeBlock
-        code={HERO_CODE}
+        code={heroCode(script.heroButton)}
         title='hero.tsx'
         width={900}
         height={430}
@@ -392,7 +390,7 @@ const Block = ({ flex, radius = 10 }: { flex: number; radius?: number }) => (
   />
 );
 
-function Responsivo() {
+function Responsivo({ script }: { script: Script }) {
   const frame = useCurrentFrame();
   const width = interpolate(frame, [24, 84], [1000, 400], {
     extrapolateLeft: 'clamp',
@@ -404,7 +402,7 @@ function Responsivo() {
 
   return (
     <AbsoluteFill style={{ alignItems: 'center', justifyContent: 'center' }}>
-      <Label text='responsivo por padrão' top={78} />
+      <Label text={script.responsiveLabel} top={78} />
       <div
         style={{
           width,
@@ -443,7 +441,7 @@ function Responsivo() {
             />
           ) : (
             <div style={{ display: 'flex', gap: 14 }}>
-              {['sobre', 'projetos', 'contato'].map((item) => (
+              {Object.values(script.menu).map((item) => (
                 <span
                   key={item}
                   style={{
@@ -484,7 +482,7 @@ function Responsivo() {
   );
 }
 
-function Auditoria() {
+function Auditoria({ script }: { script: Script }) {
   return (
     <AbsoluteFill style={{ scale: '1.08' }}>
       {/* chunkSize 2 keeps seven lines inside the scene's frame budget. */}
@@ -493,26 +491,26 @@ function Auditoria() {
         chunkSize={2}
         lines={[
           { text: 'npx tsc --noEmit', type: 'command', delay: 0 },
-          { text: '✓ sem erros de tipo', type: 'success', delay: 8 },
+          { text: `✓ ${script.audit.types}`, type: 'success', delay: 8 },
           {
             text: 'npx lighthouse http://localhost:4321',
             type: 'command',
             delay: 10,
           },
-          { text: '! 3 imagens sem alt', type: 'error', delay: 8 },
-          { text: '! h2 antes do h1 em /sobre', type: 'error', delay: 4 },
-          { text: '! sem meta description', type: 'error', delay: 4 },
-          { text: '✓ corrigido e revalidado', type: 'success', delay: 10 },
+          { text: `! ${script.audit.alt}`, type: 'error', delay: 8 },
+          { text: `! ${script.audit.heading}`, type: 'error', delay: 4 },
+          { text: `! ${script.audit.description}`, type: 'error', delay: 4 },
+          { text: `✓ ${script.audit.fixed}`, type: 'success', delay: 10 },
         ]}
       />
     </AbsoluteFill>
   );
 }
 
-function Construido() {
+function Construido({ script }: { script: Script }) {
   return (
     <AbsoluteFill>
-      <Label text='construído com' top={92} />
+      <Label text={script.builtLabel} top={92} />
       <AbsoluteFill style={{ translate: '0 24px' }}>
         <LogoEnter logos={STACK} diameter={100} overlap={34} stagger={6} />
       </AbsoluteFill>
@@ -520,20 +518,15 @@ function Construido() {
   );
 }
 
-const SCORES = [
-  { label: 'performance', highlight: false },
-  { label: 'acessibilidade', highlight: false },
-  { label: 'boas práticas', highlight: false },
-  { label: 'seo', highlight: true },
-];
+function Lighthouse({ script }: { script: Script }) {
+  const scores = Object.values(script.scores);
 
-function Lighthouse() {
   return (
     <AbsoluteFill style={{ alignItems: 'center', justifyContent: 'center' }}>
       <Label text='lighthouse' top={92} />
       <div style={{ display: 'flex', gap: 28, marginTop: 40 }}>
-        {SCORES.map((score, i) => (
-          <div key={score.label} style={{ width: 250 }}>
+        {scores.map((label, i) => (
+          <div key={label} style={{ width: 250 }}>
             {/* Relative box so each RollingNumber's AbsoluteFill stays in its column. */}
             <div style={{ position: 'relative', height: 110 }}>
               <Sequence from={i * 8} durationInFrames={105} layout='none'>
@@ -552,20 +545,22 @@ function Lighthouse() {
                 fontFamily: MONO,
                 fontSize: 17,
                 letterSpacing: '0.12em',
-                color: score.highlight ? ACCENT[1] : '#a1a1aa',
+                // seo is the point of the whole video, so it is the one
+                // score that gets the accent
+                color: i === scores.length - 1 ? ACCENT[1] : '#a1a1aa',
               }}
             >
-              {score.label}
+              {label}
             </div>
           </div>
         ))}
       </div>
-      <Footnote text='build de produção' />
+      <Footnote text={script.scoresNote} />
     </AbsoluteFill>
   );
 }
 
-function Deploy() {
+function Deploy({ script }: { script: Script }) {
   return (
     <AbsoluteFill>
       <AbsoluteFill style={{ scale: '1.05' }}>
@@ -573,7 +568,7 @@ function Deploy() {
           title='~/portifolio'
           lines={[
             { text: 'git push origin main', type: 'command', delay: 0 },
-            { text: '✓ deploy em 1.2s', type: 'success', delay: 12 },
+            { text: `✓ ${script.deployDone}`, type: 'success', delay: 12 },
           ]}
         />
       </AbsoluteFill>
@@ -588,7 +583,7 @@ function Deploy() {
   );
 }
 
-function Assinatura() {
+function Assinatura({ script }: { script: Script }) {
   return (
     <AbsoluteFill>
       <div
@@ -602,7 +597,7 @@ function Assinatura() {
       >
         {/* SoftBlurIn defaults to Geist Sans; font-title swaps in DM Serif. */}
         <SoftBlurIn
-          text='no ar.'
+          text={script.signature}
           className='font-title!'
           fontSize={140}
           fontWeight={400}
@@ -639,41 +634,41 @@ const GRAIN = {
   shape: 'blob' as const,
 };
 
-function DaIdeiaAoDeploy() {
+function DaIdeiaAoDeploy({ script }: Props) {
   return (
     <AbsoluteFill style={{ background: '#0a0a0a', fontFamily: SANS }}>
       <Backdrop fill={{ type: 'gradient', value: BG_GRADIENT }} />
       <TransitionSeries>
         <TransitionSeries.Sequence durationInFrames={SCENE.abertura}>
-          <Abertura />
+          <Abertura script={script} />
         </TransitionSeries.Sequence>
         <TransitionSeries.Transition
           presentation={whipPan({ direction: 'left' })}
           timing={linearTiming({ durationInFrames: XFADE })}
         />
         <TransitionSeries.Sequence durationInFrames={SCENE.briefing}>
-          <Briefing />
+          <Briefing script={script} />
         </TransitionSeries.Sequence>
         <TransitionSeries.Transition
           presentation={pushThrough()}
           timing={linearTiming({ durationInFrames: XFADE })}
         />
         <TransitionSeries.Sequence durationInFrames={SCENE.pesquisa}>
-          <Pesquisa />
+          <Pesquisa script={script} />
         </TransitionSeries.Sequence>
         <TransitionSeries.Transition
           presentation={grainDissolve(GRAIN)}
           timing={linearTiming({ durationInFrames: XFADE })}
         />
         <TransitionSeries.Sequence durationInFrames={SCENE.terminal}>
-          <Terminal />
+          <Terminal script={script} />
         </TransitionSeries.Sequence>
         <TransitionSeries.Transition
           presentation={focusPull()}
           timing={linearTiming({ durationInFrames: XFADE })}
         />
         <TransitionSeries.Sequence durationInFrames={SCENE.codigo}>
-          <Codigo />
+          <Codigo script={script} />
         </TransitionSeries.Sequence>
         <TransitionSeries.Transition
           presentation={whipPan({ direction: 'right' })}
@@ -687,52 +682,54 @@ function DaIdeiaAoDeploy() {
           timing={linearTiming({ durationInFrames: XFADE })}
         />
         <TransitionSeries.Sequence durationInFrames={SCENE.responsivo}>
-          <Responsivo />
+          <Responsivo script={script} />
         </TransitionSeries.Sequence>
         <TransitionSeries.Transition
           presentation={grainDissolve(GRAIN)}
           timing={linearTiming({ durationInFrames: XFADE })}
         />
         <TransitionSeries.Sequence durationInFrames={SCENE.auditoria}>
-          <Auditoria />
+          <Auditoria script={script} />
         </TransitionSeries.Sequence>
         <TransitionSeries.Transition
           presentation={focusPull()}
           timing={linearTiming({ durationInFrames: XFADE })}
         />
         <TransitionSeries.Sequence durationInFrames={SCENE.construido}>
-          <Construido />
+          <Construido script={script} />
         </TransitionSeries.Sequence>
         <TransitionSeries.Transition
           presentation={whipPan({ direction: 'left' })}
           timing={linearTiming({ durationInFrames: XFADE })}
         />
         <TransitionSeries.Sequence durationInFrames={SCENE.lighthouse}>
-          <Lighthouse />
+          <Lighthouse script={script} />
         </TransitionSeries.Sequence>
         <TransitionSeries.Transition
           presentation={pushThrough()}
           timing={linearTiming({ durationInFrames: XFADE })}
         />
         <TransitionSeries.Sequence durationInFrames={SCENE.deploy}>
-          <Deploy />
+          <Deploy script={script} />
         </TransitionSeries.Sequence>
         <TransitionSeries.Transition
           presentation={focusPull()}
           timing={linearTiming({ durationInFrames: XFADE })}
         />
         <TransitionSeries.Sequence durationInFrames={SCENE.assinatura}>
-          <Assinatura />
+          <Assinatura script={script} />
         </TransitionSeries.Sequence>
       </TransitionSeries>
     </AbsoluteFill>
   );
 }
 
-export const daIdeiaAoDeploy: AboutVideo = {
+export const daIdeiaAoDeploy: AboutVideo<'da-ideia-ao-deploy'> = {
   id: 'da-ideia-ao-deploy',
   component: DaIdeiaAoDeploy,
   width: 1440,
   height: 615,
-  durationInFrames: TOTAL,
+  // every scene here has a fixed frame budget, so translating does not move the
+  // cut the way it does in quem-sou-eu
+  durationInFrames: () => TOTAL,
 };
