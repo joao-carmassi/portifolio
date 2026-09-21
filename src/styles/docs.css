@@ -139,3 +139,12 @@
     @apply border-border outline-ring/50;
   }
 }
+
+/* nav: the logo at text size next to the name, like prisma ui's own navbar */
+.site-title {
+  gap: 0.5rem;
+  color: var(--sl-color-white);
+}
+.site-title img {
+  height: 1.5rem;
+}
