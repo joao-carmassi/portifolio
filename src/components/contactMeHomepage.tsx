@@ -87,10 +87,17 @@ const ContactMeForm = ({ copy }: { copy: ContactCopy }) => {
   useGSAP(() => {
     gsap.registerPlugin(ScrollTrigger);
 
+    // tailwind's md
+    const wide = window.matchMedia('(min-width: 48rem)').matches;
+
     const animations = [
       { selector: '.contact-form-animation', x: 0, y: 150 },
-      { selector: '.contact-copy-desktop-animation', x: 150, y: 0 },
-      { selector: '.contact-copy-mobile-animation', x: 0, y: 150 },
+      // md: the copy slides in from the side, stacked it comes up from below.
+      // matchMedia here keeps one copy block in the DOM instead of two, which
+      // duplicated the h2 and the paragraph for crawlers.
+      wide
+        ? { selector: '.contact-copy-animation', x: 150, y: 0 }
+        : { selector: '.contact-copy-animation', x: 0, y: 150 },
     ];
 
     animations.forEach(({ selector, x, y }) => {
@@ -499,15 +506,7 @@ const ContactMeForm = ({ copy }: { copy: ContactCopy }) => {
             />
           </div>
         </form>
-        <div className='contact-copy-desktop-animation hidden md:block space-y-1.5 md:space-y-3 flex-1'>
-          <h2 className='font-title text-4xl md:text-5xl text-center md:text-start'>
-            {copy.title}
-          </h2>
-          <p className='text-muted-foreground font-semibold max-w-2xl text-center md:text-start'>
-            {copy.text}
-          </p>
-        </div>
-        <div className='contact-copy-mobile-animation md:hidden space-y-1.5 md:space-y-3 flex-1'>
+        <div className='contact-copy-animation space-y-1.5 md:space-y-3 flex-1'>
           <h2 className='font-title text-4xl md:text-5xl text-center md:text-start'>
             {copy.title}
           </h2>
