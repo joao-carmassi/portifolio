@@ -33,9 +33,9 @@
     },
     "4": {
       "title": "Prisma UI",
-      "description": "Discontinued. Open source React component library for building beautiful, accessible, and customizable user interfaces — built with Radix UI and Tailwind CSS.",
+      "description": "Open source React component library for building beautiful, accessible, and customizable user interfaces — built with Radix UI and Tailwind CSS.",
       "image": "/clients/prisma.webp",
-      "longDescription": "Open source (MIT) React component library built on Radix UI primitives and Tailwind CSS, fully typed in TypeScript. Thirteen components across three categories — General, Inputs, and Cards — ship with ready-made effect variants such as shine, ringHover, gooey, expandIcon, rainbow, and border-beam, plus loading and disabled states and an asChild prop. Distribution is copy-paste through a shadcn/ui-compatible registry: the CLI add command resolves every dependency on its own, with no extra configuration. The project has been discontinued: the library is offline and no longer maintained."
+      "longDescription": "Open source (MIT) React component library built on Radix UI primitives and Tailwind CSS, fully typed in TypeScript. Thirteen components across three categories — General, Inputs, and Cards — ship with ready-made effect variants such as shine, ringHover, gooey, expandIcon, rainbow, and border-beam, plus loading and disabled states and an asChild prop. Distribution is copy-paste through a shadcn/ui-compatible registry: the CLI add command resolves every dependency on its own, with no extra configuration. The docs and registry now live in this portfolio, under /components/."
     },
     "5": {
       "title": "Dr Jean Almeida",

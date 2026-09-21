@@ -33,9 +33,9 @@
     },
     "4": {
       "title": "Prisma UI",
-      "description": "Descontinuado. Biblioteca de componentes React de código aberto para construir interfaces de usuário bonitas, acessíveis e personalizáveis — construída com Radix UI e Tailwind CSS.",
+      "description": "Biblioteca de componentes React de código aberto para construir interfaces de usuário bonitas, acessíveis e personalizáveis — construída com Radix UI e Tailwind CSS.",
       "image": "/clients/prisma.webp",
-      "longDescription": "Biblioteca de componentes React open source (MIT) construída sobre primitivos Radix UI e Tailwind CSS, inteiramente tipada em TypeScript. São 13 componentes em três categorias — General, Inputs e Cards — com variantes de efeito prontas como shine, ringHover, gooey, expandIcon, rainbow e border-beam, além de estados de loading e disabled e a prop asChild. A distribuição é copy-paste por um registry compatível com shadcn/ui: o comando add da CLI resolve as dependências sozinho, sem configuração extra. O projeto foi descontinuado: a biblioteca saiu do ar e não recebe mais manutenção."
+      "longDescription": "Biblioteca de componentes React open source (MIT) construída sobre primitivos Radix UI e Tailwind CSS, inteiramente tipada em TypeScript. São 13 componentes em três categorias — General, Inputs e Cards — com variantes de efeito prontas como shine, ringHover, gooey, expandIcon, rainbow e border-beam, além de estados de loading e disabled e a prop asChild. A distribuição é copy-paste por um registry compatível com shadcn/ui: o comando add da CLI resolve as dependências sozinho, sem configuração extra. A documentação e o registry agora ficam aqui no portfólio, em /components/."
     },
     "5": {
       "title": "Dr Jean Almeida",
