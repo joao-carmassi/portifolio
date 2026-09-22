@@ -150,6 +150,33 @@ const AboutMeHomepage = ({
           scrollTrigger: { trigger: selector, start: 'top 85%', once: true },
         });
       });
+
+      // parallax: the two black cards drift hard against each other, the
+      // videos slightly the other way. yPercent, so it stacks on the
+      // entrance's y instead of fighting it. Stacked on small screens the
+      // drift just reads as jitter
+      if (!wide) return;
+      [
+        { selector: '.about-card-top', from: 25, to: -25 },
+        { selector: '.about-media-right', from: -8, to: 8 },
+        { selector: '.about-media-left', from: 8, to: -8 },
+        { selector: '.about-card-bottom', from: -25, to: 25 },
+      ].forEach(({ selector, from, to }) => {
+        gsap.fromTo(
+          selector,
+          { yPercent: from },
+          {
+            yPercent: to,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: section.current,
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: true,
+            },
+          },
+        );
+      });
     },
     { scope: section },
   );

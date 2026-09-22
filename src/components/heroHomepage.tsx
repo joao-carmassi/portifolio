@@ -4,13 +4,14 @@ import { Magnetic } from '@/components/ui/magnetic';
 import { Suspense, lazy, useRef } from 'react';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText } from 'gsap/SplitText';
 import HeroNav from '@/components/heroNav';
 import type { HeroCopy, NavCopy } from '@/i18n';
 import type { Lang } from '@/i18n/langs';
 import type { OptimizedImage } from '@/lib/images';
 
-gsap.registerPlugin(useGSAP, SplitText);
+gsap.registerPlugin(useGSAP, ScrollTrigger, SplitText);
 
 // lazy so a page showing the still never downloads the shader
 const GrainGradient = lazy(() =>
@@ -67,6 +68,47 @@ const HeroHomepage = ({
         announceStage2();
         return;
       }
+
+      // parallax while the frame scrolls away: every line, button and nav
+      // item leaves at its own speed, so the hero comes apart in layers, and
+      // the background lags behind them all. Scaled up from its bottom edge,
+      // so sliding down never opens a gap at the top
+      const leaving = {
+        trigger: frame.current,
+        start: 'top top',
+        end: 'bottom top',
+        scrub: true,
+        invalidateOnRefresh: true,
+      };
+      gsap.fromTo(
+        '.hero-bg',
+        { yPercent: 0, scale: 1.15, transformOrigin: '50% 100%' },
+        { yPercent: 15, ease: 'none', scrollTrigger: leaving },
+      );
+      // extra rise, as a share of the frame's height: 0.3 leaves at 1.3x the
+      // scroll. Each layer draws its own share from a narrow band, so they
+      // leave almost together with a few lagging or running ahead, instead
+      // of in order. The intro owns yPercent on .hero-entry and y on
+      // .hero-title, so each layer scrubs the other one
+      const rise = () => {
+        const share = gsap.utils.random(0.18, 0.38);
+        return () => -share * frame.current!.offsetHeight;
+      };
+      gsap.utils
+        .toArray<HTMLElement>(
+          '.hero-content .hero-entry, .hero-nav li, .hero-nav button',
+          section.current,
+        )
+        .forEach((layer) =>
+          gsap.to(layer, { y: rise(), ease: 'none', scrollTrigger: leaving }),
+        );
+      const middle = section.current!.querySelector<HTMLElement>('.hero-title')!;
+      const middleRise = rise();
+      gsap.to(middle, {
+        yPercent: () => (middleRise() / middle.offsetHeight) * 100,
+        ease: 'none',
+        scrollTrigger: leaving,
+      });
 
       const { padding } = getComputedStyle(frame.current!);
       const { borderRadius } = getComputedStyle(section.current!);

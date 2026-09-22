@@ -74,6 +74,25 @@ const FooterHomepage = ({
       },
       0,
     );
+
+    // parallax: the name settles as the page bottoms out. The h2 left
+    // .footer-animation for this, a second tween on its yPercent would fight
+    // the scrub; the chars still carry its entrance
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    gsap.fromTo(
+      '.splitTextFooter',
+      { yPercent: 60 },
+      {
+        yPercent: 0,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '.father-animation-footer',
+          start: 'top bottom',
+          end: 'bottom bottom',
+          scrub: true,
+        },
+      },
+    );
   }, [copy]);
 
   return (
@@ -81,7 +100,7 @@ const FooterHomepage = ({
       <div className='p-6 md:p-12 lg:px-24 father-animation-footer'>
         <div className='bg-card shadow-lg inset-shadow-2xs rounded-2xl p-8 md:p-16'>
           <div className='border-border mb-6 border-b pb-6 text-left md:mb-12 md:pb-12 md:text-center'>
-            <h2 className='text-4xl font-bold font-title tracking-tight sm:text-5xl md:text-6xl lg:text-8xl xl:text-9xl footer-animation splitTextFooter'>
+            <h2 className='text-4xl font-bold font-title tracking-tight sm:text-5xl md:text-6xl lg:text-8xl xl:text-9xl splitTextFooter'>
               {footerData.heading}
             </h2>
           </div>
@@ -156,7 +175,9 @@ const FooterHomepage = ({
             {/* footer only: the hero nav stays about the page's own sections */}
             <a
               href='/components/'
-              className='text-muted-foreground hover:text-primary text-sm transition-colors footer-animation'
+              // a <button> centres its label on its own, a link needs telling;
+              // without it the grid cell left-aligns this one on mobile
+              className='text-center text-muted-foreground hover:text-primary text-sm transition-colors footer-animation'
             >
               Prisma UI
             </a>

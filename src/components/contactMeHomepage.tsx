@@ -83,9 +83,11 @@ const FLIP_MS = 700;
 
 const ContactMeForm = ({ copy }: { copy: ContactCopy }) => {
   const [status, setStatus] = useState<Status>('idle');
+  const grid = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
     gsap.registerPlugin(ScrollTrigger);
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     // tailwind's md
     const wide = window.matchMedia('(min-width: 48rem)').matches;
@@ -120,6 +122,24 @@ const ContactMeForm = ({ copy }: { copy: ContactCopy }) => {
         },
       });
     });
+
+    // parallax: the grid drifts slower than the form over it. It hangs 20%
+    // above the section so sliding down never shows its top edge; the mask
+    // already fades out the bottom one
+    gsap.fromTo(
+      grid.current,
+      { yPercent: -8 },
+      {
+        yPercent: 8,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: grid.current!.parentElement,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: true,
+        },
+      },
+    );
   }, [copy]);
 
   const { form } = copy;
@@ -327,9 +347,10 @@ const ContactMeForm = ({ copy }: { copy: ContactCopy }) => {
   );
 
   return (
-    <section id='contactMeHomepage' className='relative'>
+    <section id='contactMeHomepage' className='relative overflow-hidden'>
       <div
-        className='absolute inset-0 z-0'
+        ref={grid}
+        className='absolute inset-x-0 -top-[20%] bottom-0 z-0'
         style={{
           backgroundImage: `
         linear-gradient(to right, color-mix(in srgb, var(--color-primary) 10%, transparent) 1px, transparent 1px),
@@ -342,7 +363,9 @@ const ContactMeForm = ({ copy }: { copy: ContactCopy }) => {
             'radial-gradient(ellipse 70% 60% at 50% 0%, #000 60%, transparent 100%)',
         }}
       />
-      <div className='md:min-h-container p-6 md:p-12 mx-auto max-w-7xl flex justify-between items-center gap-6 md:gap-12 lg:gap-20 flex-col-reverse md:flex-row z-10 relative'>
+      {/* pb-16: the section hides overflow for the grid's parallax, which
+          would clip the card's shadow-2xl (it reaches ~63px down) */}
+      <div className='md:min-h-container p-6 pb-16 md:p-12 md:pb-16 mx-auto max-w-7xl flex justify-between items-center gap-6 md:gap-12 lg:gap-20 flex-col-reverse md:flex-row z-10 relative'>
         <form
           onSubmit={handleSubmit(enviaEmail)}
           // focus and select both bubble, so the four fields are covered once
