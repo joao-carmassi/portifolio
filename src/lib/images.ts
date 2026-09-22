@@ -39,14 +39,19 @@ type Options = {
   widths: number[];
   /**
    * Last one is the <img> fallback, the ones before it become <source>s.
-   * webp alone by default: the site's images are UI screenshots and scanned
-   * documents, and avif came out 15-35% *larger* than webp at every width for
-   * all nine of them. Photographs are the other way round — pass
-   * ['avif', 'webp'] for those.
+   * avif first, webp for browsers without it.
    */
   formats?: [Format, ...Format[]];
+  /** one value for every format; leave it out to get DEFAULT_QUALITY per format */
   quality?: number;
 };
+
+/*
+ * The scales don't line up: avif at 82 is near-lossless and came out 15-35%
+ * larger than webp at 82 on these screenshots. At 70 it weighs about what webp
+ * 82 does (60 was 25% lighter) and looks sharper.
+ */
+const DEFAULT_QUALITY: Partial<Record<Format, number>> = { avif: 70, webp: 82 };
 
 /**
  * `sizes` is deliberately not here: widths are a build-time decision, sizes a
@@ -55,7 +60,7 @@ type Options = {
  */
 export const picture = async (
   key: string,
-  { widths, formats = ['webp'], quality = 82 }: Options,
+  { widths, formats = ['avif', 'webp'], quality }: Options,
 ): Promise<OptimizedImage> => {
   const src = byKey[key];
   if (!src) {
@@ -71,7 +76,13 @@ export const picture = async (
 
   const built = await Promise.all(
     formats.map(async (format) => {
-      const image = await getImage({ src, width, widths: useWidths, format, quality });
+      const image = await getImage({
+        src,
+        width,
+        widths: useWidths,
+        format,
+        quality: quality ?? DEFAULT_QUALITY[format] ?? 82,
+      });
       return {
         type: `image/${format}`,
         src: image.src,

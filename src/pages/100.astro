@@ -113,8 +113,9 @@ const docImages = await pictures(
 // stills of the hero's shader: its first frame is ~800ms of main thread
 const heroGrain = await pictures(
   ['/hero/grain.webp', '/hero/grain-portrait.webp'],
-  // grain is noise, which webp spends bytes on; 50 keeps the look at a third
-  { widths: [640, 960, 1280, 1728], quality: 50 },
+  // grain is noise, which webp spends bytes on; 50 keeps the look at a third.
+  // webp only: the hero's art-directed <picture> has no slot for a type source
+  { widths: [640, 960, 1280, 1728], formats: ['webp'], quality: 50 },
 );
 const heroBackground = {
   landscape: heroGrain['/hero/grain.webp'],
