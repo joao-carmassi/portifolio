@@ -85,13 +85,13 @@ const HeroHomepage = ({
         { yPercent: 0, scale: 1.15, transformOrigin: '50% 100%' },
         { yPercent: 15, ease: 'none', scrollTrigger: leaving },
       );
-      // extra rise, as a share of the frame's height: 0.3 leaves at 1.3x the
+      // extra rise, as a share of the frame's height: 0.2 leaves at 1.2x the
       // scroll. Each layer draws its own share from a narrow band, so they
       // leave almost together with a few lagging or running ahead, instead
       // of in order. The intro owns yPercent on .hero-entry and y on
       // .hero-title, so each layer scrubs the other one
       const rise = () => {
-        const share = gsap.utils.random(0.18, 0.38);
+        const share = gsap.utils.random(0.14, 0.2);
         return () => -share * frame.current!.offsetHeight;
       };
       gsap.utils

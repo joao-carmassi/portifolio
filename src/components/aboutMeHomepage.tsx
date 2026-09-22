@@ -157,10 +157,10 @@ const AboutMeHomepage = ({
       // drift just reads as jitter
       if (!wide) return;
       [
-        { selector: '.about-card-top', from: 25, to: -25 },
-        { selector: '.about-media-right', from: -8, to: 8 },
-        { selector: '.about-media-left', from: 8, to: -8 },
-        { selector: '.about-card-bottom', from: -25, to: 25 },
+        { selector: '.about-card-top', from: 16, to: -16 },
+        { selector: '.about-media-right', from: -6, to: 6 },
+        { selector: '.about-media-left', from: 6, to: -6 },
+        { selector: '.about-card-bottom', from: -16, to: 16 },
       ].forEach(({ selector, from, to }) => {
         gsap.fromTo(
           selector,
