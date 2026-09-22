@@ -314,11 +314,11 @@ const EmCodigo = ({ script }: { script: Script }) => (
 // brand names never translate; `script.tools` holds what each one is for, in
 // the same order
 const TOOLS: { icon: SimpleIcon; name: string }[] = [
-  { icon: siAstro, name: 'Astro' },
-  { icon: siReact, name: 'React' },
   { icon: siNextdotjs, name: 'Next.js' },
   { icon: siTypescript, name: 'TypeScript' },
   { icon: siTailwindcss, name: 'Tailwind' },
+  { icon: siReact, name: 'React' },
+  { icon: siAstro, name: 'Astro' },
   { icon: siGreensock, name: 'GSAP' },
 ];
 

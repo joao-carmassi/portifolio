@@ -26,7 +26,7 @@
   "videos": {
     "quem-sou-eu": {
       "title": "Quem sou eu",
-      "srText": "Animação de cerca de 34 segundos em oito cenas. Abre com o nome João Vitor Carmassi e a legenda \"desenvolvedor front-end\". Em seguida, um polaroid com a foto dele e duas etiquetas: \"nascido em são paulo, 2004\" e \"mora em são bento do sapucaí\". Depois, uma foto aérea da Pedra do Baú saindo das nuvens, com a legenda \"pedra do baú\" e as frases \"da serra de são bento\", \"para o mundo todo\" e \"100% remoto\". Na sequência, a lista de idiomas: português nativo, inglês C1 e espanhol B2. Um editor de código mostra o objeto joao com nome, base em São Bento do Sapucaí, idiomas inglês C1 e espanhol B2, e foco em front-end. Sob o rótulo \"no dia a dia\" aparecem seis cartões com as ferramentas e para que ele usa cada uma: Astro para sites, React para interfaces, Next.js para aplicações, TypeScript para tipagem, Tailwind para estilo e GSAP para animação. A cena \"fora do código\" traz as etiquetas trilhas, viajar de moto, música, games e filmes. Fecha com a assinatura \"joão.\" sublinhada e o endereço github.com/joao-carmassi.",
+      "srText": "Animação de cerca de 34 segundos em oito cenas. Abre com o nome João Vitor Carmassi e a legenda \"desenvolvedor front-end\". Em seguida, um polaroid com a foto dele e duas etiquetas: \"nascido em são paulo, 2004\" e \"mora em são bento do sapucaí\". Depois, uma foto aérea da Pedra do Baú saindo das nuvens, com a legenda \"pedra do baú\" e as frases \"da serra de são bento\", \"para o mundo todo\" e \"100% remoto\". Na sequência, a lista de idiomas: português nativo, inglês C1 e espanhol B2. Um editor de código mostra o objeto joao com nome, base em São Bento do Sapucaí, idiomas inglês C1 e espanhol B2, e foco em front-end. Sob o rótulo \"no dia a dia\" aparecem seis cartões com as ferramentas e para que ele usa cada uma: Next.js para aplicações, TypeScript para tipagem, Tailwind para estilo, React para interfaces, Astro para sites e GSAP para animação. A cena \"fora do código\" traz as etiquetas trilhas, viajar de moto, música, games e filmes. Fecha com a assinatura \"joão.\" sublinhada e o endereço github.com/joao-carmassi.",
       "script": {
         "subtitle": "desenvolvedor front-end",
         "stickers": {
@@ -44,11 +44,11 @@
         "code": "const joao = {\n  nome: 'João Vitor Carmassi',\n  base: 'São Bento do Sapucaí, SP',\n  idiomas: { ingles: 'C1', espanhol: 'B2' },\n  foco: 'front-end',\n};",
         "toolsLabel": "no dia a dia",
         "tools": {
-          "0": "sites",
-          "1": "interfaces",
-          "2": "aplicações",
-          "3": "tipagem",
-          "4": "estilo",
+          "0": "aplicações",
+          "1": "tipagem",
+          "2": "estilo",
+          "3": "interfaces",
+          "4": "sites",
           "5": "animação"
         },
         "offLabel": "fora do código",

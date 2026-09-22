@@ -26,7 +26,7 @@
   "videos": {
     "quem-sou-eu": {
       "title": "Who I am",
-      "srText": "An animation of about 34 seconds in eight scenes. It opens with the name João Vitor Carmassi and the caption \"front-end developer\". Then a polaroid with his photo and two labels: \"born in são paulo, 2004\" and \"lives in são bento do sapucaí\". Next, an aerial photo of Pedra do Baú coming out of the clouds, with the caption \"pedra do baú\" and the lines \"from the hills of são bento\", \"to the whole world\" and \"100% remote\". After that, the list of languages: native Portuguese, English C1 and Spanish B2. A code editor shows the joao object with his name, based in São Bento do Sapucaí, languages English C1 and Spanish B2, and a front-end focus. Under the label \"day to day\" six cards appear with the tools and what he uses each one for: Astro for websites, React for interfaces, Next.js for applications, TypeScript for typing, Tailwind for styling and GSAP for animation. The \"outside the code\" scene brings the labels hiking, motorcycle trips, music, games and movies. It closes with the signature \"joão.\" underlined and the address github.com/joao-carmassi.",
+      "srText": "An animation of about 34 seconds in eight scenes. It opens with the name João Vitor Carmassi and the caption \"front-end developer\". Then a polaroid with his photo and two labels: \"born in são paulo, 2004\" and \"lives in são bento do sapucaí\". Next, an aerial photo of Pedra do Baú coming out of the clouds, with the caption \"pedra do baú\" and the lines \"from the hills of são bento\", \"to the whole world\" and \"100% remote\". After that, the list of languages: native Portuguese, English C1 and Spanish B2. A code editor shows the joao object with his name, based in São Bento do Sapucaí, languages English C1 and Spanish B2, and a front-end focus. Under the label \"day to day\" six cards appear with the tools and what he uses each one for: Next.js for applications, TypeScript for typing, Tailwind for styling, React for interfaces, Astro for websites and GSAP for animation. The \"outside the code\" scene brings the labels hiking, motorcycle trips, music, games and movies. It closes with the signature \"joão.\" underlined and the address github.com/joao-carmassi.",
       "script": {
         "subtitle": "front-end developer",
         "stickers": {
@@ -44,11 +44,11 @@
         "code": "const joao = {\n  name: 'João Vitor Carmassi',\n  base: 'São Bento do Sapucaí, SP',\n  languages: { english: 'C1', spanish: 'B2' },\n  focus: 'front-end',\n};",
         "toolsLabel": "day to day",
         "tools": {
-          "0": "websites",
-          "1": "interfaces",
-          "2": "applications",
-          "3": "typing",
-          "4": "styling",
+          "0": "applications",
+          "1": "typing",
+          "2": "styling",
+          "3": "interfaces",
+          "4": "websites",
           "5": "animation"
         },
         "offLabel": "outside the code",
