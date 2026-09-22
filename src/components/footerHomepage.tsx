@@ -49,7 +49,7 @@ const FooterHomepage = ({
         // the original used 'top 60%', but here the footer is the last element on
         // the page: it never rises that far, the trigger never fires and the
         // from() tweens leave the whole footer at opacity 0 on desktop
-        start: 'top 85%',
+        start: 'top 80%',
       },
     });
 
@@ -97,8 +97,8 @@ const FooterHomepage = ({
 
   return (
     <footer id='footerHomepage'>
-      <div className='p-6 md:p-12 lg:px-24 father-animation-footer'>
-        <div className='bg-card shadow-lg inset-shadow-2xs rounded-2xl p-8 md:p-16'>
+      <div className='p-6 md:p-12 lg:px-24'>
+        <div className='bg-card shadow-lg inset-shadow-2xs rounded-2xl p-8 md:p-16 father-animation-footer'>
           <div className='border-border mb-6 border-b pb-6 text-left md:mb-12 md:pb-12 md:text-center'>
             <h2 className='text-4xl font-bold font-title tracking-tight sm:text-5xl md:text-6xl lg:text-8xl xl:text-9xl splitTextFooter'>
               {footerData.heading}
