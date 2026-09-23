@@ -145,7 +145,7 @@ const Origem = ({ images, script }: Props) => (
     <SoftVignette />
     <Drift grow={0.05}>
       <div style={{ position: 'absolute', left: 340, top: 83 }}>
-        {/* portrait window, to match the 2:3 photo instead of cropping it */}
+        {/* portrait window, to match the 4:5 photo instead of cropping it */}
         <Polaroid
           width={500}
           mediaRatio={4 / 5}
