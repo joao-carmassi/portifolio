@@ -142,14 +142,7 @@ const AboutVideo = ({
   );
 };
 
-const AboutMeHomepage = ({
-  copy,
-  videos = true,
-}: {
-  copy: AboutCopy;
-  /** false leaves the two cards plain black, for the lighter /100 */
-  videos?: boolean;
-}) => {
+const AboutMeHomepage = ({ copy }: { copy: AboutCopy }) => {
   const section = useRef<HTMLElement>(null);
   // null until mounted: the video only renders once matchMedia has answered
   const [reduced, setReduced] = useState<boolean | null>(null);
@@ -245,14 +238,12 @@ const AboutMeHomepage = ({
                     : 'about-media-left lg:col-span-2 lg:self-start'
                 }
               >
-                {videos && reduced !== null && (
+                {reduced !== null && (
                   <AboutVideo copy={copy.videos[id]} reduced={reduced} />
                 )}
-                {videos && (
-                  <figcaption className='sr-only'>
-                    {title}. {srText}
-                  </figcaption>
-                )}
+                <figcaption className='sr-only'>
+                  {title}. {srText}
+                </figcaption>
               </MediaCard>
             );
           })}

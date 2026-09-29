@@ -26,7 +26,7 @@ import { pictures } from '@/lib/images';
 
 // the same page as /pt/ minus the hero's entrance animation, which holds the
 // content back for seconds and sinks lighthouse's performance score, the
-// liquid-glass scroll pill, the videos in the about section and the
+// liquid-glass scroll pill and the
 // hero's animated shader, swapped for a still. Its
 // canonical still points at /pt/, so search engines treat it as that page
 const lang: Lang = FALLBACK;
@@ -164,7 +164,7 @@ const visible = { rootMargin: '400px' };
     set:html={serialize(jsonLd)}
     slot='head'
   />
-  <StickyNav client:load lang={lang} copy={m.nav} pill={false} />
+  <StickyNav client:load lang={lang} copy={m.nav} pill='simple' />
   <ThemeCord client:idle copy={m.nav} />
   <main class='flex flex-col'>
     <div class='min-h-svh flex'>
@@ -177,11 +177,7 @@ const visible = { rootMargin: '400px' };
         background={heroBackground}
       />
     </div>
-    <AboutMeHomepage
-      client:visible={visible}
-      copy={m.about}
-      videos={false}
-    />
+    <AboutMeHomepage client:visible={visible} copy={m.about} />
     <DocumentosHomepage
       client:visible={visible}
       copy={m.docs}

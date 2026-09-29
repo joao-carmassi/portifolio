@@ -20,8 +20,9 @@ const StickyNav = ({
 }: {
   lang: Lang;
   copy: NavCopy;
-  /** false: no glass, no scroll reveal; the bar only shows to close the menu */
-  pill?: boolean;
+  /** false: no glass, no scroll reveal; the bar only shows to close the menu.
+   *  'simple': plain CSS glass, never loads liquid-glass-react */
+  pill?: boolean | 'simple';
 }) => {
   const [shown, setShown] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -104,7 +105,14 @@ const StickyNav = ({
           fixed layer leaves both rooted at the page. */}
       {/* the lib's rim spans blend (screen/overlay) as siblings of the glass,
           which makes this layer a backdrop root; forced back to normal */}
-      {pill && (
+      {pill === 'simple' && (
+        <div
+          className={`${LAYER} z-40 h-14 rounded-full border border-white/40 bg-white/10 shadow-[0_8px_32px_rgb(0_0_0/0.12),inset_0_1px_0_rgb(255_255_255/0.5)] backdrop-blur-xl backdrop-saturate-150`}
+          aria-hidden
+          inert
+        />
+      )}
+      {pill === true && (
         <div
           className={`${LAYER} z-40 h-14 **:mix-blend-normal!`}
           aria-hidden
