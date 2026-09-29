@@ -1,0 +1,7 @@
+PESSOAL (pt): Aperta start: dev front-end nascido em SP, base na Pedra do Baú, inglês C1, espanhol B2 e um inventário de trilhas, moto, games e código. github.com/joao-carmassi
+PESSOAL (en): Press start: front-end dev born in São Paulo, based under Pedra do Baú, English C1, Spanish B2, and an inventory of trails, motorcycle trips, games and code. github.com/joao-carmassi
+PESSOAL (es): Pulsa start: dev front-end nacido en São Paulo, con base bajo la Pedra do Baú, inglés C1, español B2 y un inventario de senderos, moto, videojuegos y código. github.com/joao-carmassi
+
+PROFISSIONAL (pt): Do rascunho até o ar: sites institucionais, e-commerce, mapas interativos e dashboards SaaS em Next.js, React e Astro, com GSAP e SEO desde o primeiro dia.
+PROFISSIONAL (en): From sketch to live: business websites, e-commerce, interactive maps and SaaS dashboards in Next.js, React and Astro, with GSAP motion and SEO from day one.
+PROFISSIONAL (es): Del boceto a la web: sitios institucionales, e-commerce, mapas interactivos y dashboards SaaS con Next.js, React y Astro, animación GSAP y SEO desde el primer día.

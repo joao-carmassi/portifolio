@@ -1,0 +1,549 @@
+<!doctype html>
+<html
+  lang="pt"
+  data-composition-variables='[{"id":"lang","type":"string","label":"Language (pt|en|es)","default":"pt"},{"id":"audio","type":"string","label":"Audio (on|off)","default":"on"}]'
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=820" />
+    <script src="assets/gsap.min.js"></script>
+    <script src="assets/icons.js"></script>
+    <style>
+      @font-face { font-family: 'DM Serif Display'; src: url(assets/fonts/dmserif.woff2) format('woff2'); font-display: block; }
+      @font-face { font-family: 'Raleway'; src: url(assets/fonts/raleway.woff2) format('woff2'); font-weight: 400 800; font-display: block; }
+      @font-face { font-family: 'Geist Mono'; src: url(assets/fonts/geistmono.woff2) format('woff2'); font-weight: 400 600; font-display: block; }
+
+      :root {
+        --bg: #0a0a0f;
+        --ink: #f5f3ff;
+        --muted: #9a97b0;
+        --line: rgba(255, 255, 255, 0.09);
+        --glass: rgba(255, 255, 255, 0.045);
+        --violet: #7c3aed;
+        --lilac: #c4b5fd;
+        --pink: #eba8ff;
+        --cyan: #38bdf8;
+        --green: #4ade80;
+        --serif: 'DM Serif Display', Georgia, serif;
+        --sans: 'Raleway', system-ui, sans-serif;
+        --mono: 'Geist Mono', ui-monospace, monospace;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1920px; height: 820px; overflow: hidden; background: var(--bg); }
+      #root { position: relative; width: 1920px; height: 820px; overflow: hidden; color: var(--ink); font-family: var(--sans); }
+      .layer { position: absolute; inset: 0; }
+      .scene { position: absolute; inset: 0; }
+      .mono { font-family: var(--mono); text-transform: uppercase; letter-spacing: 0.28em; }
+      .hide { opacity: 0; }
+
+      #bg {
+        background:
+          radial-gradient(60% 80% at 15% 0%, rgba(124, 58, 237, 0.22), transparent 60%),
+          radial-gradient(55% 75% at 95% 100%, rgba(56, 189, 248, 0.12), transparent 60%),
+          var(--bg);
+      }
+      #dots {
+        position: absolute; left: -40px; top: -40px; width: 2040px; height: 920px;
+        background-image: radial-gradient(rgba(255, 255, 255, 0.11) 1.2px, transparent 1.4px);
+        background-size: 32px 32px;
+        -webkit-mask-image: radial-gradient(70% 80% at 50% 50%, #000 20%, transparent 100%);
+        mask-image: radial-gradient(70% 80% at 50% 50%, #000 20%, transparent 100%);
+      }
+
+      /* ---------- hook sketch ---------- */
+      #sketch { position: absolute; inset: 0; }
+      #pointer { position: absolute; left: 0; top: 0; width: 34px; height: 34px; filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.5)); }
+
+      /* ---------- window ---------- */
+      #win { position: absolute; left: 370px; top: 100px; width: 1180px; height: 620px; border-radius: 22px; background: rgba(18, 17, 26, 0.92); border: 1px solid rgba(255, 255, 255, 0.12); box-shadow: 0 50px 140px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(124, 58, 237, 0.15); overflow: hidden; }
+      #chrome { position: absolute; left: 0; right: 0; top: 0; height: 56px; display: flex; align-items: center; gap: 10px; padding: 0 22px; border-bottom: 1px solid var(--line); background: rgba(255, 255, 255, 0.03); }
+      .dot { width: 13px; height: 13px; border-radius: 50%; background: rgba(255, 255, 255, 0.16); }
+      #url { position: relative; margin-left: 24px; width: 520px; height: 32px; border-radius: 10px; background: rgba(255, 255, 255, 0.05); font-family: var(--mono); font-size: 16px; color: var(--muted); }
+      #url span { position: absolute; left: 16px; top: 7px; white-space: nowrap; }
+      #content { position: absolute; left: 0; right: 0; top: 56px; bottom: 0; }
+      .view { position: absolute; inset: 0; padding: 28px; opacity: 0; }
+      .blk { position: absolute; border-radius: 10px; background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.06); }
+      .bar { position: absolute; height: 12px; border-radius: 6px; background: rgba(255, 255, 255, 0.16); }
+      .acc { background: linear-gradient(110deg, var(--violet), var(--cyan)); border: 0; }
+
+      /* hook text */
+      #hookText { position: absolute; left: 0; right: 0; top: 200px; text-align: center; font-family: var(--serif); font-size: 96px; line-height: 1; }
+      #hookText .w { display: inline-block; }
+
+      /* code */
+      #code { position: absolute; left: 40px; top: 38px; font-family: var(--mono); font-size: 27px; line-height: 50px; white-space: pre; }
+      .ln { position: relative; display: block; }
+      .ln .n { display: inline-block; width: 54px; color: rgba(255, 255, 255, 0.38); }
+      .ln .t { display: inline-block; }
+      .k { color: #c792ea; } .f { color: #82aaff; } .s { color: #c3e88d; } .tg { color: #f07178; } .a { color: #ffcb6b; } .p { color: #89ddff; }
+      #caret { position: absolute; width: 14px; height: 32px; background: var(--pink); opacity: 0; }
+
+      /* right-hand panel */
+      #panel { position: absolute; left: 1330px; top: 0; width: 520px; height: 820px; }
+      .pv { position: absolute; left: 0; top: 0; width: 520px; opacity: 0; }
+      .kick { font-size: 20px; color: var(--pink); }
+      .ptitle { font-family: var(--serif); font-size: 70px; line-height: 1; margin-top: 18px; }
+      .psub { font-family: var(--mono); font-size: 19px; letter-spacing: 0.06em; color: var(--muted); margin-top: 22px; line-height: 1.5; }
+
+      /* stack grid */
+      #stackGrid { position: absolute; left: 1330px; top: 190px; width: 480px; height: 480px; }
+      .tile { position: absolute; width: 138px; height: 138px; border-radius: 30px; background: var(--glass); border: 1px solid rgba(255, 255, 255, 0.12); display: grid; place-items: center; }
+      .tile svg, .tile img { width: 62px; height: 62px; }
+      .tile .nm { position: absolute; bottom: -30px; left: -20px; right: -20px; text-align: center; font-family: var(--mono); font-size: 15px; letter-spacing: 0.06em; color: var(--muted); }
+      #stackKick { position: absolute; left: 1330px; top: 118px; }
+
+      /* ecommerce */
+      .price { position: absolute; font-family: var(--mono); font-size: 14px; color: var(--green); }
+      .badge { position: absolute; padding: 4px 10px; border-radius: 6px; background: var(--green); color: #052e16; font-family: var(--mono); font-size: 14px; font-weight: 600; }
+      /* map */
+      .pinx { position: absolute; width: 30px; height: 30px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); background: var(--pink); box-shadow: 0 6px 14px rgba(0, 0, 0, 0.5); }
+      .pinx::after { content: ''; position: absolute; left: 9px; top: 9px; width: 12px; height: 12px; border-radius: 50%; background: #1a1325; }
+      .open { position: absolute; font-family: var(--mono); font-size: 13px; color: var(--green); letter-spacing: 0.04em; }
+      .open::before { content: '●'; margin-right: 6px; }
+      /* dashboard */
+      .kpi { position: absolute; top: 28px; width: 290px; height: 130px; border-radius: 16px; background: var(--glass); border: 1px solid rgba(255, 255, 255, 0.1); padding: 20px 24px; }
+      .kpi b { display: block; font-family: var(--serif); font-size: 52px; font-weight: 400; line-height: 1; }
+      .kpi span { display: block; margin-top: 12px; font-family: var(--mono); font-size: 15px; letter-spacing: 0.08em; color: var(--muted); text-transform: uppercase; }
+      .barc { position: absolute; bottom: 30px; width: 30px; border-radius: 6px 6px 2px 2px; background: linear-gradient(180deg, var(--cyan), var(--violet)); transform-origin: 50% 100%; }
+
+      /* serp */
+      #search { position: absolute; left: 60px; top: 34px; width: 760px; height: 60px; border-radius: 30px; border: 1px solid rgba(255, 255, 255, 0.18); background: rgba(255, 255, 255, 0.05); }
+      #query { position: absolute; left: 60px; top: 15px; font-family: var(--mono); font-size: 24px; white-space: nowrap; }
+      .res { position: absolute; left: 60px; top: 130px; width: 820px; height: 96px; border-radius: 14px; padding: 14px 20px; }
+      .res.me { background: rgba(124, 58, 237, 0.16); border: 1px solid rgba(196, 181, 253, 0.55); box-shadow: 0 0 40px rgba(124, 58, 237, 0.3); }
+      .res .u { position: absolute; left: 20px; top: 14px; width: 200px; height: 10px; border-radius: 5px; background: rgba(74, 222, 128, 0.45); }
+      .res .h { position: absolute; left: 20px; top: 34px; width: 460px; height: 18px; border-radius: 6px; background: rgba(130, 170, 255, 0.55); }
+      .res .d { position: absolute; left: 20px; height: 9px; border-radius: 5px; background: rgba(255, 255, 255, 0.14); }
+      .rank { position: absolute; right: 18px; top: 26px; font-family: var(--serif); font-size: 40px; color: var(--lilac); }
+
+      /* rings */
+      .ring { position: absolute; width: 190px; text-align: center; }
+      .ring svg { width: 150px; height: 150px; }
+      .ring .num { position: absolute; left: 0; right: 0; top: 50px; height: 50px; overflow: hidden; font-family: var(--serif); font-size: 46px; line-height: 50px; }
+      .ring .num .strip { position: absolute; left: 0; right: 0; top: 0; }
+      .ring .lb { margin-top: 10px; font-family: var(--mono); font-size: 15px; letter-spacing: 0.06em; color: var(--muted); text-transform: uppercase; }
+
+      /* motion panel */
+      #curveBox { position: absolute; left: 0; top: 262px; width: 330px; height: 330px; border-radius: 22px; background: var(--glass); border: 1px solid rgba(255, 255, 255, 0.1); }
+      #prismaBtn { position: absolute; left: 0; top: 622px; width: 400px; height: 64px; border-radius: 999px; background: var(--ink); color: #0a0a0f; font-weight: 700; font-size: 22px; display: grid; place-items: center; overflow: hidden; }
+      #shine { position: absolute; top: -20px; left: 0; width: 90px; height: 110px; background: linear-gradient(90deg, transparent, rgba(124, 58, 237, 0.55), transparent); transform: skewX(-20deg); }
+
+      /* outro */
+      #outro { position: absolute; inset: 0; text-align: center; }
+      #oName { position: absolute; left: 0; right: 0; top: 196px; font-family: var(--serif); font-size: 150px; line-height: 1; opacity: 0; }
+      #oRole { position: absolute; left: 0; right: 0; top: 392px; font-size: 26px; color: var(--lilac); opacity: 0; }
+      #oCta { position: absolute; left: 50%; top: 500px; padding: 20px 40px; border-radius: 999px; background: var(--ink); color: #0a0a0f; font-size: 26px; font-weight: 700; opacity: 0; white-space: nowrap; }
+      #oStack { position: absolute; left: 0; right: 0; top: 632px; font-family: var(--mono); font-size: 18px; letter-spacing: 0.2em; color: var(--muted); opacity: 0; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="profissional" data-start="0" data-duration="23" data-width="1920" data-height="820">
+      <div id="bg" class="layer"><div id="dots"></div></div>
+
+      <div id="main" class="scene clip" data-start="0" data-duration="23" data-track-index="1">
+        <svg id="sketch" viewBox="0 0 1920 820">
+          <path id="sketchPath" d="M372 104 C 620 92, 900 118, 1180 98 S 1520 108, 1548 100 C 1558 260, 1532 420, 1556 560 S 1546 700, 1552 718 C 1300 730, 1000 706, 760 724 S 420 712, 368 722 C 380 580, 354 420, 374 260 S 366 140, 372 104 Z" fill="none" stroke="#eba8ff" stroke-width="4" stroke-linecap="round" stroke-dasharray="3600" stroke-dashoffset="3600" />
+        </svg>
+
+        <div id="win" class="hide">
+          <div id="chrome">
+            <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+            <div id="url"></div>
+          </div>
+          <div id="content">
+            <div class="view" id="vHook"><div id="hookText"></div></div>
+            <div class="view" id="vCode"><div id="code"></div><div id="caret"></div></div>
+            <div class="view" id="vL1"></div>
+            <div class="view" id="vL2"></div>
+            <div class="view" id="vL3"></div>
+            <div class="view" id="vL4"></div>
+            <div class="view" id="vSerp"></div>
+          </div>
+        </div>
+
+        <div id="stackKick" class="kick mono hide">stack</div>
+        <div id="stackGrid"></div>
+        <div id="panel"></div>
+
+        <div id="outro">
+          <div id="oName">João Carmassi</div>
+          <div id="oRole" class="mono"></div>
+          <div id="oCta"></div>
+          <div id="oStack">next.js · react · typescript · astro · gsap</div>
+        </div>
+
+        <svg id="pointer" viewBox="0 0 24 24"><path d="M4 2 L4 20 L9 15.5 L12.5 22 L15.5 20.6 L12 14 L19 14 Z" fill="#f5f3ff" stroke="#0a0a0f" stroke-width="1.4" stroke-linejoin="round" /></svg>
+      </div>
+
+      <audio id="music" class="clip" src="assets/music.mp3" data-start="0" data-duration="23" data-volume="0.5" data-fade-out="1.6"></audio>
+      <audio id="sfxSnap" class="clip" src="assets/sfx/select_008.ogg" data-start="1.3" data-duration="0.6" data-volume="0.55"></audio>
+      <audio id="sfxKey1" class="clip" src="assets/sfx/keypress-001.wav" data-start="3.5" data-duration="0.3" data-volume="0.25"></audio>
+      <audio id="sfxKey2" class="clip" src="assets/sfx/keypress-004.wav" data-start="3.9" data-duration="0.3" data-volume="0.25"></audio>
+      <audio id="sfxKey3" class="clip" src="assets/sfx/keypress-007.wav" data-start="4.3" data-duration="0.3" data-volume="0.25"></audio>
+      <audio id="sfxKey4" class="clip" src="assets/sfx/keypress-001.wav" data-start="4.7" data-duration="0.3" data-volume="0.25"></audio>
+      <audio id="sfxStack" class="clip" src="assets/sfx/card-slide-2.ogg" data-start="5.2" data-duration="0.6" data-volume="0.45"></audio>
+      <audio id="sfxL1" class="clip" src="assets/sfx/switch3.ogg" data-start="7.15" data-duration="0.5" data-volume="0.4"></audio>
+      <audio id="sfxL2" class="clip" src="assets/sfx/switch7.ogg" data-start="8.85" data-duration="0.5" data-volume="0.4"></audio>
+      <audio id="sfxL3" class="clip" src="assets/sfx/switch3.ogg" data-start="10.55" data-duration="0.5" data-volume="0.4"></audio>
+      <audio id="sfxL4" class="clip" src="assets/sfx/switch7.ogg" data-start="12.25" data-duration="0.5" data-volume="0.4"></audio>
+      <audio id="sfxRank" class="clip" src="assets/sfx/drop_002.ogg" data-start="17.3" data-duration="0.5" data-volume="0.45"></audio>
+      <audio id="sfxHundred" class="clip" src="assets/sfx/bong_001.ogg" data-start="19.0" data-duration="0.8" data-volume="0.45"></audio>
+      <audio id="sfxCta" class="clip" src="assets/sfx/click2.ogg" data-start="21.3" data-duration="0.4" data-volume="0.5"></audio>
+    </div>
+
+    <script>
+      const STRINGS = {
+        pt: {
+          hook: 'do rascunho até o ar.',
+          layouts: [
+            ['sites institucionais', 'refúgio da pedra · dr. jean almeida'],
+            ['e-commerce', 'loja do vrf'],
+            ['mapas interativos', 'mapa turístico de são bento'],
+            ['SaaS & dashboards', 'quotation factory · higgx'],
+          ],
+          motionTitle: 'animação com GSAP', motionSub: 'componentes da prisma ui', prismaBtn: 'Me conta seu projeto',
+          seoTitle: 'SEO desde o primeiro dia', query: 'site institucional',
+          rings: ['performance', 'acessibilidade', 'boas práticas', 'SEO'],
+          open: 'aberto agora', places: '40+ lugares', pix: 'PIX −7%',
+          kpis: [['281k+', 'orçamentos'], ['1.200+', 'usuários'], ['30+', 'formatos CAD']],
+          role: 'desenvolvedor front-end', cta: 'me conta seu projeto →',
+        },
+        en: {
+          hook: 'from sketch to live.',
+          layouts: [
+            ['business websites', 'refúgio da pedra · dr. jean almeida'],
+            ['e-commerce', 'loja do vrf'],
+            ['interactive maps', 'são bento tourist map'],
+            ['SaaS & dashboards', 'quotation factory · higgx'],
+          ],
+          motionTitle: 'GSAP animation', motionSub: 'prisma ui components', prismaBtn: 'Tell me about your project',
+          seoTitle: 'SEO from day one', query: 'business website',
+          rings: ['performance', 'accessibility', 'best practices', 'SEO'],
+          open: 'open now', places: '40+ places', pix: 'PIX −7%',
+          kpis: [['281k+', 'quotes'], ['1,200+', 'users'], ['30+', 'CAD formats']],
+          role: 'front-end developer', cta: 'tell me about your project →',
+        },
+        es: {
+          hook: 'del boceto a la web.',
+          layouts: [
+            ['sitios institucionales', 'refúgio da pedra · dr. jean almeida'],
+            ['e-commerce', 'loja do vrf'],
+            ['mapas interactivos', 'mapa turístico de são bento'],
+            ['SaaS y dashboards', 'quotation factory · higgx'],
+          ],
+          motionTitle: 'animación con GSAP', motionSub: 'componentes de prisma ui', prismaBtn: 'Cuéntame tu proyecto',
+          seoTitle: 'SEO desde el primer día', query: 'sitio web institucional',
+          rings: ['rendimiento', 'accesibilidad', 'buenas prácticas', 'SEO'],
+          open: 'abierto ahora', places: '40+ lugares', pix: 'PIX −7%',
+          kpis: [['281k+', 'presupuestos'], ['1.200+', 'usuarios'], ['30+', 'formatos CAD']],
+          role: 'desarrollador front-end', cta: 'cuéntame tu proyecto →',
+        },
+      };
+
+      const vars = (window.__hyperframes && window.__hyperframes.getVariables && window.__hyperframes.getVariables()) || {};
+      const lang = STRINGS[vars.lang] ? vars.lang : 'pt';
+      const T = STRINGS[lang];
+      document.documentElement.lang = lang;
+      if (vars.audio === 'off') document.querySelectorAll('audio').forEach((a) => a.remove());
+
+      const $ = (s) => document.querySelector(s);
+      const $$ = (s, root = document) => Array.from(root.querySelectorAll(s));
+      const el = (parent, cls, style = {}, html = '') => {
+        const d = document.createElement('div');
+        d.className = cls;
+        Object.assign(d.style, style);
+        if (html) d.innerHTML = html;
+        parent.appendChild(d);
+        return d;
+      };
+      const px = (n) => n + 'px';
+      const box = (parent, x, y, w, h, cls = 'blk', extra = {}) =>
+        el(parent, cls + ' part', { left: px(x), top: px(y), width: px(w), height: px(h), ...extra });
+
+      // ---------- url bar: one span per view, swapped by opacity ----------
+      const URLS = ['localhost:4321', 'site.tsx', 'refugiodapedrasp.com', 'lojadovrf.com.br', 'mapaturisticosaobento.com', 'quotationfactory.com', 'google.com/search'];
+      const urlSpans = URLS.map((u) => el($('#url'), '', {}, '')).map((s, i) => ((s.textContent = URLS[i]), s));
+      urlSpans.forEach((s) => { s.style.position = 'absolute'; s.style.left = '16px'; s.style.top = '7px'; s.style.opacity = 0; });
+
+      // ---------- hook ----------
+      $('#hookText').innerHTML = T.hook.split(' ').map((w) => `<span class="w">${w}</span>`).join(' ');
+
+      // ---------- code ----------
+      const CODE = [
+        '<span class="k">export default function</span> <span class="f">Site</span><span class="p">() {</span>',
+        '  <span class="k">const</span> <span class="p">{</span> data <span class="p">}</span> = <span class="f">useQuery</span><span class="p">(</span>projetos<span class="p">);</span>',
+        '  <span class="k">return</span> <span class="p">(</span>',
+        '    <span class="p">&lt;</span><span class="tg">main</span> <span class="a">className</span>=<span class="s">"grid gap-6"</span><span class="p">&gt;</span>',
+        '      <span class="p">&lt;</span><span class="tg">Hero</span> <span class="a">motion</span>=<span class="s">"gsap"</span> <span class="p">/&gt;</span>',
+        '      <span class="p">&lt;</span><span class="tg">Seo</span> <span class="a">schema</span>=<span class="s">"LocalBusiness"</span> <span class="p">/&gt;</span>',
+        '    <span class="p">&lt;/</span><span class="tg">main</span><span class="p">&gt;</span>',
+        '  <span class="p">);</span>',
+        '<span class="p">}</span>',
+      ];
+      const codeLines = CODE.map((html, i) => el($('#code'), 'ln', {}, `<span class="n">${i + 1}</span><span class="t">${html}</span>`));
+
+      // ---------- stack tiles ----------
+      const STACK = [
+        ['nextjs', 'Next.js'], ['react', 'React'], ['typescript', 'TypeScript'],
+        ['tailwind', 'Tailwind'], ['astro', 'Astro'], ['gsap', 'GSAP'],
+        ['reactquery', 'React Query'], ['zustand', 'Zustand'], ['git', 'Git'],
+      ];
+      const tileFill = (hex) => (['000000', '0C0C0C', '0e0e0e'].includes(hex) ? '#ffffff' : `#${hex}`);
+      const tiles = STACK.map(([key, name], i) => {
+        const icon = key === 'zustand'
+          ? '<img src="assets/zustand.svg" alt="" />'
+          : `<svg viewBox="0 0 24 24"><path d="${ICONS[key].path}" fill="${key === 'astro' || key === 'nextjs' ? '#ffffff' : tileFill(ICONS[key].hex)}"/></svg>`;
+        return el($('#stackGrid'), 'tile', { left: px((i % 3) * 170), top: px(Math.floor(i / 3) * 176) }, `${icon}<div class="nm">${name}</div>`);
+      });
+
+      // ---------- L1 institutional ----------
+      const L1 = $('#vL1');
+      box(L1, 28, 24, 130, 20, 'blk acc', { borderRadius: '10px' });
+      [760, 850, 940].forEach((x) => box(L1, x, 30, 64, 10, 'bar'));
+      box(L1, 1030, 20, 110, 30, 'blk', { borderRadius: '15px', background: 'rgba(235,168,255,0.35)' });
+      box(L1, 28, 104, 560, 38, 'bar', { borderRadius: '10px', background: 'rgba(255,255,255,0.8)' });
+      box(L1, 28, 156, 470, 38, 'bar', { borderRadius: '10px', background: 'rgba(255,255,255,0.8)' });
+      box(L1, 28, 222, 440, 12, 'bar');
+      box(L1, 28, 246, 380, 12, 'bar');
+      box(L1, 28, 290, 200, 52, 'blk acc', { borderRadius: '26px' });
+      const hero = box(L1, 640, 96, 510, 260, 'blk', { overflow: 'hidden', background: 'linear-gradient(180deg,#3b2d6b,#1c1633)' });
+      hero.innerHTML = '<svg viewBox="0 0 510 260" width="510" height="260"><path d="M0 260 L150 110 L230 170 L330 60 L510 230 L510 260 Z" fill="#5b4a9e"/><path d="M0 260 L120 180 L260 220 L400 150 L510 210 L510 260 Z" fill="#2b2250"/><circle cx="420" cy="60" r="26" fill="#eba8ff" opacity=".7"/></svg>';
+      [28, 402, 776].forEach((x) => box(L1, x, 392, 350, 120));
+
+      // ---------- L2 e-commerce ----------
+      const L2 = $('#vL2');
+      box(L2, 28, 20, 560, 40, 'blk', { borderRadius: '20px' });
+      box(L2, 1080, 22, 40, 36, 'blk acc', { borderRadius: '10px' });
+      for (let i = 0; i < 7; i++) { box(L2, 28, 92 + i * 56, 18, 18, 'blk', { borderRadius: '5px' }); box(L2, 58, 96 + i * 56, 110 + ((i * 37) % 60), 10, 'bar'); }
+      for (let i = 0; i < 8; i++) {
+        const x = 230 + (i % 4) * 226, y = 84 + Math.floor(i / 4) * 222;
+        const card = box(L2, x, y, 206, 206, 'blk');
+        el(card, 'blk', { left: '12px', top: '12px', width: '182px', height: '110px', background: `linear-gradient(135deg, rgba(56,189,248,${0.15 + (i % 3) * 0.08}), rgba(124,58,237,0.25))` });
+        el(card, 'bar', { left: '12px', top: '136px', width: '150px' });
+        el(card, 'bar', { left: '12px', top: '158px', width: '100px', height: '10px' });
+        el(card, 'bar', { left: '12px', top: '180px', width: '70px', height: '12px', background: 'rgba(74,222,128,0.5)' });
+        if (i === 1 || i === 6) el(card, 'badge', { right: '10px', top: '20px' }).textContent = T.pix;
+      }
+
+      // ---------- L3 map ----------
+      const L3 = $('#vL3');
+      const map = box(L3, 28, 20, 770, 492, 'blk', { overflow: 'hidden', background: '#141a24' });
+      map.innerHTML = `<svg viewBox="0 0 770 492" width="770" height="492">
+        <path d="M-20 380 C 160 300, 260 420, 420 330 S 700 260, 800 300" stroke="#1f3b52" stroke-width="34" fill="none"/>
+        <path d="M60 -10 C 120 140, 60 260, 180 500" stroke="rgba(255,255,255,.12)" stroke-width="8" fill="none"/>
+        <path d="M-10 150 C 200 170, 420 90, 790 140" stroke="rgba(255,255,255,.12)" stroke-width="8" fill="none"/>
+        <path d="M420 -10 C 400 160, 520 300, 470 510" stroke="rgba(255,255,255,.1)" stroke-width="6" fill="none"/>
+        <ellipse cx="620" cy="80" rx="120" ry="60" fill="rgba(74,222,128,.12)"/>
+        <ellipse cx="220" cy="250" rx="90" ry="50" fill="rgba(74,222,128,.1)"/>
+      </svg>`;
+      const PINS = [[160, 120], [300, 210], [470, 170], [560, 300], [250, 360], [650, 200]];
+      const pinEls = PINS.map(([x, y]) => el(map, 'pinx', { left: px(x), top: px(y) }));
+      el(L3, 'mono part', { position: 'absolute', left: '830px', top: '24px', fontSize: '16px', color: 'var(--pink)' }).textContent = T.places;
+      for (let i = 0; i < 4; i++) {
+        const y = 70 + i * 110;
+        const item = box(L3, 830, y, 322, 96, 'blk');
+        el(item, 'blk', { left: '12px', top: '12px', width: '72px', height: '72px', background: 'linear-gradient(135deg,#3b2d6b,#1f3b52)' });
+        el(item, 'bar', { left: '98px', top: '18px', width: '170px', background: 'rgba(255,255,255,0.4)' });
+        el(item, 'bar', { left: '98px', top: '40px', width: '120px', height: '9px' });
+        if (i % 2 === 0) el(item, 'open', { left: '98px', top: '62px' }).textContent = T.open;
+      }
+
+      // ---------- L4 dashboard ----------
+      const L4 = $('#vL4');
+      box(L4, 28, 24, 56, 488, 'blk');
+      for (let i = 0; i < 5; i++) box(L4, 44, 48 + i * 58, 24, 24, 'blk', { borderRadius: '7px', background: i === 0 ? 'var(--violet)' : 'rgba(255,255,255,.1)' });
+      const kpis = T.kpis.map(([n, l], i) => el(L4, 'kpi part', { left: px(112 + i * 350) }, `<b>${n}</b><span>${l}</span>`));
+      const chart = box(L4, 112, 184, 640, 328, 'blk');
+      chart.innerHTML = `<svg viewBox="0 0 640 328" width="640" height="328"><path id="chartLine" d="M24 270 C 90 250, 120 200, 180 214 S 280 150, 340 160 S 450 70, 520 96 S 600 40, 616 36" stroke="url(#lg)" stroke-width="5" fill="none" stroke-linecap="round" stroke-dasharray="900" stroke-dashoffset="900"/><defs><linearGradient id="lg" x1="0" x2="1"><stop offset="0" stop-color="#7c3aed"/><stop offset="1" stop-color="#38bdf8"/></linearGradient></defs></svg>`;
+      const bars = box(L4, 772, 184, 340, 328, 'blk');
+      const BAR_H = [120, 180, 150, 230, 200, 260, 240];
+      const barEls = BAR_H.map((h, i) => el(bars, 'barc', { left: px(24 + i * 44), height: px(h) }));
+
+      // ---------- SERP ----------
+      const S = $('#vSerp');
+      const search = el(S, '', { position: 'absolute', left: '60px', top: '30px', width: '760px', height: '60px', borderRadius: '30px', border: '1px solid rgba(255,255,255,.18)', background: 'rgba(255,255,255,.05)' });
+      search.innerHTML = '<svg viewBox="0 0 24 24" width="24" height="24" style="position:absolute;left:22px;top:18px"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="#eba8ff" stroke-width="2"/><path d="M15.5 15.5 L21 21" stroke="#eba8ff" stroke-width="2" stroke-linecap="round"/></svg>';
+      const query = el(search, '', { position: 'absolute', left: '62px', top: '15px', fontFamily: 'var(--mono)', fontSize: '24px', whiteSpace: 'nowrap' });
+      query.textContent = T.query;
+      const results = [0, 1, 2, 3].map((i) => {
+        const r = el(S, 'res' + (i === 3 ? ' me' : ''), { transform: `translateY(${i * 112}px)` });
+        el(r, 'u'); el(r, 'h');
+        el(r, 'd', { top: '62px', width: '640px' });
+        el(r, 'd', { top: '78px', width: '520px' });
+        if (i === 3) el(r, 'rank').textContent = '#1';
+        return r;
+      });
+
+      // ---------- right panel views ----------
+      const panel = $('#panel');
+      const pv = (kick, title, sub, top = 250) => {
+        const v = el(panel, 'pv', { top: px(top) });
+        v.innerHTML = `<div class="kick mono">${kick}</div><div class="ptitle">${title}</div>${sub ? `<div class="psub">${sub}</div>` : ''}`;
+        return v;
+      };
+      const layoutPv = T.layouts.map(([title, sub], i) => pv(`0${i + 1} / 04`, title, sub));
+      const motionPv = pv('motion', T.motionTitle, T.motionSub, 60);
+      const curveBox = el(motionPv, '', {}, '');
+      curveBox.id = 'curveBox';
+      curveBox.innerHTML = `<svg viewBox="0 0 330 330" width="330" height="330">
+          <path d="M40 290 L290 290 M40 290 L40 40" stroke="rgba(255,255,255,.15)" stroke-width="2"/>
+          <path id="easePath" d="M40 290 C 150 290, 120 40, 290 40" stroke="#eba8ff" stroke-width="5" fill="none" stroke-linecap="round" stroke-dasharray="420" stroke-dashoffset="420"/>
+          <circle id="easeDot" r="11" cx="0" cy="0" fill="#38bdf8"/>
+          <text x="46" y="316" fill="#9a97b0" font-family="Geist Mono" font-size="14">power3.out</text>
+        </svg>`;
+      const btn = el(motionPv, '', {}, `<div id="shine"></div><span style="position:relative">${T.prismaBtn}</span>`);
+      btn.id = 'prismaBtn';
+      const seoPv = pv('seo', T.seoTitle, '', 60);
+      const RING_POS = [[0, 250], [240, 250], [0, 480], [240, 480]];
+      const R = 62, C = 2 * Math.PI * R;
+      const rings = T.rings.map((label, i) => {
+        const r = el(seoPv, 'ring', { left: px(RING_POS[i][0]), top: px(RING_POS[i][1] - 60) });
+        r.innerHTML = `<svg viewBox="0 0 150 150"><circle cx="75" cy="75" r="${R}" stroke="rgba(74,222,128,.15)" stroke-width="10" fill="none"/><circle class="arc" cx="75" cy="75" r="${R}" stroke="#4ade80" stroke-width="10" fill="none" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C}" transform="rotate(-90 75 75)"/></svg>
+          <div class="num"><div class="strip"></div><div class="final" style="position:absolute;left:0;right:0;top:0">100</div></div>
+          <div class="lb">${label}</div>`;
+        // a single strip 0..100 rolled by translateY: seek-safe, no text swapping
+        r.querySelector('.strip').innerHTML = Array.from({ length: 100 }, (_, n) => `<div style="height:50px">${n}</div>`).join('');
+        return r;
+      });
+
+      // ---------- outro copy ----------
+      $('#oRole').textContent = T.role;
+      $('#oCta').textContent = T.cta;
+
+      // ---------- baselines ----------
+      gsap.set('#pointer', { x: 300, y: 600, opacity: 0 });
+      gsap.set('#win', { opacity: 0, scale: 1.02 });
+      gsap.set('.tile', { opacity: 0, scale: 0.3, x: -560, y: 60 });
+      gsap.set('#stackKick', { opacity: 0 });
+      gsap.set(codeLines.map((l) => l.querySelector('.t')), { clipPath: 'inset(0 100% 0 0)' });
+      gsap.set('.part', { opacity: 0, y: 18 });
+      gsap.set(pinEls, { opacity: 0, y: -40, rotation: -45 });
+      gsap.set(barEls, { scaleY: 0 });
+      gsap.set('#oCta', { xPercent: -50 });
+
+      // ---------- timeline ----------
+      const tl = gsap.timeline({ paused: true });
+      tl.to('#dots', { x: -32, y: -32, duration: 23, ease: 'none' }, 0);
+
+      // hook — sketch → window (0 → 3.1)
+      tl.to('#pointer', { opacity: 1, x: 372, y: 104, duration: 0.35, ease: 'power2.out' }, 0.1);
+      tl.to('#sketchPath', { attr: { 'stroke-dashoffset': 0 }, duration: 0.95, ease: 'power1.inOut' }, 0.4);
+      tl.to('#pointer', {
+        keyframes: [
+          { x: 1548, y: 100, duration: 0.3 },
+          { x: 1552, y: 718, duration: 0.2 },
+          { x: 368, y: 722, duration: 0.3 },
+          { x: 372, y: 104, duration: 0.15 },
+        ],
+        ease: 'none',
+      }, 0.4);
+      tl.to('#sketchPath', { opacity: 0, duration: 0.2 }, 1.35);
+      tl.to('#win', { opacity: 1, scale: 1, duration: 0.45, ease: 'back.out(1.6)' }, 1.3);
+      tl.to('#pointer', { x: 1640, y: 760, opacity: 0, duration: 0.5, ease: 'power2.in' }, 1.4);
+      tl.set('#vHook', { opacity: 1 }, 1.3);
+      tl.set(urlSpans[0], { opacity: 1 }, 1.3);
+      tl.fromTo('#hookText .w', { opacity: 0, y: 40, filter: 'blur(10px)' }, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.5, stagger: 0.08, ease: 'power3.out' }, 1.5);
+      tl.to('#hookText', { opacity: 0, y: -30, duration: 0.3, ease: 'power2.in' }, 3.0);
+
+      // code (3.3 → 5.0) then stack (5.0 → 7.0)
+      tl.set('#vHook', { opacity: 0 }, 3.3);
+      tl.set('#vCode', { opacity: 1 }, 3.3);
+      tl.set(urlSpans[0], { opacity: 0 }, 3.3);
+      tl.set(urlSpans[1], { opacity: 1 }, 3.3);
+      codeLines.forEach((line, i) => {
+        const chars = line.textContent.length;
+        tl.to(line.querySelector('.t'), { clipPath: 'inset(0 0% 0 0)', duration: Math.max(0.12, chars * 0.006), ease: `steps(${Math.max(1, chars)})` }, 3.35 + i * 0.17);
+      });
+      tl.to('#win', { x: -260, duration: 0.7, ease: 'power3.inOut' }, 4.9);
+      tl.to('#stackKick', { opacity: 1, duration: 0.3 }, 5.3);
+      tl.to('.tile', { opacity: 1, scale: 1, x: 0, y: 0, duration: 0.6, ease: 'back.out(1.5)', stagger: 0.07 }, 5.15);
+
+      // layouts (7.0 → 13.9)
+      tl.to('.tile', { opacity: 0, scale: 0.6, y: 20, duration: 0.3, stagger: 0.02, ease: 'power2.in' }, 6.9);
+      tl.to('#stackKick', { opacity: 0, duration: 0.2 }, 6.9);
+      tl.to('#code', { opacity: 0, y: -20, duration: 0.25 }, 6.95);
+      const views = ['#vL1', '#vL2', '#vL3', '#vL4'];
+      const START = 7.15, STEP = 1.7;
+      views.forEach((v, i) => {
+        const t = START + i * STEP;
+        const parts = $$('.part', $(v));
+        const prevParts = i > 0 ? $$('.part', $(views[i - 1])) : [];
+        if (i === 0) tl.set('#vCode', { opacity: 0 }, t);
+        if (i > 0) tl.to(prevParts, { opacity: 0, y: -14, duration: 0.2, stagger: 0.004, ease: 'power2.in' }, t - 0.22);
+        if (i > 0) tl.set(views[i - 1], { opacity: 0 }, t);
+        tl.set(v, { opacity: 1 }, t);
+        tl.set(urlSpans[1 + i], { opacity: 0 }, t);
+        tl.set(urlSpans[2 + i], { opacity: 1 }, t);
+        tl.to(parts, { opacity: 1, y: 0, duration: 0.45, stagger: 0.012, ease: 'power3.out' }, t);
+        if (i > 0) tl.to(layoutPv[i - 1], { opacity: 0, y: -20, duration: 0.2 }, t - 0.2);
+        tl.fromTo(layoutPv[i], { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.45, ease: 'power3.out', immediateRender: false }, t + 0.05);
+      });
+      gsap.set(layoutPv, { opacity: 0 });
+      // map: pins drop
+      tl.to(pinEls, { opacity: 1, y: 0, duration: 0.45, ease: 'bounce.out', stagger: 0.07 }, START + 2 * STEP + 0.25);
+      // dashboard: chart + bars
+      const T4 = START + 3 * STEP;
+      tl.to('#chartLine', { attr: { 'stroke-dashoffset': 0 }, duration: 1.0, ease: 'power2.out' }, T4 + 0.3);
+      tl.to(barEls, { scaleY: 1, duration: 0.6, ease: 'back.out(1.6)', stagger: 0.05 }, T4 + 0.35);
+
+      // motion (13.95 → 16.3)
+      const TM = 13.95;
+      tl.to(layoutPv[3], { opacity: 0, y: -20, duration: 0.2 }, TM - 0.1);
+      tl.fromTo(motionPv, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.4, ease: 'power3.out', immediateRender: false }, TM);
+      tl.to('#easePath', { attr: { 'stroke-dashoffset': 0 }, duration: 0.8, ease: 'power2.inOut' }, TM + 0.2);
+      // dot rides the bezier: sampled points, seek-safe keyframes
+      const bez = (t, a, b, c, d) => (1 - t) ** 3 * a + 3 * (1 - t) ** 2 * t * b + 3 * (1 - t) * t * t * c + t ** 3 * d;
+      const pts = Array.from({ length: 21 }, (_, i) => ({ cx: bez(i / 20, 40, 150, 120, 290), cy: bez(i / 20, 290, 290, 40, 40) }));
+      tl.set('#easeDot', { attr: pts[0] }, 0);
+      tl.to('#easeDot', { keyframes: pts.slice(1).map((p) => ({ attr: p, duration: 0.05 })), ease: 'none' }, TM + 0.25);
+      tl.to(kpis, { y: -16, duration: 0.25, ease: 'power2.out', stagger: 0.08, yoyo: true, repeat: 1 }, TM + 0.3);
+      tl.to(barEls, { scaleY: 0.35, duration: 0.3, ease: 'power2.in', stagger: 0.03 }, TM + 0.4);
+      tl.to(barEls, { scaleY: 1, duration: 0.7, ease: 'elastic.out(1, 0.45)', stagger: 0.03 }, TM + 0.75);
+      tl.fromTo('#shine', { x: -120 }, { x: 460, duration: 0.7, ease: 'power2.inOut', immediateRender: false }, TM + 1.0);
+      tl.set('#shine', { x: -120 }, 0);
+
+      // SEO (16.3 → 20.2)
+      const TS = 16.3;
+      tl.to($$('.part', $('#vL4')), { opacity: 0, y: -14, duration: 0.2, stagger: 0.004 }, TS - 0.22);
+      tl.to(motionPv, { opacity: 0, y: -20, duration: 0.2 }, TS - 0.2);
+      tl.set('#vL4', { opacity: 0 }, TS);
+      tl.set(urlSpans[5], { opacity: 0 }, TS);
+      tl.set(urlSpans[6], { opacity: 1 }, TS);
+      tl.set('#vSerp', { opacity: 1 }, TS);
+      gsap.set(query, { clipPath: 'inset(0 100% 0 0)' });
+      tl.to(query, { clipPath: 'inset(0 0% 0 0)', duration: 0.6, ease: `steps(${T.query.length})` }, TS + 0.1);
+      tl.fromTo(results, { opacity: 0 }, { opacity: 1, duration: 0.3, stagger: 0.06, immediateRender: false }, TS + 0.6);
+      gsap.set(results, { opacity: 0 });
+      // climb: ours from slot 4 to slot 1, the rest step down
+      tl.to(results[3], { y: 0, duration: 0.7, ease: 'power3.inOut' }, TS + 1.0);
+      [0, 1, 2].forEach((i) => tl.to(results[i], { y: (i + 1) * 112, duration: 0.7, ease: 'power3.inOut' }, TS + 1.0));
+      tl.fromTo(seoPv, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.4, ease: 'power3.out', immediateRender: false }, TS + 0.05);
+      gsap.set([motionPv, seoPv], { opacity: 0 });
+      rings.forEach((r, i) => {
+        const t = TS + 1.2 + i * 0.12;
+        tl.fromTo(r, { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.35, ease: 'back.out(1.8)', immediateRender: false }, t);
+        tl.to(r.querySelector('.arc'), { attr: { 'stroke-dashoffset': 0 }, duration: 1.3, ease: 'power2.out' }, t + 0.1);
+        // the roll stops one short of 100, then a static 100 replaces the strip: no stacked glyph boxes once settled
+        tl.to(r.querySelector('.strip'), { y: -99 * 50, duration: 1.2, ease: 'power2.out' }, t + 0.1);
+        tl.set(r.querySelector('.strip'), { opacity: 0 }, t + 1.32);
+        tl.set(r.querySelector('.final'), { opacity: 1 }, t + 1.32);
+        gsap.set(r.querySelector('.final'), { opacity: 0 });
+        gsap.set(r, { opacity: 0 });
+      });
+
+      // outro (20.2 → 23)
+      const TO = 20.2;
+      tl.to('#win', { scale: 0.6, opacity: 0, y: 40, duration: 0.55, ease: 'power3.in' }, TO);
+      tl.to(seoPv, { opacity: 0, x: 40, duration: 0.35, ease: 'power2.in' }, TO);
+      tl.fromTo('#oName', { opacity: 0, scale: 1.15, filter: 'blur(18px)' }, { opacity: 1, scale: 1, filter: 'blur(0px)', duration: 0.7, ease: 'expo.out', immediateRender: false }, TO + 0.45);
+      tl.to('#oRole', { opacity: 1, duration: 0.4 }, TO + 0.75);
+      tl.fromTo('#oCta', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.45, ease: 'back.out(1.8)', immediateRender: false }, TO + 1.0);
+      tl.to('#oCta', { scale: 0.95, duration: 0.1, yoyo: true, repeat: 1 }, TO + 1.1);
+      tl.to('#oStack', { opacity: 1, duration: 0.4 }, TO + 1.25);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines['profissional'] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

@@ -1,6 +1,6 @@
 {
   "title": "Sobre mí",
-  "intro": "Hago sitios desde el borrador hasta publicarlo, del layout al código. En los videos, quién soy y un proyecto naciendo; en las tarjetas, lo que entrego y cómo trabajamos juntos.",
+  "intro": "Hago sitios desde el borrador hasta publicarlo, del layout al código. En los videos, quién soy y lo que construyo; en las tarjetas, lo que entrego y cómo trabajamos juntos.",
   "cards": {
     "0": {
       "title": "Lo que hago",
@@ -24,89 +24,17 @@
     }
   },
   "videos": {
-    "quem-sou-eu": {
+    "pessoal": {
       "title": "Quién soy",
-      "srText": "Animación de unos 34 segundos en ocho escenas. Abre con el nombre João Vitor Carmassi y el subtítulo \"desarrollador front-end\". Enseguida, una polaroid con su foto y dos etiquetas: \"nacido en são paulo, 2004\" y \"vive en são bento do sapucaí\". Después, una foto aérea de la Pedra do Baú saliendo de las nubes, con el subtítulo \"pedra do baú\" y las frases \"de la sierra de são bento\", \"para todo el mundo\" y \"100% remoto\". A continuación, la lista de idiomas: portugués nativo, inglés C1 y español B2. Un editor de código muestra el objeto joao con nombre, base en São Bento do Sapucaí, idiomas inglés C1 y español B2, y enfoque en front-end. Bajo la etiqueta \"en el día a día\" aparecen seis tarjetas con las herramientas y para qué usa cada una: Next.js para aplicaciones, TypeScript para tipado, Tailwind para estilo, React para interfaces, Astro para sitios y GSAP para animación. La escena \"fuera del código\" trae las etiquetas senderismo, viajar en moto, música, videojuegos y películas. Cierra con la firma \"joão.\" subrayada y la dirección github.com/joao-carmassi.",
-      "script": {
-        "subtitle": "desarrollador front-end",
-        "stickers": {
-          "0": "nacido en são paulo, 2004",
-          "1": "vive en são bento do sapucaí"
-        },
-        "serra": "de la sierra de são bento|para todo el mundo|100% remoto",
-        "serraCaption": "pedra do baú",
-        "languagesLabel": "idiomas",
-        "languages": {
-          "0": "portugués · nativo",
-          "1": "inglés · C1",
-          "2": "español · B2"
-        },
-        "code": "const joao = {\n  nombre: 'João Vitor Carmassi',\n  base: 'São Bento do Sapucaí, SP',\n  idiomas: { ingles: 'C1', espanol: 'B2' },\n  enfoque: 'front-end',\n};",
-        "toolsLabel": "en el día a día",
-        "tools": {
-          "0": "aplicaciones",
-          "1": "tipado",
-          "2": "estilo",
-          "3": "interfaces",
-          "4": "sitios",
-          "5": "animación"
-        },
-        "offLabel": "fuera del código",
-        "off": {
-          "0": "senderismo",
-          "1": "viajar en moto",
-          "2": "música",
-          "3": "videojuegos",
-          "4": "películas"
-        }
-      }
+      "srText": "Animación de unos 23 segundos con estilo de videojuego. Una pantalla de \"press start\" abre el nombre João Vitor Carmassi. En la selección de personaje aparecen su foto, la clase \"desarrollador front-end\" y el origen \"são paulo, 2004\". Un mapa sobre la foto aérea de la Pedra do Baú marca su base en São Bento do Sapucaí, SP, y una ruta llega hasta un globo: \"de la sierra al mundo\", \"100% remoto\". Las barras de atributos muestran sus idiomas: portugués nativo, inglés C1 y español B2. En el inventario están senderismo, viajes en moto, música, videojuegos, películas y, equipado, código. Cierra con \"progreso guardado\", la firma \"joão.\" y github.com/joao-carmassi.",
+      "src": "/videos/about/pessoal-es.mp4",
+      "poster": "/videos/about/pessoal-es.jpg"
     },
-    "da-ideia-ao-deploy": {
-      "title": "De la idea al deploy",
-      "srText": "Animación de unos 46 segundos que muestra un proyecto naciendo: las frases \"Una idea\", \"Un plazo\", \"Un sitio\" abren la historia; enseguida una lista escrita a mano reúne lo que el sitio necesita — layout responsivo, ser encontrado en Google, animación con GSAP y lighthouse 100; empieza entonces la investigación de palabras clave: un campo de búsqueda escribe \"sitio institucional\" y surgen los términos relacionados del nicho del cliente — crear sitio institucional, sitio institucional precio y sitio institucional rápido; una terminal ejecuta npm create astro@latest, instala las dependencias y agrega Tailwind y GSAP; el archivo hero.tsx se escribe línea a línea con un botón de Contacto, y un cursor hace clic en él; en el archivo seo.astro aparecen el title, la meta description, la og:image, el link canonical, el h1, el alt de la imagen y un bloque de datos estructurados JSON-LD del tipo LocalBusiness; la pantalla del sitio entonces se encoge de escritorio a celular, el menú se vuelve un ícono y las tarjetas se apilan, mostrando el layout responsivo; en la terminal, npx tsc --noEmit confirma que no hay errores de tipo y npx lighthouse audita el sitio local, señalando tres imágenes sin alt, un h2 antes del h1 y la falta de meta description, todo corregido y revalidado enseguida; después aparecen los logos de React, Next.js, Astro, TypeScript, Tailwind y GSAP bajo la etiqueta \"construido con\"; en la pantalla siguiente, cuatro contadores de Lighthouse suben de 0 a 100 en rendimiento, accesibilidad, buenas prácticas y SEO, medidos en la build de producción; git push origin main confirma \"deploy en 1.2s\" y confeti celebra; la animación cierra con la palabra \"en el aire.\" subrayada a mano.",
-      "script": {
-        "opening": "Una idea.|Un plazo.|Un sitio.",
-        "briefLabel": "lo que el sitio necesita",
-        "brief": {
-          "0": "layout responsivo",
-          "1": "ser encontrado en Google",
-          "2": "animación con GSAP",
-          "3": "lighthouse 100"
-        },
-        "researchLabel": "búsqueda de palabras clave",
-        "query": "sitio institucional",
-        "related": {
-          "0": "crear sitio institucional",
-          "1": "sitio institucional precio",
-          "2": "sitio institucional rápido"
-        },
-        "researchNote": "términos del nicho del cliente",
-        "setupDone": "proyecto listo",
-        "heroButton": "Contacto",
-        "responsiveLabel": "responsivo por defecto",
-        "menu": {
-          "0": "sobre",
-          "1": "proyectos",
-          "2": "contacto"
-        },
-        "audit": {
-          "types": "sin errores de tipo",
-          "alt": "3 imágenes sin alt",
-          "heading": "h2 antes del h1 en /sobre",
-          "description": "sin meta description",
-          "fixed": "corregido y revalidado"
-        },
-        "builtLabel": "construido con",
-        "scores": {
-          "0": "rendimiento",
-          "1": "accesibilidad",
-          "2": "buenas prácticas",
-          "3": "seo"
-        },
-        "scoresNote": "build de producción",
-        "deployDone": "deploy en 1.2s",
-        "signature": "en el aire."
-      }
+    "profissional": {
+      "title": "Lo que construyo",
+      "srText": "Animación de unos 23 segundos en torno a una ventana de navegador. Un boceto a mano se convierte en la ventana, con la frase \"del boceto a la web\". Dentro se escribe un componente TypeScript y de él salen los logos del stack: Next.js, React, TypeScript, Tailwind, Astro, GSAP, React Query, Zustand y Git. La ventana pasa por cuatro tipos de proyecto: sitios institucionales (Refúgio da Pedra, Dr. Jean Almeida), e-commerce (Loja do VRF), mapas interactivos (Mapa Turístico de São Bento) y SaaS y dashboards (Quotation Factory, Higgx). Luego una curva de animación con GSAP junto a un botón de Prisma UI y, en \"SEO desde el primer día\", un resultado de búsqueda sube al primer puesto mientras cuatro notas de Lighthouse llegan a 100. Cierra con João Carmassi, desarrollador front-end, y \"cuéntame tu proyecto\".",
+      "src": "/videos/about/profissional-es.mp4",
+      "poster": "/videos/about/profissional-es.jpg"
     }
   }
 }

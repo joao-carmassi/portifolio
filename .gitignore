@@ -21,3 +21,9 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# brag video renders and scratch (sources in brag-output/*/composition stay tracked)
+brag-output/renders/
+brag-output/*/work/
+brag-output/*/composition/renders/
+brag-output/*/composition/snapshots/

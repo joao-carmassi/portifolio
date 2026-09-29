@@ -20,8 +20,5 @@
     "hooks": "@/hooks"
   },
   "menuColor": "default",
-  "menuAccent": "subtle",
-  "registries": {
-    "@remocn": "https://www.remocn.dev/r/{name}.json"
-  }
+  "menuAccent": "subtle"
 }

@@ -117,15 +117,3 @@ export const pictures = async (
       ),
     ),
   );
-
-/**
- * One fixed-width render, for the places a srcset cannot help: a Remotion
- * composition always lays out at its own pixel size (1920 here) and is then
- * scaled by CSS, so the browser would pick the widest candidate every time.
- */
-export const srcAt = async (
-  key: string,
-  width: number,
-  format: Format = 'webp',
-): Promise<string> =>
-  (await picture(key, { widths: [width], formats: [format] })).src;

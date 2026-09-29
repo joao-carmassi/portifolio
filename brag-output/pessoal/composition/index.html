@@ -1,0 +1,537 @@
+<!doctype html>
+<html
+  lang="pt"
+  data-composition-variables='[{"id":"lang","type":"string","label":"Language (pt|en|es)","default":"pt"},{"id":"audio","type":"string","label":"Audio (on|off)","default":"on"}]'
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=820" />
+    <script src="assets/gsap.min.js"></script>
+    <script src="assets/icons.js"></script>
+    <style>
+      @font-face { font-family: 'DM Serif Display'; src: url(assets/fonts/dmserif.woff2) format('woff2'); font-display: block; }
+      @font-face { font-family: 'DM Serif Display'; font-style: italic; src: url(assets/fonts/dmserif-italic.woff2) format('woff2'); font-display: block; }
+      @font-face { font-family: 'Raleway'; src: url(assets/fonts/raleway.woff2) format('woff2'); font-weight: 400 800; font-display: block; }
+      @font-face { font-family: 'Geist Mono'; src: url(assets/fonts/geistmono.woff2) format('woff2'); font-weight: 400 600; font-display: block; }
+
+      :root {
+        --bg: #07060d;
+        --ink: #f3eeff;
+        --muted: #a79bc9;
+        --violet: #8b5cf6;
+        --lilac: #c4b5fd;
+        --neon: #c8ff4d;
+        --serif: 'DM Serif Display', Georgia, serif;
+        --sans: 'Raleway', system-ui, sans-serif;
+        --mono: 'Geist Mono', ui-monospace, monospace;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1920px; height: 820px; overflow: hidden; background: var(--bg); }
+      #root { position: relative; width: 1920px; height: 820px; overflow: hidden; color: var(--ink); font-family: var(--sans); }
+      .layer { position: absolute; inset: 0; }
+      .scene { position: absolute; inset: 0; opacity: 0; }
+      .mono { font-family: var(--mono); text-transform: uppercase; letter-spacing: 0.32em; }
+
+      /* ---------- persistent backdrop ---------- */
+      #bg {
+        background:
+          radial-gradient(70% 90% at 30% 20%, rgba(139, 92, 246, 0.22), transparent 60%),
+          radial-gradient(60% 80% at 85% 90%, rgba(200, 255, 77, 0.07), transparent 60%),
+          var(--bg);
+      }
+      #grid {
+        position: absolute; left: -120px; top: -120px; width: 2200px; height: 1100px;
+        background-image:
+          linear-gradient(rgba(196, 181, 253, 0.07) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(196, 181, 253, 0.07) 1px, transparent 1px);
+        background-size: 60px 60px;
+        -webkit-mask-image: radial-gradient(60% 70% at 50% 50%, #000 30%, transparent 100%);
+        mask-image: radial-gradient(60% 70% at 50% 50%, #000 30%, transparent 100%);
+      }
+      #scan {
+        background: repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.025) 0 2px, transparent 2px 5px);
+        mix-blend-mode: overlay; pointer-events: none; z-index: 50;
+      }
+      #vignette { background: radial-gradient(120% 110% at 50% 50%, transparent 55%, rgba(0, 0, 0, 0.6) 100%); z-index: 49; }
+
+      /* ---------- HUD ---------- */
+      #hud { z-index: 40; opacity: 0; }
+      #hud .tl, #hud .tr { position: absolute; top: 34px; font-family: var(--mono); font-size: 20px; letter-spacing: 0.28em; color: var(--muted); }
+      #hud .tl { left: 48px; }
+      #hud .tr { right: 48px; display: flex; gap: 14px; align-items: center; }
+      #hud .tl b { color: var(--neon); font-weight: 500; }
+      .pips { display: flex; gap: 8px; }
+      .pip { position: relative; width: 14px; height: 14px; border: 2px solid var(--muted); rotate: 45deg; }
+      .pip i { position: absolute; inset: -2px; background: var(--neon); }
+      #stageLabel { position: relative; display: inline-block; width: 150px; height: 24px; text-align: right; }
+      .stg { position: absolute; right: 0; top: 0; white-space: nowrap; }
+
+      /* ---------- S1 press start ---------- */
+      #press { position: absolute; left: 0; right: 0; top: 386px; text-align: center; font-size: 40px; color: var(--lilac); }
+      #ring { position: absolute; left: 930px; top: 380px; width: 60px; height: 60px; border-radius: 50%; border: 3px solid var(--neon); opacity: 0; }
+      #flash { background: #fff; opacity: 0; z-index: 45; }
+      #p1tag { position: absolute; left: 0; right: 0; top: 236px; text-align: center; font-size: 24px; color: var(--neon); opacity: 0; }
+      #name1 { position: absolute; left: 0; right: 0; top: 300px; text-align: center; font-family: var(--serif); font-size: 150px; line-height: 1.1; opacity: 0; letter-spacing: -0.01em; text-shadow: 0 0 60px rgba(139, 92, 246, 0.55); }
+
+      /* ---------- S2 character select ---------- */
+      #cardWrap { position: absolute; left: 470px; top: 118px; width: 468px; height: 584px; perspective: 1400px; }
+      #card { position: absolute; inset: 0; border-radius: 26px; overflow: hidden; border: 1px solid rgba(196, 181, 253, 0.35); background: #120e20; box-shadow: 0 40px 120px rgba(139, 92, 246, 0.35); }
+      #card img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 36%; display: block; }
+      #card .tint { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, rgba(7, 6, 13, 0.75)); }
+      #cardScan { position: absolute; left: 0; right: 0; top: 0; height: 140px; background: linear-gradient(180deg, transparent, rgba(200, 255, 77, 0.28), transparent); opacity: 0; }
+      .corner { position: absolute; width: 58px; height: 58px; border: 0 solid var(--neon); }
+      .corner.a { left: -18px; top: -18px; border-left-width: 4px; border-top-width: 4px; }
+      .corner.b { right: -18px; top: -18px; border-right-width: 4px; border-top-width: 4px; }
+      .corner.c { left: -18px; bottom: -18px; border-left-width: 4px; border-bottom-width: 4px; }
+      .corner.d { right: -18px; bottom: -18px; border-right-width: 4px; border-bottom-width: 4px; }
+      #cardLabel { position: absolute; left: 24px; bottom: 22px; font-family: var(--mono); font-size: 18px; letter-spacing: 0.3em; color: var(--neon); }
+      #charInfo { position: absolute; left: 1030px; top: 196px; width: 820px; }
+      #charInfo .kicker { font-size: 22px; color: var(--neon); margin-bottom: 18px; }
+      #name2 { font-family: var(--serif); font-size: 88px; line-height: 1.02; }
+      #name2 .ch { display: inline-block; }
+      .stat { display: flex; align-items: baseline; gap: 28px; margin-top: 30px; }
+      .stat .k { width: 150px; font-family: var(--mono); font-size: 20px; letter-spacing: 0.3em; color: var(--muted); text-transform: uppercase; }
+      .stat .v { font-size: 40px; font-weight: 600; }
+      #s2rows { margin-top: 26px; border-top: 1px solid rgba(196, 181, 253, 0.2); padding-top: 4px; }
+      #selectArrow { position: absolute; left: 1000px; top: 364px; width: 0; height: 0; border-top: 12px solid transparent; border-bottom: 12px solid transparent; border-left: 18px solid var(--neon); opacity: 0; }
+
+      /* ---------- S3 world map ---------- */
+      #s3 { clip-path: circle(0px at 930px 262px); }
+      #photoWrap { position: absolute; inset: 0; transform-origin: 44% 32%; }
+      #photoWrap img { position: absolute; left: 0; top: -130px; width: 1920px; height: 1080px; object-fit: cover; }
+      #photoTint { background:
+          linear-gradient(90deg, rgba(10, 7, 24, 0.35) 0%, rgba(10, 7, 24, 0.25) 40%, rgba(14, 9, 34, 0.86) 72%, rgba(10, 7, 24, 0.94) 100%),
+          linear-gradient(0deg, rgba(10, 7, 24, 0.9) 0%, rgba(10, 7, 24, 0) 45%); }
+      #pin { position: absolute; left: 902px; top: 196px; width: 56px; height: 56px; color: var(--neon); filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.6)); }
+      #pin svg { width: 56px; height: 56px; }
+      #pinPulse { position: absolute; left: 906px; top: 238px; width: 48px; height: 18px; border-radius: 50%; border: 2px solid var(--neon); opacity: 0; }
+      #pinCard { position: absolute; left: 470px; top: 118px; padding: 16px 24px; border-radius: 16px; background: rgba(7, 6, 13, 0.78); border: 1px solid rgba(200, 255, 77, 0.35); backdrop-filter: blur(6px); opacity: 0; }
+      #pinCard .k { font-size: 16px; color: var(--neon); }
+      #pinCard .v { font-size: 30px; font-weight: 700; margin-top: 4px; }
+      #route { position: absolute; inset: 0; }
+      #globe { position: absolute; left: 1440px; top: 250px; width: 280px; height: 280px; }
+      #routeText { position: absolute; left: 110px; bottom: 96px; font-family: var(--serif); font-size: 76px; line-height: 1.02; max-width: 1280px; }
+      #routeText .w { display: inline-block; }
+      #remote { position: absolute; left: 1450px; top: 574px; width: 260px; text-align: center; padding: 12px 0; border-radius: 999px; background: var(--neon); color: #0d0a17; font-family: var(--mono); font-size: 26px; font-weight: 600; letter-spacing: 0.08em; opacity: 0; }
+
+      /* ---------- sweep transition ---------- */
+      #sweep { position: absolute; top: -60px; left: 0; width: 420px; height: 940px; background: linear-gradient(90deg, var(--violet), var(--neon)); transform: skewX(-14deg); z-index: 44; }
+
+      /* ---------- S4 attributes ---------- */
+      #s4title { position: absolute; left: 330px; top: 110px; font-size: 24px; color: var(--neon); }
+      .row { position: absolute; left: 330px; width: 1300px; height: 110px; display: flex; align-items: center; }
+      .row .lab { width: 330px; font-size: 46px; font-weight: 700; }
+      .row .track { position: relative; width: 740px; height: 22px; border-radius: 12px; background: rgba(196, 181, 253, 0.12); border: 1px solid rgba(196, 181, 253, 0.2); }
+      .row .fill { position: absolute; left: 0; top: 0; bottom: 0; width: 100%; transform-origin: 0 50%; border-radius: 12px; background: linear-gradient(90deg, var(--violet), var(--neon)); box-shadow: 0 0 24px rgba(200, 255, 77, 0.35); }
+      .row .lvl { margin-left: 40px; font-family: var(--serif); font-size: 60px; color: var(--lilac); }
+      .bubble { position: absolute; top: -78px; padding: 8px 20px; border-radius: 16px; background: var(--ink); color: #0d0a17; font-size: 28px; font-weight: 700; transform-origin: 30% 100%; }
+      .bubble::after { content: ''; position: absolute; left: 22px; bottom: -10px; border-left: 10px solid transparent; border-right: 10px solid transparent; border-top: 12px solid var(--ink); }
+
+      /* ---------- S5 inventory ---------- */
+      #s5title { position: absolute; left: 210px; top: 170px; font-size: 24px; color: var(--neon); }
+      .slot { position: absolute; top: 270px; width: 220px; height: 220px; border-radius: 24px; border: 2px solid rgba(196, 181, 253, 0.28); background: rgba(196, 181, 253, 0.05); display: grid; place-items: center; }
+      .slot .ic { color: var(--ink); width: 104px; height: 104px; }
+      .slot .ic svg { width: 104px; height: 104px; }
+      .slot .glow { position: absolute; inset: -2px; border-radius: 24px; box-shadow: 0 0 60px rgba(200, 255, 77, 0.55), inset 0 0 30px rgba(200, 255, 77, 0.25); border: 2px solid var(--neon); opacity: 0; }
+      .slot .num { position: absolute; left: 14px; top: 10px; font-family: var(--mono); font-size: 16px; color: var(--muted); }
+      .itemLabel { position: absolute; top: 518px; width: 250px; text-align: center; font-size: 30px; font-weight: 700; line-height: 1.15; }
+      #cursor { position: absolute; left: 0; top: 258px; width: 244px; height: 244px; border-radius: 30px; border: 3px solid var(--neon); opacity: 0; }
+      #equipped { position: absolute; top: 246px; padding: 6px 14px; border-radius: 8px; background: var(--neon); color: #0d0a17; font-family: var(--mono); font-size: 16px; font-weight: 600; letter-spacing: 0.16em; opacity: 0; }
+
+      /* ---------- S6 save ---------- */
+      #s6 { z-index: 30; }
+      #iris { background: #000; z-index: 43; clip-path: circle(1400px at 1590px 330px); opacity: 0; }
+      #saveQ, #saveOk { position: absolute; left: 0; right: 0; top: 318px; text-align: center; font-size: 30px; color: var(--lilac); }
+      #saveOk { color: var(--neon); opacity: 0; }
+      #saveBar { position: absolute; left: 700px; top: 392px; width: 520px; height: 14px; border-radius: 8px; background: rgba(196, 181, 253, 0.15); overflow: hidden; }
+      #saveFill { width: 100%; height: 100%; background: var(--neon); transform-origin: 0 50%; transform: scaleX(0); }
+      #sign { position: absolute; left: 0; right: 0; top: 200px; text-align: center; font-family: var(--serif); font-size: 230px; line-height: 1; opacity: 0; text-shadow: 0 0 80px rgba(139, 92, 246, 0.7); }
+      #sign i { color: var(--neon); font-style: normal; }
+      #gh { position: absolute; left: 0; right: 0; top: 500px; text-align: center; font-family: var(--mono); font-size: 30px; letter-spacing: 0.08em; color: var(--muted); opacity: 0; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="pessoal" data-start="0" data-duration="22.6" data-width="1920" data-height="820">
+      <div id="bg" class="layer"><div id="grid"></div></div>
+
+      <!-- S1 -->
+      <div id="s1" class="scene clip" data-start="0" data-duration="3.8" data-track-index="1">
+        <div id="press" class="mono">press start</div>
+        <div id="ring"></div>
+        <div id="p1tag" class="mono"></div>
+        <div id="name1">João Vitor Carmassi</div>
+      </div>
+
+      <!-- S2 -->
+      <div id="s2" class="scene clip" data-start="3" data-duration="4.9" data-track-index="1">
+        <div id="cardWrap">
+          <div id="card">
+            <img src="assets/joao.webp" alt="" />
+            <div class="tint"></div>
+            <div id="cardScan"></div>
+            <div id="cardLabel">P1</div>
+          </div>
+          <div class="corner a"></div><div class="corner b"></div><div class="corner c"></div><div class="corner d"></div>
+        </div>
+        <div id="selectArrow"></div>
+        <div id="charInfo">
+          <div class="kicker mono" id="selKicker"></div>
+          <div id="name2"></div>
+          <div id="s2rows">
+            <div class="stat" id="stat0"><span class="k"></span><span class="v"></span></div>
+            <div class="stat" id="stat1"><span class="k"></span><span class="v"></span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- S3 -->
+      <div id="s3" class="scene clip" data-start="7" data-duration="4.8" data-track-index="1">
+        <div id="photoWrap">
+          <img src="assets/pedra-do-bau.webp" alt="" />
+        </div>
+        <div id="photoTint" class="layer"></div>
+        <svg id="route" viewBox="0 0 1920 820">
+          <defs>
+            <mask id="routeMask" maskUnits="userSpaceOnUse">
+              <path id="routeReveal" d="M930 262 Q1210 40 1520 330" fill="none" stroke="#fff" stroke-width="12" stroke-dasharray="900" stroke-dashoffset="900" />
+            </mask>
+          </defs>
+          <path d="M930 262 Q1210 40 1520 330" fill="none" stroke="#c8ff4d" stroke-width="4" stroke-dasharray="2 16" stroke-linecap="round" mask="url(#routeMask)" />
+        </svg>
+        <div id="pinPulse"></div>
+        <div id="pin"></div>
+        <div id="pinCard"><div class="k mono"></div><div class="v"></div></div>
+        <svg id="globe" viewBox="-150 -150 300 300">
+          <circle r="130" fill="rgba(139,92,246,0.14)" stroke="#c4b5fd" stroke-width="2.5" />
+          <ellipse class="par" rx="130" ry="44" cy="-62" fill="none" stroke="rgba(196,181,253,0.45)" stroke-width="1.5" />
+          <line x1="-130" x2="130" y1="0" y2="0" stroke="rgba(196,181,253,0.55)" stroke-width="1.5" />
+          <ellipse class="par" rx="130" ry="44" cy="62" fill="none" stroke="rgba(196,181,253,0.45)" stroke-width="1.5" />
+          <g id="meridians" fill="none" stroke="#c4b5fd" stroke-width="2">
+            <ellipse class="mer" rx="130" ry="130" />
+            <ellipse class="mer" rx="130" ry="130" />
+            <ellipse class="mer" rx="130" ry="130" />
+          </g>
+          <circle r="7" cx="-40" cy="46" fill="#c8ff4d" />
+        </svg>
+        <div id="remote"></div>
+        <div id="routeText"></div>
+      </div>
+
+      <!-- S4 -->
+      <div id="s4" class="scene clip" data-start="11.2" data-duration="4.2" data-track-index="1">
+        <div id="s4title" class="mono"></div>
+        <div class="row" id="row0" style="top: 200px"><div class="lab"></div><div class="track"><div class="fill"></div><div class="bubble">olá</div></div><div class="lvl"></div></div>
+        <div class="row" id="row1" style="top: 360px"><div class="lab"></div><div class="track"><div class="fill"></div><div class="bubble">hello</div></div><div class="lvl"></div></div>
+        <div class="row" id="row2" style="top: 520px"><div class="lab"></div><div class="track"><div class="fill"></div><div class="bubble">hola</div></div><div class="lvl"></div></div>
+      </div>
+
+      <!-- S5 -->
+      <div id="s5" class="scene clip" data-start="15" data-duration="4.8" data-track-index="1">
+        <div id="s5title" class="mono"></div>
+        <div id="slots"></div>
+        <div id="cursor"></div>
+        <div id="equipped"></div>
+      </div>
+
+      <!-- S6 -->
+      <div id="s6" class="scene clip" data-start="19.4" data-duration="3.2" data-track-index="1">
+        <div id="saveQ" class="mono"></div>
+        <div id="saveOk" class="mono"></div>
+        <div id="saveBar"><div id="saveFill"></div></div>
+        <div id="sign">joão<i>.</i></div>
+        <div id="gh">github.com/joao-carmassi</div>
+      </div>
+
+      <div id="hud" class="layer">
+        <div class="tl">P1 · <b>JOÃO</b></div>
+        <div class="tr"><span id="stageLabel"></span><div class="pips" id="pips"></div></div>
+      </div>
+      <div id="sweep"></div>
+      <div id="iris" class="layer"></div>
+      <div id="flash" class="layer"></div>
+      <div id="vignette" class="layer"></div>
+      <div id="scan" class="layer"></div>
+
+      <!-- audio: music + sfx. the site build renders with audio=off and strips the track -->
+      <audio id="music" class="clip" src="assets/music.mp3" data-start="0" data-duration="22.6" data-volume="0.55" data-fade-out="1.6"></audio>
+      <audio id="sfx1" class="clip sfx" src="assets/sfx/select_008.ogg" data-start="1.3" data-duration="0.6" data-volume="0.7"></audio>
+      <audio id="sfx2" class="clip sfx" src="assets/sfx/impactGlass_light_002.ogg" data-start="1.45" data-duration="0.8" data-volume="0.5"></audio>
+      <audio id="sfx3" class="clip sfx" src="assets/sfx/switch_002.ogg" data-start="4.2" data-duration="0.5" data-volume="0.35"></audio>
+      <audio id="sfx4" class="clip sfx" src="assets/sfx/switch_002.ogg" data-start="4.55" data-duration="0.5" data-volume="0.35"></audio>
+      <audio id="sfx5" class="clip sfx" src="assets/sfx/card-slide-2.ogg" data-start="7.0" data-duration="0.6" data-volume="0.5"></audio>
+      <audio id="sfx6" class="clip sfx" src="assets/sfx/drop_002.ogg" data-start="7.55" data-duration="0.6" data-volume="0.55"></audio>
+      <audio id="sfx7" class="clip sfx" src="assets/sfx/click_002.ogg" data-start="9.45" data-duration="0.4" data-volume="0.45"></audio>
+      <audio id="sfx8" class="clip sfx" src="assets/sfx/card-slide-2.ogg" data-start="11.1" data-duration="0.6" data-volume="0.5"></audio>
+      <audio id="sfx9" class="clip sfx" src="assets/sfx/card-slide-2.ogg" data-start="14.95" data-duration="0.6" data-volume="0.5"></audio>
+      <audio id="sfx10" class="clip sfx" src="assets/sfx/drop_002.ogg" data-start="15.7" data-duration="0.5" data-volume="0.3"></audio>
+      <audio id="sfx11" class="clip sfx" src="assets/sfx/drop_002.ogg" data-start="16.12" data-duration="0.5" data-volume="0.3"></audio>
+      <audio id="sfx12" class="clip sfx" src="assets/sfx/drop_002.ogg" data-start="16.54" data-duration="0.5" data-volume="0.3"></audio>
+      <audio id="sfx13" class="clip sfx" src="assets/sfx/drop_002.ogg" data-start="16.96" data-duration="0.5" data-volume="0.3"></audio>
+      <audio id="sfx14" class="clip sfx" src="assets/sfx/drop_002.ogg" data-start="17.38" data-duration="0.5" data-volume="0.3"></audio>
+      <audio id="sfx15" class="clip sfx" src="assets/sfx/select_008.ogg" data-start="17.8" data-duration="0.6" data-volume="0.5"></audio>
+      <audio id="sfx16" class="clip sfx" src="assets/sfx/bong_001.ogg" data-start="20.45" data-duration="0.8" data-volume="0.5"></audio>
+    </div>
+
+    <script>
+      const STRINGS = {
+        pt: {
+          p1: 'jogador 1', selected: 'personagem selecionado',
+          stats: [['classe', 'desenvolvedor front-end'], ['origem', 'são paulo, 2004']],
+          baseK: 'base', baseV: 'São Bento do Sapucaí, SP',
+          route: 'da serra para o mundo.', remote: '100% remoto',
+          stage: 'fase',
+          langTitle: 'idiomas',
+          langs: [['português', 'nativo'], ['inglês', 'C1'], ['espanhol', 'B2']],
+          invTitle: 'inventário',
+          items: ['trilhas', 'viajar de moto', 'música', 'games', 'filmes', 'código'],
+          equipped: 'equipado',
+          saveQ: 'salvar progresso?', saveOk: '✓ progresso salvo',
+        },
+        en: {
+          p1: 'player 1', selected: 'character selected',
+          stats: [['class', 'front-end developer'], ['origin', 'são paulo, 2004']],
+          baseK: 'base', baseV: 'São Bento do Sapucaí, SP',
+          route: 'from the mountains to the world.', remote: '100% remote',
+          stage: 'stage',
+          langTitle: 'languages',
+          langs: [['portuguese', 'native'], ['english', 'C1'], ['spanish', 'B2']],
+          invTitle: 'inventory',
+          items: ['hiking', 'motorcycle trips', 'music', 'games', 'movies', 'code'],
+          equipped: 'equipped',
+          saveQ: 'save progress?', saveOk: '✓ progress saved',
+        },
+        es: {
+          p1: 'jugador 1', selected: 'personaje seleccionado',
+          stats: [['clase', 'desarrollador front-end'], ['origen', 'são paulo, 2004']],
+          baseK: 'base', baseV: 'São Bento do Sapucaí, SP',
+          route: 'de la sierra al mundo.', remote: '100% remoto',
+          stage: 'nivel',
+          langTitle: 'idiomas',
+          langs: [['portugués', 'nativo'], ['inglés', 'C1'], ['español', 'B2']],
+          invTitle: 'inventario',
+          items: ['senderismo', 'viajes en moto', 'música', 'videojuegos', 'películas', 'código'],
+          equipped: 'equipado',
+          saveQ: '¿guardar progreso?', saveOk: '✓ progreso guardado',
+        },
+      };
+
+      const vars = (window.__hyperframes && window.__hyperframes.getVariables && window.__hyperframes.getVariables()) || {};
+      const lang = STRINGS[vars.lang] ? vars.lang : 'pt';
+      const T = STRINGS[lang];
+      document.documentElement.lang = lang;
+      if (vars.audio === 'off') document.querySelectorAll('audio').forEach((a) => a.remove());
+
+      const $ = (s) => document.querySelector(s);
+      const $$ = (s) => Array.from(document.querySelectorAll(s));
+      const splitInto = (el, text, cls) => {
+        el.innerHTML = '';
+        text.split(' ').forEach((word, i, all) => {
+          const span = document.createElement('span');
+          span.className = cls;
+          span.textContent = word;
+          el.appendChild(span);
+          if (i < all.length - 1) el.appendChild(document.createTextNode(' '));
+        });
+        return Array.from(el.querySelectorAll('.' + cls));
+      };
+
+      // ---------- fill copy ----------
+      $('#p1tag').textContent = T.p1;
+      $('#selKicker').textContent = '▸ ' + T.selected;
+      const nameChars = (() => {
+        const el = $('#name2');
+        el.innerHTML = '';
+        return 'João Vitor Carmassi'.split('').map((c) => {
+          const s = document.createElement('span');
+          s.className = 'ch';
+          s.textContent = c === ' ' ? ' ' : c;
+          el.appendChild(s);
+          return s;
+        });
+      })();
+      T.stats.forEach(([k, v], i) => {
+        $$('.stat .k')[i].textContent = k;
+        $$('.stat .v')[i].textContent = v;
+      });
+      $('#pin').innerHTML = ICONS.pin;
+      $('#pinCard .k').textContent = T.baseK;
+      $('#pinCard .v').textContent = T.baseV;
+      $('#remote').textContent = T.remote;
+      const routeWords = splitInto($('#routeText'), T.route, 'w');
+      $('#s4title').textContent = T.langTitle;
+      T.langs.forEach(([l, lvl], i) => {
+        $$('.row .lab')[i].textContent = l;
+        $$('.row .lvl')[i].textContent = lvl;
+      });
+      $('#s5title').textContent = T.invTitle;
+      $('#equipped').textContent = T.equipped;
+      $('#saveQ').textContent = T.saveQ;
+      $('#saveOk').textContent = T.saveOk;
+
+      const ICON_KEYS = ['trail', 'moto', 'music', 'games', 'film', 'code'];
+      const SLOT_X = (i) => 210 + i * 256;
+      const slots = $('#slots');
+      ICON_KEYS.forEach((key, i) => {
+        const slot = document.createElement('div');
+        slot.className = 'slot';
+        slot.style.left = SLOT_X(i) + 'px';
+        slot.innerHTML = `<div class="glow"></div><span class="num">0${i + 1}</span><div class="ic">${ICONS[key]}</div>`;
+        slots.appendChild(slot);
+        const label = document.createElement('div');
+        label.className = 'itemLabel';
+        label.style.left = SLOT_X(i) - 15 + 'px';
+        label.textContent = T.items[i];
+        slots.appendChild(label);
+      });
+      $('#equipped').style.left = SLOT_X(5) + 110 + 'px';
+
+      const STAGES = 5;
+      const pips = $('#pips');
+      for (let i = 0; i < STAGES; i++) {
+        const p = document.createElement('div');
+        p.className = 'pip';
+        p.innerHTML = '<i></i>';
+        pips.appendChild(p);
+      }
+      const pipEls = $$('.pip');
+      const stageLabel = $('#stageLabel');
+
+      // ---------- timeline ----------
+      const tl = gsap.timeline({ paused: true });
+
+      // backdrop drift, whole film
+      tl.fromTo('#grid', { x: 0, y: 0 }, { x: -60, y: -60, duration: 22.6, ease: 'none' }, 0);
+
+      tl.set('#sweep', { x: -600, skewX: -14 }, 0);
+      tl.set('#selectArrow', { opacity: 0, x: 0 }, 0);
+      tl.set(['#flash', '#ring', '#cardScan'], { opacity: 0 }, 0);
+      tl.set('.slot .glow', { opacity: 0 }, 0);
+
+      // S1 — press start (0 → 3.4)
+      tl.set('#s1', { opacity: 1 }, 0);
+      tl.fromTo('#press', { opacity: 0 }, { opacity: 1, duration: 0.2 }, 0.1);
+      [0.5, 0.7, 0.9].forEach((t, i) => tl.set('#press', { opacity: i % 2 ? 1 : 0.15 }, t));
+      tl.set('#press', { opacity: 1 }, 1.05);
+      tl.to('#press', { scale: 0.9, duration: 0.12, ease: 'power2.in' }, 1.2);
+      tl.to('#press', { opacity: 0, scale: 1.3, filter: 'blur(8px)', duration: 0.25 }, 1.34);
+      tl.fromTo('#ring', { opacity: 1, scale: 1 }, { opacity: 0, scale: 34, duration: 0.8, ease: 'power2.out', immediateRender: false }, 1.34);
+      tl.fromTo('#flash', { opacity: 0.55 }, { opacity: 0, duration: 0.45, immediateRender: false }, 1.36);
+      tl.fromTo('#name1', { opacity: 0, scale: 1.35, filter: 'blur(24px)' }, { opacity: 1, scale: 1, filter: 'blur(0px)', duration: 0.6, ease: 'expo.out' }, 1.4);
+      tl.fromTo('#p1tag', { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.4 }, 1.75);
+      tl.to(['#name1', '#p1tag'], { opacity: 0, y: -40, filter: 'blur(12px)', duration: 0.45, ease: 'power2.in' }, 3.0);
+      tl.set('#s1', { opacity: 0 }, 3.5);
+
+      // S2 — character select (3.0 → 7.4)
+      tl.set('#s2', { opacity: 1 }, 3.0);
+      tl.set('#hud', { opacity: 1 }, 3.2);
+      tl.fromTo('#hud', { opacity: 0 }, { opacity: 1, duration: 0.4 }, 3.2);
+      tl.fromTo('#card', { rotationY: -48, x: -140, opacity: 0, transformPerspective: 1400 }, { rotationY: 0, x: 0, opacity: 1, duration: 0.9, ease: 'expo.out' }, 3.1);
+      tl.fromTo('.corner', { opacity: 0, scale: 1.8 }, { opacity: 1, scale: 1, duration: 0.45, ease: 'back.out(2)', stagger: 0.06 }, 3.5);
+      tl.fromTo('#cardScan', { y: -140, opacity: 1 }, { y: 600, opacity: 1, duration: 0.8, ease: 'none', immediateRender: false }, 3.75);
+      tl.set('#cardScan', { opacity: 0 }, 4.55);
+      tl.fromTo('#selKicker', { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.35 }, 3.5);
+      tl.fromTo(nameChars, { opacity: 0, y: 50, rotationX: -80 }, { opacity: 1, y: 0, rotationX: 0, duration: 0.5, ease: 'back.out(1.8)', stagger: 0.022 }, 3.55);
+      tl.fromTo('#s2rows', { opacity: 0 }, { opacity: 1, duration: 0.2 }, 4.1);
+      tl.fromTo('#stat0', { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.45, ease: 'back.out(1.6)' }, 4.2);
+      tl.fromTo('#stat1', { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.45, ease: 'back.out(1.6)' }, 4.55);
+      tl.to('#selectArrow', { opacity: 1, duration: 0.2 }, 4.2);
+      tl.to('#selectArrow', { x: -10, duration: 0.3, ease: 'sine.inOut', repeat: 7, yoyo: true }, 4.3);
+      tl.to('#cardWrap', { y: -8, duration: 1.4, ease: 'sine.inOut', yoyo: true, repeat: 1 }, 4.4);
+      tl.to(['#cardWrap', '#charInfo', '#selectArrow'], { scale: 0.94, opacity: 0, duration: 0.5, ease: 'power2.in' }, 7.0);
+
+      // S3 — world map (7.0 → 11.4)
+      tl.set('#s3', { opacity: 1 }, 7.0);
+      tl.fromTo('#s3', { clipPath: 'circle(0px at 930px 262px)' }, { clipPath: 'circle(1900px at 930px 262px)', duration: 0.9, ease: 'power3.in' }, 7.0);
+      tl.fromTo('#photoWrap', { scale: 1.16, x: 0 }, { scale: 1.02, x: -30, duration: 4.4, ease: 'power1.out' }, 7.0);
+      tl.fromTo('#pin', { y: -260, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: 'bounce.out' }, 7.45);
+      tl.fromTo('#pinPulse', { opacity: 0.9, scale: 0.4 }, { opacity: 0, scale: 2.4, duration: 0.8, ease: 'power2.out' }, 7.9);
+      tl.fromTo('#pinCard', { opacity: 0, y: 16, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: 'back.out(1.8)' }, 7.85);
+      tl.fromTo('#globe', { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.6, ease: 'back.out(1.6)' }, 8.05);
+      $$('.mer').forEach((m, i) => {
+        tl.fromTo(m, { attr: { rx: 130 } }, { attr: { rx: 2 }, duration: 1.2, ease: 'sine.inOut', repeat: 2, yoyo: true }, 8.05 + i * 0.4);
+      });
+      tl.to('#routeReveal', { attr: { 'stroke-dashoffset': 0 }, duration: 1.0, ease: 'power2.inOut' }, 8.3);
+      tl.fromTo(routeWords, { opacity: 0, y: 40, filter: 'blur(10px)' }, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.5, ease: 'power3.out', stagger: 0.08 }, 8.5);
+      tl.fromTo('#remote', { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.45, ease: 'back.out(2.2)' }, 9.4);
+
+      // sweep → S4
+      tl.fromTo('#sweep', { x: -600 }, { x: 2300, duration: 0.6, ease: 'power2.inOut', immediateRender: false }, 11.05);
+      tl.set('#s3', { opacity: 0 }, 11.35);
+      tl.set('#s4', { opacity: 1 }, 11.35);
+
+      // S4 — languages (11.35 → 15.2)
+      tl.fromTo('#s4title', { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.4 }, 11.45);
+      const fills = [1, 0.86, 0.7];
+      [0, 1, 2].forEach((i) => {
+        const t = 11.55 + i * 0.35;
+        tl.fromTo(`#row${i}`, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.45, ease: 'power3.out' }, t);
+        tl.fromTo(`#row${i} .fill`, { scaleX: 0 }, { scaleX: fills[i], duration: 0.9, ease: 'back.out(1.3)' }, t + 0.15);
+        tl.fromTo(`#row${i} .lvl`, { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.4, ease: 'back.out(2)' }, t + 0.7);
+        $$('.row .bubble')[i].style.left = `calc(${fills[i] * 100}% - 40px)`;
+        tl.fromTo(`#row${i} .bubble`, { opacity: 0, scale: 0, rotation: -10 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.4, ease: 'back.out(2.4)' }, 12.6 + i * 0.28);
+      });
+
+      // sweep → S5
+      tl.fromTo('#sweep', { x: 2300 }, { x: -600, duration: 0.6, ease: 'power2.inOut', immediateRender: false }, 14.9);
+      tl.set('#s4', { opacity: 0 }, 15.2);
+      tl.set('#s5', { opacity: 1 }, 15.2);
+
+      // S5 — inventory (15.2 → 19.6)
+      tl.fromTo('#s5title', { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.4 }, 15.3);
+      tl.fromTo('.slot', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.4, ease: 'power3.out', stagger: 0.05 }, 15.3);
+      tl.set('#cursor', { x: SLOT_X(0) - 12, opacity: 0 }, 0);
+      tl.set('#cursor', { opacity: 1 }, 15.6);
+      const slotEls = $$('.slot');
+      const labelEls = $$('.itemLabel');
+      slotEls.forEach((slot, i) => {
+        const t = 15.7 + i * 0.42;
+        if (i > 0) tl.to('#cursor', { x: SLOT_X(i) - 12, duration: 0.22, ease: 'power3.out' }, t - 0.2);
+        tl.fromTo(slot.querySelector('.ic'), { opacity: 0, scale: 0, rotation: -25 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.45, ease: 'back.out(2.2)' }, t);
+        tl.fromTo(slot.querySelector('.glow'), { opacity: 0.9 }, { opacity: i === 5 ? 1 : 0, duration: 0.6, immediateRender: false }, t);
+        tl.fromTo(labelEls[i], { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35 }, t + 0.08);
+      });
+      tl.fromTo('#equipped', { opacity: 0, y: 10, xPercent: -50 }, { opacity: 1, y: 0, xPercent: -50, duration: 0.35, ease: 'back.out(2)' }, 17.9);
+      tl.to('#cursor', { scale: 1.06, duration: 0.25, yoyo: true, repeat: 3, ease: 'sine.inOut' }, 18.0);
+
+      // iris out (on the equipped slot) → S6
+      tl.set('#iris', { opacity: 1 }, 19.2);
+      tl.fromTo('#iris', { clipPath: 'circle(1900px at 1600px 330px)' }, { clipPath: 'circle(0px at 1600px 330px)', duration: 0.01 }, 19.2);
+      tl.fromTo('#s5', { clipPath: 'circle(1900px at 1600px 395px)' }, { clipPath: 'circle(0px at 1600px 395px)', duration: 0.55, ease: 'power2.inOut', immediateRender: false }, 19.05);
+      tl.set('#iris', { opacity: 0 }, 19.6);
+      tl.set('#s5', { opacity: 0 }, 19.6);
+      tl.to('#hud', { opacity: 0, duration: 0.3 }, 19.3);
+
+      // S6 — save + signature (19.6 → 22.6)
+      tl.set('#s6', { opacity: 1 }, 19.6);
+      tl.fromTo(['#saveQ', '#saveBar'], { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.3 }, 19.65);
+      tl.fromTo('#saveFill', { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: 'steps(8)' }, 19.85);
+      tl.to('#saveQ', { opacity: 0, duration: 0.15 }, 20.45);
+      tl.fromTo('#saveOk', { opacity: 0 }, { opacity: 1, duration: 0.15 }, 20.45);
+      tl.to(['#saveOk', '#saveBar'], { opacity: 0, y: -20, duration: 0.35, ease: 'power2.in' }, 20.95);
+      tl.fromTo('#sign', { opacity: 0, scale: 1.2, filter: 'blur(20px)' }, { opacity: 1, scale: 1, filter: 'blur(0px)', duration: 0.7, ease: 'expo.out' }, 21.1);
+      tl.fromTo('#gh', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4 }, 21.5);
+
+      // HUD stage counter
+      const stageAt = [3.2, 7.4, 11.4, 15.25, 19.65];
+      // one pre-rendered label per stage, swapped by opacity: seek-safe
+      const stageSpans = stageAt.map((_, i) => {
+        const s = document.createElement('span');
+        s.className = 'stg';
+        s.textContent = `${T.stage} ${i + 1}/${STAGES}`;
+        stageLabel.appendChild(s);
+        return s;
+      });
+      stageAt.forEach((t, i) => {
+        stageSpans.forEach((s, j) => tl.set(s, { opacity: j === i ? 1 : 0 }, t));
+        tl.set(pipEls[i].firstChild, { opacity: 1 }, t);
+        tl.fromTo(pipEls[i], { scale: 1.8 }, { scale: 1, duration: 0.3, ease: 'back.out(2)' }, t);
+      });
+      stageSpans.forEach((s) => tl.set(s, { opacity: 0 }, 0));
+      pipEls.forEach((p) => tl.set(p.firstChild, { opacity: 0 }, 0));
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines['pessoal'] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

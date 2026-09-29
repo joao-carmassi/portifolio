@@ -1,4 +1,4 @@
-import { Suspense, lazy, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -11,15 +11,11 @@ import {
   Search,
   Wrench,
 } from 'lucide-react';
-import type { VideoImages } from '@/components/about/videos/types';
 import { Button } from '@/components/ui/button';
 import type { AboutCopy } from '@/i18n';
 import { siGithub } from 'simple-icons';
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
-
-// remotion is the heaviest thing on the page; a page with videos off never loads it
-const AboutVideoPlayer = lazy(() => import('@/components/about/videoPlayer'));
 
 // lucide v1 dropped brand icons, so the GitHub mark comes from simple-icons
 const GithubIcon = () => (
@@ -90,8 +86,7 @@ const InfoCard = ({
   </div>
 );
 
-// both compositions are 1920x820 at heart (1440x615 is the same ratio), which
-// the grid's 2.34 above leans on too
+// both videos are rendered at 1920x820, which the grid's 2.34 above leans on too
 const MediaCard = ({
   className,
   children,
@@ -106,19 +101,57 @@ const MediaCard = ({
   </figure>
 );
 
+type VideoCopy = AboutCopy['videos'][keyof AboutCopy['videos']];
+
+// rendered mp4s from brag-output/, one per language, silent: autoplay only
+// works muted anyway. Plays while on screen, and never under reduced motion,
+// where the poster (a settled frame) is all that shows
+const AboutVideo = ({
+  copy,
+  reduced,
+}: {
+  copy: VideoCopy;
+  reduced: boolean;
+}) => {
+  const video = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (reduced) return;
+    const el = video.current!;
+    const io = new IntersectionObserver(([entry]) => {
+      // play() rejects when a pause lands first; nothing to recover
+      if (entry.isIntersecting) el.play().catch(() => {});
+      else el.pause();
+    });
+    io.observe(el);
+    return () => io.disconnect();
+  }, [reduced]);
+
+  return (
+    <video
+      ref={video}
+      src={copy.src}
+      poster={copy.poster}
+      aria-hidden='true'
+      muted
+      loop
+      playsInline
+      preload='none'
+      className='absolute inset-0 size-full object-cover'
+    />
+  );
+};
+
 const AboutMeHomepage = ({
   copy,
-  images = {},
   videos = true,
 }: {
   copy: AboutCopy;
-  /** optimised by the page: astro:assets cannot run inside a Remotion player */
-  images?: VideoImages;
   /** false leaves the two cards plain black, for the lighter /100 */
   videos?: boolean;
 }) => {
   const section = useRef<HTMLElement>(null);
-  // null until mounted: initialFrame is only read on mount, so wait for matchMedia
+  // null until mounted: the video only renders once matchMedia has answered
   const [reduced, setReduced] = useState<boolean | null>(null);
 
   useEffect(() => {
@@ -201,7 +234,7 @@ const AboutMeHomepage = ({
             copy={copy.cards['0']}
             className='about-card-top lg:col-span-1'
           />
-          {(['quem-sou-eu', 'da-ideia-ao-deploy'] as const).map((id, i) => {
+          {(['pessoal', 'profissional'] as const).map((id, i) => {
             const { title, srText } = copy.videos[id];
             return (
               <MediaCard
@@ -213,14 +246,7 @@ const AboutMeHomepage = ({
                 }
               >
                 {videos && reduced !== null && (
-                  <Suspense fallback={null}>
-                    <AboutVideoPlayer
-                      id={id}
-                      copy={copy.videos}
-                      images={images}
-                      reduced={reduced}
-                    />
-                  </Suspense>
+                  <AboutVideo copy={copy.videos[id]} reduced={reduced} />
                 )}
                 {videos && (
                   <figcaption className='sr-only'>
