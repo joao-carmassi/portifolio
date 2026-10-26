@@ -48,7 +48,7 @@ const InfoCard = ({
   className: string;
 }) => (
   <div
-    className={`dark bg-black text-foreground rounded-3xl p-6 md:p-8 flex flex-col gap-6 ${className}`}
+    className={`dark bg-black dark:bg-background text-foreground rounded-3xl p-6 md:p-8 flex flex-col gap-6 ${className}`}
   >
     <div className='space-y-2'>
       <h3 className='font-title text-3xl md:text-4xl'>{copy.title}</h3>
