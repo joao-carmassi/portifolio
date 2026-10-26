@@ -134,6 +134,13 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
+/* themeCord.tsx animates the theme reveal itself, so drop the default cross-fade */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

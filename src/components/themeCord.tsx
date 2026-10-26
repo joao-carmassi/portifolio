@@ -26,10 +26,27 @@ const ThemeCord = ({ copy }: { copy: NavCopy }) => {
 
   if (!dropped) return null;
 
-  const pull = () => {
+  const flip = () => {
     // the MutationObserver in layout.astro persists this to localStorage
     document.documentElement.classList.toggle('dark');
     setDark(isDark());
+  };
+
+  const pull = () => {
+    if (!('startViewTransition' in document) || matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return flip();
+    }
+    // the new theme spreads out from the knob, like light from the lamp switch
+    const knob = document.querySelector('.pullcord-knob')!.getBoundingClientRect();
+    const x = knob.left + knob.width / 2;
+    const y = knob.top + knob.height / 2;
+    const r = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+    document.startViewTransition(flip).ready.then(() => {
+      document.documentElement.animate(
+        { clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${r}px at ${x}px ${y}px)`] },
+        { duration: 700, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', pseudoElement: '::view-transition-new(root)' },
+      );
+    });
   };
 
   return (
