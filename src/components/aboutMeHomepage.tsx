@@ -12,6 +12,7 @@ import {
   Wrench,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { VideoPopover } from '@/components/ui/video-popover';
 import type { AboutCopy } from '@/i18n';
 import { siGithub } from 'simple-icons';
 
@@ -239,7 +240,15 @@ const AboutMeHomepage = ({ copy }: { copy: AboutCopy }) => {
                 }
               >
                 {reduced !== null && (
-                  <AboutVideo copy={copy.videos[id]} reduced={reduced} />
+                  <VideoPopover
+                    src={copy.videos[id].src}
+                    poster={copy.videos[id].poster}
+                    title={title}
+                    playLabel={copy.play}
+                    closeLabel={copy.close}
+                  >
+                    <AboutVideo copy={copy.videos[id]} reduced={reduced} />
+                  </VideoPopover>
                 )}
                 <figcaption className='sr-only'>
                   {title}. {srText}

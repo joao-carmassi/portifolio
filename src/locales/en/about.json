@@ -36,5 +36,7 @@
       "src": "/videos/about/profissional-en.mp4",
       "poster": "/videos/about/profissional-en.jpg"
     }
-  }
+  },
+  "play": "Watch",
+  "close": "Close"
 }
