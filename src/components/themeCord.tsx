@@ -43,8 +43,12 @@ const ThemeCord = ({ copy }: { copy: NavCopy }) => {
     const r = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
     document.startViewTransition(flip).ready.then(() => {
       document.documentElement.animate(
-        { clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${r}px at ${x}px ${y}px)`] },
-        { duration: 700, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', pseudoElement: '::view-transition-new(root)' },
+        {
+          clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${r}px at ${x}px ${y}px)`],
+          // skiper26's blur option: the new theme comes into focus as it spreads
+          filter: ['blur(8px)', 'blur(4px)', 'blur(0px)'],
+        },
+        { duration: 1200, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', pseudoElement: '::view-transition-new(root)' },
       );
     });
   };
