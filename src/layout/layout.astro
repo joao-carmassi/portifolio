@@ -68,6 +68,11 @@ const { lang, ...seo } = Astro.props as Props;
       lenis.on('scroll', ScrollTrigger.update);
       gsap.ticker.add((time) => lenis.raf(time * 1000));
       gsap.ticker.lagSmoothing(0);
+
+      // the fold menu measures its target itself (see foldMenu.tsx)
+      addEventListener('nav:scrollto', (e) =>
+        lenis.scrollTo((e as CustomEvent<number>).detail),
+      );
     </script>
   </body>
 </html>

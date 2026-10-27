@@ -166,30 +166,33 @@ const visible = { rootMargin: '400px' };
   />
   <StickyNav client:load lang={lang} copy={m.nav} pill='simple' />
   <ThemeCord client:idle copy={m.nav} />
-  <main class='flex flex-col'>
-    <div class='min-h-svh flex'>
-      <HeroHomepage
-        client:load
-        lang={lang}
-        copy={m.hero}
-        navCopy={m.nav}
-        intro={false}
-        background={heroBackground}
+  {/* what the fold menu tips back like a card (see foldMenu.tsx) */}
+  <div data-fold-card class='bg-background'>
+    <main class='flex flex-col'>
+      <div class='min-h-svh flex'>
+        <HeroHomepage
+          client:load
+          lang={lang}
+          copy={m.hero}
+          navCopy={m.nav}
+          intro={false}
+          background={heroBackground}
+        />
+      </div>
+      <AboutMeHomepage client:visible={visible} copy={m.about} />
+      <DocumentosHomepage
+        client:visible={visible}
+        copy={m.docs}
+        images={docImages}
       />
-    </div>
-    <AboutMeHomepage client:visible={visible} copy={m.about} />
-    <DocumentosHomepage
-      client:visible={visible}
-      copy={m.docs}
-      images={docImages}
-    />
-    <ClientsHomepage
-      client:visible={visible}
-      copy={m.clients}
-      images={clientImages}
-    />
-    <TechStackHomepage client:visible={visible} copy={m.stack} />
-    <ContactMeHomepage client:visible={visible} copy={m.contact} />
-  </main>
-  <FooterHomepage client:visible={visible} copy={m.footer} navCopy={m.nav} />
+      <ClientsHomepage
+        client:visible={visible}
+        copy={m.clients}
+        images={clientImages}
+      />
+      <TechStackHomepage client:visible={visible} copy={m.stack} />
+      <ContactMeHomepage client:visible={visible} copy={m.contact} />
+    </main>
+    <FooterHomepage client:visible={visible} copy={m.footer} navCopy={m.nav} />
+  </div>
 </Layout>

@@ -1,6 +1,5 @@
-import { Menu, X } from 'lucide-react';
-import { Suspense, lazy, useEffect, useState } from 'react';
-import StaggeredMenu from '@/components/ui/staggered-menu';
+import { Suspense, lazy, useCallback, useEffect, useState } from 'react';
+import FoldMenu from '@/components/foldMenu';
 // from @/i18n/langs, not @/i18n: this island is client:load and the barrel
 // pulls in every locale file
 import { hrefFor, langs, type Lang } from '@/i18n/langs';
@@ -52,52 +51,13 @@ const StickyNav = ({
   const visible = shown || menuOpen;
   const LAYER = `${GEOMETRY} ${visible ? 'translate-y-0' : 'translate-y-[-250%]'}`;
 
-  const items = Object.values(copy.links).map(({ href, label, ariaLabel }) => ({
-    label,
-    ariaLabel,
-    link: href,
-  }));
+  const close = useCallback(() => setMenuOpen(false), []);
 
   return (
     <>
-      {/* the menu paints its own full-screen overlay; the pill sits above it so
-          its button is also what closes the menu again */}
-      <StaggeredMenu
-        isFixed
-        open={menuOpen}
-        showHeader={false}
-        closeOnClickAway={false}
-        position='right'
-        items={items}
-        socialItems={Object.values(copy.social)}
-        socialsLabel={copy.socials}
-        colors={['#eba8ff', '#7300ff']}
-        accentColor='#7300ff'
-        onMenuOpen={() => setMenuOpen(true)}
-        onMenuClose={() => setMenuOpen(false)}
-      >
-        {/* switching language is a navigation, not client state, so these are
-            plain links to the same page under another prefix */}
-        <nav aria-label={copy.language.label} className='flex flex-col gap-2'>
-          <h3 className='m-0 text-base font-medium text-(--sm-accent)'>
-            {copy.language.label}
-          </h3>
-          <ul role='list' className='m-0 flex list-none flex-row gap-4 p-0'>
-            {langs.map((l) => (
-              <li key={l}>
-                <a
-                  href={hrefFor(l)}
-                  hrefLang={l}
-                  aria-current={l === lang ? 'true' : undefined}
-                  className='text-lg font-medium text-[#111] no-underline transition-colors hover:text-(--sm-accent) aria-[current]:text-(--sm-accent)'
-                >
-                  {copy.language[l]}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </StaggeredMenu>
+      {/* the page folds back under the links; the pill stays above both,
+          and its button is also what closes the menu */}
+      <FoldMenu open={menuOpen} onClose={close} lang={lang} copy={copy} />
 
       {/* two layers on purpose. mix-blend-mode anywhere inside the glass's
           parent turns that parent into a backdrop root, and the glass then has
@@ -153,10 +113,15 @@ const StickyNav = ({
             type='button'
             aria-label={menuOpen ? copy.menu.close : copy.menu.open}
             aria-expanded={menuOpen}
+            aria-controls='fold-menu'
             onClick={() => setMenuOpen((v) => !v)}
             className='grid size-9 place-items-center rounded-full transition-colors hover:bg-white/20'
           >
-            {menuOpen ? <X className='size-5' /> : <Menu className='size-5' />}
+            {/* two lines that cross into an x, as in the fold menu's original */}
+            <span className='flex w-5 flex-col gap-1.5 *:h-0.5 *:rounded-full *:bg-current *:transition-transform *:duration-500 *:ease-[cubic-bezier(0.65,0,0.35,1)]'>
+              <span className={menuOpen ? 'translate-y-1 rotate-45' : ''} />
+              <span className={menuOpen ? '-translate-y-1 -rotate-45' : ''} />
+            </span>
           </button>
         </nav>
       </div>
