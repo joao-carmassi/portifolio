@@ -371,10 +371,11 @@ const Clients = ({
   L.current = layout;
   const activeRef = useRef(active);
   activeRef.current = active;
-  // starts well off to the side and sweeps in the first time it is seen
+  // starts well off to the left and sweeps in rightwards the first time it is
+  // seen, the same way the page scroll pushes it
   const s = useRef<Frame>({
-    current: -(layout.vw * 1.4) / step,
-    previous: -(layout.vw * 1.4) / step,
+    current: (layout.vw * 1.4) / step,
+    previous: (layout.vw * 1.4) / step,
     target: 0,
     bend: 0,
     boost: 0,
@@ -526,12 +527,13 @@ const Clients = ({
       const w = N.slice.w + N.slice.gap;
       const dt = gsap.ticker.deltaRatio(60);
       const still = reduced();
-      // the page scroll pushes the strip like the original's wheel; with a
+      // the page scroll pushes the strip like the original's wheel, but the
+      // other way: scrolling down sends the slices to the right. With a
       // project open it closes it instead
       const dy = scrollY - lastY;
       lastY = scrollY;
       if (activeRef.current === null) {
-        s.target += dy / w;
+        s.target -= dy / w;
         scrolled = 0;
       } else if (performance.now() < settle.current) {
         scrolled = 0;
