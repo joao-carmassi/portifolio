@@ -2,6 +2,14 @@
   "title": "Contact me!",
   "text": "I’d love to hear from you! Whether you have a question, a project in mind, or just want to connect, feel free to reach out. I’m always open to new opportunities and collaborations.",
   "form": {
+    "services": {
+      "label": "What you need",
+      "description": "Pick one or both.",
+      "options": {
+        "website": "Website",
+        "seo": "SEO"
+      }
+    },
     "name": {
       "label": "Name",
       "errors": {

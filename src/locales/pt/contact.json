@@ -2,6 +2,14 @@
   "title": "Entre em contato!",
   "text": "Adoraria ouvir de você! Seja uma dúvida, um projeto em mente ou apenas para se conectar, sinta-se à vontade para me chamar. Estou sempre aberto a novas oportunidades e colaborações.",
   "form": {
+    "services": {
+      "label": "O que você precisa",
+      "description": "Escolha um ou os dois.",
+      "options": {
+        "website": "Website",
+        "seo": "SEO"
+      }
+    },
     "name": {
       "label": "Nome",
       "errors": {

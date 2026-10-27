@@ -2,6 +2,14 @@
   "title": "¡Contáctame!",
   "text": "¡Me encantaría saber de ti! Ya sea que tengas una pregunta, un proyecto en mente o simplemente quieras conectar, no dudes en comunicarte. Siempre estoy abierto a nuevas oportunidades y colaboraciones.",
   "form": {
+    "services": {
+      "label": "Qué necesitas",
+      "description": "Elige uno o ambos.",
+      "options": {
+        "website": "Sitio web",
+        "seo": "SEO"
+      }
+    },
     "name": {
       "label": "Nombre",
       "errors": {
