@@ -30,14 +30,16 @@
       #hero { position: absolute; left: 780px; top: 167px; width: 360px; height: 486px; transform-style: preserve-3d; }
       .face { position: absolute; inset: 0; border-radius: 26px; overflow: hidden; backface-visibility: hidden; background: #111; box-shadow: 0 50px 110px rgba(0, 0, 0, 0.6); }
       .face img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-      .front img { object-position: 50% 30%; filter: grayscale(1) contrast(1.08); }
+      .front img { object-position: 50% 30%; filter: contrast(1.04); }
       .front .shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0, 0, 0, 0) 52%, rgba(0, 0, 0, 0.78) 100%), linear-gradient(125deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0) 42%); }
       .front .sheen { position: absolute; top: 0; bottom: 0; left: 0; width: 100%; background: linear-gradient(105deg, transparent 30%, rgba(255, 255, 255, 0.24) 50%, transparent 70%); }
       .front .p1 { position: absolute; left: 24px; top: 22px; color: rgba(255, 255, 255, 0.85); }
       .front .nm { position: absolute; left: 24px; right: 24px; bottom: 24px; font-family: var(--serif); font-size: 31px; line-height: 1.05; color: #fff; }
       .front .edge, .back .edge { position: absolute; inset: 0; border-radius: 26px; border: 1px solid rgba(255, 255, 255, 0.2); }
       .back { transform: rotateY(180deg); }
-      .back img { filter: grayscale(1) contrast(1.06) brightness(0.88); }
+      /* the back shows the part of the full-frame photo that sits under the
+         card, so S3 can open out of it without the image jumping */
+      .back img { inset: auto; left: -780px; top: -297px; width: 1920px; height: 1080px; filter: contrast(1.04) brightness(0.92); }
 
       /* ---------- S2: character select ---------- */
       #spot { position: absolute; left: 520px; top: -420px; width: 880px; height: 1300px; border-radius: 50%; background: radial-gradient(closest-side, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.03) 60%, transparent); filter: blur(20px); }
@@ -61,7 +63,7 @@
 
       /* ---------- S3: the base, then the world ---------- */
       #photo { position: absolute; left: 0; top: -130px; width: 1920px; height: 1080px; }
-      #photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.06) brightness(0.88); }
+      #photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: contrast(1.04) brightness(0.92); }
       #pin { position: absolute; left: 0; top: 0; width: 0; height: 0; }
       #pin .head { position: absolute; left: -19px; top: -66px; width: 38px; height: 38px; border-radius: 50%; background: #121212; box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35); }
       #pin .head::after { content: ''; position: absolute; left: 13px; top: 13px; width: 12px; height: 12px; border-radius: 50%; background: #f2f2f2; }
@@ -376,9 +378,7 @@
       // ---------- S3 photo and globe ----------
       // the pin on the rock, in the photo's own px (the photo is 1920x1080, set 130px up)
       const PX0 = 818, PY0 = 330;
-      const photo = { s: 2.52, ox: 0, oy: 0, r: 1500 };
-      const zoomAboutCentre = (s) => ({ s, ox: (960 - PX0) * (1 - s), oy: (540 - PY0) * (1 - s) });
-      Object.assign(photo, zoomAboutCentre(2.52));
+      const photo = { s: 1, ox: 0, oy: 0, r: 1500 };
 
       const GLOBE = { cx: 960, cy: 905, R: 540, tilt: 0.38 };
       const lon = (t) => 0.12 * t;
@@ -490,6 +490,8 @@
 
       // the centre of the dark shape that wipes S5 into S6
       const sweep = { x: -1400 };
+      // how far S3 has opened out of the card's frame (0 = the card, 1 = full frame)
+      const reveal = { p: 0 };
 
       const drawPhoto = () => {
         const ph = $('#photo');
@@ -545,28 +547,30 @@
         stagger: (i) => (i % NAME.length) * 0.015,
       }, 4.2);
       BRAND.capIn(tl, p1Words, 4.45);
-      // the card: far behind the letters, through them, then into the lens
+      // the card: far behind the letters, through them, and it lands at its
+      // character-select size (never bigger); the name parts around it
       tl.set('#nameFront', { opacity: 1 }, 4.7);
       tl.to('#heroWrap', { opacity: 1, duration: 0.35 }, 4.75);
       tl.to('#heroWrap', { filter: 'blur(0px)', duration: 0.62, ease: 'power1.in' }, 4.75);
-      tl.to('#hero', { scale: 0.52, rotationY: 14, rotationZ: -3, duration: 0.6, ease: 'power1.in' }, 4.75);
+      tl.to('#hero', { scale: 0.6, rotationY: 12, rotationZ: -3, duration: 0.6, ease: 'power1.in' }, 4.75);
       tl.set(frontChars.filter((_, i) => i % 2 === 0), { visibility: 'hidden' }, 5.33);
-      tl.to('#hero', { scale: 1.15, rotationY: 6, rotationZ: -1, duration: 0.3, ease: 'none' }, 5.35);
-      tl.set('#nameFront', { opacity: 0 }, 5.6);
-      tl.to('#hero', { scale: 5.6, rotationY: 0, rotationZ: 0, duration: 0.4, ease: 'power2.in' }, 5.65);
-      tl.to(['#nameBack', '#p1'], { scale: 1.16, opacity: 0, filter: 'blur(16px)', duration: 0.42, ease: 'power2.in' }, 5.6);
+      tl.to('#hero', { scale: 1, rotationY: -12, rotationZ: 0, duration: 0.75, ease: 'power3.out' }, 5.35);
+      BRAND.blurOut(tl, '#p1', 5.2, 0.3);
+      tl.to([...backChars, ...frontChars], {
+        x: (i) => ((i % NAME.length) - (NAME.length - 1) / 2) * 26,
+        opacity: 0, filter: 'blur(16px)', duration: 0.5, ease: 'power2.in',
+      }, 5.5);
 
-      // S2 (6.0 -> 9.8): the camera pulls back from the card into a character select
-      tl.set('#s2', { opacity: 1 }, 6.0);
-      tl.set('#s1', { opacity: 0 }, 6.1);
+      // S2 (5.75 -> 9.8): the studio builds around the card into a character select
+      tl.fromTo('#s2', { opacity: 0 }, { opacity: 1, duration: 0.5, ease: 'power1.inOut', immediateRender: false }, 5.75);
+      tl.set('#s1', { opacity: 0 }, 6.3);
       tl.set('#s2o', { opacity: 1 }, 6.0);
-      tl.to('#hero', { scale: 1, rotationY: -12, duration: 0.95, ease: 'power3.out' }, 6.05);
       tl.to('#hero', { rotationY: 10, duration: 2.2, ease: 'sine.inOut' }, 7.0);
       tl.to('#hero', { y: -10, duration: 1.1, ease: 'sine.inOut', yoyo: true, repeat: 1 }, 7.0);
       tl.fromTo('#hero .sheen', { xPercent: -130 }, { xPercent: 130, duration: 0.9, ease: 'power2.inOut' }, 6.75);
       tl.fromTo('#sideL', { x: -280, opacity: 0 }, { x: 0, opacity: 0.6, duration: 0.85, ease: 'power3.out' }, 6.3);
       tl.fromTo('#sideR', { x: 280, opacity: 0 }, { x: 0, opacity: 0.6, duration: 0.85, ease: 'power3.out' }, 6.3);
-      tl.fromTo('#spot', { opacity: 0 }, { opacity: 1, duration: 0.8 }, 6.1);
+      tl.fromTo('#spot', { opacity: 0 }, { opacity: 1, duration: 0.8 }, 5.85);
       tl.fromTo('#hud', { opacity: 0 }, { opacity: 1, duration: 0.5 }, 6.3);
       BRAND.capIn(tl, s2Words, 6.55);
       tl.to('#lineL', { attr: { 'stroke-dashoffset': 0 }, duration: 0.4, ease: 'power2.out' }, 7.0);
@@ -578,15 +582,16 @@
       BRAND.blurOut(tl, '#s2o', 9.12, 0.3);
       tl.to('#sideL', { x: -460, opacity: 0, duration: 0.45, ease: 'power2.in' }, 9.2);
       tl.to('#sideR', { x: 460, opacity: 0, duration: 0.45, ease: 'power2.in' }, 9.2);
-      // the card turns over to the serra and the camera goes into it
+      // the card turns over to the serra
       tl.to('#hero', { rotationY: 180, duration: 0.55, ease: 'power2.inOut' }, 9.2);
-      tl.to('#hero', { scale: 5.6, duration: 0.5, ease: 'power2.in' }, 9.3);
+      tl.to('#hero .back .edge', { opacity: 0, duration: 0.2 }, 9.55);
 
-      // S3 (9.8 -> 13.95): the base, then the camera pulls out to the world
-      tl.set('#s3', { opacity: 1 }, 9.8);
-      tl.set(['#s2', '#heroWrap'], { opacity: 0 }, 9.85);
-      tl.to(photo, { ...zoomAboutCentre(1), duration: 1.5, ease: 'power3.out' }, 9.8);
-      tl.to('#hud', { color: '#2f2e2b', duration: 0.2 }, 9.8);
+      // S3 (9.75 -> 13.95): the serra opens out of the card's frame to the full
+      // frame at its final size (no zoom), the base, then out to the world
+      tl.set('#s3', { opacity: 1 }, 9.75);
+      tl.to(reveal, { p: 1, duration: 0.6, ease: 'power3.inOut' }, 9.78);
+      tl.set(['#s2', '#heroWrap'], { opacity: 0 }, 10.4);
+      tl.to('#hud', { color: '#2f2e2b', duration: 0.3 }, 9.95);
       tl.fromTo('#pin', { opacity: 0, y: -60 }, { opacity: 1, y: 0, duration: 0.55, ease: 'bounce.out' }, 10.2);
       [0, 1].forEach((i) => tl.fromTo(`#pul${i}`, { opacity: 0.9, scale: 0.4 }, { opacity: 0, scale: 2.6, duration: 1.0, ease: 'power2.out' }, 10.55 + i * 0.4));
       tl.fromTo('#baseTag', { opacity: 0, x: -14, filter: 'blur(8px)' }, { opacity: 1, x: 0, filter: 'blur(0px)', duration: 0.5, ease: 'power3.out' }, 10.4);
@@ -665,6 +670,8 @@
       // drawn once the timeline has moved every tween to the new time
       const frame = (t) => {
         drawPhoto();
+        const k = 1 - reveal.p;
+        $('#s3').style.clipPath = k > 0 ? `inset(${167 * k}px ${780 * k}px ${167 * k}px ${780 * k}px round ${26 * k}px)` : 'none';
         $('#sweep').style.transform = `translateX(${sweep.x}px)`;
         $('#s6').style.clipPath = `inset(0 ${clamp(1920 - sweep.x, 0, 1920)}px 0 0)`;
         if (t > 11.2 && t < 14.1) drawGlobe(t); else ctx.clearRect(0, 0, 1920, 820);

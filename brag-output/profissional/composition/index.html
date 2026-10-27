@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="assets/brand.css" />
     <style>
       #main { z-index: 10; }
-      .shot { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; object-fit: cover; object-position: 50% 0%; filter: grayscale(1) contrast(1.05); }
+      .shot { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; object-fit: cover; object-position: 50% 0%; filter: none; }
 
       /* a browser window: chrome, then the page */
       .win { position: absolute; border-radius: 18px; overflow: hidden; background: #f4f4f4; box-shadow: 0 50px 120px rgba(0, 0, 0, 0.5); }
@@ -20,7 +20,7 @@
       .win .bar i { width: 11px; height: 11px; border-radius: 50%; background: rgba(0, 0, 0, 0.18); }
       .win .bar .u { margin-left: 18px; height: 28px; min-width: 320px; padding: 0 16px; border-radius: 8px; background: rgba(0, 0, 0, 0.06); font-family: var(--mono); font-size: 15px; line-height: 28px; color: #555; white-space: nowrap; }
       .win .page { position: absolute; left: 0; right: 0; top: 46px; bottom: 0; overflow: hidden; }
-      .win .page img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 0%; filter: grayscale(1) contrast(1.05); }
+      .win .page img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 0%; filter: none; }
 
       /* ---------- S1: the sketch becomes the site ---------- */
       #sketch { position: absolute; inset: 0; width: 1920px; height: 820px; }
@@ -71,7 +71,7 @@
       .barc { position: absolute; bottom: 130px; width: 34px; border-radius: 8px 8px 3px 3px; background: linear-gradient(180deg, #f0f0f0 0%, #6a6a6a 100%); transform-origin: 50% 100%; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); }
       #s4cap1 { top: 452px; }
       #beat2 { opacity: 0; }
-      #prismaShot { position: absolute; left: 260px; top: -10px; width: 1400px; filter: grayscale(1) blur(7px); opacity: 0.45; }
+      #prismaShot { position: absolute; left: 260px; top: -10px; width: 1400px; filter: blur(7px); opacity: 0.45; }
       #prismaShade { background: radial-gradient(60% 70% at 50% 50%, rgba(5, 5, 5, 0.2), rgba(5, 5, 5, 0.85)); }
       #pbtn { position: absolute; left: 50%; top: 350px; height: 116px; padding: 0 64px; border-radius: 999px; background: linear-gradient(180deg, #2a2a2a, #121212); border: 1px solid rgba(255, 255, 255, 0.26); box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6), inset 0 1.5px 0 rgba(255, 255, 255, 0.2); color: #f6f6f6; font-weight: 700; font-size: 40px; line-height: 116px; white-space: nowrap; overflow: hidden; }
       #shine { position: absolute; top: -40px; left: 0; width: 160px; height: 200px; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent); transform: skewX(-20deg); }
@@ -329,13 +329,13 @@
       add('win panel', win('jean', ''), 600, -80, -420);
       add('win panel', win('refugio', 'refugiodapedrasp.com'), -60, 0, 0);
       add('win panel', win('vrf', 'lojadovrf.com.br'), 40, 0, -1600);
-      const pix = add('chip', T.pix, 470, -190, -1350, { o: 0 });
+      const pix = add('chip', T.pix, 470, -190, -1350, { o: 0, sharp: true });
       add('win panel', win('mapa', 'mapaturisticosaobento.com'), -40, 0, -3200);
-      const places = add('chip', T.places, -480, -210, -2940, { o: 0 });
-      const openNow = add('chip dark', T.open, 420, 200, -2900, { o: 0 });
+      const places = add('chip', T.places, -480, -210, -2940, { o: 0, sharp: true });
+      const openNow = add('chip dark', T.open, 420, 200, -2900, { o: 0, sharp: true });
       add('win panel', win('higgx', ''), 560, -80, -5220);
       add('win panel', win('qf', 'quotationfactory.com'), -120, 0, -4800);
-      const kpis = T.kpis.map(([n, l], i) => add('kpi', `<b>${n}</b><span>${l}</span>`, -320 + i * 360, 120, -4560, { o: 0 }));
+      const kpis = T.kpis.map(([n, l], i) => add('kpi', `<b>${n}</b><span>${l}</span>`, -320 + i * 360, 120, -4560, { o: 0, sharp: true }));
       const cam = { x: 60, y: 0, z: 2600 };
       const drawWorld = () => {
         for (const it of ITEMS) {
@@ -348,7 +348,9 @@
           it.el.style.opacity = vis;
           it.el.style.zIndex = Math.round(20000 - d);
           it.el.style.transform = `translate(${sx}px, ${sy}px) translate(-50%, -50%) perspective(1800px) rotateY(${ry}deg) scale(${s})`;
-          it.el.style.filter = `blur(${Math.min(14, (Math.abs(d - F) / F) * 9).toFixed(2)}px)`;
+          // depth of field on the windows only: the chips sit in front of the
+          // window in focus and are read, so they stay sharp
+          it.el.style.filter = it.sharp ? 'none' : `blur(${Math.min(14, (Math.abs(d - F) / F) * 9).toFixed(2)}px)`;
         }
       };
       const cats = T.layouts.map(([title, sub], i) =>
