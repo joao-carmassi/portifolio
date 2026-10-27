@@ -9,6 +9,7 @@ import {
   useRef,
   useState,
   type ReactNode,
+  type RefObject,
 } from 'react';
 import type { ClientsCopy } from '@/i18n';
 import { Picture } from '@/components/ui/picture';
@@ -329,11 +330,21 @@ const Details = ({
   );
 };
 
-/** the window's size, after mount; the server renders a desktop guess */
-const useViewport = () => {
+/**
+ * The window's width and the stage's height, after mount; the server renders
+ * a desktop guess. The stage is h-svh, so its height holds still while a
+ * phone's browser bar slides away, where innerHeight grows past it and laid
+ * the open project out for a taller stage than there is
+ */
+const useViewport = (stage: RefObject<HTMLDivElement | null>) => {
   const [size, setSize] = useState({ w: 1440, h: 900 });
   useEffect(() => {
-    const read = () => setSize({ w: innerWidth, h: innerHeight });
+    const read = () => {
+      const w = innerWidth;
+      const h = stage.current?.clientHeight ?? innerHeight;
+      // the bar fires resize as it slides; same size, same layout
+      setSize((s) => (s.w === w && s.h === h ? s : { w, h }));
+    };
     read();
     addEventListener('resize', read);
     return () => removeEventListener('resize', read);
@@ -351,7 +362,8 @@ const Clients = ({
 }): ReactNode => {
   const items = useMemo<ClientItem[]>(() => Object.values(copy.items), [copy.items]);
   const n = items.length;
-  const view = useViewport();
+  const stage = useRef<HTMLDivElement>(null);
+  const view = useViewport(stage);
   const layout = useMemo(() => layoutFor(view.w, view.h), [view]);
   const step = layout.slice.w + layout.slice.gap;
   // enough copies of the list to fill the width with some to spare
@@ -362,7 +374,6 @@ const Clients = ({
   );
 
   const [active, setActive] = useState<number | null>(null);
-  const stage = useRef<HTMLDivElement>(null);
   const cards = useRef<(HTMLButtonElement | null)[]>([]);
   const pics = useRef<(HTMLImageElement | null)[]>([]);
   const cache = useRef<Record<string, string | boolean>[]>([]);
