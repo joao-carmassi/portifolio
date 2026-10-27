@@ -15,6 +15,37 @@ const CLOSE_SPEED = 1.6;
 
 const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+// after morphin.dev's animated menu text: on hover each letter rolls up out of
+// its line as a twin rolls in from below, spreading out from the middle (same
+// 35ms stagger and 0.3s ease-in-out). Plain CSS, so leaving rolls it back.
+const STAGGER = 0.035;
+
+const RollText = ({ text }: { text: string }) => {
+  const chars = [...text];
+  const mid = (chars.length - 1) / 2;
+  const letters = (roll: string) =>
+    chars.map((ch, i) => (
+      <span
+        key={i}
+        className={`inline-block transition-transform duration-300 ease-in-out motion-reduce:transition-none ${roll}`}
+        style={{ transitionDelay: `${STAGGER * Math.abs(i - mid)}s` }}
+      >
+        {ch}
+      </span>
+    ));
+  return (
+    // the link's aria-label names it; these are the same word twice
+    <span aria-hidden className='relative block overflow-hidden whitespace-pre'>
+      <span className='block'>
+        {letters('group-hover:-translate-y-full group-focus-visible:-translate-y-full')}
+      </span>
+      <span className='absolute inset-0'>
+        {letters('translate-y-full group-hover:translate-y-0 group-focus-visible:translate-y-0')}
+      </span>
+    </span>
+  );
+};
+
 type Fold = {
   tl: gsap.core.Timeline;
   frame: () => void;
@@ -217,9 +248,10 @@ const FoldMenu = ({
                 href={href}
                 aria-label={ariaLabel}
                 onClick={(e) => go(e, href)}
-                className='block font-title text-3xl leading-tight transition-colors hover:text-white/45 focus-visible:text-white/45 focus-visible:outline-none md:text-5xl xl:text-6xl'
+                // the rolled word looks the same, so keyboard focus also dims it
+                className='group block font-title text-3xl leading-tight transition-colors focus-visible:text-white/45 focus-visible:outline-none md:text-5xl xl:text-6xl'
               >
-                {label}
+                <RollText text={label} />
               </a>
             </li>
           ))}
