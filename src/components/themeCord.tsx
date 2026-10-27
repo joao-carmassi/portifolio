@@ -27,9 +27,17 @@ const ThemeCord = ({ copy }: { copy: NavCopy }) => {
   if (!dropped) return null;
 
   const flip = () => {
+    // no css transitions for this one change: the projects stage eases its
+    // colours over 900ms, and under the spreading circle that read as a fade
+    const still = document.createElement('style');
+    still.textContent = '*,*::before,*::after{transition:none!important}';
+    document.head.append(still);
     // the MutationObserver in layout.astro persists this to localStorage
     document.documentElement.classList.toggle('dark');
     setDark(isDark());
+    // the new colours are computed while the transitions are off
+    getComputedStyle(document.body).color;
+    setTimeout(() => still.remove(), 1);
   };
 
   const pull = () => {
