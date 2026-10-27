@@ -25,7 +25,8 @@ ${langs.map((l) => `- [${m.nav.language[l]}](${getCanonicalUrl(hrefFor(l))})`).j
 ## Projects & Clients
 
 ${list(m.clients.items)
-  .map((c) => `- ${'url' in c ? `[${c.title}](${c.url})` : c.title}: ${c.longDescription}`)
+  // prisma ui's docs live on this site, so its url is a path
+  .map((c) => `- [${c.title}](${new URL(c.url, site)}): ${c.longDescription}`)
   .join('\n')}
 
 ## Documents
