@@ -173,7 +173,7 @@ const Clients = ({
   }, []);
 
   return (
-    <section id='clientsHomepage' className='overflow-hidden py-6 lg:py-12 shadow-md'>
+    <section id='clientsHomepage' className='overflow-hidden py-6 lg:py-12'>
       <div className='p-6 md:px-12 lg:px-24 space-y-6 md:space-y-12'>
         <div className='space-y-1.5 md:space-y-3'>
           <h2 className='font-title text-4xl md:text-5xl'>{copy.title}</h2>

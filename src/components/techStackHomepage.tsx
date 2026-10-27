@@ -84,7 +84,7 @@ const tecnologias = [
 
 const TechStack = ({ copy }: { copy: StackCopy }) => {
   return (
-    <section id='techStack' className='bg-card'>
+    <section id='techStack' className='bg-card shadow-md'>
       <div className='p-6 md:p-12 max-w-302 mx-auto space-y-6 md:space-y-12'>
         <ScrollFloat
           animationDuration={1}

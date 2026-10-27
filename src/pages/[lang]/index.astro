@@ -156,21 +156,18 @@ const visible = { rootMargin: '400px' };
     <div class='min-h-svh flex'>
       <HeroHomepage client:load lang={lang} copy={m.hero} navCopy={m.nav} />
     </div>
-    <AboutMeHomepage
-      client:visible={visible}
-      copy={m.about}
-    />
+    <AboutMeHomepage client:visible={visible} copy={m.about} />
     <DocumentosHomepage
       client:visible={visible}
       copy={m.docs}
       images={docImages}
     />
-    <TechStackHomepage client:visible={visible} copy={m.stack} />
     <ClientsHomepage
       client:visible={visible}
       copy={m.clients}
       images={clientImages}
     />
+    <TechStackHomepage client:visible={visible} copy={m.stack} />
     <ContactMeHomepage client:visible={visible} copy={m.contact} />
   </main>
   <FooterHomepage client:visible={visible} copy={m.footer} navCopy={m.nav} />

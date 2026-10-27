@@ -183,12 +183,12 @@ const visible = { rootMargin: '400px' };
       copy={m.docs}
       images={docImages}
     />
-    <TechStackHomepage client:visible={visible} copy={m.stack} />
     <ClientsHomepage
       client:visible={visible}
       copy={m.clients}
       images={clientImages}
     />
+    <TechStackHomepage client:visible={visible} copy={m.stack} />
     <ContactMeHomepage client:visible={visible} copy={m.contact} />
   </main>
   <FooterHomepage client:visible={visible} copy={m.footer} navCopy={m.nav} />
