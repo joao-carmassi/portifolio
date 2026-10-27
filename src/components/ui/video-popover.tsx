@@ -8,6 +8,7 @@ import { Play, X } from 'lucide-react';
 import {
   MediaControlBar,
   MediaController,
+  MediaMuteButton,
   MediaPlayButton,
   MediaTimeRange,
 } from 'media-chrome/react';
@@ -178,18 +179,20 @@ export const VideoPopover = ({
                 className='relative aspect-[1920/820] w-[min(calc(100%-4rem),calc((100dvh-4rem)*1920/820))] overflow-hidden bg-black will-change-transform'
               >
                 <MediaController className='size-full [--media-control-background:transparent] [--media-control-hover-background:transparent]'>
+                  {/* the card preview is silent; opened, it plays with its sound
+                      (the click is the gesture that lets autoplay be audible) */}
                   <video
                     slot='media'
                     src={src}
                     poster={poster}
                     autoPlay
-                    muted
                     playsInline
                     className='size-full object-cover'
                   />
                   <MediaControlBar className='absolute bottom-0 left-0 flex w-full items-center px-5 mix-blend-exclusion md:px-10 md:py-5'>
                     <MediaPlayButton className='h-4 bg-transparent' />
                     <MediaTimeRange className='bg-transparent [--media-range-thumb-opacity:0] [--media-range-track-height:2px]' />
+                    <MediaMuteButton className='h-4 bg-transparent' />
                   </MediaControlBar>
                 </MediaController>
                 <button
