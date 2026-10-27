@@ -27,6 +27,7 @@ brag-output/renders/
 brag-output/*/work/
 brag-output/*/composition/renders/
 brag-output/*/composition/snapshots/
+brag-output/shared/__pycache__/
 
 # tasteskill working files (screenshots, reports)
 .taste-skill/

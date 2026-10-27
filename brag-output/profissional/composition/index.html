@@ -1,194 +1,216 @@
 <!doctype html>
 <html
   lang="pt"
-  data-composition-variables='[{"id":"lang","type":"string","label":"Language (pt|en|es)","default":"pt"},{"id":"audio","type":"string","label":"Audio (on|off)","default":"on"}]'
+  data-composition-variables='[{"id":"lang","type":"string","label":"Language (pt|en|es)","default":"pt"}]'
 >
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=1920, height=820" />
     <script src="assets/gsap.min.js"></script>
     <script src="assets/icons.js"></script>
+    <script src="assets/brand.js"></script>
+    <link rel="stylesheet" href="assets/brand.css" />
     <style>
-      @font-face { font-family: 'DM Serif Display'; src: url(assets/fonts/dmserif.woff2) format('woff2'); font-display: block; }
-      @font-face { font-family: 'Raleway'; src: url(assets/fonts/raleway.woff2) format('woff2'); font-weight: 400 800; font-display: block; }
-      @font-face { font-family: 'Geist Mono'; src: url(assets/fonts/geistmono.woff2) format('woff2'); font-weight: 400 600; font-display: block; }
+      #main { z-index: 10; }
+      .shot { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; object-fit: cover; object-position: 50% 0%; filter: grayscale(1) contrast(1.05); }
 
-      :root {
-        --bg: #0a0a0f;
-        --ink: #f5f3ff;
-        --muted: #9a97b0;
-        --line: rgba(255, 255, 255, 0.09);
-        --glass: rgba(255, 255, 255, 0.045);
-        --violet: #7c3aed;
-        --lilac: #c4b5fd;
-        --pink: #eba8ff;
-        --cyan: #38bdf8;
-        --green: #4ade80;
-        --serif: 'DM Serif Display', Georgia, serif;
-        --sans: 'Raleway', system-ui, sans-serif;
-        --mono: 'Geist Mono', ui-monospace, monospace;
-      }
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      html, body { width: 1920px; height: 820px; overflow: hidden; background: var(--bg); }
-      #root { position: relative; width: 1920px; height: 820px; overflow: hidden; color: var(--ink); font-family: var(--sans); }
-      .layer { position: absolute; inset: 0; }
-      .scene { position: absolute; inset: 0; }
-      .mono { font-family: var(--mono); text-transform: uppercase; letter-spacing: 0.28em; }
-      .hide { opacity: 0; }
+      /* a browser window: chrome, then the page */
+      .win { position: absolute; border-radius: 18px; overflow: hidden; background: #f4f4f4; box-shadow: 0 50px 120px rgba(0, 0, 0, 0.5); }
+      .win .bar { position: absolute; left: 0; right: 0; top: 0; height: 46px; display: flex; align-items: center; gap: 9px; padding: 0 18px; background: #e7e7e5; border-bottom: 1px solid rgba(0, 0, 0, 0.08); }
+      .win .bar i { width: 11px; height: 11px; border-radius: 50%; background: rgba(0, 0, 0, 0.18); }
+      .win .bar .u { margin-left: 18px; height: 28px; min-width: 320px; padding: 0 16px; border-radius: 8px; background: rgba(0, 0, 0, 0.06); font-family: var(--mono); font-size: 15px; line-height: 28px; color: #555; white-space: nowrap; }
+      .win .page { position: absolute; left: 0; right: 0; top: 46px; bottom: 0; overflow: hidden; }
+      .win .page img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 0%; filter: grayscale(1) contrast(1.05); }
 
-      #bg {
-        background:
-          radial-gradient(60% 80% at 15% 0%, rgba(124, 58, 237, 0.22), transparent 60%),
-          radial-gradient(55% 75% at 95% 100%, rgba(56, 189, 248, 0.12), transparent 60%),
-          var(--bg);
-      }
-      #dots {
-        position: absolute; left: -40px; top: -40px; width: 2040px; height: 920px;
-        background-image: radial-gradient(rgba(255, 255, 255, 0.11) 1.2px, transparent 1.4px);
-        background-size: 32px 32px;
-        -webkit-mask-image: radial-gradient(70% 80% at 50% 50%, #000 20%, transparent 100%);
-        mask-image: radial-gradient(70% 80% at 50% 50%, #000 20%, transparent 100%);
-      }
+      /* ---------- S1: the sketch becomes the site ---------- */
+      #sketch { position: absolute; inset: 0; width: 1920px; height: 820px; }
+      #sketch path { fill: none; stroke: #2f2e2b; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+      #sketch .thin { stroke-width: 1.8; opacity: 0.7; }
+      #winWrap { perspective: 1700px; }
+      #win1 { left: 370px; top: 80px; width: 1180px; height: 600px; }
+      #wipe { position: absolute; left: 0; top: 70px; width: 3px; height: 620px; background: #2f2e2b; box-shadow: 0 0 18px rgba(47, 46, 43, 0.4); opacity: 0; }
+      #s1cap { top: 712px; }
 
-      /* ---------- hook sketch ---------- */
-      #sketch { position: absolute; inset: 0; }
-      #pointer { position: absolute; left: 0; top: 0; width: 34px; height: 34px; filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.5)); }
-
-      /* ---------- window ---------- */
-      #win { position: absolute; left: 370px; top: 100px; width: 1180px; height: 620px; border-radius: 22px; background: rgba(18, 17, 26, 0.92); border: 1px solid rgba(255, 255, 255, 0.12); box-shadow: 0 50px 140px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(124, 58, 237, 0.15); overflow: hidden; }
-      #chrome { position: absolute; left: 0; right: 0; top: 0; height: 56px; display: flex; align-items: center; gap: 10px; padding: 0 22px; border-bottom: 1px solid var(--line); background: rgba(255, 255, 255, 0.03); }
-      .dot { width: 13px; height: 13px; border-radius: 50%; background: rgba(255, 255, 255, 0.16); }
-      #url { position: relative; margin-left: 24px; width: 520px; height: 32px; border-radius: 10px; background: rgba(255, 255, 255, 0.05); font-family: var(--mono); font-size: 16px; color: var(--muted); }
-      #url span { position: absolute; left: 16px; top: 7px; white-space: nowrap; }
-      #content { position: absolute; left: 0; right: 0; top: 56px; bottom: 0; }
-      .view { position: absolute; inset: 0; padding: 28px; opacity: 0; }
-      .blk { position: absolute; border-radius: 10px; background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.06); }
-      .bar { position: absolute; height: 12px; border-radius: 6px; background: rgba(255, 255, 255, 0.16); }
-      .acc { background: linear-gradient(110deg, var(--violet), var(--cyan)); border: 0; }
-
-      /* hook text */
-      #hookText { position: absolute; left: 0; right: 0; top: 200px; text-align: center; font-family: var(--serif); font-size: 96px; line-height: 1; }
-      #hookText .w { display: inline-block; }
-
-      /* code */
-      #code { position: absolute; left: 40px; top: 38px; font-family: var(--mono); font-size: 27px; line-height: 50px; white-space: pre; }
-      .ln { position: relative; display: block; }
-      .ln .n { display: inline-block; width: 54px; color: rgba(255, 255, 255, 0.38); }
+      /* ---------- S2: code on a tilted plane, then the stack ---------- */
+      #codeStage { position: absolute; inset: 0; perspective: 1300px; perspective-origin: 50% 40%; }
+      #codePlane { position: absolute; left: 250px; top: 40px; width: 1700px; transform-origin: 50% 50%; }
+      #file { font-family: var(--mono); font-size: 22px; color: #7a7a7a; margin-bottom: 26px; letter-spacing: 0.04em; }
+      .ln { display: block; font-family: var(--mono); font-size: 52px; line-height: 80px; white-space: pre; }
+      .ln .n { display: inline-block; width: 80px; color: rgba(255, 255, 255, 0.2); }
       .ln .t { display: inline-block; }
-      .k { color: #c792ea; } .f { color: #82aaff; } .s { color: #c3e88d; } .tg { color: #f07178; } .a { color: #ffcb6b; } .p { color: #89ddff; }
-      #caret { position: absolute; width: 14px; height: 32px; background: var(--pink); opacity: 0; }
+      .k { color: #9a9a9a; font-style: italic; } .f { color: #ffffff; } .s { color: #dcdcdc; } .tg { color: #f2f2f2; } .a { color: #b4b4b4; } .p { color: #7a7a7a; }
+      #iconStage { position: absolute; inset: 0; perspective: 1400px; perspective-origin: 50% 20%; }
+      #iconGrid { position: absolute; left: 560px; top: 96px; width: 800px; height: 700px; transform-style: preserve-3d; }
+      .app { position: absolute; width: 170px; text-align: center; transform-style: preserve-3d; }
+      .app .ic { width: 170px; height: 170px; border-radius: 42px; background: linear-gradient(160deg, #2d2d2d 0%, #161616 55%, #0c0c0c 100%); box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), inset 0 1.5px 0 rgba(255, 255, 255, 0.16); display: grid; place-items: center; }
+      .app .ic svg, .app .ic img { width: 76px; height: 76px; }
+      .app .ic img { filter: grayscale(1) brightness(2.3) contrast(1.15); }
+      .app .nm { margin-top: 16px; font-weight: 600; font-size: 22px; color: rgba(242, 242, 242, 0.9); white-space: nowrap; }
+      #s2cap { top: 34px; }
 
-      /* right-hand panel */
-      #panel { position: absolute; left: 1330px; top: 0; width: 520px; height: 820px; }
-      .pv { position: absolute; left: 0; top: 0; width: 520px; opacity: 0; }
-      .kick { font-size: 20px; color: var(--pink); }
-      .ptitle { font-family: var(--serif); font-size: 70px; line-height: 1; margin-top: 18px; }
-      .psub { font-family: var(--mono); font-size: 19px; letter-spacing: 0.06em; color: var(--muted); margin-top: 22px; line-height: 1.5; }
+      /* ---------- S3: flying through the work ---------- */
+      .item { position: absolute; left: 0; top: 0; }
+      .panel { width: 1100px; height: 600px; }
+      .chip { padding: 16px 28px 18px; border-radius: 999px; background: #f4f4f4; color: #111; font-weight: 700; font-size: 32px; white-space: nowrap; box-shadow: 0 24px 50px rgba(0, 0, 0, 0.45); }
+      .chip.dark { background: #141414; color: #f2f2f2; border: 1px solid rgba(255, 255, 255, 0.16); }
+      .chip.dark::before { content: ''; display: inline-block; width: 12px; height: 12px; margin-right: 12px; border-radius: 50%; background: #f2f2f2; vertical-align: 4px; }
+      .kpi { width: 320px; padding: 22px 28px 24px; border-radius: 22px; background: rgba(18, 18, 18, 0.92); border: 1px solid rgba(255, 255, 255, 0.14); box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5); }
+      .kpi b { display: block; font-family: var(--serif); font-size: 58px; font-weight: 400; line-height: 1; color: #f4f4f4; }
+      .kpi span { display: block; margin-top: 12px; font-weight: 600; font-size: 16px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+      .cat { position: absolute; left: 0; right: 0; top: 676px; text-align: center; opacity: 0; }
+      .cat .kick { color: rgba(242, 242, 242, 0.55); }
+      .cat .ti { margin-top: 8px; font-family: var(--serif); font-size: 52px; line-height: 1; }
+      .cat .su { margin-top: 10px; font-size: 22px; font-weight: 500; color: var(--muted); }
 
-      /* stack grid */
-      #stackGrid { position: absolute; left: 1330px; top: 190px; width: 480px; height: 480px; }
-      .tile { position: absolute; width: 138px; height: 138px; border-radius: 30px; background: var(--glass); border: 1px solid rgba(255, 255, 255, 0.12); display: grid; place-items: center; }
-      .tile svg, .tile img { width: 62px; height: 62px; }
-      .tile .nm { position: absolute; bottom: -30px; left: -20px; right: -20px; text-align: center; font-family: var(--mono); font-size: 15px; letter-spacing: 0.06em; color: var(--muted); }
-      #stackKick { position: absolute; left: 1330px; top: 118px; }
+      /* ---------- S4: motion ---------- */
+      #curveSvg { position: absolute; inset: 0; width: 1920px; height: 820px; overflow: visible; }
+      #curveSvg .axis { stroke: rgba(255, 255, 255, 0.14); stroke-width: 1.5; fill: none; }
+      #curve { stroke: #ffffff; stroke-width: 3; fill: none; stroke-linecap: round; }
+      #curveGlow { stroke: rgba(255, 255, 255, 0.55); stroke-width: 14; fill: none; stroke-linecap: round; }
+      #easeLbl { position: absolute; left: 222px; top: 716px; font-family: var(--mono); font-size: 22px; color: #8a8a8a; }
+      .barc { position: absolute; bottom: 130px; width: 34px; border-radius: 8px 8px 3px 3px; background: linear-gradient(180deg, #f0f0f0 0%, #6a6a6a 100%); transform-origin: 50% 100%; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); }
+      #s4cap1 { top: 452px; }
+      #beat2 { opacity: 0; }
+      #prismaShot { position: absolute; left: 260px; top: -10px; width: 1400px; filter: grayscale(1) blur(7px); opacity: 0.45; }
+      #prismaShade { background: radial-gradient(60% 70% at 50% 50%, rgba(5, 5, 5, 0.2), rgba(5, 5, 5, 0.85)); }
+      #pbtn { position: absolute; left: 50%; top: 350px; height: 116px; padding: 0 64px; border-radius: 999px; background: linear-gradient(180deg, #2a2a2a, #121212); border: 1px solid rgba(255, 255, 255, 0.26); box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6), inset 0 1.5px 0 rgba(255, 255, 255, 0.2); color: #f6f6f6; font-weight: 700; font-size: 40px; line-height: 116px; white-space: nowrap; overflow: hidden; }
+      #shine { position: absolute; top: -40px; left: 0; width: 160px; height: 200px; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent); transform: skewX(-20deg); }
+      #ripple { position: absolute; width: 60px; height: 60px; border-radius: 50%; border: 2px solid rgba(255, 255, 255, 0.8); opacity: 0; }
+      .cursor { position: absolute; left: 0; top: 0; width: 44px; height: 44px; filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.55)); opacity: 0; }
+      #s4cap2 { top: 520px; }
 
-      /* ecommerce */
-      .price { position: absolute; font-family: var(--mono); font-size: 14px; color: var(--green); }
-      .badge { position: absolute; padding: 4px 10px; border-radius: 6px; background: var(--green); color: #052e16; font-family: var(--mono); font-size: 14px; font-weight: 600; }
-      /* map */
-      .pinx { position: absolute; width: 30px; height: 30px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); background: var(--pink); box-shadow: 0 6px 14px rgba(0, 0, 0, 0.5); }
-      .pinx::after { content: ''; position: absolute; left: 9px; top: 9px; width: 12px; height: 12px; border-radius: 50%; background: #1a1325; }
-      .open { position: absolute; font-family: var(--mono); font-size: 13px; color: var(--green); letter-spacing: 0.04em; }
-      .open::before { content: '●'; margin-right: 6px; }
-      /* dashboard */
-      .kpi { position: absolute; top: 28px; width: 290px; height: 130px; border-radius: 16px; background: var(--glass); border: 1px solid rgba(255, 255, 255, 0.1); padding: 20px 24px; }
-      .kpi b { display: block; font-family: var(--serif); font-size: 52px; font-weight: 400; line-height: 1; }
-      .kpi span { display: block; margin-top: 12px; font-family: var(--mono); font-size: 15px; letter-spacing: 0.08em; color: var(--muted); text-transform: uppercase; }
-      .barc { position: absolute; bottom: 30px; width: 30px; border-radius: 6px 6px 2px 2px; background: linear-gradient(180deg, var(--cyan), var(--violet)); transform-origin: 50% 100%; }
+      /* ---------- S5: SEO, in the light ---------- */
+      #s5cam { position: absolute; inset: 0; transform-origin: 40% 50%; }
+      #search { position: absolute; left: 180px; top: 96px; width: 900px; height: 96px; border-radius: 48px; background: #ffffff; box-shadow: 0 24px 60px rgba(40, 36, 30, 0.14), inset 0 0 0 1.5px rgba(47, 46, 43, 0.16); }
+      #search svg { position: absolute; left: 34px; top: 30px; width: 36px; height: 36px; }
+      #query { position: absolute; left: 92px; top: 26px; font-family: var(--mono); font-size: 34px; color: var(--graphite); white-space: nowrap; }
+      .res { position: absolute; left: 180px; top: 232px; width: 900px; height: 98px; border-radius: 20px; background: #ffffff; box-shadow: 0 18px 40px rgba(40, 36, 30, 0.1); }
+      .res i { position: absolute; display: block; border-radius: 6px; background: rgba(47, 46, 43, 0.14); }
+      .res.me { background: #151515; box-shadow: 0 30px 60px rgba(20, 18, 16, 0.3); }
+      .res.me i { background: rgba(255, 255, 255, 0.22); }
+      .res .rank { position: absolute; right: 26px; top: 22px; width: 54px; height: 54px; border-radius: 50%; background: #f4f4f4; color: #111; font-family: var(--serif); font-size: 30px; line-height: 54px; text-align: center; }
+      .ring { position: absolute; width: 240px; text-align: center; color: var(--graphite); }
+      .ring svg { width: 180px; height: 180px; }
+      .ring .num { position: absolute; left: 0; right: 0; top: 62px; height: 56px; overflow: hidden; font-family: var(--serif); font-size: 52px; line-height: 56px; }
+      .ring .strip { position: absolute; left: 0; right: 0; top: 0; }
+      .ring .lb { margin-top: 10px; font-weight: 600; font-size: 16px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--graphite-muted); }
+      #s5cap { top: 722px; }
+      #wipeLine { position: absolute; left: 0; top: -100px; width: 3px; height: 1100px; background: #ffffff; box-shadow: 0 0 24px 4px rgba(255, 255, 255, 0.6); transform-origin: 50% 50%; z-index: 6; opacity: 0; }
 
-      /* serp */
-      #search { position: absolute; left: 60px; top: 34px; width: 760px; height: 60px; border-radius: 30px; border: 1px solid rgba(255, 255, 255, 0.18); background: rgba(255, 255, 255, 0.05); }
-      #query { position: absolute; left: 60px; top: 15px; font-family: var(--mono); font-size: 24px; white-space: nowrap; }
-      .res { position: absolute; left: 60px; top: 130px; width: 820px; height: 96px; border-radius: 14px; padding: 14px 20px; }
-      .res.me { background: rgba(124, 58, 237, 0.16); border: 1px solid rgba(196, 181, 253, 0.55); box-shadow: 0 0 40px rgba(124, 58, 237, 0.3); }
-      .res .u { position: absolute; left: 20px; top: 14px; width: 200px; height: 10px; border-radius: 5px; background: rgba(74, 222, 128, 0.45); }
-      .res .h { position: absolute; left: 20px; top: 34px; width: 460px; height: 18px; border-radius: 6px; background: rgba(130, 170, 255, 0.55); }
-      .res .d { position: absolute; left: 20px; height: 9px; border-radius: 5px; background: rgba(255, 255, 255, 0.14); }
-      .rank { position: absolute; right: 18px; top: 26px; font-family: var(--serif); font-size: 40px; color: var(--lilac); }
-
-      /* rings */
-      .ring { position: absolute; width: 190px; text-align: center; }
-      .ring svg { width: 150px; height: 150px; }
-      .ring .num { position: absolute; left: 0; right: 0; top: 50px; height: 50px; overflow: hidden; font-family: var(--serif); font-size: 46px; line-height: 50px; }
-      .ring .num .strip { position: absolute; left: 0; right: 0; top: 0; }
-      .ring .lb { margin-top: 10px; font-family: var(--mono); font-size: 15px; letter-spacing: 0.06em; color: var(--muted); text-transform: uppercase; }
-
-      /* motion panel */
-      #curveBox { position: absolute; left: 0; top: 262px; width: 330px; height: 330px; border-radius: 22px; background: var(--glass); border: 1px solid rgba(255, 255, 255, 0.1); }
-      #prismaBtn { position: absolute; left: 0; top: 622px; width: 400px; height: 64px; border-radius: 999px; background: var(--ink); color: #0a0a0f; font-weight: 700; font-size: 22px; display: grid; place-items: center; overflow: hidden; }
-      #shine { position: absolute; top: -20px; left: 0; width: 90px; height: 110px; background: linear-gradient(90deg, transparent, rgba(124, 58, 237, 0.55), transparent); transform: skewX(-20deg); }
-
-      /* outro */
-      #outro { position: absolute; inset: 0; text-align: center; }
-      #oName { position: absolute; left: 0; right: 0; top: 196px; font-family: var(--serif); font-size: 150px; line-height: 1; opacity: 0; }
-      #oRole { position: absolute; left: 0; right: 0; top: 392px; font-size: 26px; color: var(--lilac); opacity: 0; }
-      #oCta { position: absolute; left: 50%; top: 500px; padding: 20px 40px; border-radius: 999px; background: var(--ink); color: #0a0a0f; font-size: 26px; font-weight: 700; opacity: 0; white-space: nowrap; }
-      #oStack { position: absolute; left: 0; right: 0; top: 632px; font-family: var(--mono); font-size: 18px; letter-spacing: 0.2em; color: var(--muted); opacity: 0; }
+      /* ---------- S6: the poster ---------- */
+      #s6 .rule { position: absolute; left: 64px; right: 64px; height: 1px; background: rgba(255, 255, 255, 0.2); transform-origin: 0 50%; }
+      #ruleT { top: 82px; }
+      #ruleB { top: 738px; }
+      #role { position: absolute; left: 64px; top: 46px; color: rgba(242, 242, 242, 0.75); }
+      #pMark { position: absolute; right: 64px; top: 38px; color: rgba(242, 242, 242, 0.75); }
+      #pMark .mark { width: 54px; height: 35px; }
+      #pMark .mark path { stroke-width: 6; }
+      #stackLine { position: absolute; left: 64px; top: 758px; color: rgba(242, 242, 242, 0.55); }
+      #pName { position: absolute; left: 0; right: 0; top: 196px; text-align: center; font-family: var(--serif); font-size: 230px; line-height: 1.12; white-space: nowrap; }
+      #pName .ln2, #glint .ln2 { display: inline-block; overflow: hidden; vertical-align: top; padding: 0.02em 0 0.08em; }
+      #pName .ch { color: #f4f4f4; }
+      #glint { position: absolute; left: 0; right: 0; top: 196px; text-align: center; font-family: var(--serif); font-size: 230px; line-height: 1.12; white-space: nowrap; }
+      #glint .ch { color: transparent; background: linear-gradient(100deg, transparent 40%, rgba(255, 255, 255, 0.95) 50%, transparent 60%) fixed; background-size: 300% 100%; -webkit-background-clip: text; background-clip: text; }
+      #cta { position: absolute; left: 50%; top: 556px; height: 84px; padding: 0 44px; border-radius: 999px; background: #f4f4f4; color: #111; font-weight: 700; font-size: 32px; line-height: 84px; white-space: nowrap; }
+      #ripple6 { position: absolute; width: 60px; height: 60px; border-radius: 50%; border: 2px solid rgba(255, 255, 255, 0.8); opacity: 0; }
     </style>
   </head>
   <body>
-    <div id="root" data-composition-id="profissional" data-start="0" data-duration="23" data-width="1920" data-height="820">
-      <div id="bg" class="layer"><div id="dots"></div></div>
-
-      <div id="main" class="scene clip" data-start="0" data-duration="23" data-track-index="1">
-        <svg id="sketch" viewBox="0 0 1920 820">
-          <path id="sketchPath" d="M372 104 C 620 92, 900 118, 1180 98 S 1520 108, 1548 100 C 1558 260, 1532 420, 1556 560 S 1546 700, 1552 718 C 1300 730, 1000 706, 760 724 S 420 712, 368 722 C 380 580, 354 420, 374 260 S 366 140, 372 104 Z" fill="none" stroke="#eba8ff" stroke-width="4" stroke-linecap="round" stroke-dasharray="3600" stroke-dashoffset="3600" />
-        </svg>
-
-        <div id="win" class="hide">
-          <div id="chrome">
-            <div class="dot"></div><div class="dot"></div><div class="dot"></div>
-            <div id="url"></div>
+    <div id="root" data-composition-id="profissional" data-start="0" data-duration="26" data-width="1920" data-height="820">
+      <div id="main" class="layer clip" data-start="0" data-duration="26" data-track-index="1">
+        <!-- S1 -->
+        <div id="s1" class="scene bg-light">
+          <svg id="sketch" viewBox="0 0 1920 820">
+            <path d="M 372 86 C 700 76, 1100 94, 1548 84 C 1556 300, 1543 500, 1552 678 C 1150 688, 700 670, 368 680 C 375 480, 361 280, 372 86" pathLength="1" />
+            <path d="M 378 134 C 800 128, 1200 140, 1546 132" pathLength="1" />
+            <path d="M 396 111 a 7 7 0 1 0 0.1 0 M 424 111 a 7 7 0 1 0 0.1 0 M 452 111 a 7 7 0 1 0 0.1 0" pathLength="1" />
+            <path d="M 430 178 a 16 16 0 1 0 0.1 0" pathLength="1" />
+            <path d="M 1214 178 L 1282 176 M 1316 178 L 1384 177 M 1418 176 L 1488 178" pathLength="1" />
+            <path d="M 420 262 C 600 252, 760 266, 884 256 M 420 318 C 560 310, 700 322, 826 312" pathLength="1" />
+            <path class="thin" d="M 420 370 C 560 366, 660 374, 760 368 M 420 396 C 520 392, 600 398, 690 394" pathLength="1" />
+            <path d="M 430 438 C 500 434, 560 436, 604 438 C 618 446, 618 470, 604 476 C 540 480, 480 478, 430 476 C 414 468, 414 446, 430 438" pathLength="1" />
+            <path d="M 966 226 C 1150 220, 1320 232, 1500 224 C 1504 300, 1496 400, 1502 470 C 1320 476, 1140 466, 962 474 C 966 400, 958 300, 966 226 M 970 232 L 1496 466 M 1496 230 L 966 468" pathLength="1" />
+            <path d="M 420 524 C 540 520, 660 528, 760 522 L 762 650 L 418 652 Z M 802 522 L 1140 526 L 1138 650 L 800 648 Z M 1182 524 L 1500 522 L 1502 652 L 1180 650 Z" pathLength="1" />
+          </svg>
+          <div id="winWrap" class="layer">
+            <div class="win" id="win1">
+              <div class="bar"><i></i><i></i><i></i><span class="u">localhost:4321</span></div>
+              <div class="page"><img src="assets/refugio.webp" alt="" /></div>
+            </div>
           </div>
-          <div id="content">
-            <div class="view" id="vHook"><div id="hookText"></div></div>
-            <div class="view" id="vCode"><div id="code"></div><div id="caret"></div></div>
-            <div class="view" id="vL1"></div>
-            <div class="view" id="vL2"></div>
-            <div class="view" id="vL3"></div>
-            <div class="view" id="vL4"></div>
-            <div class="view" id="vSerp"></div>
+          <div id="wipe"></div>
+          <div id="s1cap" class="cap ink"></div>
+        </div>
+
+        <!-- S2 -->
+        <div id="s2" class="scene bg-dark">
+          <div class="bokeh" style="left: 1100px; top: -300px; width: 900px; height: 800px"></div>
+          <div id="codeStage"><div id="codePlane"><div id="file">site.tsx</div><div id="code"></div></div></div>
+          <div id="iconStage"><div id="iconGrid"></div></div>
+          <div id="s2cap" class="cap">stack</div>
+        </div>
+
+        <!-- S3 -->
+        <div id="s3" class="scene bg-dark">
+          <div class="bokeh" style="left: -200px; top: -260px; width: 1000px; height: 800px"></div>
+          <div class="bokeh" style="left: 1200px; top: 300px; width: 900px; height: 800px; opacity: 0.6"></div>
+          <div id="world"></div>
+          <div id="cats"></div>
+        </div>
+
+        <!-- S4 -->
+        <div id="s4" class="scene bg-dark">
+          <div id="beat1" class="layer">
+            <svg id="curveSvg" viewBox="0 0 1920 820">
+              <path class="axis" d="M 220 140 L 220 690 L 1700 690" />
+              <path id="curveGlow" d="M 220 690 C 708 170, 1226 170, 1700 170" pathLength="1" filter="url(#glow8)" />
+              <path id="curve" d="M 220 690 C 708 170, 1226 170, 1700 170" pathLength="1" />
+              <circle id="dotGlow" r="22" fill="rgba(255,255,255,0.35)" filter="url(#glow8)" />
+              <circle id="dot" r="10" fill="#ffffff" />
+            </svg>
+            <div id="easeLbl">power3.out</div>
+            <div id="bars"></div>
+            <div id="s4cap1" class="cap"></div>
+          </div>
+          <div id="beat2" class="layer">
+            <img id="prismaShot" src="assets/prisma.webp" alt="" />
+            <div id="prismaShade" class="layer"></div>
+            <div id="pbtn"><div id="shine"></div><span style="position: relative"></span></div>
+            <div id="ripple"></div>
+            <svg class="cursor" id="cur4" viewBox="0 0 24 24"><path d="M4 2 L4 20 L9 15.5 L12.5 22 L15.5 20.6 L12 14 L19 14 Z" fill="#f2f2f2" stroke="#0b0b0b" stroke-width="1.4" stroke-linejoin="round" /></svg>
+            <div id="s4cap2" class="cap"></div>
           </div>
         </div>
 
-        <div id="stackKick" class="kick mono hide">stack</div>
-        <div id="stackGrid"></div>
-        <div id="panel"></div>
-
-        <div id="outro">
-          <div id="oName">João Carmassi</div>
-          <div id="oRole" class="mono"></div>
-          <div id="oCta"></div>
-          <div id="oStack">next.js · react · typescript · astro · gsap</div>
+        <!-- S5 -->
+        <div id="s5" class="scene bg-light">
+          <div id="s5cam">
+            <div id="search">
+              <svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="#2f2e2b" stroke-width="2" /><path d="M15.5 15.5 L21 21" stroke="#2f2e2b" stroke-width="2" stroke-linecap="round" /></svg>
+              <div id="query"></div>
+            </div>
+            <div id="results"></div>
+            <div id="rings"></div>
+          </div>
+          <div id="s5cap" class="cap ink"></div>
         </div>
 
-        <svg id="pointer" viewBox="0 0 24 24"><path d="M4 2 L4 20 L9 15.5 L12.5 22 L15.5 20.6 L12 14 L19 14 Z" fill="#f5f3ff" stroke="#0a0a0f" stroke-width="1.4" stroke-linejoin="round" /></svg>
+        <div id="wipeLine"></div>
+
+        <!-- S6 -->
+        <div id="s6" class="scene bg-dark">
+          <div class="rule" id="ruleT"></div>
+          <div class="rule" id="ruleB"></div>
+          <div id="role" class="kick"></div>
+          <div id="pMark"></div>
+          <div id="stackLine" class="kick">next.js · react · typescript · astro · gsap</div>
+          <div id="pName"></div>
+          <div id="glint"></div>
+          <div id="cta"></div>
+          <div id="ripple6"></div>
+          <svg class="cursor" id="cur6" viewBox="0 0 24 24"><path d="M4 2 L4 20 L9 15.5 L12.5 22 L15.5 20.6 L12 14 L19 14 Z" fill="#f2f2f2" stroke="#0b0b0b" stroke-width="1.4" stroke-linejoin="round" /></svg>
+        </div>
       </div>
-
-      <audio id="music" class="clip" src="assets/music.mp3" data-start="0" data-duration="23" data-volume="0.5" data-fade-out="1.6"></audio>
-      <audio id="sfxSnap" class="clip" src="assets/sfx/select_008.ogg" data-start="1.3" data-duration="0.6" data-volume="0.55"></audio>
-      <audio id="sfxKey1" class="clip" src="assets/sfx/keypress-001.wav" data-start="3.5" data-duration="0.3" data-volume="0.25"></audio>
-      <audio id="sfxKey2" class="clip" src="assets/sfx/keypress-004.wav" data-start="3.9" data-duration="0.3" data-volume="0.25"></audio>
-      <audio id="sfxKey3" class="clip" src="assets/sfx/keypress-007.wav" data-start="4.3" data-duration="0.3" data-volume="0.25"></audio>
-      <audio id="sfxKey4" class="clip" src="assets/sfx/keypress-001.wav" data-start="4.7" data-duration="0.3" data-volume="0.25"></audio>
-      <audio id="sfxStack" class="clip" src="assets/sfx/card-slide-2.ogg" data-start="5.2" data-duration="0.6" data-volume="0.45"></audio>
-      <audio id="sfxL1" class="clip" src="assets/sfx/switch3.ogg" data-start="7.15" data-duration="0.5" data-volume="0.4"></audio>
-      <audio id="sfxL2" class="clip" src="assets/sfx/switch7.ogg" data-start="8.85" data-duration="0.5" data-volume="0.4"></audio>
-      <audio id="sfxL3" class="clip" src="assets/sfx/switch3.ogg" data-start="10.55" data-duration="0.5" data-volume="0.4"></audio>
-      <audio id="sfxL4" class="clip" src="assets/sfx/switch7.ogg" data-start="12.25" data-duration="0.5" data-volume="0.4"></audio>
-      <audio id="sfxRank" class="clip" src="assets/sfx/drop_002.ogg" data-start="17.3" data-duration="0.5" data-volume="0.45"></audio>
-      <audio id="sfxHundred" class="clip" src="assets/sfx/bong_001.ogg" data-start="19.0" data-duration="0.8" data-volume="0.45"></audio>
-      <audio id="sfxCta" class="clip" src="assets/sfx/click2.ogg" data-start="21.3" data-duration="0.4" data-volume="0.5"></audio>
     </div>
 
     <script>
@@ -240,35 +262,27 @@
         },
       };
 
+      const D = 26;
       const vars = (window.__hyperframes && window.__hyperframes.getVariables && window.__hyperframes.getVariables()) || {};
       const lang = STRINGS[vars.lang] ? vars.lang : 'pt';
       const T = STRINGS[lang];
       document.documentElement.lang = lang;
-      if (vars.audio === 'off') document.querySelectorAll('audio').forEach((a) => a.remove());
 
       const $ = (s) => document.querySelector(s);
       const $$ = (s, root = document) => Array.from(root.querySelectorAll(s));
-      const el = (parent, cls, style = {}, html = '') => {
+      const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+      const el = (parent, cls, html = '') => {
         const d = document.createElement('div');
         d.className = cls;
-        Object.assign(d.style, style);
         if (html) d.innerHTML = html;
         parent.appendChild(d);
         return d;
       };
-      const px = (n) => n + 'px';
-      const box = (parent, x, y, w, h, cls = 'blk', extra = {}) =>
-        el(parent, cls + ' part', { left: px(x), top: px(y), width: px(w), height: px(h), ...extra });
 
-      // ---------- url bar: one span per view, swapped by opacity ----------
-      const URLS = ['localhost:4321', 'site.tsx', 'refugiodapedrasp.com', 'lojadovrf.com.br', 'mapaturisticosaobento.com', 'quotationfactory.com', 'google.com/search'];
-      const urlSpans = URLS.map((u) => el($('#url'), '', {}, '')).map((s, i) => ((s.textContent = URLS[i]), s));
-      urlSpans.forEach((s) => { s.style.position = 'absolute'; s.style.left = '16px'; s.style.top = '7px'; s.style.opacity = 0; });
+      BRAND.mount($('#root'));
 
-      // ---------- hook ----------
-      $('#hookText').innerHTML = T.hook.split(' ').map((w) => `<span class="w">${w}</span>`).join(' ');
-
-      // ---------- code ----------
+      // ---------- copy ----------
+      const s1Words = BRAND.words($('#s1cap'), T.hook);
       const CODE = [
         '<span class="k">export default function</span> <span class="f">Site</span><span class="p">() {</span>',
         '  <span class="k">const</span> <span class="p">{</span> data <span class="p">}</span> = <span class="f">useQuery</span><span class="p">(</span>projetos<span class="p">);</span>',
@@ -280,266 +294,276 @@
         '  <span class="p">);</span>',
         '<span class="p">}</span>',
       ];
-      const codeLines = CODE.map((html, i) => el($('#code'), 'ln', {}, `<span class="n">${i + 1}</span><span class="t">${html}</span>`));
+      const codeLines = CODE.map((html, i) => {
+        const l = el($('#code'), 'ln', `<span class="n">${i + 1}</span><span class="t">${html}</span>`);
+        return l;
+      });
 
-      // ---------- stack tiles ----------
       const STACK = [
         ['nextjs', 'Next.js'], ['react', 'React'], ['typescript', 'TypeScript'],
         ['tailwind', 'Tailwind'], ['astro', 'Astro'], ['gsap', 'GSAP'],
         ['reactquery', 'React Query'], ['zustand', 'Zustand'], ['git', 'Git'],
       ];
-      const tileFill = (hex) => (['000000', '0C0C0C', '0e0e0e'].includes(hex) ? '#ffffff' : `#${hex}`);
-      const tiles = STACK.map(([key, name], i) => {
+      const apps = STACK.map(([key, name], i) => {
         const icon = key === 'zustand'
           ? '<img src="assets/zustand.svg" alt="" />'
-          : `<svg viewBox="0 0 24 24"><path d="${ICONS[key].path}" fill="${key === 'astro' || key === 'nextjs' ? '#ffffff' : tileFill(ICONS[key].hex)}"/></svg>`;
-        return el($('#stackGrid'), 'tile', { left: px((i % 3) * 170), top: px(Math.floor(i / 3) * 176) }, `${icon}<div class="nm">${name}</div>`);
+          : `<svg viewBox="0 0 24 24"><path d="${ICONS[key].path}" fill="#f2f2f2"/></svg>`;
+        const a = el($('#iconGrid'), 'app', `<div class="ic">${icon}</div><div class="nm">${name}</div>`);
+        a.style.left = (i % 3) * 315 + 'px';
+        a.style.top = Math.floor(i / 3) * 232 + 'px';
+        return a;
       });
 
-      // ---------- L1 institutional ----------
-      const L1 = $('#vL1');
-      box(L1, 28, 24, 130, 20, 'blk acc', { borderRadius: '10px' });
-      [760, 850, 940].forEach((x) => box(L1, x, 30, 64, 10, 'bar'));
-      box(L1, 1030, 20, 110, 30, 'blk', { borderRadius: '15px', background: 'rgba(235,168,255,0.35)' });
-      box(L1, 28, 104, 560, 38, 'bar', { borderRadius: '10px', background: 'rgba(255,255,255,0.8)' });
-      box(L1, 28, 156, 470, 38, 'bar', { borderRadius: '10px', background: 'rgba(255,255,255,0.8)' });
-      box(L1, 28, 222, 440, 12, 'bar');
-      box(L1, 28, 246, 380, 12, 'bar');
-      box(L1, 28, 290, 200, 52, 'blk acc', { borderRadius: '26px' });
-      const hero = box(L1, 640, 96, 510, 260, 'blk', { overflow: 'hidden', background: 'linear-gradient(180deg,#3b2d6b,#1c1633)' });
-      hero.innerHTML = '<svg viewBox="0 0 510 260" width="510" height="260"><path d="M0 260 L150 110 L230 170 L330 60 L510 230 L510 260 Z" fill="#5b4a9e"/><path d="M0 260 L120 180 L260 220 L400 150 L510 210 L510 260 Z" fill="#2b2250"/><circle cx="420" cy="60" r="26" fill="#eba8ff" opacity=".7"/></svg>';
-      [28, 402, 776].forEach((x) => box(L1, x, 392, 350, 120));
-
-      // ---------- L2 e-commerce ----------
-      const L2 = $('#vL2');
-      box(L2, 28, 20, 560, 40, 'blk', { borderRadius: '20px' });
-      box(L2, 1080, 22, 40, 36, 'blk acc', { borderRadius: '10px' });
-      for (let i = 0; i < 7; i++) { box(L2, 28, 92 + i * 56, 18, 18, 'blk', { borderRadius: '5px' }); box(L2, 58, 96 + i * 56, 110 + ((i * 37) % 60), 10, 'bar'); }
-      for (let i = 0; i < 8; i++) {
-        const x = 230 + (i % 4) * 226, y = 84 + Math.floor(i / 4) * 222;
-        const card = box(L2, x, y, 206, 206, 'blk');
-        el(card, 'blk', { left: '12px', top: '12px', width: '182px', height: '110px', background: `linear-gradient(135deg, rgba(56,189,248,${0.15 + (i % 3) * 0.08}), rgba(124,58,237,0.25))` });
-        el(card, 'bar', { left: '12px', top: '136px', width: '150px' });
-        el(card, 'bar', { left: '12px', top: '158px', width: '100px', height: '10px' });
-        el(card, 'bar', { left: '12px', top: '180px', width: '70px', height: '12px', background: 'rgba(74,222,128,0.5)' });
-        if (i === 1 || i === 6) el(card, 'badge', { right: '10px', top: '20px' }).textContent = T.pix;
-      }
-
-      // ---------- L3 map ----------
-      const L3 = $('#vL3');
-      const map = box(L3, 28, 20, 770, 492, 'blk', { overflow: 'hidden', background: '#141a24' });
-      map.innerHTML = `<svg viewBox="0 0 770 492" width="770" height="492">
-        <path d="M-20 380 C 160 300, 260 420, 420 330 S 700 260, 800 300" stroke="#1f3b52" stroke-width="34" fill="none"/>
-        <path d="M60 -10 C 120 140, 60 260, 180 500" stroke="rgba(255,255,255,.12)" stroke-width="8" fill="none"/>
-        <path d="M-10 150 C 200 170, 420 90, 790 140" stroke="rgba(255,255,255,.12)" stroke-width="8" fill="none"/>
-        <path d="M420 -10 C 400 160, 520 300, 470 510" stroke="rgba(255,255,255,.1)" stroke-width="6" fill="none"/>
-        <ellipse cx="620" cy="80" rx="120" ry="60" fill="rgba(74,222,128,.12)"/>
-        <ellipse cx="220" cy="250" rx="90" ry="50" fill="rgba(74,222,128,.1)"/>
-      </svg>`;
-      const PINS = [[160, 120], [300, 210], [470, 170], [560, 300], [250, 360], [650, 200]];
-      const pinEls = PINS.map(([x, y]) => el(map, 'pinx', { left: px(x), top: px(y) }));
-      el(L3, 'mono part', { position: 'absolute', left: '830px', top: '24px', fontSize: '16px', color: 'var(--pink)' }).textContent = T.places;
-      for (let i = 0; i < 4; i++) {
-        const y = 70 + i * 110;
-        const item = box(L3, 830, y, 322, 96, 'blk');
-        el(item, 'blk', { left: '12px', top: '12px', width: '72px', height: '72px', background: 'linear-gradient(135deg,#3b2d6b,#1f3b52)' });
-        el(item, 'bar', { left: '98px', top: '18px', width: '170px', background: 'rgba(255,255,255,0.4)' });
-        el(item, 'bar', { left: '98px', top: '40px', width: '120px', height: '9px' });
-        if (i % 2 === 0) el(item, 'open', { left: '98px', top: '62px' }).textContent = T.open;
-      }
-
-      // ---------- L4 dashboard ----------
-      const L4 = $('#vL4');
-      box(L4, 28, 24, 56, 488, 'blk');
-      for (let i = 0; i < 5; i++) box(L4, 44, 48 + i * 58, 24, 24, 'blk', { borderRadius: '7px', background: i === 0 ? 'var(--violet)' : 'rgba(255,255,255,.1)' });
-      const kpis = T.kpis.map(([n, l], i) => el(L4, 'kpi part', { left: px(112 + i * 350) }, `<b>${n}</b><span>${l}</span>`));
-      const chart = box(L4, 112, 184, 640, 328, 'blk');
-      chart.innerHTML = `<svg viewBox="0 0 640 328" width="640" height="328"><path id="chartLine" d="M24 270 C 90 250, 120 200, 180 214 S 280 150, 340 160 S 450 70, 520 96 S 600 40, 616 36" stroke="url(#lg)" stroke-width="5" fill="none" stroke-linecap="round" stroke-dasharray="900" stroke-dashoffset="900"/><defs><linearGradient id="lg" x1="0" x2="1"><stop offset="0" stop-color="#7c3aed"/><stop offset="1" stop-color="#38bdf8"/></linearGradient></defs></svg>`;
-      const bars = box(L4, 772, 184, 340, 328, 'blk');
-      const BAR_H = [120, 180, 150, 230, 200, 260, 240];
-      const barEls = BAR_H.map((h, i) => el(bars, 'barc', { left: px(24 + i * 44), height: px(h) }));
-
-      // ---------- SERP ----------
-      const S = $('#vSerp');
-      const search = el(S, '', { position: 'absolute', left: '60px', top: '30px', width: '760px', height: '60px', borderRadius: '30px', border: '1px solid rgba(255,255,255,.18)', background: 'rgba(255,255,255,.05)' });
-      search.innerHTML = '<svg viewBox="0 0 24 24" width="24" height="24" style="position:absolute;left:22px;top:18px"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="#eba8ff" stroke-width="2"/><path d="M15.5 15.5 L21 21" stroke="#eba8ff" stroke-width="2" stroke-linecap="round"/></svg>';
-      const query = el(search, '', { position: 'absolute', left: '62px', top: '15px', fontFamily: 'var(--mono)', fontSize: '24px', whiteSpace: 'nowrap' });
-      query.textContent = T.query;
-      const results = [0, 1, 2, 3].map((i) => {
-        const r = el(S, 'res' + (i === 3 ? ' me' : ''), { transform: `translateY(${i * 112}px)` });
-        el(r, 'u'); el(r, 'h');
-        el(r, 'd', { top: '62px', width: '640px' });
-        el(r, 'd', { top: '78px', width: '520px' });
-        if (i === 3) el(r, 'rank').textContent = '#1';
-        return r;
-      });
-
-      // ---------- right panel views ----------
-      const panel = $('#panel');
-      const pv = (kick, title, sub, top = 250) => {
-        const v = el(panel, 'pv', { top: px(top) });
-        v.innerHTML = `<div class="kick mono">${kick}</div><div class="ptitle">${title}</div>${sub ? `<div class="psub">${sub}</div>` : ''}`;
-        return v;
+      // ---------- S3: the world the camera flies through ----------
+      const F = 1000;
+      const world = $('#world');
+      const win = (img, url) =>
+        `<div class="bar"><i></i><i></i><i></i>${url ? `<span class="u">${url}</span>` : ''}</div><div class="page"><img src="assets/${img}.webp" alt="" /></div>`;
+      const ITEMS = [];
+      const add = (cls, html, x, y, z, extra = {}) => {
+        const e = el(world, 'item ' + cls, html);
+        const it = { el: e, x, y, z, o: 1, ...extra };
+        ITEMS.push(it);
+        return it;
       };
-      const layoutPv = T.layouts.map(([title, sub], i) => pv(`0${i + 1} / 04`, title, sub));
-      const motionPv = pv('motion', T.motionTitle, T.motionSub, 60);
-      const curveBox = el(motionPv, '', {}, '');
-      curveBox.id = 'curveBox';
-      curveBox.innerHTML = `<svg viewBox="0 0 330 330" width="330" height="330">
-          <path d="M40 290 L290 290 M40 290 L40 40" stroke="rgba(255,255,255,.15)" stroke-width="2"/>
-          <path id="easePath" d="M40 290 C 150 290, 120 40, 290 40" stroke="#eba8ff" stroke-width="5" fill="none" stroke-linecap="round" stroke-dasharray="420" stroke-dashoffset="420"/>
-          <circle id="easeDot" r="11" cx="0" cy="0" fill="#38bdf8"/>
-          <text x="46" y="316" fill="#9a97b0" font-family="Geist Mono" font-size="14">power3.out</text>
-        </svg>`;
-      const btn = el(motionPv, '', {}, `<div id="shine"></div><span style="position:relative">${T.prismaBtn}</span>`);
-      btn.id = 'prismaBtn';
-      const seoPv = pv('seo', T.seoTitle, '', 60);
-      const RING_POS = [[0, 250], [240, 250], [0, 480], [240, 480]];
-      const R = 62, C = 2 * Math.PI * R;
+      add('win panel', win('jean', ''), 600, -80, -420);
+      add('win panel', win('refugio', 'refugiodapedrasp.com'), -60, 0, 0);
+      add('win panel', win('vrf', 'lojadovrf.com.br'), 40, 0, -1600);
+      const pix = add('chip', T.pix, 470, -190, -1350, { o: 0 });
+      add('win panel', win('mapa', 'mapaturisticosaobento.com'), -40, 0, -3200);
+      const places = add('chip', T.places, -480, -210, -2940, { o: 0 });
+      const openNow = add('chip dark', T.open, 420, 200, -2900, { o: 0 });
+      add('win panel', win('higgx', ''), 560, -80, -5220);
+      add('win panel', win('qf', 'quotationfactory.com'), -120, 0, -4800);
+      const kpis = T.kpis.map(([n, l], i) => add('kpi', `<b>${n}</b><span>${l}</span>`, -320 + i * 360, 120, -4560, { o: 0 }));
+      const cam = { x: 60, y: 0, z: 2600 };
+      const drawWorld = () => {
+        for (const it of ITEMS) {
+          const d = cam.z - it.z;
+          const vis = clamp((d - 90) / 260) * clamp(1 - (d - 3600) / 900) * it.o;
+          if (vis <= 0.001) { it.el.style.opacity = 0; continue; }
+          const s = F / d;
+          const sx = 960 + (it.x - cam.x) * s, sy = 350 + (it.y - cam.y) * s;
+          const ry = (it.x - cam.x) * -0.012;
+          it.el.style.opacity = vis;
+          it.el.style.zIndex = Math.round(20000 - d);
+          it.el.style.transform = `translate(${sx}px, ${sy}px) translate(-50%, -50%) perspective(1800px) rotateY(${ry}deg) scale(${s})`;
+          it.el.style.filter = `blur(${Math.min(14, (Math.abs(d - F) / F) * 9).toFixed(2)}px)`;
+        }
+      };
+      const cats = T.layouts.map(([title, sub], i) =>
+        el($('#cats'), 'cat', `<div class="kick">0${i + 1} / 04</div><div class="ti">${title}</div><div class="su">${sub}</div>`));
+
+      // ---------- S4 ----------
+      const s4Words1 = BRAND.words($('#s4cap1'), T.motionTitle);
+      const s4Words2 = BRAND.words($('#s4cap2'), T.motionSub);
+      $('#pbtn span').textContent = T.prismaBtn;
+      const BAR_H = [90, 150, 120, 210, 170, 260, 220, 300, 250];
+      const barEls = BAR_H.map((h, i) => {
+        const b = el($('#bars'), 'barc');
+        b.style.left = 1250 + i * 50 + 'px';
+        b.style.height = h + 'px';
+        return b;
+      });
+      // points along the power3.out curve, evenly spaced in x: the dot moves
+      // at a constant speed in time, so its height draws the ease
+      const bez = (u, a, b, c, d) => (1 - u) ** 3 * a + 3 * (1 - u) ** 2 * u * b + 3 * (1 - u) * u * u * c + u ** 3 * d;
+      const CURVE = [220, 690, 708, 170, 1226, 170, 1700, 170];
+      const curvePts = Array.from({ length: 41 }, (_, k) => {
+        const tx = 220 + (1480 * k) / 40;
+        let lo = 0, hi = 1;
+        for (let n = 0; n < 30; n++) {
+          const m = (lo + hi) / 2;
+          if (bez(m, CURVE[0], CURVE[2], CURVE[4], CURVE[6]) < tx) lo = m; else hi = m;
+        }
+        const u = (lo + hi) / 2;
+        return { cx: bez(u, CURVE[0], CURVE[2], CURVE[4], CURVE[6]), cy: bez(u, CURVE[1], CURVE[3], CURVE[5], CURVE[7]) };
+      });
+
+      // ---------- S5 ----------
+      const s5Words = BRAND.words($('#s5cap'), T.seoTitle);
+      $('#query').textContent = T.query;
+      const RES_GAP = 112;
+      const results = [0, 1, 2, 3].map((i) => {
+        const r = el($('#results'), 'res' + (i === 3 ? ' me' : ''),
+          `<i style="left:30px;top:20px;width:200px;height:12px"></i><i style="left:30px;top:42px;width:470px;height:20px"></i><i style="left:30px;top:72px;width:620px;height:10px"></i>`);
+        if (i === 3) el(r, 'rank', '#1');
+        return r;
+      });
+      const RING_POS = [[1230, 150], [1530, 150], [1230, 420], [1530, 420]];
+      const RR = 74, RC = 2 * Math.PI * RR;
       const rings = T.rings.map((label, i) => {
-        const r = el(seoPv, 'ring', { left: px(RING_POS[i][0]), top: px(RING_POS[i][1] - 60) });
-        r.innerHTML = `<svg viewBox="0 0 150 150"><circle cx="75" cy="75" r="${R}" stroke="rgba(74,222,128,.15)" stroke-width="10" fill="none"/><circle class="arc" cx="75" cy="75" r="${R}" stroke="#4ade80" stroke-width="10" fill="none" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C}" transform="rotate(-90 75 75)"/></svg>
-          <div class="num"><div class="strip"></div><div class="final" style="position:absolute;left:0;right:0;top:0">100</div></div>
-          <div class="lb">${label}</div>`;
-        // a single strip 0..100 rolled by translateY: seek-safe, no text swapping
-        r.querySelector('.strip').innerHTML = Array.from({ length: 100 }, (_, n) => `<div style="height:50px">${n}</div>`).join('');
+        const r = el($('#rings'), 'ring');
+        r.style.left = RING_POS[i][0] + 'px';
+        r.style.top = RING_POS[i][1] + 'px';
+        r.innerHTML = `<svg viewBox="0 0 180 180"><circle cx="90" cy="90" r="${RR}" stroke="rgba(47,46,43,.12)" stroke-width="12" fill="none"/><circle class="arc" cx="90" cy="90" r="${RR}" stroke="#2f2e2b" stroke-width="12" fill="none" stroke-linecap="round" stroke-dasharray="${RC}" stroke-dashoffset="${RC}" transform="rotate(-90 90 90)"/></svg>
+          <div class="num"><div class="strip"></div><div class="final" style="position:absolute;left:0;right:0;top:0">100</div></div><div class="lb">${label}</div>`;
+        r.querySelector('.strip').innerHTML = Array.from({ length: 100 }, (_, n) => `<div style="height:56px">${n}</div>`).join('');
         return r;
       });
 
-      // ---------- outro copy ----------
-      $('#oRole').textContent = T.role;
-      $('#oCta').textContent = T.cta;
+      // ---------- S6 ----------
+      $('#role').textContent = T.role;
+      $('#pMark').innerHTML = BRAND.markSvg();
+      const nameHtml = 'João Carmassi'.split('').map((c) => `<span class="ln2"><span class="ch">${c === ' ' ? '&nbsp;' : c}</span></span>`).join('');
+      $('#pName').innerHTML = nameHtml;
+      $('#glint').innerHTML = nameHtml;
+      $('#cta').textContent = T.cta;
 
       // ---------- baselines ----------
-      gsap.set('#pointer', { x: 300, y: 600, opacity: 0 });
-      gsap.set('#win', { opacity: 0, scale: 1.02 });
-      gsap.set('.tile', { opacity: 0, scale: 0.3, x: -560, y: 60 });
-      gsap.set('#stackKick', { opacity: 0 });
+      gsap.set('#sketch path', { attr: { 'stroke-dasharray': '1 1', 'stroke-dashoffset': 1 } });
+      gsap.set('#win1', { clipPath: 'inset(0% 100% 0% 0% round 18px)' });
       gsap.set(codeLines.map((l) => l.querySelector('.t')), { clipPath: 'inset(0 100% 0 0)' });
-      gsap.set('.part', { opacity: 0, y: 18 });
-      gsap.set(pinEls, { opacity: 0, y: -40, rotation: -45 });
+      gsap.set(apps, { opacity: 0 });
+      gsap.set(['#curve', '#curveGlow'], { attr: { 'stroke-dasharray': '1 1', 'stroke-dashoffset': 1 } });
+      gsap.set(['#dot', '#dotGlow'], { attr: curvePts[0], opacity: 0 });
       gsap.set(barEls, { scaleY: 0 });
-      gsap.set('#oCta', { xPercent: -50 });
+      gsap.set('#pbtn', { xPercent: -50 });
+      gsap.set('#shine', { x: -200 });
+      gsap.set('#query', { clipPath: 'inset(0 100% 0 0)' });
+      gsap.set(results, { y: (i) => i * RES_GAP, opacity: 0 });
+      gsap.set('#cta', { xPercent: -50, opacity: 0 });
+      gsap.set(['#ruleT', '#ruleB'], { scaleX: 0 });
+      gsap.set(['#role', '#pMark', '#stackLine'], { opacity: 0 });
+      gsap.set('#pName .ch', { yPercent: 105 });
+      gsap.set('#glint', { opacity: 0 });
+      gsap.set('#glint .ch', { backgroundPosition: '100% 0' });
+      rings.forEach((r) => { gsap.set(r, { opacity: 0 }); gsap.set(r.querySelector('.final'), { opacity: 0 }); });
 
       // ---------- timeline ----------
       const tl = gsap.timeline({ paused: true });
-      tl.to('#dots', { x: -32, y: -32, duration: 23, ease: 'none' }, 0);
+      BRAND.intro(tl);
 
-      // hook — sketch → window (0 → 3.1)
-      tl.to('#pointer', { opacity: 1, x: 372, y: 104, duration: 0.35, ease: 'power2.out' }, 0.1);
-      tl.to('#sketchPath', { attr: { 'stroke-dashoffset': 0 }, duration: 0.95, ease: 'power1.inOut' }, 0.4);
-      tl.to('#pointer', {
-        keyframes: [
-          { x: 1548, y: 100, duration: 0.3 },
-          { x: 1552, y: 718, duration: 0.2 },
-          { x: 368, y: 722, duration: 0.3 },
-          { x: 372, y: 104, duration: 0.15 },
-        ],
-        ease: 'none',
-      }, 0.4);
-      tl.to('#sketchPath', { opacity: 0, duration: 0.2 }, 1.35);
-      tl.to('#win', { opacity: 1, scale: 1, duration: 0.45, ease: 'back.out(1.6)' }, 1.3);
-      tl.to('#pointer', { x: 1640, y: 760, opacity: 0, duration: 0.5, ease: 'power2.in' }, 1.4);
-      tl.set('#vHook', { opacity: 1 }, 1.3);
-      tl.set(urlSpans[0], { opacity: 1 }, 1.3);
-      tl.fromTo('#hookText .w', { opacity: 0, y: 40, filter: 'blur(10px)' }, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.5, stagger: 0.08, ease: 'power3.out' }, 1.5);
-      tl.to('#hookText', { opacity: 0, y: -30, duration: 0.3, ease: 'power2.in' }, 3.0);
+      // S1 (2.7 -> 6.15): a hand sketches the site, then the real one wipes in over it
+      tl.fromTo('#s1', { opacity: 0 }, { opacity: 1, duration: 0.4, ease: 'power1.out' }, 2.7);
+      $$('#sketch path').forEach((p, i) => tl.to(p, { attr: { 'stroke-dashoffset': 0 }, duration: i === 0 ? 0.5 : 0.28, ease: 'power1.inOut' }, 2.85 + (i === 0 ? 0 : 0.32 + i * 0.09)));
+      tl.to('#win1', { clipPath: 'inset(0% 0% 0% 0% round 18px)', duration: 0.55, ease: 'power2.inOut' }, 4.2);
+      tl.fromTo('#wipe', { x: 370, opacity: 1 }, { x: 1550, duration: 0.55, ease: 'power2.inOut' }, 4.2);
+      tl.to('#wipe', { opacity: 0, duration: 0.1 }, 4.72);
+      tl.to('#sketch', { opacity: 0, duration: 0.4 }, 4.5);
+      BRAND.capIn(tl, s1Words, 4.4);
+      tl.to('#win1', { rotationX: 10, rotationY: -12, y: -14, scale: 0.94, duration: 1.2, ease: 'power2.inOut' }, 4.7);
+      // the camera goes into the window
+      tl.to('#win1', { rotationX: 0, rotationY: 0, scale: 3.2, duration: 0.5, ease: 'power2.in' }, 5.85);
+      BRAND.blurOut(tl, '#s1cap', 5.8, 0.25);
+      tl.fromTo('#s2', { opacity: 0 }, { opacity: 1, duration: 0.25, ease: 'power1.in' }, 6.05);
+      tl.set('#s1', { opacity: 0 }, 6.35);
 
-      // code (3.3 → 5.0) then stack (5.0 → 7.0)
-      tl.set('#vHook', { opacity: 0 }, 3.3);
-      tl.set('#vCode', { opacity: 1 }, 3.3);
-      tl.set(urlSpans[0], { opacity: 0 }, 3.3);
-      tl.set(urlSpans[1], { opacity: 1 }, 3.3);
+      // S2 (6.05 -> 9.3): the code types itself on a tilted plane, then the stack
+      tl.fromTo('#codePlane', { rotationX: 30, rotationY: -14, rotationZ: -7, x: 80, y: 140, z: 0 }, { rotationX: 22, rotationY: -8, rotationZ: -5, x: -60, y: -60, duration: 1.7, ease: 'power1.inOut' }, 6.05);
       codeLines.forEach((line, i) => {
-        const chars = line.textContent.length;
-        tl.to(line.querySelector('.t'), { clipPath: 'inset(0 0% 0 0)', duration: Math.max(0.12, chars * 0.006), ease: `steps(${Math.max(1, chars)})` }, 3.35 + i * 0.17);
+        const n = line.textContent.length;
+        tl.to(line.querySelector('.t'), { clipPath: 'inset(0 0% 0 0)', duration: Math.max(0.1, n * 0.0045), ease: `steps(${Math.max(1, n)})` }, 6.25 + i * 0.14);
       });
-      tl.to('#win', { x: -260, duration: 0.7, ease: 'power3.inOut' }, 4.9);
-      tl.to('#stackKick', { opacity: 1, duration: 0.3 }, 5.3);
-      tl.to('.tile', { opacity: 1, scale: 1, x: 0, y: 0, duration: 0.6, ease: 'back.out(1.5)', stagger: 0.07 }, 5.15);
+      tl.to('#codePlane', { y: 520, z: -300, rotationX: 40, opacity: 0, filter: 'blur(10px)', duration: 0.5, ease: 'power2.in' }, 7.7);
+      tl.fromTo('#iconGrid', { rotationX: 30, rotationZ: -5, y: 40 }, { rotationX: 22, rotationZ: 3, y: 0, duration: 1.7, ease: 'power1.inOut' }, 7.75);
+      const ORDER = [0, 1, 3, 2, 4, 6, 5, 7, 8];
+      apps.forEach((a, i) => tl.fromTo(a, { opacity: 0, z: -260, y: 40, filter: 'blur(12px)' }, { opacity: 1, z: 0, y: 0, filter: 'blur(0px)', duration: 0.55, ease: 'back.out(1.4)' }, 7.85 + ORDER[i] * 0.06));
+      tl.fromTo('#s2cap', { opacity: 0, filter: 'blur(10px)' }, { opacity: 1, filter: 'blur(0px)', duration: 0.5 }, 8.0);
+      // the icons rush past the lens into the work
+      apps.forEach((a, i) => tl.to(a, { z: 700, opacity: 0, filter: 'blur(14px)', duration: 0.4, ease: 'power2.in' }, 9.0 + (8 - ORDER[i]) * 0.012));
+      BRAND.blurOut(tl, '#s2cap', 9.0, 0.25);
 
-      // layouts (7.0 → 13.9)
-      tl.to('.tile', { opacity: 0, scale: 0.6, y: 20, duration: 0.3, stagger: 0.02, ease: 'power2.in' }, 6.9);
-      tl.to('#stackKick', { opacity: 0, duration: 0.2 }, 6.9);
-      tl.to('#code', { opacity: 0, y: -20, duration: 0.25 }, 6.95);
-      const views = ['#vL1', '#vL2', '#vL3', '#vL4'];
-      const START = 7.15, STEP = 1.7;
-      views.forEach((v, i) => {
-        const t = START + i * STEP;
-        const parts = $$('.part', $(v));
-        const prevParts = i > 0 ? $$('.part', $(views[i - 1])) : [];
-        if (i === 0) tl.set('#vCode', { opacity: 0 }, t);
-        if (i > 0) tl.to(prevParts, { opacity: 0, y: -14, duration: 0.2, stagger: 0.004, ease: 'power2.in' }, t - 0.22);
-        if (i > 0) tl.set(views[i - 1], { opacity: 0 }, t);
-        tl.set(v, { opacity: 1 }, t);
-        tl.set(urlSpans[1 + i], { opacity: 0 }, t);
-        tl.set(urlSpans[2 + i], { opacity: 1 }, t);
-        tl.to(parts, { opacity: 1, y: 0, duration: 0.45, stagger: 0.012, ease: 'power3.out' }, t);
-        if (i > 0) tl.to(layoutPv[i - 1], { opacity: 0, y: -20, duration: 0.2 }, t - 0.2);
-        tl.fromTo(layoutPv[i], { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.45, ease: 'power3.out', immediateRender: false }, t + 0.05);
+      // S3 (9.25 -> 15.05): the camera flies through four kinds of work
+      tl.set('#s3', { opacity: 1 }, 9.25);
+      tl.set('#s2', { opacity: 0 }, 9.45);
+      tl.fromTo('#s3', { opacity: 0 }, { opacity: 1, duration: 0.2, immediateRender: false }, 9.25);
+      tl.to(cam, { z: F, duration: 0.65, ease: 'power3.out' }, 9.25);
+      const HOLDS = [[40, -1600 + F, 10.7], [-40, -3200 + F, 12.15], [40, -4800 + F, 13.6]];
+      HOLDS.forEach(([x, z, t]) => tl.to(cam, { x, z, duration: 0.55, ease: 'power3.inOut' }, t));
+      tl.to(cam, { z: -4800 + 140, x: -120, duration: 0.42, ease: 'power2.in' }, 14.65);
+      const CAT_AT = [[9.6, 10.72], [11.05, 12.17], [12.5, 13.62], [13.95, 14.68]];
+      CAT_AT.forEach(([a, b], i) => {
+        tl.fromTo(cats[i], { opacity: 0, y: 16, filter: 'blur(10px)' }, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.45, ease: 'power3.out' }, a);
+        tl.to(cats[i], { opacity: 0, y: -12, filter: 'blur(8px)', duration: 0.22, ease: 'power2.in' }, b);
       });
-      gsap.set(layoutPv, { opacity: 0 });
-      // map: pins drop
-      tl.to(pinEls, { opacity: 1, y: 0, duration: 0.45, ease: 'bounce.out', stagger: 0.07 }, START + 2 * STEP + 0.25);
-      // dashboard: chart + bars
-      const T4 = START + 3 * STEP;
-      tl.to('#chartLine', { attr: { 'stroke-dashoffset': 0 }, duration: 1.0, ease: 'power2.out' }, T4 + 0.3);
-      tl.to(barEls, { scaleY: 1, duration: 0.6, ease: 'back.out(1.6)', stagger: 0.05 }, T4 + 0.35);
+      tl.to(pix, { o: 1, duration: 0.3 }, 11.15);
+      tl.to(places, { o: 1, duration: 0.3 }, 12.6);
+      tl.to(openNow, { o: 1, duration: 0.3 }, 12.78);
+      kpis.forEach((k, i) => {
+        tl.to(k, { o: 1, duration: 0.25 }, 14.0 + i * 0.09);
+        tl.fromTo(k.el.querySelector('b'), { y: 30, scale: 0.7 }, { y: 0, scale: 1, duration: 0.6, ease: 'elastic.out(1, 0.5)' }, 14.0 + i * 0.09);
+      });
 
-      // motion (13.95 → 16.3)
-      const TM = 13.95;
-      tl.to(layoutPv[3], { opacity: 0, y: -20, duration: 0.2 }, TM - 0.1);
-      tl.fromTo(motionPv, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.4, ease: 'power3.out', immediateRender: false }, TM);
-      tl.to('#easePath', { attr: { 'stroke-dashoffset': 0 }, duration: 0.8, ease: 'power2.inOut' }, TM + 0.2);
-      // dot rides the bezier: sampled points, seek-safe keyframes
-      const bez = (t, a, b, c, d) => (1 - t) ** 3 * a + 3 * (1 - t) ** 2 * t * b + 3 * (1 - t) * t * t * c + t ** 3 * d;
-      const pts = Array.from({ length: 21 }, (_, i) => ({ cx: bez(i / 20, 40, 150, 120, 290), cy: bez(i / 20, 290, 290, 40, 40) }));
-      tl.set('#easeDot', { attr: pts[0] }, 0);
-      tl.to('#easeDot', { keyframes: pts.slice(1).map((p) => ({ attr: p, duration: 0.05 })), ease: 'none' }, TM + 0.25);
-      tl.to(kpis, { y: -16, duration: 0.25, ease: 'power2.out', stagger: 0.08, yoyo: true, repeat: 1 }, TM + 0.3);
-      tl.to(barEls, { scaleY: 0.35, duration: 0.3, ease: 'power2.in', stagger: 0.03 }, TM + 0.4);
-      tl.to(barEls, { scaleY: 1, duration: 0.7, ease: 'elastic.out(1, 0.45)', stagger: 0.03 }, TM + 0.75);
-      tl.fromTo('#shine', { x: -120 }, { x: 460, duration: 0.7, ease: 'power2.inOut', immediateRender: false }, TM + 1.0);
-      tl.set('#shine', { x: -120 }, 0);
+      // S4 (15.0 -> 17.35): the curve, the dot riding it, elastic bars; then the button
+      tl.set('#s4', { opacity: 1 }, 15.0);
+      tl.set('#s3', { opacity: 0 }, 15.08);
+      tl.fromTo('#s4', { opacity: 0 }, { opacity: 1, duration: 0.12, immediateRender: false }, 15.0);
+      tl.to(['#curve', '#curveGlow'], { attr: { 'stroke-dashoffset': 0 }, duration: 0.6, ease: 'power2.inOut' }, 15.05);
+      tl.to(['#dot', '#dotGlow'], { opacity: 1, duration: 0.15 }, 15.15);
+      tl.to(['#dot', '#dotGlow'], { keyframes: curvePts.slice(1).map((p) => ({ attr: p, duration: 0.8 / 40 })), ease: 'none' }, 15.15);
+      tl.fromTo('#easeLbl', { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: 0.4 }, 15.2);
+      BRAND.capIn(tl, s4Words1, 15.25);
+      tl.to(barEls, { scaleY: 1, duration: 0.8, ease: 'elastic.out(1, 0.45)', stagger: 0.045 }, 15.4);
+      tl.to(barEls, { scaleY: 0.4, duration: 0.18, ease: 'power2.in', stagger: 0.03 }, 15.85);
+      tl.to(barEls, { scaleY: 1, duration: 0.6, ease: 'elastic.out(1, 0.4)', stagger: 0.03 }, 16.05);
+      // the camera dollies through to the button
+      tl.to('#beat1', { opacity: 0, scale: 1.12, filter: 'blur(14px)', duration: 0.35, ease: 'power2.in' }, 16.05);
+      tl.fromTo('#beat2', { opacity: 0, scale: 0.92, filter: 'blur(14px)' }, { opacity: 1, scale: 1, filter: 'blur(0px)', duration: 0.45, ease: 'power3.out' }, 16.2);
+      BRAND.capIn(tl, s4Words2, 16.4);
+      tl.to('#shine', { x: 900, duration: 0.7, ease: 'power2.inOut' }, 16.45);
+      tl.fromTo('#cur4', { x: 1500, y: 700, opacity: 0 }, { x: 1060, y: 400, opacity: 1, duration: 0.45, ease: 'power3.out' }, 16.45);
+      tl.to('#pbtn', { scale: 0.95, duration: 0.09, yoyo: true, repeat: 1, ease: 'power1.inOut' }, 16.92);
+      tl.fromTo('#ripple', { x: 1030, y: 378, scale: 0.3, opacity: 0.9 }, { scale: 3, opacity: 0, duration: 0.5, ease: 'power2.out' }, 16.94);
+      BRAND.flash(tl, 17.35);
 
-      // SEO (16.3 → 20.2)
-      const TS = 16.3;
-      tl.to($$('.part', $('#vL4')), { opacity: 0, y: -14, duration: 0.2, stagger: 0.004 }, TS - 0.22);
-      tl.to(motionPv, { opacity: 0, y: -20, duration: 0.2 }, TS - 0.2);
-      tl.set('#vL4', { opacity: 0 }, TS);
-      tl.set(urlSpans[5], { opacity: 0 }, TS);
-      tl.set(urlSpans[6], { opacity: 1 }, TS);
-      tl.set('#vSerp', { opacity: 1 }, TS);
-      gsap.set(query, { clipPath: 'inset(0 100% 0 0)' });
-      tl.to(query, { clipPath: 'inset(0 0% 0 0)', duration: 0.6, ease: `steps(${T.query.length})` }, TS + 0.1);
-      tl.fromTo(results, { opacity: 0 }, { opacity: 1, duration: 0.3, stagger: 0.06, immediateRender: false }, TS + 0.6);
-      gsap.set(results, { opacity: 0 });
-      // climb: ours from slot 4 to slot 1, the rest step down
-      tl.to(results[3], { y: 0, duration: 0.7, ease: 'power3.inOut' }, TS + 1.0);
-      [0, 1, 2].forEach((i) => tl.to(results[i], { y: (i + 1) * 112, duration: 0.7, ease: 'power3.inOut' }, TS + 1.0));
-      tl.fromTo(seoPv, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.4, ease: 'power3.out', immediateRender: false }, TS + 0.05);
-      gsap.set([motionPv, seoPv], { opacity: 0 });
+      // S5 (17.35 -> 21.15): SEO, in the light
+      tl.set('#s5', { opacity: 1 }, 17.35);
+      tl.set('#s4', { opacity: 0 }, 17.37);
+      tl.fromTo('#s5cam', { scale: 0.98 }, { scale: 1.03, duration: 3.8, ease: 'none' }, 17.35);
+      BRAND.capIn(tl, s5Words, 17.6);
+      tl.fromTo('#search', { opacity: 0, y: 20, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: 'power3.out' }, 17.45);
+      tl.to('#query', { clipPath: 'inset(0 0% 0 0)', duration: 0.6, ease: `steps(${T.query.length})` }, 17.75);
+      results.forEach((r, i) => tl.fromTo(r, { opacity: 0, filter: 'blur(8px)' }, { opacity: 1, filter: 'blur(0px)', duration: 0.35, ease: 'power2.out' }, 18.3 + i * 0.07));
+      // the result climbs to the top
+      tl.to(results[3], { y: 0, scale: 1.03, duration: 0.7, ease: 'power3.inOut' }, 18.75);
+      [0, 1, 2].forEach((i) => tl.to(results[i], { y: (i + 1) * RES_GAP, duration: 0.7, ease: 'power3.inOut' }, 18.75));
+      tl.to(results[3], { scale: 1, duration: 0.4, ease: 'power2.out' }, 19.45);
       rings.forEach((r, i) => {
-        const t = TS + 1.2 + i * 0.12;
-        tl.fromTo(r, { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.35, ease: 'back.out(1.8)', immediateRender: false }, t);
-        tl.to(r.querySelector('.arc'), { attr: { 'stroke-dashoffset': 0 }, duration: 1.3, ease: 'power2.out' }, t + 0.1);
-        // the roll stops one short of 100, then a static 100 replaces the strip: no stacked glyph boxes once settled
-        tl.to(r.querySelector('.strip'), { y: -99 * 50, duration: 1.2, ease: 'power2.out' }, t + 0.1);
-        tl.set(r.querySelector('.strip'), { opacity: 0 }, t + 1.32);
-        tl.set(r.querySelector('.final'), { opacity: 1 }, t + 1.32);
-        gsap.set(r.querySelector('.final'), { opacity: 0 });
-        gsap.set(r, { opacity: 0 });
+        const t = 19.05 + i * 0.1;
+        tl.fromTo(r, { opacity: 0, scale: 0.85, filter: 'blur(8px)' }, { opacity: 1, scale: 1, filter: 'blur(0px)', duration: 0.45, ease: 'power3.out', immediateRender: false }, t);
+        tl.to(r.querySelector('.arc'), { attr: { 'stroke-dashoffset': 0 }, duration: 1.2, ease: 'power2.out' }, t + 0.1);
+        tl.to(r.querySelector('.strip'), { y: -99 * 56, duration: 1.1, ease: 'power2.out' }, t + 0.1);
+        tl.set(r.querySelector('.strip'), { opacity: 0 }, t + 1.22);
+        tl.set(r.querySelector('.final'), { opacity: 1 }, t + 1.22);
       });
+      // a diagonal wipe, with a bright edge, into the poster
+      tl.set('#s6', { opacity: 1 }, 20.8);
+      tl.fromTo('#s6', { clipPath: 'polygon(0px 0px, -420px 0px, -820px 820px, 0px 820px)' }, { clipPath: 'polygon(0px 0px, 2760px 0px, 2360px 820px, 0px 820px)', duration: 0.6, ease: 'power2.inOut', immediateRender: false }, 20.8);
+      tl.fromTo('#wipeLine', { x: -620, rotation: 26, opacity: 1 }, { x: 2560, duration: 0.6, ease: 'power2.inOut', immediateRender: false }, 20.8);
+      tl.to('#wipeLine', { opacity: 0, duration: 0.1 }, 21.35);
+      tl.set('#s5', { opacity: 0 }, 21.45);
 
-      // outro (20.2 → 23)
-      const TO = 20.2;
-      tl.to('#win', { scale: 0.6, opacity: 0, y: 40, duration: 0.55, ease: 'power3.in' }, TO);
-      tl.to(seoPv, { opacity: 0, x: 40, duration: 0.35, ease: 'power2.in' }, TO);
-      tl.fromTo('#oName', { opacity: 0, scale: 1.15, filter: 'blur(18px)' }, { opacity: 1, scale: 1, filter: 'blur(0px)', duration: 0.7, ease: 'expo.out', immediateRender: false }, TO + 0.45);
-      tl.to('#oRole', { opacity: 1, duration: 0.4 }, TO + 0.75);
-      tl.fromTo('#oCta', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.45, ease: 'back.out(1.8)', immediateRender: false }, TO + 1.0);
-      tl.to('#oCta', { scale: 0.95, duration: 0.1, yoyo: true, repeat: 1 }, TO + 1.1);
-      tl.to('#oStack', { opacity: 1, duration: 0.4 }, TO + 1.25);
+      // S6 (20.8 -> 23.7): the poster
+      tl.to(['#ruleT', '#ruleB'], { scaleX: 1, duration: 0.7, ease: 'power3.inOut', stagger: 0.08 }, 21.05);
+      tl.to('#pName .ch', { yPercent: 0, duration: 0.65, ease: 'power3.out', stagger: 0.03 }, 21.2);
+      tl.fromTo(['#role', '#pMark', '#stackLine'], { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.45, stagger: 0.1, ease: 'power2.out' }, 21.55);
+      tl.fromTo('#cta', { opacity: 0, y: 18, filter: 'blur(8px)' }, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.5, ease: 'power3.out' }, 21.85);
+      tl.set('#glint', { opacity: 1 }, 22.1);
+      tl.to('#glint .ch', { backgroundPosition: '0% 0', duration: 0.9, ease: 'power2.inOut' }, 22.15);
+      tl.fromTo('#cur6', { x: 1480, y: 760, opacity: 0 }, { x: 1080, y: 594, opacity: 1, duration: 0.5, ease: 'power3.out' }, 22.45);
+      tl.to('#cta', { scale: 0.95, duration: 0.09, yoyo: true, repeat: 1, ease: 'power1.inOut' }, 22.98);
+      tl.fromTo('#ripple6', { x: 1050, y: 568, scale: 0.3, opacity: 0.9 }, { scale: 3, opacity: 0, duration: 0.5, ease: 'power2.out' }, 23.0);
+      BRAND.blurOut(tl, '#s6 > *', 23.35, 0.32);
+
+      BRAND.outro(tl, 23.7, D);
+
+      // the code's depth of field follows the line being typed
+      const drawCode = (t) => {
+        const f = clamp((t - 6.25) / 0.14, 0, 8);
+        codeLines.forEach((l, i) => {
+          const k = Math.abs(i - f);
+          l.style.filter = `blur(${Math.min(5, k * 1.1).toFixed(2)}px)`;
+          l.style.opacity = (0.35 + 0.65 * (1 - Math.min(1, k / 4))).toFixed(3);
+        });
+      };
+      const frame = (t) => {
+        if (t > 6.0 && t < 8.3) drawCode(t);
+        if (t > 9.2 && t < 15.2) drawWorld();
+      };
+      tl.eventCallback('onUpdate', () => frame(tl.time()));
+      frame(0);
+      drawWorld();
 
       window.__timelines = window.__timelines || {};
       window.__timelines['profissional'] = tl;

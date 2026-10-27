@@ -1,0 +1,62 @@
+/* shared by both "sobre mim" videos: the studio backgrounds, the Linear-style
+   caption, the stacked JC logo, its Socoloff-style intro and outro, and the
+   transition layers. Copied into each composition's assets/ (hyperframes only
+   serves the composition folder) */
+@font-face { font-family: 'DM Serif Display'; src: url(fonts/dmserif.woff2) format('woff2'); font-display: block; }
+@font-face { font-family: 'DM Serif Display'; font-style: italic; src: url(fonts/dmserif-italic.woff2) format('woff2'); font-display: block; }
+@font-face { font-family: 'Raleway'; src: url(fonts/raleway.woff2) format('woff2'); font-weight: 400 800; font-display: block; }
+@font-face { font-family: 'Geist Mono'; src: url(fonts/geistmono.woff2) format('woff2'); font-weight: 400 600; font-display: block; }
+
+:root {
+  --ink: #f2f2f2;
+  --muted: #a8a8a8;
+  --dim: #6b6b6b;
+  --paper: #f3f2ef;
+  --graphite: #2f2e2b;
+  --graphite-muted: #6f6d68;
+  --serif: 'DM Serif Display', Georgia, serif;
+  --sans: 'Raleway', system-ui, sans-serif;
+  --mono: 'Geist Mono', ui-monospace, monospace;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1920px; height: 820px; overflow: hidden; background: #000; }
+#root { position: relative; width: 1920px; height: 820px; overflow: hidden; color: var(--ink); font-family: var(--sans); background: #050505; }
+.layer { position: absolute; inset: 0; pointer-events: none; }
+.scene { position: absolute; inset: 0; opacity: 0; overflow: hidden; }
+
+/* ---------- studios: every scene fills the frame ---------- */
+.bg-dark { background: radial-gradient(90% 120% at 50% 38%, #1d1d1d 0%, #0d0d0d 52%, #050505 100%); }
+.bg-light { background: radial-gradient(80% 115% at 50% 34%, #f7f6f4 0%, #ebeae7 50%, #d4d3cf 100%); color: var(--graphite); }
+.bg-gray { background: radial-gradient(120% 140% at 26% 14%, #d0d0d0 0%, #9a9a9a 34%, #575757 72%, #2e2e2e 100%); }
+/* light falling out of focus, the Linear room */
+.bokeh { position: absolute; border-radius: 50%; background: radial-gradient(closest-side, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0)); filter: blur(30px); }
+
+/* ---------- the caption: one short line, set small, word by word ---------- */
+.cap { position: absolute; left: 0; right: 0; text-align: center; font-family: var(--serif); font-style: italic; font-size: 46px; line-height: 1.15; color: rgba(242, 242, 242, 0.92); }
+.cap.ink { color: rgba(47, 46, 43, 0.9); }
+.kick { font-family: var(--sans); font-weight: 600; font-size: 16px; letter-spacing: 0.24em; text-transform: uppercase; }
+.ch, .w { display: inline-block; white-space: pre; }
+
+/* ---------- logo: the JC mark above the name ---------- */
+.mark { display: block; overflow: visible; }
+.mark path { fill: none; stroke: currentColor; stroke-width: 5; stroke-linecap: butt; }
+.lockup { position: absolute; left: 0; right: 0; display: flex; flex-direction: column; align-items: center; color: var(--ink); }
+.lockup .word { font-family: var(--serif); white-space: nowrap; line-height: 1; }
+
+#bIntro { z-index: 60; }
+#introSvg { position: absolute; inset: 0; width: 1920px; height: 820px; overflow: visible; }
+#introSvg path { fill: none; stroke: #f2f2f2; stroke-linecap: butt; }
+#introGlow { position: absolute; left: 610px; top: 0; width: 700px; height: 700px; border-radius: 50%; background: radial-gradient(closest-side, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0.06) 55%, transparent); filter: blur(24px); opacity: 0; }
+#introName { position: absolute; left: 0; right: 0; top: 438px; text-align: center; font-family: var(--serif); font-size: 66px; line-height: 1; color: var(--ink); }
+
+#bOutro { z-index: 60; background: #000; opacity: 0; }
+#outroGrid { position: absolute; inset: 0; width: 1920px; height: 820px; }
+#outroGrid line { stroke: rgba(255, 255, 255, 0.09); stroke-width: 1; }
+#outroLock { top: 318px; }
+#outroLock .mark { width: 96px; height: 62px; }
+#outroLock .word { margin-top: 22px; font-size: 42px; }
+
+/* ---------- transitions ---------- */
+#bFlash { z-index: 70; opacity: 0; background: radial-gradient(75% 95% at 50% 50%, #ffffff 0%, #f6f6f4 45%, #e9e8e5 100%); }
+#bVignette { z-index: 75; background: radial-gradient(125% 120% at 50% 48%, transparent 58%, rgba(0, 0, 0, 0.42) 100%); }
+#bBlack { z-index: 80; background: #000; opacity: 0; }
