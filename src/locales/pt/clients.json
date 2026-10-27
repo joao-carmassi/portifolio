@@ -2,6 +2,9 @@
   "title": "Projetos & Clientes",
   "text": "Soluções digitais reais com resultados concretos — de pousadas a SaaS B2B e projetos open source.",
   "cta": "Visitar",
+  "close": "Fechar projeto",
+  "prev": "Projeto anterior",
+  "next": "Próximo projeto",
   "items": {
     "0": {
       "title": "Refugio Da Pedra SP",

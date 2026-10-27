@@ -69,7 +69,8 @@ const { lang, ...seo } = Astro.props as Props;
       gsap.ticker.add((time) => lenis.raf(time * 1000));
       gsap.ticker.lagSmoothing(0);
 
-      // the fold menu measures its target itself (see foldMenu.tsx)
+      // a target measured by the caller: the fold menu (through its fold) and
+      // the projects strip (to fill the screen with an opened project)
       addEventListener('nav:scrollto', (e) =>
         lenis.scrollTo((e as CustomEvent<number>).detail),
       );

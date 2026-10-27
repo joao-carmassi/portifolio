@@ -99,8 +99,8 @@ const jsonLd: Graph = {
 // islands as props. The keys are the same paths the locale json already holds.
 const clientImages = await pictures(
   Object.values(m.clients.items).map((item) => item.image),
-  // card tops out near 600px, the dialog at 768
-  { widths: [400, 600, 768, 1100] },
+  // the open project reaches ~950px across on a wide screen, twice that on retina
+  { widths: [400, 600, 768, 1100, 1600] },
 );
 
 const docImages = await pictures(

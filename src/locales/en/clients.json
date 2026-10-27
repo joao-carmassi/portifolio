@@ -2,6 +2,9 @@
   "title": "Projects & Clients",
   "text": "Real digital solutions that delivered results — from hospitality to B2B SaaS and open source.",
   "cta": "Visit",
+  "close": "Close project",
+  "prev": "Previous project",
+  "next": "Next project",
   "items": {
     "0": {
       "title": "Refugio Da Pedra SP",
