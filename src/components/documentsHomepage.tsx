@@ -5,7 +5,6 @@ import { H3 } from '@/components/ui/h3';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { useRef, useState } from 'react';
-import { useWindowWidth } from '@react-hook/window-size';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
   Dialog,
@@ -37,31 +36,36 @@ const DocumentosHomepage = ({
   images: Record<string, OptimizedImage>;
 }) => {
   const sectionContainer = useRef<HTMLElement>(null);
-  const width = useWindowWidth();
   const [resumeLang, setResumeLang] = useState('');
 
   useGSAP(() => {
     gsap.registerPlugin(ScrollTrigger);
 
-    if (width <= 768) return;
+    // rebuilt only when the width crosses md; any other resize ScrollTrigger
+    // refreshes by itself. Rebuilding on every width change broke the pin:
+    // a dialog's scroll lock hides the scrollbar, and the pin was rebuilt
+    // mid-scroll with the page locked
+    const mm = gsap.matchMedia();
+    mm.add('(min-width: 769px)', () => {
+      const paiCertificados = document.getElementById('animatedCertificates');
+      const items = gsap.utils.toArray(paiCertificados?.children || []);
 
-    const paiCertificados = document.getElementById('animatedCertificates');
-    const items = gsap.utils.toArray(paiCertificados?.children || []);
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionContainer.current,
+          start: 'bottom bottom',
+          scrub: 0.5,
+          pin: true,
+        },
+      });
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: sectionContainer.current,
-        start: 'bottom bottom',
-        scrub: 0.5,
-        pin: true,
-      },
+      tl.to(paiCertificados, {
+        xPercent: -100 * (items.length - 1),
+        ease: 'none',
+      });
     });
-
-    tl.to(paiCertificados, {
-      xPercent: -100 * (items.length - 1),
-      ease: 'none',
-    });
-  }, [width]);
+    return () => mm.revert();
+  });
 
   return (
     <section
@@ -161,7 +165,9 @@ const DocumentosHomepage = ({
                           placeholder={copy.resume.dialog.placeholder}
                         />
                       </SelectTrigger>
-                      <SelectContent>
+                      {/* a plain dropdown below the trigger, not Base UI's
+                          default of laying the list over it */}
+                      <SelectContent alignItemWithTrigger={false}>
                         {Object.values(copy.resume.dialog.options).map(
                           (option) => (
                             <SelectItem value={option.lang} key={option.lang}>
