@@ -2,6 +2,7 @@
 @source "../../node_modules/liquid-glass-react/dist";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
+@import "./page-transition.css";
 
 @custom-variant dark (&:is(.dark *));
 

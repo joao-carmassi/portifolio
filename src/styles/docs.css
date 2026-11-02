@@ -7,6 +7,7 @@
 @import 'tailwindcss/utilities.css' layer(utilities);
 @import 'tw-animate-css';
 @import 'shadcn/tailwind.css';
+@import './page-transition.css';
 
 @source '../prisma';
 
