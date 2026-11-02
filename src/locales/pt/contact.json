@@ -52,8 +52,8 @@
   },
   "modal": {
     "sent": {
-      "title": "Mensagem enviada com sucesso",
-      "text": "Obrigado por entrar em contato! Responderei o mais rápido possível."
+      "title": "Formulário enviado!",
+      "text": "Recebi sua mensagem! Em breve eu entro em contato pelo e-mail ou telefone que você deixou. Enquanto isso, aproveita os fogos."
     },
     "error": {
       "title": "Oops! Algo deu errado",

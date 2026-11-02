@@ -52,8 +52,8 @@
   },
   "modal": {
     "sent": {
-      "title": "Message Sent Successfully",
-      "text": "Thank you for reaching out! I’ll get back to you as soon as possible."
+      "title": "Form sent!",
+      "text": "Got your message! I will reach out soon through the email or phone you left. Meanwhile, enjoy the fireworks."
     },
     "error": {
       "title": "Oops! Something Went Wrong",

@@ -52,8 +52,8 @@
   },
   "modal": {
     "sent": {
-      "title": "Mensaje Enviado con Éxito",
-      "text": "¡Gracias por comunicarte! Te responderé lo antes posible."
+      "title": "¡Formulario enviado!",
+      "text": "¡Recibí tu mensaje! Pronto me pondré en contacto por el correo o teléfono que dejaste. Mientras tanto, disfruta los fuegos."
     },
     "error": {
       "title": "¡Ups! Algo salió mal",

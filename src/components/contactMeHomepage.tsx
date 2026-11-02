@@ -1,10 +1,11 @@
 import { useGSAP } from '@gsap/react';
 import { Button } from '@/components/ui/button';
 import { CometSpinner } from '@/components/ui/comet-spinner';
-import { FlipCard } from '@/components/ui/flip-card';
+import { FireworksBackground } from '@/components/ui/fireworks-background';
+import { SwappingText } from '@animate-ui/react/primitives/texts/swapping';
 import axios from 'axios';
-import confetti from 'canvas-confetti';
-import { ArrowRightIcon, CircleCheckBig, CircleX, Trash2 } from 'lucide-react';
+import { ArrowRightIcon, CircleX, Trash2 } from 'lucide-react';
+import { motion, useReducedMotion } from 'motion/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useState, useMemo, useEffect, useRef } from 'react';
@@ -72,19 +73,37 @@ const caretAt = (field: HTMLInputElement | HTMLTextAreaElement) => {
 type Status = 'idle' | 'sending' | 'sent' | 'error';
 
 /**
- * The shortest the card stays turned round. The flip itself takes 700ms, and a
- * request can fail on DNS in less than a frame — without a floor the card
- * twitches and the comet is never seen, which reads as nothing having happened.
+ * The shortest the comet spins. A request can fail on DNS in less than a
+ * frame — without a floor the comet is never seen, which reads as nothing
+ * having happened.
  */
 const MIN_SENDING_MS = 900;
 
-/** FlipCard turns on `duration-700`; this has to stay in step with it */
-const FLIP_MS = 700;
+/** the card closing in on the photo and the form hiding share one motion */
+const SWEEP = { duration: 0.9, ease: [0.65, 0, 0.35, 1] } as const;
+
+/**
+ * Swaps a paragraph word by word: SwappingText keeps its text on one line, so
+ * each word is its own, in a row that wraps like the text it replaces.
+ */
+const SwapWords = ({ text }: { text: string }) => (
+  <span className='flex flex-wrap gap-x-[0.25em]'>
+    {text.split(' ').map((word, i) => (
+      <SwappingText
+        key={i}
+        text={word}
+        // the default 0.2s per letter is gone before the eye gets there
+        stagger={0.04}
+        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      />
+    ))}
+  </span>
+);
 
 /**
  * The form is the bottom of the shared card when stacked and its left half
- * from lg. The card has no fill of its own, so each face rounds the card's
- * corners it covers, and the flip shows the section through the turning half.
+ * from lg. The card has no fill of its own, so the form rounds the card's
+ * corners it covers.
  */
 const FORM_CORNERS = 'rounded-b-2xl lg:rounded-br-none lg:rounded-tl-2xl';
 
@@ -197,8 +216,46 @@ const ContactMeForm = ({ copy }: { copy: ContactCopy }) => {
             : idle;
 
   const sendingSince = useRef(0);
+  const reduce = useReducedMotion();
+  const sent = status === 'sent';
+  // the photo keeps the height it had beside the form once the form is gone,
+  // so it slides to the middle at its own size instead of filling the card
+  const photo = useRef<HTMLDivElement>(null);
+  const [photoHeight, setPhotoHeight] = useState<number>();
+  // the outgoing words have to be there for SwapWords to swap them out, so the
+  // copy is padded to the longer one's word count with empty words
+  const pad = (from: string, to: string) => {
+    const words = from.split(' ');
+    const length = Math.max(words.length, to.split(' ').length);
+    return Array.from({ length }, (_, i) => words[i] ?? '').join(' ');
+  };
+  // the copy swaps once the photo is under way, not on top of its first beat
+  const [swapped, setSwapped] = useState(false);
+  useEffect(() => {
+    if (!sent) return;
+    const id = setTimeout(() => setSwapped(true), reduce ? 0 : 450);
+    return () => clearTimeout(id);
+  }, [sent, reduce]);
+  // the fireworks draw in the page's ink, which a canvas cannot inherit: read
+  // the section's text colour, and again whenever the theme cord flips it
+  const [ink, setInk] = useState('black');
+  useEffect(() => {
+    if (!sent) return;
+    const read = () => section.current && setInk(getComputedStyle(section.current).color);
+    read();
+    const observer = new MutationObserver(read);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class'],
+    });
+    return () => observer.disconnect();
+  }, [sent]);
+  const title = swapped ? copy.modal.sent.title : copy.title;
+  const text = swapped
+    ? pad(copy.modal.sent.text, copy.text)
+    : pad(copy.text, copy.modal.sent.text);
 
-  /** shows the outcome, but never before the card has finished turning round */
+  /** shows the outcome, but never before the comet has had its moment */
   const settle = (outcome: Status, then?: () => void) => {
     const left = MIN_SENDING_MS - (Date.now() - sendingSince.current);
 
@@ -216,6 +273,7 @@ const ContactMeForm = ({ copy }: { copy: ContactCopy }) => {
       axios.post(API_URL, dados),
     onMutate: () => {
       sendingSince.current = Date.now();
+      setPhotoHeight(photo.current?.offsetHeight);
       setStatus('sending');
     },
     onSuccess: (res) => {
@@ -223,52 +281,13 @@ const ContactMeForm = ({ copy }: { copy: ContactCopy }) => {
         settle('error');
         return;
       }
-      settle('sent', () =>
-        confetti({
-          particleCount: 100,
-          spread: 90,
-          origin: { y: 0.7 },
-        }),
-      );
+      settle('sent');
     },
     onError: (err) => {
       console.log(err);
       settle('error');
     },
   });
-
-  // The back face lags the status on the way out. Closing the error turns the
-  // card round over 700ms, and the back is in view for all of it — swap it back
-  // to the spinner on the spot and the visitor watches the error become a
-  // loader as it leaves.
-  const [backFace, setBackFace] = useState<'spinner' | 'error'>('spinner');
-
-  useEffect(() => {
-    if (status === 'sending' || status === 'error') {
-      setBackFace(status === 'error' ? 'error' : 'spinner');
-      return;
-    }
-
-    const turning = setTimeout(() => setBackFace('spinner'), FLIP_MS);
-    return () => clearTimeout(turning);
-  }, [status]);
-
-  // both faces are positioned absolutely, so the flip card has no height of its
-  // own; the form is the face that has one, and it changes with the language
-  const formFace = useRef<HTMLDivElement>(null);
-  const [cardHeight, setCardHeight] = useState<number>();
-
-  useEffect(() => {
-    const face = formFace.current;
-    if (!face) return;
-
-    const observer = new ResizeObserver(([entry]) =>
-      setCardHeight(entry.contentRect.height),
-    );
-    observer.observe(face);
-
-    return () => observer.disconnect();
-  }, []);
 
   const enviaEmail = (data: tSchema) => {
     mutate({
@@ -278,57 +297,29 @@ const ContactMeForm = ({ copy }: { copy: ContactCopy }) => {
     });
   };
 
-  // the wait and the failure both live on the back, and the card stays turned
-  // for them. That is what makes closing the error a flip: the way back to the
-  // form is the card turning round again, not a panel disappearing
-  const back = (
+  // a failure covers the form until it is closed; the fields underneath keep
+  // what was typed, so trying again is one click
+  const failure = status === 'error' && (
     <div
-      className={`h-full w-full bg-card px-4 py-7 flex flex-col items-center justify-center gap-4 text-center ${FORM_CORNERS}`}
+      className={`absolute inset-0 z-30 bg-card px-4 py-7 flex flex-col items-center justify-center gap-4 text-center ${FORM_CORNERS}`}
     >
-      {backFace === 'error' ? (
-        <>
-          <CircleX className='size-10 text-destructive' />
-          <h3 className='font-title text-xl text-balance w-full text-destructive'>
-            {copy.modal.error.title}
-          </h3>
-          <p className='text-muted-foreground font-semibold'>
-            {copy.modal.error.text}
-          </p>
-          {/* type='button' is load-bearing — Button sets no type, and a button
-              in a form is a submit button, so this was sending it all again */}
-          <Button
-            type='button'
-            variant='destructive'
-            onClick={() => setStatus('idle')}
-            data-cursor={copy.cursor.close}
-          >
-            {copy.modal.close}
-          </Button>
-        </>
-      ) : (
-        <CometSpinner
-          aria-label={copy.modal.sending}
-          className='size-12 text-primary'
-        />
-      )}
-    </div>
-  );
-
-  // sent is the one outcome the card turns back to say, so it goes on the front.
-  // It covers the form rather than replacing it, which keeps the card at the
-  // form's height and hides the swap behind a face that is turned away. It has
-  // no way out on purpose: the message is gone, and the next thing to do is not
-  // send it again
-  const outcome = status === 'sent' && (
-    // green-600 rather than the brighter 500: white on 500 is about 2.3:1, and
-    // the heading is large text, which wants 3:1
-    <div
-      className={`absolute inset-0 z-30 bg-green-600 px-4 py-7 flex flex-col items-center justify-center gap-4 text-center text-white ${FORM_CORNERS}`}
-    >
-      <CircleCheckBig className='size-10' />
-      <h3 className='font-title text-xl text-balance w-full'>
-        {copy.modal.sent.title}
+      <CircleX className='size-10 text-destructive' />
+      <h3 className='font-title text-xl text-balance w-full text-destructive'>
+        {copy.modal.error.title}
       </h3>
+      <p className='text-muted-foreground font-semibold'>
+        {copy.modal.error.text}
+      </p>
+      {/* type='button' is load-bearing — Button sets no type, and a button
+          in a form is a submit button, so this was sending it all again */}
+      <Button
+        type='button'
+        variant='destructive'
+        onClick={() => setStatus('idle')}
+        data-cursor={copy.cursor.close}
+      >
+        {copy.modal.close}
+      </Button>
     </div>
   );
 
@@ -353,19 +344,49 @@ const ContactMeForm = ({ copy }: { copy: ContactCopy }) => {
               'radial-gradient(ellipse 70% 60% at 50% 0%, #000 60%, transparent 100%)',
           }}
         />
+        {sent && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1 }}
+            className='absolute inset-0 z-0'
+          >
+            <FireworksBackground
+              className='absolute inset-0'
+              color={ink}
+              population={1.5}
+            />
+          </motion.div>
+        )}
         {/* py-16: the section hides overflow for its parallax, which would
           clip the card's shadow-2xl (it reaches ~63px down), and the same
           above keeps the card in the middle of the screen */}
         <div className='px-6 py-16 md:px-12 mx-auto max-w-7xl w-full z-10 relative'>
           {/* after aceternity's contact with dither image: the form and the
             photo are the two halves of one card, the photo on top when stacked */}
-          <div className='grid rounded-2xl shadow-2xl ring-1 ring-border lg:grid-cols-2'>
+          {/* sent: the card closes in on the photo, which keeps its size and
+            slides to the middle, and the form hides behind it, out of the
+            flow so the card is the photo's size */}
+          <motion.div
+            layout
+            transition={reduce ? { duration: 0 } : SWEEP}
+            className={`relative grid rounded-2xl shadow-2xl ring-1 ring-border ${sent ? 'lg:mx-auto lg:w-1/2' : 'lg:grid-cols-2'}`}
+          >
             {/* the photo is dithered once, offline, to a few of its own
               colours, and shown unsmoothed so the stipple stays crisp; the copy
               rides on it. Stacked, it stands taller than the copy, so the rock
               shows above; side by side it takes the form's height */}
-            <div className='relative flex min-h-120 items-end justify-center overflow-hidden rounded-t-2xl p-4 md:p-6 lg:order-last lg:min-h-0 lg:rounded-tl-none lg:rounded-r-2xl'>
-              <img
+            <motion.div
+              ref={photo}
+              layout
+              transition={reduce ? { duration: 0 } : SWEEP}
+              style={{ height: sent ? photoHeight : undefined }}
+              className={`relative z-10 flex min-h-120 items-end justify-center overflow-hidden p-4 md:p-6 lg:order-last lg:min-h-0 ${sent ? 'rounded-2xl' : 'rounded-t-2xl lg:rounded-tl-none lg:rounded-r-2xl'}`}
+            >
+              {/* layout on the image too, or the move's scale stretches it */}
+              <motion.img
+                layout
+                transition={reduce ? { duration: 0 } : SWEEP}
                 src='/contact/pedra-do-bau-dither.png'
                 alt=''
                 width={380}
@@ -378,16 +399,36 @@ const ContactMeForm = ({ copy }: { copy: ContactCopy }) => {
                 aria-hidden
                 className='pointer-events-none absolute inset-0 bg-linear-to-b from-black/15 via-black/0 to-black/25'
               />
-              <div className='relative w-full space-y-1.5 rounded-2xl bg-card/95 p-6 shadow-2xl ring-1 ring-black/5 backdrop-blur-sm md:space-y-3 md:p-8'>
-                <h2 className='font-title text-4xl md:text-5xl'>
-                  {copy.title}
-                </h2>
-                <p className='text-muted-foreground font-semibold max-w-2xl'>
-                  {copy.text}
-                </p>
-              </div>
-            </div>
-            <form
+              {/* layout so it rides the photo; its text only moves, as a scaled
+                heading would smear the swapping words */}
+              <motion.div
+                layout
+                transition={reduce ? { duration: 0 } : SWEEP}
+                aria-live='polite'
+                className='relative w-full space-y-1.5 rounded-2xl bg-card/95 p-6 shadow-2xl ring-1 ring-black/5 backdrop-blur-sm md:space-y-3 md:p-8'
+              >
+                <motion.h2
+                  layout='position'
+                  transition={reduce ? { duration: 0 } : SWEEP}
+                  className='font-title text-4xl md:text-5xl'
+                >
+                  <SwapWords text={title} />
+                </motion.h2>
+                <motion.p
+                  layout='position'
+                  transition={reduce ? { duration: 0 } : SWEEP}
+                  className='text-muted-foreground font-semibold max-w-2xl'
+                >
+                  <SwapWords text={text} />
+                </motion.p>
+              </motion.div>
+            </motion.div>
+            <motion.form
+              layout
+              animate={{ opacity: sent ? 0 : 1 }}
+              transition={reduce ? { duration: 0 } : SWEEP}
+              // gone for good once sent: nothing in it can be reached any more
+              inert={sent}
               onSubmit={handleSubmit(enviaEmail)}
               // focus and select both bubble, so the four fields are covered once
               // here: onInput is the typing, onSelect the caret moving on its own
@@ -395,11 +436,9 @@ const ContactMeForm = ({ copy }: { copy: ContactCopy }) => {
               onInput={aim}
               onSelect={aim}
               onBlur={() => lookAt('pointer')}
-              className='relative'
+              className={sent ? 'absolute inset-0 overflow-hidden' : 'relative'}
             >
-              {/* outside the flip card on purpose: in it, the blobatar turns with
-                the card and spends half the flip showing the viewer its back.
-                Decorative — it says nothing the fields do not already say */}
+              {/* decorative — it says nothing the fields do not already say */}
               <Blobatar
                 ref={gaze}
                 name={name || 'blob'}
@@ -418,186 +457,179 @@ const ContactMeForm = ({ copy }: { copy: ContactCopy }) => {
                 // overlaps the first field's corner, so it must not eat its clicks
                 className='pointer-events-none absolute -top-9 -right-4 z-20 drop-shadow-lg lg:-top-7 lg:-right-9'
               />
-              <FlipCard
-                isFlipped={status === 'sending' || status === 'error'}
-                // the measurement only lands after hydration, and this island is
-                // client:visible; without a floor the server's card has no height
-                // at all and the section below it rides up over the form
-                style={{
-                  height: cardHeight,
-                  minHeight: cardHeight === undefined ? '38rem' : undefined,
-                }}
-                className='w-full'
-                back={back}
-                front={
-                  <div ref={formFace} className='relative'>
-                    {outcome}
-                    {/* the panel covers the form, but a covered field is still
-                      tabbable and Enter in one still submits; a disabled
-                      fieldset takes every control in it out at once */}
-                    <FieldSet
-                      disabled={status !== 'idle'}
-                      className={`relative bg-card w-full p-7 ${FORM_CORNERS}`}
+              <div className='relative'>
+                {failure}
+                {/* the panel covers the form, but a covered field is still
+                  tabbable and Enter in one still submits; a disabled
+                  fieldset takes every control in it out at once */}
+                <FieldSet
+                  disabled={status !== 'idle'}
+                  className={`relative bg-card w-full p-7 ${FORM_CORNERS}`}
+                >
+                  <FieldGroup>
+                    <Field>
+                      <span
+                        id='services'
+                        // the same type as the inputs' floating labels
+                        className='text-sm leading-none font-medium text-muted-foreground'
+                      >
+                        {form.services.label}
+                      </span>
+                      {/* after creative-tim's agency brief: tiles split by
+                        hairlines, any number of them on; outlined like
+                        the inputs below them */}
+                      <div
+                        role='group'
+                        aria-labelledby='services'
+                        data-cursor={copy.cursor.services}
+                        className='flex divide-x divide-primary/25 overflow-hidden rounded-lg border border-primary/25'
+                      >
+                        {Object.entries(form.services.options).map(
+                          ([key, label]) => {
+                            const on = services.includes(key);
+                            return (
+                              <button
+                                key={key}
+                                type='button'
+                                aria-pressed={on}
+                                onClick={() =>
+                                  setServices(
+                                    on
+                                      ? services.filter((s) => s !== key)
+                                      : [...services, key],
+                                  )
+                                }
+                                className={`flex-1 px-4 py-3 text-sm font-semibold transition-[color,background-color,box-shadow] outline-none focus-visible:ring-[3px] focus-visible:ring-inset focus-visible:ring-ring/50 ${on ? 'bg-foreground text-background' : 'bg-card text-muted-foreground hover:text-foreground'}`}
+                              >
+                                {label}
+                              </button>
+                            );
+                          },
+                        )}
+                      </div>
+                      <FieldDescription>
+                        {form.services.description}
+                      </FieldDescription>
+                    </Field>
+                    <Field>
+                      <FloatingLabel>
+                        <FloatingLabel.Input
+                          id='name'
+                          {...register('name')}
+                          aria-invalid={errors.name ? 'true' : 'false'}
+                        />
+                        <FloatingLabel.Label htmlFor='name'>
+                          {form.name.label}
+                        </FloatingLabel.Label>
+                      </FloatingLabel>
+                      {errors.name ? (
+                        <FieldError>{errors.name.message}</FieldError>
+                      ) : (
+                        <FieldDescription>
+                          {form.name.description}
+                        </FieldDescription>
+                      )}
+                    </Field>
+                    <Field>
+                      <FloatingLabel>
+                        <FloatingLabel.Input
+                          id='email'
+                          type='email'
+                          {...register('email')}
+                          aria-invalid={errors.email ? 'true' : 'false'}
+                        />
+                        <FloatingLabel.Label htmlFor='email'>
+                          {form.email.label}
+                        </FloatingLabel.Label>
+                      </FloatingLabel>
+                      {errors.email ? (
+                        <FieldError>{errors.email.message}</FieldError>
+                      ) : (
+                        <FieldDescription>
+                          {form.email.description}
+                        </FieldDescription>
+                      )}
+                    </Field>
+                    <Field>
+                      <FloatingLabel>
+                        <FloatingLabel.Input
+                          id='phone'
+                          type='tel'
+                          {...register('phone')}
+                          aria-invalid={errors.phone ? 'true' : 'false'}
+                        />
+                        <FloatingLabel.Label htmlFor='phone'>
+                          {form.phone.label}
+                        </FloatingLabel.Label>
+                      </FloatingLabel>
+                      {errors.phone ? (
+                        <FieldError>{errors.phone.message}</FieldError>
+                      ) : (
+                        <FieldDescription>
+                          {form.phone.description}
+                        </FieldDescription>
+                      )}
+                    </Field>
+                    <Field>
+                      <FloatingLabel>
+                        <FloatingLabel.Textarea
+                          id='message'
+                          {...register('message')}
+                          aria-invalid={errors.message ? 'true' : 'false'}
+                        />
+                        <FloatingLabel.Label htmlFor='message'>
+                          {form.message.label}
+                        </FloatingLabel.Label>
+                      </FloatingLabel>
+                      {errors.message ? (
+                        <FieldError>{errors.message.message}</FieldError>
+                      ) : (
+                        <FieldDescription>
+                          {form.message.description}
+                        </FieldDescription>
+                      )}
+                    </Field>
+                  </FieldGroup>
+                  <FieldGroup className='flex md:flex-row'>
+                    <Button
+                      effect='expandIcon'
+                      size={'lg'}
+                      icon={ArrowRightIcon}
+                      iconPlacement='right'
+                      type='submit'
+                      data-cursor={copy.cursor.submit}
+                      className='md:flex-1'
                     >
-                      <FieldGroup>
-                        <Field>
-                          <span
-                            id='services'
-                            // the same type as the inputs' floating labels
-                            className='text-sm leading-none font-medium text-muted-foreground'
-                          >
-                            {form.services.label}
-                          </span>
-                          {/* after creative-tim's agency brief: tiles split by
-                            hairlines, any number of them on; outlined like
-                            the inputs below them */}
-                          <div
-                            role='group'
-                            aria-labelledby='services'
-                            data-cursor={copy.cursor.services}
-                            className='flex divide-x divide-primary/25 overflow-hidden rounded-lg border border-primary/25'
-                          >
-                            {Object.entries(form.services.options).map(
-                              ([key, label]) => {
-                                const on = services.includes(key);
-                                return (
-                                  <button
-                                    key={key}
-                                    type='button'
-                                    aria-pressed={on}
-                                    onClick={() =>
-                                      setServices(
-                                        on
-                                          ? services.filter((s) => s !== key)
-                                          : [...services, key],
-                                      )
-                                    }
-                                    className={`flex-1 px-4 py-3 text-sm font-semibold transition-[color,background-color,box-shadow] outline-none focus-visible:ring-[3px] focus-visible:ring-inset focus-visible:ring-ring/50 ${on ? 'bg-foreground text-background' : 'bg-card text-muted-foreground hover:text-foreground'}`}
-                                  >
-                                    {label}
-                                  </button>
-                                );
-                              },
-                            )}
-                          </div>
-                          <FieldDescription>
-                            {form.services.description}
-                          </FieldDescription>
-                        </Field>
-                        <Field>
-                          <FloatingLabel>
-                            <FloatingLabel.Input
-                              id='name'
-                              {...register('name')}
-                              aria-invalid={errors.name ? 'true' : 'false'}
-                            />
-                            <FloatingLabel.Label htmlFor='name'>
-                              {form.name.label}
-                            </FloatingLabel.Label>
-                          </FloatingLabel>
-                          {errors.name ? (
-                            <FieldError>{errors.name.message}</FieldError>
-                          ) : (
-                            <FieldDescription>
-                              {form.name.description}
-                            </FieldDescription>
-                          )}
-                        </Field>
-                        <Field>
-                          <FloatingLabel>
-                            <FloatingLabel.Input
-                              id='email'
-                              type='email'
-                              {...register('email')}
-                              aria-invalid={errors.email ? 'true' : 'false'}
-                            />
-                            <FloatingLabel.Label htmlFor='email'>
-                              {form.email.label}
-                            </FloatingLabel.Label>
-                          </FloatingLabel>
-                          {errors.email ? (
-                            <FieldError>{errors.email.message}</FieldError>
-                          ) : (
-                            <FieldDescription>
-                              {form.email.description}
-                            </FieldDescription>
-                          )}
-                        </Field>
-                        <Field>
-                          <FloatingLabel>
-                            <FloatingLabel.Input
-                              id='phone'
-                              type='tel'
-                              {...register('phone')}
-                              aria-invalid={errors.phone ? 'true' : 'false'}
-                            />
-                            <FloatingLabel.Label htmlFor='phone'>
-                              {form.phone.label}
-                            </FloatingLabel.Label>
-                          </FloatingLabel>
-                          {errors.phone ? (
-                            <FieldError>{errors.phone.message}</FieldError>
-                          ) : (
-                            <FieldDescription>
-                              {form.phone.description}
-                            </FieldDescription>
-                          )}
-                        </Field>
-                        <Field>
-                          <FloatingLabel>
-                            <FloatingLabel.Textarea
-                              id='message'
-                              {...register('message')}
-                              aria-invalid={errors.message ? 'true' : 'false'}
-                            />
-                            <FloatingLabel.Label htmlFor='message'>
-                              {form.message.label}
-                            </FloatingLabel.Label>
-                          </FloatingLabel>
-                          {errors.message ? (
-                            <FieldError>{errors.message.message}</FieldError>
-                          ) : (
-                            <FieldDescription>
-                              {form.message.description}
-                            </FieldDescription>
-                          )}
-                        </Field>
-                      </FieldGroup>
-                      <FieldGroup className='flex md:flex-row'>
-                        <Button
-                          effect='expandIcon'
-                          size={'lg'}
-                          icon={ArrowRightIcon}
-                          iconPlacement='right'
-                          type='submit'
-                          data-cursor={copy.cursor.submit}
-                          className='md:flex-1'
-                        >
-                          {copy.button1}
-                        </Button>
-                        <Button
-                          effect='expandIcon'
-                          size={'lg'}
-                          icon={Trash2}
-                          iconPlacement='right'
-                          variant={'outline'}
-                          className='md:flex-1'
-                          onClick={() => {
-                            reset();
-                            setServices([]);
-                          }}
-                          type='button'
-                          data-cursor={copy.cursor.clear}
-                        >
-                          {copy.button2}
-                        </Button>
-                      </FieldGroup>
-                    </FieldSet>
-                  </div>
-                }
-              />
-            </form>
-          </div>
+                      {status === 'sending' ? (
+                        <CometSpinner
+                          aria-label={copy.modal.sending}
+                          className='size-5'
+                        />
+                      ) : (
+                        copy.button1
+                      )}
+                    </Button>
+                    <Button
+                      effect='expandIcon'
+                      size={'lg'}
+                      icon={Trash2}
+                      iconPlacement='right'
+                      variant={'outline'}
+                      className='md:flex-1'
+                      onClick={() => {
+                        reset();
+                        setServices([]);
+                      }}
+                      type='button'
+                      data-cursor={copy.cursor.clear}
+                    >
+                      {copy.button2}
+                    </Button>
+                  </FieldGroup>
+                </FieldSet>
+              </div>
+            </motion.form>
+          </motion.div>
         </div>
       </div>
       {/* the shadow the section lies in until it is all the way up */}
