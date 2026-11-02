@@ -217,6 +217,7 @@ const Details = ({
   // next one (if any) comes in
   const [shown, setShown] = useState(item);
   const root = useRef<HTMLDivElement>(null);
+  const leaving = useRef<gsap.core.Timeline>(null);
   useEffect(() => {
     if (item && !shown) setShown(item);
   }, [item, shown]);
@@ -228,11 +229,15 @@ const Details = ({
     const lines = el.querySelectorAll('[data-line]');
     const grow = el.querySelectorAll('[data-grow]');
     gsap.killTweensOf([chars, lines, grow]);
+    // its onComplete would swap in a project that is no longer the one asked for
+    leaving.current?.kill();
+    // the letters spread over a fixed amount, not a fixed gap: a gap made a
+    // long title (the tourist map) take seconds to arrive
     if (item?.title === shown.title) {
       gsap.fromTo(
         chars,
         { yPercent: 130 },
-        { yPercent: 0, duration: 1.1, delay: 0.35, ease: 'expo.out', stagger: { each: 0.04, from: 'random' } },
+        { yPercent: 0, duration: 1.1, delay: 0.35, ease: 'expo.out', stagger: { amount: 0.5, from: 'random' } },
       );
       gsap.fromTo(
         lines,
@@ -245,15 +250,13 @@ const Details = ({
         { scaleY: 1, duration: 0.9, delay: 0.65, ease: 'expo.out' },
       );
     } else {
-      gsap.to(chars, { yPercent: -130, duration: 0.5, ease: 'expo.in', stagger: { each: 0.02, from: 'random' } });
-      gsap.to(grow, { scaleY: 0, transformOrigin: 'bottom', duration: 0.5, ease: 'expo.in' });
-      gsap.to(lines, {
-        yPercent: -105,
-        duration: 0.4,
-        ease: 'expo.in',
-        stagger: 0.01,
-        onComplete: () => setShown(item),
-      });
+      // the next project comes in once all of this one is out, letters included:
+      // they were still leaving when the text swapped
+      leaving.current = gsap
+        .timeline({ onComplete: () => setShown(item) })
+        .to(chars, { yPercent: -130, duration: 0.5, ease: 'expo.in', stagger: { amount: 0.25, from: 'random' } }, 0)
+        .to(grow, { scaleY: 0, transformOrigin: 'bottom', duration: 0.5, ease: 'expo.in' }, 0)
+        .to(lines, { yPercent: -105, duration: 0.4, ease: 'expo.in', stagger: 0.01 }, 0);
     }
   }, [item, shown]);
 
