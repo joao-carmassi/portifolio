@@ -105,6 +105,7 @@ const StickyNav = ({
           <a
             href='#top'
             aria-label={copy.menu.home}
+            data-cursor={copy.cursor.home}
             className='font-title text-2xl md:text-3xl'
           >
             JC
@@ -115,6 +116,9 @@ const StickyNav = ({
             aria-expanded={menuOpen}
             aria-controls='fold-menu'
             onClick={() => setMenuOpen((v) => !v)}
+            data-cursor={menuOpen ? copy.cursor.menuClose : copy.cursor.menuOpen}
+            // the open menu is a black ground, the closed pill a light one
+            data-cursor-theme={menuOpen ? 'dark' : 'light'}
             className='grid size-9 place-items-center rounded-full transition-colors hover:bg-white/20'
           >
             {/* two lines that cross into an x, as in the fold menu's original */}

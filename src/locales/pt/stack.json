@@ -1,3 +1,13 @@
 {
-  "title": "Minha Stack"
+  "title": "Minha Stack",
+  "cursor": {
+    "nextjs": "Pra web apps completos",
+    "astro": "Pra sites estáticos rápidos",
+    "git": "Pra versionar tudo",
+    "typescript": "Pra código sem surpresas",
+    "tailwind": "Pra estilizar rápido",
+    "reactQuery": "Pra buscar e cachear dados",
+    "zustand": "Pra estado global simples",
+    "gsap": "Pra animações caprichadas"
+  }
 }

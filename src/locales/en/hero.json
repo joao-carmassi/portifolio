@@ -6,5 +6,10 @@
   },
   "text1": "Crafting seamless web experiences with modern technologies and a passion for innovation.",
   "button1": "About me",
-  "button2": "Contact me"
+  "button2": "Contact me",
+  "cursor": {
+    "title": "Nice to meet you",
+    "about": "See who I am",
+    "contact": "Let's talk"
+  }
 }

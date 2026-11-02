@@ -44,6 +44,12 @@
   },
   "button1": "Submit",
   "button2": "Clear",
+  "cursor": {
+    "services": "Pick what you need",
+    "submit": "Send it off",
+    "clear": "Wipe it clean",
+    "close": "Dismiss this"
+  },
   "modal": {
     "sent": {
       "title": "Message Sent Successfully",

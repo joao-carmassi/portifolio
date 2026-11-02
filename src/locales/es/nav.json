@@ -3,27 +3,32 @@
     "0": {
       "href": "#aboutMeHomepage",
       "label": "Sobre mí",
-      "ariaLabel": "Ir a la sección sobre mí"
+      "ariaLabel": "Ir a la sección sobre mí",
+      "cursor": "Conóceme"
     },
     "1": {
       "href": "#documentosHomepage",
       "label": "Currículum",
-      "ariaLabel": "Ir a los documentos"
+      "ariaLabel": "Ir a los documentos",
+      "cursor": "Mira los papeles"
     },
     "2": {
       "href": "#clientsHomepage",
       "label": "Proyectos",
-      "ariaLabel": "Ir a los proyectos"
+      "ariaLabel": "Ir a los proyectos",
+      "cursor": "Mira lo que hice"
     },
     "3": {
       "href": "#techStack",
       "label": "Stack",
-      "ariaLabel": "Ir al stack"
+      "ariaLabel": "Ir al stack",
+      "cursor": "Lo que uso"
     },
     "4": {
       "href": "#contactMeHomepage",
       "label": "Contacto",
-      "ariaLabel": "Ir al formulario de contacto"
+      "ariaLabel": "Ir al formulario de contacto",
+      "cursor": "Hablemos"
     }
   },
   "menu": {
@@ -53,6 +58,17 @@
     "2": {
       "label": "Instagram",
       "link": "https://www.instagram.com/joao_carmassi/"
+    }
+  },
+  "cursor": {
+    "menuOpen": "Abre el menú",
+    "menuClose": "Cierra el menú",
+    "home": "Vuelve arriba",
+    "theme": "Tira para cambiar el tema",
+    "lang": {
+      "pt": "En portugués",
+      "en": "En inglés",
+      "es": "En español"
     }
   }
 }

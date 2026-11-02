@@ -49,6 +49,7 @@ const InfoCard = ({
   className: string;
 }) => (
   <div
+    data-cursor={copy.cursor}
     className={`dark bg-black dark:bg-background text-foreground rounded-3xl p-6 md:p-8 flex flex-col gap-6 ${className}`}
   >
     <div className='space-y-2'>
@@ -75,6 +76,7 @@ const InfoCard = ({
       className='w-full mt-auto rounded-full'
     >
       <a
+        data-cursor={copy.cursorButton}
         href={card.button.href}
         {...(card.button.external && {
           target: '_blank',

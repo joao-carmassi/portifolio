@@ -6,5 +6,10 @@
   },
   "text1": "Creando experiencias web perfectas con tecnologías modernas y pasión por la innovación.",
   "button1": "Sobre mí",
-  "button2": "Contacto"
+  "button2": "Contacto",
+  "cursor": {
+    "title": "Mucho gusto",
+    "about": "Mira quién soy",
+    "contact": "Hablemos"
+  }
 }

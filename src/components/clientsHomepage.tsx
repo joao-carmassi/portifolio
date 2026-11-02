@@ -31,6 +31,7 @@ type ClientItem = {
   url?: string;
   image: string;
   longDescription: string;
+  cursor: string;
 };
 
 // each project's ground and ink, picked from its own site: the stage takes
@@ -713,6 +714,8 @@ const Clients = ({
                   cards.current[i] = el;
                 }}
                 aria-label={item.title}
+                // no label once a project is open: the focus is the project
+                data-cursor={active === null ? item.cursor : undefined}
                 aria-hidden={!first || undefined}
                 tabIndex={first ? 0 : -1}
                 onClick={(e) => {

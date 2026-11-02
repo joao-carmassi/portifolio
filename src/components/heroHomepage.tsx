@@ -256,6 +256,7 @@ const HeroHomepage = ({
             <h1
               className='font-title text-5xl md:text-7xl text-shadow-lg'
               aria-label={`${copy.title.line1} ${copy.title.line2} ${copy.title.line3}`}
+              data-cursor={copy.cursor.title}
             >
               <span aria-hidden='true' className='hero-entry block'>
                 {copy.title.line1}
@@ -285,7 +286,7 @@ const HeroHomepage = ({
                     size='lg'
                     className='rounded-full'
                   >
-                    <a href='#aboutMeHomepage'>
+                    <a href='#aboutMeHomepage' data-cursor={copy.cursor.about}>
                       {copy.button1}
                       <ArrowRight className='-rotate-45' />
                     </a>
@@ -301,7 +302,7 @@ const HeroHomepage = ({
                     size='lg'
                     className='rounded-full'
                   >
-                    <a href='#contactMeHomepage'>
+                    <a href='#contactMeHomepage' data-cursor={copy.cursor.contact}>
                       {copy.button2}
                       <ArrowRight className='-rotate-45' />
                     </a>

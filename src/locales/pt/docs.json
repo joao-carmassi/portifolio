@@ -8,14 +8,18 @@
       "title": "Avaliações de idiomas de Cambridge Michigan – MET C1",
       "details": "Certificado no nível avançado C1 em inglês pelo Michigan English Test (MET), demonstrando proficiência avançada em leitura, escrita, compreensão auditiva e fala.",
       "img": "/docs/img-certificado-ingles.webp",
-      "link": "/docs/certificado-ingles.pdf"
+      "link": "/docs/certificado-ingles.pdf",
+      "cursor": "Meu inglês C1",
+      "cursorDownload": "Baixa o certificado"
     },
     "1": {
       "category": "Certificado de Espanhol",
       "title": "SIELE – Proficiência em Espanhol B2",
       "details": "Alcançou o nível B2 em espanhol com a certificação SIELE, validando habilidades sólidas de comunicação e compreensão avançada da língua espanhola.",
       "img": "/docs/img-certificado-espanhol.webp",
-      "link": "/docs/certificado-espanhol.pdf"
+      "link": "/docs/certificado-espanhol.pdf",
+      "cursor": "Meu espanhol B2",
+      "cursorDownload": "Baixa o certificado"
     }
   },
   "resume": {
@@ -23,6 +27,8 @@
     "title": "Currículo Profissional",
     "img": "/docs/img-curriculo-portugues.webp",
     "details": "Acesse meu currículo completo, apresentando minhas habilidades, projetos e trajetória profissional na indústria de tecnologia.",
+    "cursor": "Meu currículo",
+    "cursorDownload": "Baixa meu CV",
     "dialog": {
       "title": "Meus currículos",
       "button": "Selecione o idioma para baixar meu currículo:",

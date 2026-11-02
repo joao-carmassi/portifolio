@@ -44,6 +44,12 @@
   },
   "button1": "Enviar",
   "button2": "Limpar",
+  "cursor": {
+    "services": "Escolhe o que quer",
+    "submit": "Manda a mensagem",
+    "clear": "Apaga tudo",
+    "close": "Fecha o aviso"
+  },
   "modal": {
     "sent": {
       "title": "Mensagem enviada com sucesso",

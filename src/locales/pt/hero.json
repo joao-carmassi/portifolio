@@ -6,5 +6,10 @@
   },
   "text1": "Criando experiências web perfeitas com tecnologias modernas e paixão por inovação.",
   "button1": "Sobre mim",
-  "button2": "Contato"
+  "button2": "Contato",
+  "cursor": {
+    "title": "Prazer, João",
+    "about": "Vê quem sou",
+    "contact": "Me chama aí"
+  }
 }

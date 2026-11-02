@@ -19,10 +19,11 @@ const HeroNav = ({
   >
     <nav className='hero-entry flex flex-col items-end gap-4'>
       <ul className='hidden md:flex items-center gap-6 font-semibold'>
-        {Object.values(copy.links).map(({ href, label }) => (
+        {Object.values(copy.links).map(({ href, label, cursor }) => (
           <li key={href}>
             <a
               href={href}
+              data-cursor={cursor}
               className='text-foreground/70 hover:text-foreground transition-colors'
             >
               {label}
@@ -42,6 +43,7 @@ const HeroNav = ({
               hrefLang={l}
               aria-label={copy.language[l]}
               aria-current={l === lang ? 'true' : undefined}
+              data-cursor={copy.cursor.lang[l]}
               className='text-foreground/50 hover:text-foreground aria-[current]:text-foreground transition-colors'
             >
               {l}
@@ -55,6 +57,7 @@ const HeroNav = ({
         type='button'
         aria-label={copy.menu.open}
         onClick={() => dispatchEvent(new Event('nav:menu'))}
+        data-cursor={copy.cursor.menuOpen}
         className='md:hidden grid size-9 place-items-center rounded-full text-foreground/70 hover:text-foreground transition-colors'
       >
         <Menu className='size-6' />

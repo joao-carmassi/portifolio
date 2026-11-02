@@ -10,7 +10,7 @@ export const HoverEffect = ({
   items,
   className,
 }: {
-  items: { name: string; img: React.ReactNode }[];
+  items: { name: string; img: React.ReactNode; cursor?: string }[];
   className?: string;
 }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -50,6 +50,9 @@ export const HoverEffect = ({
       {items.map((item, i) => (
         <div
           key={i}
+          data-cursor={item.cursor}
+          // the hovered card fills with the foreground, so the label inverts
+          data-cursor-theme='invert'
           className={cn(
             'relative group block h-full w-full border-foreground/25 col-span-2',
             i <= 1 && 'md:col-span-3',

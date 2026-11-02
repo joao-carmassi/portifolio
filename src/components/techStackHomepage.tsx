@@ -19,29 +19,39 @@ const Devicon = ({ src }: { src: string }) => (
   />
 );
 
-const tecnologias = [
+const tecnologias: {
+  name: string;
+  key: keyof StackCopy['cursor'];
+  img: React.ReactNode;
+}[] = [
   {
     name: 'Next.js',
+    key: 'nextjs',
     img: <Devicon src={nextjs} />,
   },
   {
     name: 'Astro',
+    key: 'astro',
     img: <Devicon src={astro} />,
   },
   {
     name: 'Git',
+    key: 'git',
     img: <Devicon src={github} />,
   },
   {
     name: 'TypeScript',
+    key: 'typescript',
     img: <Devicon src={typescript} />,
   },
   {
     name: 'Tailwind CSS',
+    key: 'tailwind',
     img: <Devicon src={tailwindcss} />,
   },
   {
     name: 'React-query',
+    key: 'reactQuery',
     img: (
       <svg
         xmlns='http://www.w3.org/2000/svg'
@@ -62,10 +72,12 @@ const tecnologias = [
   },
   {
     name: 'Zustand',
+    key: 'zustand',
     img: <Devicon src={zustand} />,
   },
   {
     name: 'GSAP',
+    key: 'gsap',
     // devicon has no GSAP mark; this one is simple-icons', and its wordmark
     // fills a third of the viewBox, hence the scale
     img: (
@@ -96,7 +108,9 @@ const TechStack = ({ copy }: { copy: StackCopy }) => {
         >
           {copy.title}
         </ScrollFloat>
-        <HoverEffect items={tecnologias} />
+        <HoverEffect
+          items={tecnologias.map((t) => ({ ...t, cursor: copy.cursor[t.key] }))}
+        />
       </div>
     </section>
   );

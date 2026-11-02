@@ -1,3 +1,13 @@
 {
-  "title": "My Stack"
+  "title": "My Stack",
+  "cursor": {
+    "nextjs": "To build web apps",
+    "astro": "For fast static sites",
+    "git": "To version everything",
+    "typescript": "For type-safe code",
+    "tailwind": "To style fast",
+    "reactQuery": "To fetch and cache data",
+    "zustand": "For simple global state",
+    "gsap": "For polished animations"
+  }
 }

@@ -300,6 +300,7 @@ const ContactMeForm = ({ copy }: { copy: ContactCopy }) => {
             type='button'
             variant='destructive'
             onClick={() => setStatus('idle')}
+            data-cursor={copy.cursor.close}
           >
             {copy.modal.close}
           </Button>
@@ -453,6 +454,7 @@ const ContactMeForm = ({ copy }: { copy: ContactCopy }) => {
                           <div
                             role='group'
                             aria-labelledby='services'
+                            data-cursor={copy.cursor.services}
                             className='flex divide-x divide-primary/25 overflow-hidden rounded-lg border border-primary/25'
                           >
                             {Object.entries(form.services.options).map(
@@ -568,6 +570,7 @@ const ContactMeForm = ({ copy }: { copy: ContactCopy }) => {
                           icon={ArrowRightIcon}
                           iconPlacement='right'
                           type='submit'
+                          data-cursor={copy.cursor.submit}
                           className='md:flex-1'
                         >
                           {copy.button1}
@@ -584,6 +587,7 @@ const ContactMeForm = ({ copy }: { copy: ContactCopy }) => {
                             setServices([]);
                           }}
                           type='button'
+                          data-cursor={copy.cursor.clear}
                         >
                           {copy.button2}
                         </Button>

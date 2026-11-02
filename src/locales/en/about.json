@@ -10,7 +10,9 @@
         "1": "A site that opens fast on 4G, with Core Web Vitals measured.",
         "2": "Semantic HTML and structured data, so Google can read the site."
       },
-      "button": "Tell me about your project"
+      "button": "Tell me about your project",
+      "cursor": "What I do",
+      "cursorButton": "Let's talk"
     },
     "1": {
       "title": "How I work",
@@ -20,7 +22,9 @@
         "1": "I audit with Google's tools and fix what they point out.",
         "2": "After launch, tweaks and maintenance stay with me."
       },
-      "button": "See it on GitHub"
+      "button": "See it on GitHub",
+      "cursor": "How I work",
+      "cursorButton": "See my code"
     }
   },
   "videos": {

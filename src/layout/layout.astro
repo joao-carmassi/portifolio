@@ -3,6 +3,7 @@ import '@/styles/global.css';
 import { Font } from 'astro:assets';
 import { SEO, type Props as SEOProps } from 'astro-seo';
 import { HTML_LANG, type Lang } from '@/i18n/langs';
+import SiteCursor from '@/components/siteCursor';
 
 interface Props extends SEOProps {
   lang: Lang;
@@ -51,6 +52,8 @@ const { lang, ...seo } = Astro.props as Props;
   </head>
   <body>
     <slot />
+    {/* labels come from data-cursor on any element, see siteCursor.tsx */}
+    <SiteCursor client:only='react' />
 
     <script>
       import Lenis from 'lenis';

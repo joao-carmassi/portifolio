@@ -4,5 +4,13 @@
     "social": "Follow Us",
     "phone": "Phone"
   },
-  "developedBy": "Developed by"
+  "developedBy": "Developed by",
+  "cursor": {
+    "email": "Send me an email",
+    "phone": "Give me a call",
+    "github": "Follow on GitHub",
+    "linkedin": "Connect on LinkedIn",
+    "instagram": "Follow on Insta",
+    "prisma": "Open Prisma UI"
+  }
 }

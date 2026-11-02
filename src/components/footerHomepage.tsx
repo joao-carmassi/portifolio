@@ -22,11 +22,12 @@ const footerData = {
     label: '+55 (12) 99666-1778',
     href: 'tel:+5512996661778',
   },
+  // `as const` so cursor indexes copy.cursor by a literal key
   socialLinks: [
-    { label: 'Instagram', href: 'https://www.instagram.com/joao_carmassi/' },
-    { label: 'GitHub', href: 'https://github.com/joao-carmassi' },
-    { label: 'LinkedIn', href: 'https://www.linkedin.com/in/joao-carmassi/' },
-  ],
+    { label: 'Instagram', href: 'https://www.instagram.com/joao_carmassi/', cursor: 'instagram' },
+    { label: 'GitHub', href: 'https://github.com/joao-carmassi', cursor: 'github' },
+    { label: 'LinkedIn', href: 'https://www.linkedin.com/in/joao-carmassi/', cursor: 'linkedin' },
+  ] as const,
 };
 
 const FooterHomepage = ({
@@ -113,6 +114,7 @@ const FooterHomepage = ({
               </h3>
               <a
                 href={footerData.email.href}
+                data-cursor={copy.cursor.email}
                 className='text-muted-foreground hover:text-primary flex items-center gap-2 text-base transition-colors md:text-lg footer-animation'
               >
                 {footerData.email.label}
@@ -130,6 +132,7 @@ const FooterHomepage = ({
                   <a
                     key={link.label}
                     href={link.href}
+                    data-cursor={copy.cursor[link.cursor]}
                     className='text-muted-foreground hover:text-primary text-base transition-colors md:text-lg text-center footer-animation'
                   >
                     {link.label}
@@ -145,6 +148,7 @@ const FooterHomepage = ({
               </h3>
               <a
                 href={footerData.phone.href}
+                data-cursor={copy.cursor.phone}
                 className='text-muted-foreground hover:text-primary flex items-center gap-2 text-base transition-colors md:text-lg footer-animation'
               >
                 {footerData.phone.label}
@@ -166,6 +170,7 @@ const FooterHomepage = ({
                   onClick={() =>
                     scrollToContainer(id, scrollPosition[id] ?? 'center')
                   }
+                  data-cursor={link.cursor}
                   className='text-muted-foreground hover:text-primary text-sm transition-colors footer-animation'
                 >
                   {link.label}
@@ -175,6 +180,7 @@ const FooterHomepage = ({
             {/* footer only: the hero nav stays about the page's own sections */}
             <a
               href='/components/'
+              data-cursor={copy.cursor.prisma}
               // a <button> centres its label on its own, a link needs telling;
               // without it the grid cell left-aligns this one on mobile
               className='text-center text-muted-foreground hover:text-primary text-sm transition-colors footer-animation'

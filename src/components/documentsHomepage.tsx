@@ -86,7 +86,11 @@ const DocumentosHomepage = ({
         className='w-full flex flex-col md:flex-row mx-auto gap-12 md:gap-0'
       >
         {Object.values(copy.docs).map((doc) => (
-          <div key={doc.category} className='min-w-screen'>
+          <div
+            key={doc.category}
+            data-cursor={doc.cursor}
+            className='min-w-screen'
+          >
             <div className='max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center gap-x-12 gap-y-6'>
               <div className='w-full max-h-96 aspect-4/3 bg-muted rounded-xl border border-border/50 basis-1/2 shadow-lg'>
                 <Picture
@@ -111,7 +115,12 @@ const DocumentosHomepage = ({
                   size={'lg'}
                   asChild
                 >
-                  <a aria-label={doc.category} href={doc.link} download>
+                  <a
+                    aria-label={doc.category}
+                    data-cursor={doc.cursorDownload}
+                    href={doc.link}
+                    download
+                  >
                     {copy.download}
                   </a>
                 </Button>
@@ -119,7 +128,7 @@ const DocumentosHomepage = ({
             </div>
           </div>
         ))}
-        <div className='min-w-screen'>
+        <div data-cursor={copy.resume.cursor} className='min-w-screen'>
           <div className='max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center gap-x-12 gap-y-6'>
             <div className='w-full max-h-96 aspect-4/3 bg-muted rounded-xl border border-border/50 basis-1/2 shadow-lg'>
               <Picture
@@ -144,6 +153,7 @@ const DocumentosHomepage = ({
                       iconPlacement='right'
                       icon={ArrowDown}
                       className='rounded-none'
+                      data-cursor={copy.resume.cursorDownload}
                     />
                   }
                 >

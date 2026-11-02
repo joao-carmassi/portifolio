@@ -10,7 +10,9 @@
         "1": "Site que abre rápido no 4G, com Core Web Vitals medidos.",
         "2": "HTML semântico e dados estruturados, para o Google ler o site."
       },
-      "button": "Me conta seu projeto"
+      "button": "Me conta seu projeto",
+      "cursor": "Isso que eu faço",
+      "cursorButton": "Bora conversar"
     },
     "1": {
       "title": "Como eu trabalho",
@@ -20,7 +22,9 @@
         "1": "Audito com as ferramentas do Google e corrijo o que elas apontam.",
         "2": "Depois do lançamento, ajustes e manutenção continuam comigo."
       },
-      "button": "Ver no GitHub"
+      "button": "Ver no GitHub",
+      "cursor": "Meu jeito de trabalhar",
+      "cursorButton": "Vê meu código"
     }
   },
   "videos": {

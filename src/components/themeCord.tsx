@@ -61,20 +61,23 @@ const ThemeCord = ({ copy }: { copy: NavCopy }) => {
     });
   };
 
+  // PullCord doesn't forward data-cursor; the wrapper is the cursor's closest hit
   return (
-    <PullCord
-      onPull={pull}
-      // the cord reads like a lamp switch: pulled = light on
-      pulled={!dark}
-      ariaLabel={copy.theme.toggle}
-      className={
-        // below lg the hero's right edge belongs to its nav — the menu button
-        // on a phone, the links on a tablet — so the cord hangs on the left
-        // gutter there instead; z-30 is above the hero content and its nav,
-        // below the sticky pill and the menu
-        '[--pullcord-right:calc(100%-7rem)] lg:[--pullcord-right:7rem] [--pullcord-z:30] [--pullcord-ink:var(--color-muted-foreground)]'
-      }
-    />
+    <div data-cursor={copy.cursor.theme}>
+      <PullCord
+        onPull={pull}
+        // the cord reads like a lamp switch: pulled = light on
+        pulled={!dark}
+        ariaLabel={copy.theme.toggle}
+        className={
+          // below lg the hero's right edge belongs to its nav — the menu button
+          // on a phone, the links on a tablet — so the cord hangs on the left
+          // gutter there instead; z-30 is above the hero content and its nav,
+          // below the sticky pill and the menu
+          '[--pullcord-right:calc(100%-7rem)] lg:[--pullcord-right:7rem] [--pullcord-z:30] [--pullcord-ink:var(--color-muted-foreground)]'
+        }
+      />
+    </div>
   );
 };
 
