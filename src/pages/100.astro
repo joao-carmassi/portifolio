@@ -25,8 +25,7 @@ import { getSiteUrl, getCanonicalUrl } from '@/utils/env';
 import { pictures } from '@/lib/images';
 
 // the same page as /pt/ minus the hero's entrance animation, which holds the
-// content back for seconds and sinks lighthouse's performance score, the
-// liquid-glass scroll pill and the
+// content back for seconds and sinks lighthouse's performance score, and the
 // hero's animated shader, swapped for a still. Its
 // canonical still points at /pt/, so search engines treat it as that page
 const lang: Lang = FALLBACK;
@@ -164,7 +163,7 @@ const visible = { rootMargin: '400px' };
     set:html={serialize(jsonLd)}
     slot='head'
   />
-  <StickyNav client:load lang={lang} copy={m.nav} pill='simple' />
+  <StickyNav client:load lang={lang} copy={m.nav} />
   <ThemeCord client:idle copy={m.nav} />
   {/* what the fold menu tips back like a card (see foldMenu.tsx) */}
   <div data-fold-card class='bg-background'>
