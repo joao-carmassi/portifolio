@@ -31,3 +31,4 @@ brag-output/shared/__pycache__/
 
 # tasteskill working files (screenshots, reports)
 .taste-skill/
+.reanimate/

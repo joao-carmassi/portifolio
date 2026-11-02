@@ -5,13 +5,12 @@ import { Suspense, lazy, useRef } from 'react';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { SplitText } from 'gsap/SplitText';
 import HeroNav from '@/components/heroNav';
 import type { HeroCopy, NavCopy } from '@/i18n';
 import type { Lang } from '@/i18n/langs';
 import type { OptimizedImage } from '@/lib/images';
 
-gsap.registerPlugin(useGSAP, ScrollTrigger, SplitText);
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 // lazy so a page showing the still never downloads the shader
 const GrainGradient = lazy(() =>
@@ -133,24 +132,35 @@ const HeroHomepage = ({
         )
         .from('.hero-bg', { autoAlpha: 0, duration: 5, ease: 'power3.out' }, 2);
 
-      const title = section.current!.querySelector('.hero-title')!;
+      const title = section.current!.querySelector<HTMLElement>('.hero-title')!;
       const rect = title.getBoundingClientRect();
-      // aria: 'none' — SplitText's default hides the chars and puts an
-      // aria-label on what it split, but that is a <span>, and aria-label is
-      // prohibited on a generic role. The <h1> carries the name instead
-      const { chars } = SplitText.create(title, { type: 'chars', aria: 'none' });
 
-      tl.from(
-        chars,
-        {
-          autoAlpha: 0,
-          yPercent: 100,
-          duration: 1,
-          stagger: 0.06,
-          ease: 'power3.out',
-        },
-        0.5,
-      )
+      // the word draws itself: an svg copy is outlined, then filled, and the
+      // real text (with its shadow) fades in under the fill to take over
+      const word = title.querySelector('text')!;
+      const baseline = document.createElement('span');
+      baseline.style.cssText = 'display:inline-block;width:0;height:0';
+      title.append(baseline);
+      word.setAttribute('y', String(baseline.offsetTop));
+      baseline.remove();
+      const { color, fontSize } = getComputedStyle(title);
+      // about the longest glyph outline (the m in DM Serif), so every glyph
+      // starts hidden and the last one closes as the stroke tween ends
+      const dash = parseFloat(fontSize) * 6;
+      gsap.set(word.parentElement, { display: 'block' });
+      gsap.set(word, {
+        fill: color,
+        stroke: color,
+        strokeWidth: parseFloat(fontSize) / 60,
+        fillOpacity: 0,
+        strokeDasharray: dash,
+        strokeDashoffset: dash,
+      });
+
+      tl.from('.hero-title-text', { autoAlpha: 0, duration: 0.4, ease: 'power3.out' }, 1.67)
+        .to(word, { strokeDashoffset: 0, duration: 1.3, ease: 'power2.inOut' }, 0.5)
+        .to(word, { fillOpacity: 1, duration: 0.4, ease: 'power3.out' }, 1.67)
+        .set(word.parentElement, { display: 'none' }, 2.07)
         // title starts centered on screen and scaled up, then slides to its place
         .from(
           title,
@@ -241,8 +251,8 @@ const HeroHomepage = ({
         <div className={`hero-content ${intro ? 'invisible' : ''} relative z-10 w-full h-full flex flex-col items-end justify-end gap-y-8 gap-x-4 xl:flex-row xl:justify-start`}>
           <div className='w-full space-y-6 md:space-y-10 xl:w-1/2'>
             {/* the name lives on the heading, where aria-label is allowed, and
-                the three lines are hidden: SplitText shreds the middle one into
-                per-character spans, which is not a thing to read out */}
+                the three lines are hidden: the middle one carries an svg copy
+                of itself for the intro, which is not a thing to read out */}
             <h1
               className='font-title text-5xl md:text-7xl text-shadow-lg'
               aria-label={`${copy.title.line1} ${copy.title.line2} ${copy.title.line3}`}
@@ -250,8 +260,13 @@ const HeroHomepage = ({
               <span aria-hidden='true' className='hero-entry block'>
                 {copy.title.line1}
               </span>{' '}
-              <span aria-hidden='true' className='hero-title block w-fit'>
-                {copy.title.line2}
+              <span aria-hidden='true' className='hero-title relative block w-fit'>
+                <span className='hero-title-text'>{copy.title.line2}</span>
+                {intro && (
+                  <svg className='absolute inset-0 hidden size-full overflow-visible'>
+                    <text x='0'>{copy.title.line2}</text>
+                  </svg>
+                )}
               </span>{' '}
               <span aria-hidden='true' className='hero-entry block'>
                 {copy.title.line3}
