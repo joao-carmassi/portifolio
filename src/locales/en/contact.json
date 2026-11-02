@@ -45,7 +45,10 @@
   "button1": "Submit",
   "button2": "Clear",
   "cursor": {
-    "services": "Pick what you need",
+    "services": {
+      "website": "I need a website",
+      "seo": "I want to rank higher on Google"
+    },
     "submit": "Send it off",
     "clear": "Wipe it clean",
     "close": "Dismiss this"

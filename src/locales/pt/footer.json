@@ -6,11 +6,11 @@
   },
   "developedBy": "Desenvolvido por",
   "cursor": {
-    "email": "Manda um e-mail",
-    "phone": "Me liga",
-    "github": "Segue no GitHub",
-    "linkedin": "Conecta no LinkedIn",
-    "instagram": "Segue no Insta",
-    "prisma": "Abre o Prisma UI"
+    "email": "Envie um e-mail",
+    "phone": "Me ligue",
+    "github": "Siga no GitHub",
+    "linkedin": "Conecte-se no LinkedIn",
+    "instagram": "Siga no Instagram",
+    "prisma": "Abra o Prisma UI"
   }
 }

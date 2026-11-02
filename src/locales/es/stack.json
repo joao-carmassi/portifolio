@@ -6,7 +6,7 @@
     "git": "Para versionar todo",
     "typescript": "Para código sin sorpresas",
     "tailwind": "Para estilizar rápido",
-    "reactQuery": "Para pedir y cachear datos",
+    "reactQuery": "Para obtener y cachear datos",
     "zustand": "Para estado global simple",
     "gsap": "Para animaciones cuidadas"
   }

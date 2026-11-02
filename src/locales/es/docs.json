@@ -10,7 +10,7 @@
       "img": "/docs/img-certificado-ingles.webp",
       "link": "/docs/certificado-ingles.pdf",
       "cursor": "Mi inglés C1",
-      "cursorDownload": "Baja el certificado"
+      "cursorDownload": "Descarga el certificado"
     },
     "1": {
       "category": "Certificado de Español",
@@ -19,7 +19,7 @@
       "img": "/docs/img-certificado-espanhol.webp",
       "link": "/docs/certificado-espanhol.pdf",
       "cursor": "Mi español B2",
-      "cursorDownload": "Baja el certificado"
+      "cursorDownload": "Descarga el certificado"
     }
   },
   "resume": {
@@ -28,7 +28,7 @@
     "img": "/docs/img-curriculo-portugues.webp",
     "details": "Accede a mi currículum completo, destacando mis habilidades, proyectos y trayectoria profesional en la industria tecnológica.",
     "cursor": "Mi currículum",
-    "cursorDownload": "Baja mi CV",
+    "cursorDownload": "Descarga mi CV",
     "dialog": {
       "title": "Mis currículums",
       "button": "Selecciona el idioma para descargar mi currículum:",

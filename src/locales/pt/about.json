@@ -11,8 +11,8 @@
         "2": "HTML semântico e dados estruturados, para o Google ler o site."
       },
       "button": "Me conta seu projeto",
-      "cursor": "Isso que eu faço",
-      "cursorButton": "Bora conversar"
+      "cursor": "O que eu faço",
+      "cursorButton": "Vamos conversar"
     },
     "1": {
       "title": "Como eu trabalho",
@@ -23,8 +23,8 @@
         "2": "Depois do lançamento, ajustes e manutenção continuam comigo."
       },
       "button": "Ver no GitHub",
-      "cursor": "Meu jeito de trabalhar",
-      "cursorButton": "Vê meu código"
+      "cursor": "Como eu trabalho",
+      "cursorButton": "Veja meu código"
     }
   },
   "videos": {

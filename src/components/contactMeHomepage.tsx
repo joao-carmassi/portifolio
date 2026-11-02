@@ -230,11 +230,23 @@ const ContactMeForm = ({ copy }: { copy: ContactCopy }) => {
     return Array.from({ length }, (_, i) => words[i] ?? '').join(' ');
   };
   // the copy swaps once the photo is under way, not on top of its first beat
-  const [swapped, setSwapped] = useState(false);
+  // SwappingText splits every letter into its own span, which a copy or a
+  // screen reader takes apart letter by letter, so it is only on the page for
+  // the swap itself: plain text before, plain text after
+  const [swap, setSwap] = useState<'before' | 'swapping' | 'after'>(
+    'before',
+  );
+  const swapped = swap !== 'before';
   useEffect(() => {
     if (!sent) return;
-    const id = setTimeout(() => setSwapped(true), reduce ? 0 : 450);
-    return () => clearTimeout(id);
+    if (reduce) return setSwap('after');
+    const start = setTimeout(() => setSwap('swapping'), 450);
+    // the longest word's last letter lands about 1.5s in
+    const end = setTimeout(() => setSwap('after'), 450 + 1800);
+    return () => {
+      clearTimeout(start);
+      clearTimeout(end);
+    };
   }, [sent, reduce]);
   // the fireworks draw in the page's ink, which a canvas cannot inherit: read
   // the section's text colour, and again whenever the theme cord flips it
@@ -250,10 +262,12 @@ const ContactMeForm = ({ copy }: { copy: ContactCopy }) => {
     });
     return () => observer.disconnect();
   }, [sent]);
+  // SwapWords mounts as soon as the form is sent, with the old copy, so it
+  // has something to swap out when the new copy arrives
+  const animating = sent && swap !== 'after';
   const title = swapped ? copy.modal.sent.title : copy.title;
-  const text = swapped
-    ? pad(copy.modal.sent.text, copy.text)
-    : pad(copy.text, copy.modal.sent.text);
+  const text = swapped ? copy.modal.sent.text : copy.text;
+  const padded = swapped ? pad(text, copy.text) : pad(text, copy.modal.sent.text);
 
   /** shows the outcome, but never before the comet has had its moment */
   const settle = (outcome: Status, then?: () => void) => {
@@ -412,14 +426,14 @@ const ContactMeForm = ({ copy }: { copy: ContactCopy }) => {
                   transition={reduce ? { duration: 0 } : SWEEP}
                   className='font-title text-4xl md:text-5xl'
                 >
-                  <SwapWords text={title} />
+                  {animating ? <SwapWords text={title} /> : title}
                 </motion.h2>
                 <motion.p
                   layout='position'
                   transition={reduce ? { duration: 0 } : SWEEP}
                   className='text-muted-foreground font-semibold max-w-2xl'
                 >
-                  <SwapWords text={text} />
+                  {animating ? <SwapWords text={padded} /> : text}
                 </motion.p>
               </motion.div>
             </motion.div>
@@ -481,7 +495,6 @@ const ContactMeForm = ({ copy }: { copy: ContactCopy }) => {
                       <div
                         role='group'
                         aria-labelledby='services'
-                        data-cursor={copy.cursor.services}
                         className='flex divide-x divide-primary/25 overflow-hidden rounded-lg border border-primary/25'
                       >
                         {Object.entries(form.services.options).map(
@@ -492,6 +505,11 @@ const ContactMeForm = ({ copy }: { copy: ContactCopy }) => {
                                 key={key}
                                 type='button'
                                 aria-pressed={on}
+                                data-cursor={
+                                  copy.cursor.services[
+                                    key as keyof typeof copy.cursor.services
+                                  ]
+                                }
                                 onClick={() =>
                                   setServices(
                                     on

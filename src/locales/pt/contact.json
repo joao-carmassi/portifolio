@@ -45,15 +45,18 @@
   "button1": "Enviar",
   "button2": "Limpar",
   "cursor": {
-    "services": "Escolhe o que quer",
-    "submit": "Manda a mensagem",
-    "clear": "Apaga tudo",
-    "close": "Fecha o aviso"
+    "services": {
+      "website": "Preciso de um site",
+      "seo": "Quero rankear melhor no Google"
+    },
+    "submit": "Envie a mensagem",
+    "clear": "Apague tudo",
+    "close": "Feche o aviso"
   },
   "modal": {
     "sent": {
       "title": "Formulário enviado!",
-      "text": "Recebi sua mensagem! Em breve eu entro em contato pelo e-mail ou telefone que você deixou. Enquanto isso, aproveita os fogos."
+      "text": "Recebi sua mensagem! Em breve entrarei em contato pelo e-mail ou telefone que você deixou. Enquanto isso, aproveite os fogos."
     },
     "error": {
       "title": "Oops! Algo deu errado",

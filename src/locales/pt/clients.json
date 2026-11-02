@@ -12,7 +12,7 @@
       "url": "https://refugiodapedrasp.com",
       "image": "/clients/refugio.webp",
       "longDescription": "Pousada familiar fundada em 2018 em São Bento do Sapucaí, na Serra da Mantiqueira, a 1,5 km da base da Pedra do Baú. São cinco acomodações — três chalés, uma cabana com lareira e um domo geodésico — todas com deck, vista para a serra e café da manhã com produtos regionais. O site traz galeria completa, páginas por acomodação e um fluxo de reserva próprio em quatro etapas que monta a solicitação e envia direto pelo WhatsApp da pousada.",
-      "cursor": "Bora pro refúgio"
+      "cursor": "Conheça o refúgio"
     },
     "1": {
       "title": "Quotation Factory",
@@ -20,7 +20,7 @@
       "url": "https://www.quotationfactory.com",
       "image": "/clients/qf.webp",
       "longDescription": "SaaS B2B holandês que automatiza a orçamentação da indústria metalúrgica: lê arquivos CAD em mais de 30 formatos (STEP, DXF, DWG, DSTV, NC1), analisa geometria e furos e devolve orçamentos precisos em minutos. A Virtual Factory modela máquinas, tolerâncias e custos operacionais para alocar cada trabalho só a equipamentos capazes, somando material, tempo de máquina, ferramental, nesting e dedução de dobra. Integra com ERPs (Ridder IQ, MKG, Bemet) e sistemas CAM (TruTops, Lantek, CADMAN, BySoft) por um Edge Connector on-premise, e já processou mais de 281 mil orçamentos para 1.200+ usuários.",
-      "cursor": "Abre a fábrica"
+      "cursor": "Abra a fábrica"
     },
     "2": {
       "title": "Higgx",
@@ -28,7 +28,7 @@
       "url": "https://higgx.app",
       "image": "/clients/higgx.webp",
       "longDescription": "Runtime de relacionamentos de negócio para operações agênticas — não é ERP, CRM nem motor de workflow. Conecta eventos, expectativas, compromissos e ações entre clientes, fornecedores, times, máquinas e agentes de IA sem centralizar tudo numa única aplicação: o SignalMesh transporta sinais atribuíveis por API, e-mail, EDI, SCSN e MQTT, e o Expectation Management System monitora o que foi prometido, detecta risco e coordena a recuperação sob política. Nasceu de mais de uma década de Quotation Factory, hoje o primeiro app rodando sobre ele.",
-      "cursor": "Conhece o Higgx"
+      "cursor": "Conheça o Higgx"
     },
     "3": {
       "title": "Mapa Turístico de São Bento do Sapucaí",
@@ -36,7 +36,7 @@
       "url": "https://mapaturisticosaobento.com",
       "image": "/clients/mapa.webp",
       "longDescription": "Guia turístico de São Bento do Sapucaí construído em cima de um mapa interativo: mais de 40 lugares marcados por categoria — turismo, cultura, restaurantes, cafés, hospedagem, compras, aventura e serviços — com foto, endereço, horários, distância do centro e rota pelo Google Maps. A lista lateral acompanha o mapa com destaques, avaliação e status de aberto agora, a busca tolera erro de digitação e acento, e o site ainda reúne roteiros de vários dias, agenda de eventos e blog. Funciona no celular durante o passeio, sem app e sem cadastro.",
-      "cursor": "Abre o mapa"
+      "cursor": "Abra o mapa"
     },
     "4": {
       "title": "Prisma UI",
@@ -44,7 +44,7 @@
       "url": "/components/",
       "image": "/clients/prisma.webp",
       "longDescription": "Biblioteca de componentes React open source (MIT) construída sobre primitivos Radix UI e Tailwind CSS, inteiramente tipada em TypeScript. São 13 componentes em três categorias — General, Inputs e Cards — com variantes de efeito prontas como shine, ringHover, gooey, expandIcon, rainbow e border-beam, além de estados de loading e disabled e a prop asChild. A distribuição é copy-paste por um registry compatível com shadcn/ui: o comando add da CLI resolve as dependências sozinho, sem configuração extra. A documentação e o registry agora ficam aqui no portfólio, em /components/.",
-      "cursor": "Vê o Prisma"
+      "cursor": "Veja o Prisma"
     },
     "5": {
       "title": "Dr Jean Almeida",
@@ -52,7 +52,7 @@
       "url": "https://drjeanalmeida.com",
       "image": "/clients/jean.webp",
       "longDescription": "Landing page de página única para o consultório do Dr. Jean Almeida, médico psiquiatra (CRM 127.207) na Avenida Paulista, em São Paulo. Apresenta a abordagem clínica — psiquiatria integrada a compreensão psicodinâmica, com escuta cuidadosa e acompanhamento longitudinal — e as áreas de atuação: depressão, ansiedade, TDAH em adultos, burnout, transtorno bipolar, insônia crônica e borderline. Traz depoimentos, FAQ e um fluxo de agendamento em quatro etapas que leva direto ao WhatsApp, somados a um blog com 22 artigos de saúde mental.",
-      "cursor": "Conhece o Dr. Jean"
+      "cursor": "Conheça o Dr. Jean"
     },
     "6": {
       "title": "Loja do VRF",
@@ -60,7 +60,7 @@
       "url": "https://lojadovrf.com.br",
       "image": "/clients/vrf.webp",
       "longDescription": "E-commerce especializado em peças novas e originais para sistemas de ar-condicionado VRF, com catálogo de cerca de 430 produtos das marcas Daikin, Samsung, Mitsubishi, Toshiba, LG, Midea, Gree, Hitachi, GMCC e Montreal. Cobre compressores, placas, sensores, válvulas de expansão, bombas de dreno, automação e equipamentos de diagnóstico, com navegação por categoria e por fabricante e SKU próprio por peça. Frete grátis para todo o Brasil, 7% de desconto no PIX e parcelamento em 12x, além de suporte por WhatsApp com especialistas técnicos em VRF e uma seção de manuais Toshiba e Midea.",
-      "cursor": "Abre a loja"
+      "cursor": "Abra a loja"
     }
   }
 }
