@@ -14,7 +14,7 @@ import { Button } from '@/prisma/ui/button';
 export default function Demo9() {
   return (
     <>
-      <AuraEffect variant='glow' animated duration={2} className='w-[340px]'>
+      <AuraEffect variant='glow' animated duration={2} className='w-85'>
         <Card className='rounded-[inherit]'>
           <CardHeader>
             <CardTitle>Animated Intro</CardTitle>

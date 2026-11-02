@@ -188,10 +188,10 @@ const Ticks = ({
     />
   );
   return (
-    <div className='flex items-center gap-[5px]' aria-hidden>
+    <div className='flex items-center gap-1.25' aria-hidden>
       {Array.from({ length: half }, (_, i) => tickAt(i))}
       <div
-        className={`flex items-center justify-center gap-2.5 overflow-hidden text-[10px] tabular-nums transition-[max-width,opacity,margin] duration-500 ease-[cubic-bezier(.7,0,.2,1)] ${active !== null ? 'mx-3 max-w-32 opacity-100' : '-mx-[2.5px] max-w-0 opacity-0'}`}
+        className={`flex items-center justify-center gap-2.5 overflow-hidden text-[10px] tabular-nums transition-[max-width,opacity,margin] duration-500 ease-[cubic-bezier(.7,0,.2,1)] ${active !== null ? 'mx-3 max-w-32 opacity-100' : 'mx-[-2.5px] max-w-0 opacity-0'}`}
       >
         <span>{pad2((active ?? 0) + 1)}</span>
         <span className='block h-3.5 w-6 shrink-0 border border-current' />

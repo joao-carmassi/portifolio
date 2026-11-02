@@ -102,7 +102,7 @@ const FoldMenu = ({
     const rim = document.createElement('div');
     rim.setAttribute('aria-hidden', 'true');
     rim.className =
-      'pointer-events-none absolute inset-x-0 z-[999] shadow-[inset_0_0_0_1px_rgb(255_255_255/0.1)]';
+      'pointer-events-none absolute inset-x-0 z-999 shadow-[inset_0_0_0_1px_rgb(255_255_255/0.1)]';
     page.append(rim);
     // added after lenis's ticker callback, so it reads the scroll lenis just
     // wrote: a link click scrolls the page while the fold is still opening out

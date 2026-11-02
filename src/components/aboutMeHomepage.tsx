@@ -96,7 +96,7 @@ const MediaCard = ({
   children?: React.ReactNode;
 }) => (
   <figure
-    className={`dark relative overflow-hidden rounded-3xl bg-black aspect-[1920/820] ${className}`}
+    className={`dark relative overflow-hidden rounded-3xl bg-black aspect-1920/820 ${className}`}
   >
     {children}
   </figure>

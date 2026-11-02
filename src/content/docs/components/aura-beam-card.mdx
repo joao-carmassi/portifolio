@@ -57,7 +57,7 @@ import {
 </ComponentPreview>
 
 ```tsx
-<AuraEffect className='w-[340px]'>
+<AuraEffect className='w-85'>
   <Card className='rounded-[inherit]'>
     <CardHeader>
       <CardTitle>Aura Beam</CardTitle>
@@ -88,7 +88,7 @@ import {
 </ComponentPreview>
 
 ```tsx
-<AuraEffect variant='beam' className='w-[340px]'>
+<AuraEffect variant='beam' className='w-85'>
   <Card className='rounded-[inherit]'>...</Card>
 </AuraEffect>
 ```
@@ -102,11 +102,11 @@ Pass an array to `color` for a gradient beam that transitions from one color to 
 </ComponentPreview>
 
 ```tsx
-<AuraEffect variant='beam' color={['#ffaa40', '#9c40ff']} className='w-[300px]'>
+<AuraEffect variant='beam' color={['#ffaa40', '#9c40ff']} className='w-75'>
   <Card className='rounded-[inherit]'>...</Card>
 </AuraEffect>
 
-<AuraEffect variant='beam' color={['#00c6ff', '#0072ff']} className='w-[300px]'>
+<AuraEffect variant='beam' color={['#00c6ff', '#0072ff']} className='w-75'>
   <Card className='rounded-[inherit]'>...</Card>
 </AuraEffect>
 ```
@@ -122,7 +122,7 @@ Pass an array to `color` for a gradient beam that transitions from one color to 
 </ComponentPreview>
 
 ```tsx
-<AuraEffect variant='shine' className='w-[340px]'>
+<AuraEffect variant='shine' className='w-85'>
   <Card className='rounded-[inherit]'>...</Card>
 </AuraEffect>
 ```
@@ -136,11 +136,11 @@ Pass an array of colors to `color` to blend multiple stops into the sweep.
 </ComponentPreview>
 
 ```tsx
-<AuraEffect variant='shine' color={['#ffaa40', '#9c40ff', '#00d2ff']} className='w-[300px]'>
+<AuraEffect variant='shine' color={['#ffaa40', '#9c40ff', '#00d2ff']} className='w-75'>
   <Card className='rounded-[inherit]'>...</Card>
 </AuraEffect>
 
-<AuraEffect variant='shine' color={['#f7971e', '#ffd200']} className='w-[300px]'>
+<AuraEffect variant='shine' color={['#f7971e', '#ffd200']} className='w-75'>
   <Card className='rounded-[inherit]'>...</Card>
 </AuraEffect>
 ```
@@ -158,7 +158,7 @@ Move your cursor near the card edges.
 </ComponentPreview>
 
 ```tsx
-<AuraEffect variant='glow' className='w-[340px]'>
+<AuraEffect variant='glow' className='w-85'>
   <Card className='rounded-[inherit]'>...</Card>
 </AuraEffect>
 ```
@@ -172,11 +172,11 @@ Pass up to three colors — they map to the center, mid and outer stops of the g
 </ComponentPreview>
 
 ```tsx
-<AuraEffect variant='glow' color={['#c084fc', '#f472b6', '#38bdf8']} className='w-[300px]'>
+<AuraEffect variant='glow' color={['#c084fc', '#f472b6', '#38bdf8']} className='w-75'>
   <Card className='rounded-[inherit]'>...</Card>
 </AuraEffect>
 
-<AuraEffect variant='glow' color={['#f59e0b', '#ef4444', '#f97316']} className='w-[300px]'>
+<AuraEffect variant='glow' color={['#f59e0b', '#ef4444', '#f97316']} className='w-75'>
   <Card className='rounded-[inherit]'>...</Card>
 </AuraEffect>
 ```
@@ -190,11 +190,11 @@ Pass up to three colors — they map to the center, mid and outer stops of the g
 </ComponentPreview>
 
 ```tsx
-<AuraEffect variant='glow' edgeSensitivity={10} className='w-[280px]'>
+<AuraEffect variant='glow' edgeSensitivity={10} className='w-70'>
   <Card className='rounded-[inherit]'>...</Card>
 </AuraEffect>
 
-<AuraEffect variant='glow' edgeSensitivity={180} coneSpread={220} className='w-[280px]'>
+<AuraEffect variant='glow' edgeSensitivity={180} coneSpread={220} className='w-70'>
   <Card className='rounded-[inherit]'>...</Card>
 </AuraEffect>
 ```
@@ -208,7 +208,7 @@ Set `animated` to sweep the glow once around the border on mount. `duration` con
 </ComponentPreview>
 
 ```tsx
-<AuraEffect variant='glow' animated duration={2} className='w-[340px]'>
+<AuraEffect variant='glow' animated duration={2} className='w-85'>
   <Card className='rounded-[inherit]'>...</Card>
 </AuraEffect>
 ```
@@ -224,11 +224,11 @@ Control the animation speed with the `duration` prop (seconds).
 </ComponentPreview>
 
 ```tsx
-<AuraEffect variant='beam' duration={3} className='w-[280px]'>
+<AuraEffect variant='beam' duration={3} className='w-70'>
   <Card className='rounded-[inherit]'>...</Card>
 </AuraEffect>
 
-<AuraEffect variant='shine' duration={20} className='w-[280px]'>
+<AuraEffect variant='shine' duration={20} className='w-70'>
   <Card className='rounded-[inherit]'>...</Card>
 </AuraEffect>
 ```
@@ -244,11 +244,11 @@ Use `borderWidth` to thicken the glow border.
 </ComponentPreview>
 
 ```tsx
-<AuraEffect variant='beam' borderWidth={3} className='w-[300px]'>
+<AuraEffect variant='beam' borderWidth={3} className='w-75'>
   <Card className='rounded-[inherit]'>...</Card>
 </AuraEffect>
 
-<AuraEffect variant='shine' borderWidth={3} className='w-[300px]'>
+<AuraEffect variant='shine' borderWidth={3} className='w-75'>
   <Card className='rounded-[inherit]'>...</Card>
 </AuraEffect>
 ```

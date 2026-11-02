@@ -14,7 +14,7 @@ import { Button } from '@/prisma/ui/button';
 export default function Demo8() {
   return (
     <>
-      <AuraEffect variant='glow' edgeSensitivity={10} className='w-[280px]'>
+      <AuraEffect variant='glow' edgeSensitivity={10} className='w-70'>
         <Card className='rounded-[inherit]'>
           <CardHeader>
             <CardTitle>Tight (10 px)</CardTitle>
@@ -26,7 +26,7 @@ export default function Demo8() {
         variant='glow'
         edgeSensitivity={180}
         coneSpread={220}
-        className='w-[280px]'
+        className='w-70'
       >
         <Card className='rounded-[inherit]'>
           <CardHeader>

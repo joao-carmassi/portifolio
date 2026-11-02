@@ -151,7 +151,7 @@ export const VideoPopover = ({
               role='dialog'
               aria-modal='true'
               aria-label={title}
-              className='fixed inset-0 z-[101] flex items-center justify-center'
+              className='fixed inset-0 z-101 flex items-center justify-center'
             >
               <motion.div
                 initial={{ opacity: 0 }}
@@ -176,7 +176,7 @@ export const VideoPopover = ({
                 transition={
                   reduced ? { duration: 0 } : { ...SPRING, opacity: { duration: 0.15 } }
                 }
-                className='relative aspect-[1920/820] w-[min(calc(100%-4rem),calc((100dvh-4rem)*1920/820))] overflow-hidden bg-black will-change-transform'
+                className='relative aspect-1920/820 w-[min(calc(100%-4rem),calc((100dvh-4rem)*1920/820))] overflow-hidden bg-black will-change-transform'
               >
                 <MediaController className='size-full [--media-control-background:transparent] [--media-control-hover-background:transparent]'>
                   {/* the card preview is silent; opened, it plays with its sound

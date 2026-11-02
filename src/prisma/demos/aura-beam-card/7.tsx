@@ -17,7 +17,7 @@ export default function Demo7() {
       <AuraEffect
         variant='glow'
         color={['#c084fc', '#f472b6', '#38bdf8']}
-        className='w-[300px]'
+        className='w-75'
       >
         <Card className='rounded-[inherit]'>
           <CardHeader>
@@ -29,7 +29,7 @@ export default function Demo7() {
       <AuraEffect
         variant='glow'
         color={['#f59e0b', '#ef4444', '#f97316']}
-        className='w-[300px]'
+        className='w-75'
       >
         <Card className='rounded-[inherit]'>
           <CardHeader>
