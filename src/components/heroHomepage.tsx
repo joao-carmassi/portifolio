@@ -87,27 +87,28 @@ const HeroHomepage = ({
       // extra rise, as a share of the frame's height: 0.2 leaves at 1.2x the
       // scroll. Each layer draws its own share from a narrow band, so they
       // leave almost together with a few lagging or running ahead, instead
-      // of in order. The intro owns yPercent on .hero-entry and y on
-      // .hero-title, so each layer scrubs the other one
-      const rise = () => {
-        const share = gsap.utils.random(0.14, 0.2);
-        return () => -share * frame.current!.offsetHeight;
-      };
+      // of in order.
+      // The intro owns these layers' transform, so the rise rides on the
+      // translate property instead, through --rise. Sharing transform, a
+      // ScrollTrigger refresh (the load event, inside the intro on a warm F5)
+      // reverted it to its state before the intro and wiped the title's start
+      // in the middle, which then sat in its corner until its move began
       gsap.utils
         .toArray<HTMLElement>(
-          '.hero-content .hero-entry, .hero-nav li, .hero-nav button',
+          '.hero-content .hero-entry, .hero-title, .hero-nav li, .hero-nav button',
           section.current,
         )
-        .forEach((layer) =>
-          gsap.to(layer, { y: rise(), ease: 'none', scrollTrigger: leaving }),
-        );
-      const middle = section.current!.querySelector<HTMLElement>('.hero-title')!;
-      const middleRise = rise();
-      gsap.to(middle, {
-        yPercent: () => (middleRise() / middle.offsetHeight) * 100,
-        ease: 'none',
-        scrollTrigger: leaving,
-      });
+        .forEach((layer) => {
+          const share = gsap.utils.random(0.14, 0.2);
+          layer.style.setProperty('--rise', '0px');
+          // important: GSAP writes translate: none inline with every transform
+          layer.classList.add('translate-y-(--rise)!');
+          gsap.to(layer, {
+            '--rise': () => `${-share * frame.current!.offsetHeight}px`,
+            ease: 'none',
+            scrollTrigger: leaving,
+          });
+        });
 
       const { padding } = getComputedStyle(frame.current!);
       const { borderRadius } = getComputedStyle(section.current!);

@@ -77,6 +77,32 @@ const { lang, ...seo } = Astro.props as Props;
       addEventListener('nav:scrollto', (e) =>
         lenis.scrollTo((e as CustomEvent<number>).detail),
       );
+
+      // a jump aims at where its target is when clicked, but an island that
+      // hydrates on the way can still move it: the documents pin adds a screen
+      // of scroll, and on a cold cache it landed the contact link on the stack.
+      // Keep the target and aim again whenever ScrollTrigger re-measures the
+      // page, until the visitor scrolls on their own
+      let target: Element | null = null;
+      addEventListener(
+        'click',
+        (e) => {
+          const link = (e.target as Element).closest<HTMLAnchorElement>(
+            'a[href^="#"]',
+          );
+          if (link && link.hash.length > 1)
+            target = document.querySelector(link.hash);
+        },
+        true,
+      );
+      for (const type of ['wheel', 'touchstart', 'keydown'])
+        addEventListener(type, () => (target = null), { passive: true });
+      ScrollTrigger.addEventListener('refresh', () => {
+        if (!target) return;
+        // lenis caches the page height and would clamp to the old bottom
+        lenis.resize();
+        lenis.scrollTo(target as HTMLElement);
+      });
     </script>
   </body>
 </html>

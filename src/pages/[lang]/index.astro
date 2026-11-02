@@ -159,8 +159,11 @@ const visible = { rootMargin: '400px' };
         <HeroHomepage client:load lang={lang} copy={m.hero} navCopy={m.nav} />
       </div>
       <AboutMeHomepage client:visible={visible} copy={m.about} />
+      {/* idle, not visible: its pin adds a screen of scroll, and hydrating on
+          the way past it (a nav jump on a cold cache) moved every section below
+          after the jump had already aimed at them */}
       <DocumentosHomepage
-        client:visible={visible}
+        client:idle
         copy={m.docs}
         images={docImages}
       />
