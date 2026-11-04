@@ -22,11 +22,10 @@ import {
   type Lang,
 } from '@/i18n/langs';
 import { getSiteUrl, getCanonicalUrl } from '@/utils/env';
-import { pictures } from '@/lib/images';
+import { heroBackground, pictures } from '@/lib/images';
 
 // the same page as /pt/ minus the hero's entrance animation, which holds the
-// content back for seconds and sinks lighthouse's performance score, and the
-// hero's animated shader, swapped for a still. Its
+// content back for seconds and sinks lighthouse's performance score. Its
 // canonical still points at /pt/, so search engines treat it as that page
 const lang: Lang = FALLBACK;
 // the page's own strings go through @embra/i18n; the islands get typed slices,
@@ -109,17 +108,7 @@ const docImages = await pictures(
   { widths: [480, 720, 1080] },
 );
 
-// stills of the hero's shader: its first frame is ~800ms of main thread
-const heroGrain = await pictures(
-  ['/hero/grain.webp', '/hero/grain-portrait.webp'],
-  // grain is noise, which webp spends bytes on; 50 keeps the look at a third.
-  // webp only: the hero's art-directed <picture> has no slot for a type source
-  { widths: [640, 960, 1280, 1728], formats: ['webp'], quality: 50 },
-);
-const heroBackground = {
-  landscape: heroGrain['/hero/grain.webp'],
-  portrait: heroGrain['/hero/grain-portrait.webp'],
-};
+const background = await heroBackground();
 
 const visible = { rootMargin: '400px' };
 ---
@@ -175,7 +164,7 @@ const visible = { rootMargin: '400px' };
           copy={m.hero}
           navCopy={m.nav}
           intro={false}
-          background={heroBackground}
+          background={background}
         />
       </div>
       <AboutMeHomepage client:visible={visible} copy={m.about} />

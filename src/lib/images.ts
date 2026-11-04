@@ -117,3 +117,17 @@ export const pictures = async (
       ),
     ),
   );
+
+/** The hero's background: a landscape and a portrait still, art-directed by the hero. */
+export const heroBackground = async () => {
+  const grain = await pictures(
+    ['/hero/grain.webp', '/hero/grain-portrait.webp'],
+    // quality 100: lower settings smear the grain into blotches.
+    // webp only: the hero's art-directed <picture> has no slot for a type source
+    { widths: [640, 960, 1280, 1728], formats: ['webp'], quality: 100 },
+  );
+  return {
+    landscape: grain['/hero/grain.webp'],
+    portrait: grain['/hero/grain-portrait.webp'],
+  };
+};

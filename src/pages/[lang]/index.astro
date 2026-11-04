@@ -22,7 +22,7 @@ import {
   type Lang,
 } from '@/i18n/langs';
 import { getSiteUrl, getCanonicalUrl } from '@/utils/env';
-import { pictures } from '@/lib/images';
+import { heroBackground, pictures } from '@/lib/images';
 
 // all three languages are prefixed, so this route builds every one of them
 export const getStaticPaths = () => langs.map((lang) => ({ params: { lang } }));
@@ -108,6 +108,8 @@ const docImages = await pictures(
   { widths: [480, 720, 1080] },
 );
 
+const background = await heroBackground();
+
 const visible = { rootMargin: '400px' };
 ---
 
@@ -156,7 +158,13 @@ const visible = { rootMargin: '400px' };
   <div data-fold-card class='bg-background'>
     <main class='flex flex-col'>
       <div class='min-h-svh flex'>
-        <HeroHomepage client:load lang={lang} copy={m.hero} navCopy={m.nav} />
+        <HeroHomepage
+          client:load
+          lang={lang}
+          copy={m.hero}
+          navCopy={m.nav}
+          background={background}
+        />
       </div>
       <AboutMeHomepage client:visible={visible} copy={m.about} />
       {/* idle, not visible: its pin adds a screen of scroll, and hydrating on
