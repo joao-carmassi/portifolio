@@ -1,43 +1,60 @@
-# Astro Starter Kit: Minimal
+# Portfolio
+
+Multilingual developer portfolio of João Vitor Carmassi, built with Astro, React and Tailwind.
+
+![Portfolio screenshot](docs/screenshot.webp)
+
+**Live:** <https://joaocarmassi.com>
+
+## Features
+
+- Presents about, certificates, projects, tech stack and contact sections
+- Available in Portuguese, English and Spanish with a language switcher
+- Animated hero, custom cursor, smooth scrolling and a draggable theme cord
+- Contact form with validation
+- SEO-ready: canonical and hreflang tags, sitemap, robots.txt and `llms.txt`
+- Includes a Starlight-based documentation section for the Prisma UI component library
+
+## Tech stack
+
+- Astro 7 with React 19 islands and TypeScript
+- Tailwind CSS 4, shadcn/ui, Radix UI and Base UI components
+- GSAP, Motion and Lenis for animation and scrolling
+- React Hook Form and Zod for forms, TanStack Query for requests
+- GitHub Pages, deployed through a GitHub Actions workflow
+
+## Getting started
+
+### Prerequisites
+
+- Node.js 22.12 or newer
+
+### Install
 
 ```sh
-npm create astro@latest -- --template minimal
+git clone https://github.com/joao-carmassi/portifolio.git
+cd portifolio
+npm install
+npm run dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Open the local URL printed by Astro (default <http://localhost:4321>).
 
-## 🚀 Project Structure
+## Configuration
 
-Inside of your Astro project, you'll see the following folders and files:
+`.env` is committed on purpose, because GitHub Pages builds from the repo. It holds public values only:
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+- `PUBLIC_SITE_URL`: deployed origin without trailing slash, used for canonical URLs, hreflang, sitemap, robots.txt and the og:image URL.
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+Secrets belong in `.env.local` (ignored) or in GitHub Actions secrets.
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## Deployment
 
-Any static assets, like images, can be placed in the `public/` directory.
+`npm run build` writes the static site to `dist/`. `npm run preview` serves the build locally.
 
-## 🧞 Commands
+## License
 
-All commands are run from the root of the project, from a terminal:
+No license specified.
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+---
+Made by [João Carmassi](https://github.com/joao-carmassi)
