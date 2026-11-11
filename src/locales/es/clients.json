@@ -31,6 +31,13 @@
       "cursor": "Conoce Higgx"
     },
     "3": {
+      "title": "Grão Fundo Torrefação",
+      "description": "Sitio y tienda de una tostaduría de café de especialidad en Carmo de Minas (Brasil): suscripción mensual, cafés de seis fincas de la Serra da Mantiqueira y barra de degustación.",
+      "image": "/clients/grao.webp",
+      "longDescription": "Marca y sitio creados desde cero para una pequeña tostaduría de Carmo de Minas que compra café directo a seis fincas de la Serra da Mantiqueira y tuesta en lotes de 15 kg. El foco es vender la suscripción mensual — tres planes con grano entero o molienda para filtrado, prensa francesa o espresso — y luego las bolsas sueltas, cada café con su propia página, puntaje y notas de cata. Hecho en Next.js con shadcn/ui, tiene un carrito que cierra el pedido por WhatsApp, páginas de los productores, barra de degustación con catas los sábados y un formulario mayorista para cafeterías con envío por e-mail.",
+      "cursor": "Prueba Grão Fundo"
+    },
+    "4": {
       "title": "Mapa Turístico de São Bento do Sapucaí",
       "description": "Mapa interactivo con los lugares de São Bento do Sapucaí — turismo, cultura, restaurantes, cafés, alojamiento y aventura en la Serra da Mantiqueira, directo en el navegador.",
       "url": "https://mapaturisticosaobento.com",
@@ -38,7 +45,7 @@
       "longDescription": "Guía turística de São Bento do Sapucaí construida sobre un mapa interactivo: más de 40 lugares marcados por categoría — turismo, cultura, restaurantes, cafés, alojamiento, compras, aventura y servicios — con foto, dirección, horarios, distancia al centro y ruta por Google Maps. Una lista lateral acompaña el mapa con destacados, valoraciones y estado de abierto ahora, la búsqueda tolera errores de tipeo y tildes, y el sitio reúne además itinerarios de varios días, agenda de eventos y blog. Funciona en el celular durante el paseo, sin app y sin registro.",
       "cursor": "Abre el mapa"
     },
-    "4": {
+    "5": {
       "title": "Prisma UI",
       "description": "Biblioteca de componentes React de código abierto para construir interfaces de usuario hermosas, accesibles y personalizables — construida con Radix UI y Tailwind CSS.",
       "url": "/components/",
@@ -46,7 +53,7 @@
       "longDescription": "Biblioteca de componentes React de código abierto (MIT) construida sobre primitivos de Radix UI y Tailwind CSS, totalmente tipada en TypeScript. Trece componentes en tres categorías — General, Inputs y Cards — con variantes de efecto listas como shine, ringHover, gooey, expandIcon, rainbow y border-beam, además de estados de loading y disabled y la prop asChild. La distribución es copy-paste mediante un registry compatible con shadcn/ui: el comando add de la CLI resuelve las dependencias por sí solo, sin configuración adicional. La documentación y el registry ahora están en este portafolio, en /components/.",
       "cursor": "Mira Prisma"
     },
-    "5": {
+    "6": {
       "title": "Dr Jean Almeida",
       "description": "Médico psiquiatra en São Paulo, en la Avenida Paulista — atención a adultos con depresión, ansiedad, TDAH y burnout, con escucha atenta y seguimiento longitudinal.",
       "url": "https://drjeanalmeida.com",
@@ -54,7 +61,7 @@
       "longDescription": "Landing page de una sola página para el consultorio del Dr. Jean Almeida, médico psiquiatra (CRM 127.207) en la Avenida Paulista, São Paulo. Presenta su enfoque clínico — psiquiatría integrada con comprensión psicodinámica, escucha atenta y seguimiento longitudinal — y las áreas que atiende: depresión, ansiedad, TDAH en adultos, burnout, trastorno bipolar, insomnio crónico y borderline. Incluye testimonios, FAQ y un flujo de agendamiento en cuatro pasos que lleva directo a WhatsApp, además de un blog con 22 artículos de salud mental.",
       "cursor": "Conoce al Dr. Jean"
     },
-    "6": {
+    "7": {
       "title": "Loja do VRF",
       "description": "E-commerce especializado en piezas y componentes originales para sistemas VRF de aire acondicionado — atendiendo a profesionales de HVAC en todo Brasil.",
       "url": "https://lojadovrf.com.br",

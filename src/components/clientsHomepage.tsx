@@ -40,6 +40,7 @@ const themes: Record<string, { bg: string; fg: string }> = {
   '/clients/refugio.webp': { bg: '#221c14', fg: '#f39e1f' },
   '/clients/qf.webp': { bg: '#f2f1ef', fg: '#e9010c' },
   '/clients/higgx.webp': { bg: '#f6f1e8', fg: '#d9590b' },
+  '/clients/grao.webp': { bg: '#f5efe1', fg: '#790d16' },
   '/clients/mapa.webp': { bg: '#d9ebd5', fg: '#2e6c50' },
   '/clients/prisma.webp': { bg: '#070609', fg: '#c37ff7' },
   '/clients/jean.webp': { bg: '#fffceb', fg: '#8c6937' },
