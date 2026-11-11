@@ -33,6 +33,7 @@
     "3": {
       "title": "Grão Fundo Torrefação",
       "description": "Sitio y tienda de una tostaduría de café de especialidad en Carmo de Minas (Brasil): suscripción mensual, cafés de seis fincas de la Serra da Mantiqueira y barra de degustación.",
+      "url": "https://grao-cyan.vercel.app",
       "image": "/clients/grao.webp",
       "longDescription": "Marca y sitio creados desde cero para una pequeña tostaduría de Carmo de Minas que compra café directo a seis fincas de la Serra da Mantiqueira y tuesta en lotes de 15 kg. El foco es vender la suscripción mensual — tres planes con grano entero o molienda para filtrado, prensa francesa o espresso — y luego las bolsas sueltas, cada café con su propia página, puntaje y notas de cata. Hecho en Next.js con shadcn/ui, tiene un carrito que cierra el pedido por WhatsApp, páginas de los productores, barra de degustación con catas los sábados y un formulario mayorista para cafeterías con envío por e-mail.",
       "cursor": "Prueba Grão Fundo"

@@ -33,6 +33,7 @@
     "3": {
       "title": "Grão Fundo Torrefação",
       "description": "Website and shop for a specialty coffee roaster in Carmo de Minas, Brazil: a monthly subscription, coffees from six farms in the Mantiqueira mountains and a tasting counter.",
+      "url": "https://grao-cyan.vercel.app",
       "image": "/clients/grao.webp",
       "longDescription": "Brand and website built from scratch for a small roaster in Carmo de Minas that buys coffee directly from six farms in the Serra da Mantiqueira and roasts in 15 kg batches. The focus is selling the monthly subscription — three plans with whole bean or a grind for pour-over, French press or espresso — and then single bags, each coffee with its own page, cupping score and tasting notes. Built with Next.js and shadcn/ui, it has a cart that completes the order on WhatsApp, producer pages, a tasting counter with Saturday cuppings and a wholesale form for cafés that sends by e-mail.",
       "cursor": "Taste Grão Fundo"

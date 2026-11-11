@@ -33,6 +33,7 @@
     "3": {
       "title": "Grão Fundo Torrefação",
       "description": "Site e loja de uma torrefação de café especial em Carmo de Minas (MG): assinatura mensal, cafés de seis sítios da Serra da Mantiqueira e balcão de degustação.",
+      "url": "https://grao-cyan.vercel.app",
       "image": "/clients/grao.webp",
       "longDescription": "Marca e site criados do zero para uma pequena torrefação de Carmo de Minas que compra café direto de seis sítios da Serra da Mantiqueira e torra em lotes de 15 kg. O foco é vender a assinatura mensal — três planos com escolha de grão ou moagem para coado, prensa ou espresso — e depois os pacotes avulsos, cada café com página própria, pontuação e notas sensoriais. Feito em Next.js com shadcn/ui, tem carrinho que fecha o pedido pelo WhatsApp, páginas dos produtores, balcão de degustação com cupping aos sábados e formulário de atacado para cafeterias com envio por e-mail.",
       "cursor": "Prove o Grão Fundo"
